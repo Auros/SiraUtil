@@ -4,7 +4,7 @@
   "name": "SiraUtil",
   "author": "Auros",
   "version": "0.1.0",
-  "description": "",
+  "description": "Utility library/mod for Beat Saber modders",
   "gameVersion": "1.10.0",
   "dependsOn": {
 
