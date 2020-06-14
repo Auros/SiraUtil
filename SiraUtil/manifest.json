@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/beat-saber-modding-group/BSIPA-MetadataFileSchema/master/Schema.json",
+  "id": "SiraUtil",
+  "name": "SiraUtil",
+  "author": "Auros",
+  "version": "0.1.0",
+  "description": "",
+  "gameVersion": "1.10.0",
+  "dependsOn": {
+
+  },
+  "features": []
+}
