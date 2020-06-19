@@ -2,8 +2,6 @@
 using HarmonyLib;
 using System.Reflection;
 using IPALogger = IPA.Logging.Logger;
-using SiraUtil.Sabers;
-using UnityEngine;
 
 namespace SiraUtil
 {
@@ -29,39 +27,15 @@ namespace SiraUtil
         {
             _harmony?.PatchAll(Assembly.GetExecutingAssembly());
 
-            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-            UnityEngine.SceneManagement.SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-
-            ExtraSabers.Touch();
+            //ExtraSabers.Touch();
         }
-
-        //EmptyTransition TO MenuViewControllers
-
-        private void SceneManager_sceneLoaded(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.LoadSceneMode arg1)
-        {
-            Log.Info("SCENE LOADED: " + arg0.name);
-
-            /*if (arg0.name == "GameCore")
-            {
-                Log.Info("detected gamecore: creating saber test");
-                new GameObject().AddComponent<SaberTest>();
-            }*/
-        }
-
-        private void SceneManager_activeSceneChanged(UnityEngine.SceneManagement.Scene arg0, UnityEngine.SceneManagement.Scene arg1)
-        {
-            Log.Info($"CHANGED FROM {arg0.name} TO {arg1.name}");
-        }
-
 
         [OnDisable]
         public void OnDisable()
         {
-            ExtraSabers.Untouch();
+            //ExtraSabers.Untouch();
 
             _harmony?.UnpatchAll();
         }
-
-
     }
 }

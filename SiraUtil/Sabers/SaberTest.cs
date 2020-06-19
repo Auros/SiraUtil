@@ -14,24 +14,12 @@ namespace SiraUtil.Sabers
         public void Construct(PlayerController playerController, SiraSaber.Factory saberFactory)
         {
             _playerController = playerController;
-
             _saberFactory = saberFactory;
+
+            _saberThree = _saberFactory.Create();
             _saberThree = _saberFactory.Create();
 
             _saberThree.ChangeColor(Color.green);
-
-            //saber.transform.SetParent(_playerController.rightSaber.transform);
-            _saberThree.transform.parent = _playerController.rightSaber.transform;
-            _saberThree.transform.Rotate(Vector3.up * 90f);
-        }
-
-        public void Update()
-        {
-            if (_saberThree)
-            {
-                
-                
-            }
         }
     }
 }
