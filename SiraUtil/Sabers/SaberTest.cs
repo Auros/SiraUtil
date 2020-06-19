@@ -17,8 +17,6 @@ namespace SiraUtil.Sabers
             _saberFactory = saberFactory;
 
             _saberThree = _saberFactory.Create();
-            _saberThree = _saberFactory.Create();
-
             _saberThree.ChangeColor(Color.green);
         }
     }
