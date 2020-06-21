@@ -131,13 +131,12 @@ namespace SiraUtil.Sabers
                         break;
                     }
                     timer += 0.1f;
-                    yield return new WaitForSecondsRealtime(0.01f);
+                    yield return new WaitForSecondsRealtime(0.1f);
                 }
             }
             else
             {
                 UpdateColors(color, light, setSaberGlowColors, setSaberFakeGlowColors);
-
             }
         }
 
@@ -238,15 +237,6 @@ namespace SiraUtil.Sabers
                 }
             }
             return false;
-        }
-
-        private bool IsColorCloseToOtherColor(Color color, Color newColor, float threshold = 0.01f)
-        {
-            float r = Math.Abs(color.r - newColor.r);
-            float g = Math.Abs(color.g - newColor.g);
-            float b = Math.Abs(color.b - newColor.b);
-            float a = Math.Abs(color.a - newColor.a);
-            return !(r > threshold || g > threshold || b > threshold || a > threshold);
         }
 
         private bool _alreadyFound = false;

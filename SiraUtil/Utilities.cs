@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SiraUtil
 {
-    internal static class Utilities
+    public static class Utilities
     {
         internal static FieldAccessor<BasicSaberModelController, Light>.Accessor SaberLight = FieldAccessor<BasicSaberModelController, Light>.GetAccessor("_light");
         internal static FieldAccessor<BasicSaberModelController, XWeaponTrail>.Accessor SaberTrail = FieldAccessor<BasicSaberModelController, XWeaponTrail>.GetAccessor("_saberWeaponTrail");
@@ -54,6 +54,71 @@ namespace SiraUtil
             Parametric3SliceSpriteController sliceSpriteController = FakeGlowSliceSprite(ref ssfgc);
             sliceSpriteController.color = color * FakeGlowTint(ref ssfgc);
             sliceSpriteController.Refresh();
+        }
+
+        public static void ChangeColor(this Saber saber, Color color)
+        {
+            BasicSaberModelController bsmc = saber.gameObject.GetComponentInChildren<BasicSaberModelController>(true);
+            Color tintColor = ModelInitData(ref bsmc).trailTintColor;
+            SaberTrail(ref bsmc).color = (color * tintColor).linear;
+            SetSaberGlowColor[] setSaberGlowColors = SaberGlowColor(ref bsmc);
+            SetSaberFakeGlowColor[] setSaberFakeGlowColors = FakeSaberGlowColor(ref bsmc);
+            Light light = SaberLight(ref bsmc);
+
+            for (int i = 0; i < setSaberGlowColors.Length; i++)
+            {
+                setSaberGlowColors[i].OverrideColor(color);
+            }
+            for (int i = 0; i < setSaberFakeGlowColors.Length; i++)
+            {
+                setSaberFakeGlowColors[i].OverrideColor(color);
+            }
+            light.color = color;
+
+            IEnumerable<Renderer> renderers = saber.gameObject.GetComponentsInChildren<Renderer>();
+            foreach (Renderer renderer in renderers)
+            {
+                if (renderer != null)
+                {
+                    foreach (Material renderMaterial in renderer.sharedMaterials)
+                    {
+                        if (renderMaterial == null)
+                        {
+                            continue;
+                        }
+
+                        if (renderMaterial.HasProperty("_Color"))
+                        {
+                            if (renderMaterial.HasProperty("_CustomColors"))
+                            {
+                                if (renderMaterial.GetFloat("_CustomColors") > 0)
+                                    renderMaterial.SetColor("_Color", color);
+                            }
+                            else if (renderMaterial.HasProperty("_Glow") && renderMaterial.GetFloat("_Glow") > 0
+                                || renderMaterial.HasProperty("_Bloom") && renderMaterial.GetFloat("_Bloom") > 0)
+                            {
+                                renderMaterial.SetColor("_Color", color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void SetType(this Saber saber, SaberType type, ColorManager colorManager)
+        {
+            saber.ChangeType(type);
+            saber.ChangeColor(colorManager.ColorForSaberType(type));
+        }
+
+        public static void ChangeType(this Saber saber, SaberType type)
+        {
+            saber.GetComponent<SaberTypeObject>().ChangeType(type);
+        }
+
+        public static void ChangeType(this SaberTypeObject sto, SaberType type)
+        {
+            ObjectSaberType(ref sto) = type;
         }
     }
 }

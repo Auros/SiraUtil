@@ -14,7 +14,7 @@ namespace SiraUtil.Sabers
         
             if (_registeredAssemblies.Count == 1)
             {
-                Installer.RegisterInGameCore<SiraSaberInstaller>();
+                Installer.RegisterGameCoreInstaller<SiraSaberInstaller>();
             }
         }
 

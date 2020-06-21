@@ -14,7 +14,7 @@ namespace SiraUtil.Zenject
         private static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Setter SetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetSetter("Container");
         private static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Getter AccessDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
 
-        public static void RegisterInMenu<T>() where T : MonoInstaller
+        public static void RegisterMenuInstaller<T>() where T : MonoInstaller
         {
             menuInstallers.Add(typeof(T));
         }
@@ -24,7 +24,7 @@ namespace SiraUtil.Zenject
             menuInstallers.Remove(typeof(T));
         }
 
-        public static void RegisterInGameCore<T>() where T : MonoInstaller
+        public static void RegisterGameCoreInstaller<T>() where T : MonoInstaller
         {
             gameCoreSceneSetupInstallers.Add(typeof(T));
         }
@@ -34,7 +34,7 @@ namespace SiraUtil.Zenject
             gameCoreSceneSetupInstallers.Remove(typeof(T));
         }
 
-        public static void RegisterInGameplayCore<T>() where T : MonoInstaller
+        public static void RegisterGameplayCoreInstaller<T>() where T : MonoInstaller
         {
             gameplayCoreSceneSetupInstallers.Add(typeof(T));
         }
