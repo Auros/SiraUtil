@@ -56,6 +56,13 @@ namespace SiraUtil
             sliceSpriteController.Refresh();
         }
 
+        public static Color GetColor(this Saber saber)
+        {
+            BasicSaberModelController bsmc = saber.gameObject.GetComponentInChildren<BasicSaberModelController>(true);
+            Light light = SaberLight(ref bsmc);
+            return light.color;
+        }
+
         public static void ChangeColor(this Saber saber, Color color)
         {
             BasicSaberModelController bsmc = saber.gameObject.GetComponentInChildren<BasicSaberModelController>(true);
