@@ -85,9 +85,7 @@ namespace SiraUtil
         private static IEnumerator ChangeColorCoroutine(Saber saber, Color color)
         {
             yield return new WaitForSeconds(0.05f);
-            ISaberModelController modelController = saber.gameObject.GetComponentInChildren<MonoBehaviourSaberModelController>(true);
-            if (modelController == null)
-                Plugin.Log.Info("It's null.");
+            ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
             if (modelController is BasicSaberModelController)
             {
                 BasicSaberModelController bsmc = modelController as BasicSaberModelController;

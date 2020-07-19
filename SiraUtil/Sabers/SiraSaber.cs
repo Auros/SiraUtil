@@ -112,6 +112,15 @@ namespace SiraUtil.Sabers
             _saber.ChangeColor(color);
         }
 
+        /// <summary>
+        /// Set the Saber that lies in this SiraSaber. Don't call unless you know what you're doing.
+        /// </summary>
+        /// <param name="saber"></param>
+        public void SetSaber(Saber saber)
+        {
+            _saber = saber;
+        }
+
         #region Zenject
         public class Factory : PlaceholderFactory<SiraSaber>
         {
