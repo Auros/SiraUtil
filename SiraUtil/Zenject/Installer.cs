@@ -11,8 +11,8 @@ namespace SiraUtil.Zenject
         internal readonly static HashSet<Type> menuInstallers = new HashSet<Type>();
         internal readonly static HashSet<Type> gameCoreSceneSetupInstallers = new HashSet<Type>();
         internal readonly static HashSet<Type> gameplayCoreSceneSetupInstallers = new HashSet<Type>();
-        private static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Setter SetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetSetter("Container");
-        private static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Getter AccessDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
+        internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Setter SetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetSetter("Container");
+        internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Getter AccessDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
 
         public static void RegisterMenuInstaller<T>() where T : MonoInstaller
         {

@@ -120,7 +120,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\DetailViewControllerPatch.cs" />
+    <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Sabers\ExtraSabers.cs" />
+    <Compile Include="Sabers\IColorable.cs" />
+    <Compile Include="Sabers\MonoBehaviourSaberModelController.cs" />
+    <Compile Include="Sabers\SaberBindPatch.cs" />
+    <Compile Include="Sabers\SaberModelProvider.cs" />
     <Compile Include="Sabers\SaberTest.cs" />
     <Compile Include="Sabers\SiraSaberInstaller.cs" />
     <Compile Include="Sabers\SiraSaber.cs" />

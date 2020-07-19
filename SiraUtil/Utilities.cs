@@ -2,6 +2,10 @@
 using UnityEngine;
 using IPA.Utilities;
 using System.Collections.Generic;
+using System.Collections;
+using HarmonyLib;
+using System.Reflection.Emit;
+using SiraUtil.Sabers;
 
 namespace SiraUtil
 {
@@ -58,19 +62,52 @@ namespace SiraUtil
 
         public static Color GetColor(this Saber saber)
         {
-            BasicSaberModelController bsmc = saber.gameObject.GetComponentInChildren<BasicSaberModelController>(true);
-            Light light = SaberLight(ref bsmc);
-            return light.color;
+            ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
+            if (modelController is BasicSaberModelController)
+            {
+                BasicSaberModelController bsmc = modelController as BasicSaberModelController;
+                Light light = SaberLight(ref bsmc);
+                return light.color;
+            }
+            else if (modelController is IColorable)
+            {
+                IColorable colorable = modelController as IColorable;
+                return colorable.Color;
+            }
+            return Color.white;
         }
 
         public static void ChangeColor(this Saber saber, Color color)
         {
-            BasicSaberModelController bsmc = saber.gameObject.GetComponentInChildren<BasicSaberModelController>(true);
-            Color tintColor = ModelInitData(ref bsmc).trailTintColor;
+            saber.StartCoroutine(ChangeColorCoroutine(saber, color));
+        }
+
+        private static IEnumerator ChangeColorCoroutine(Saber saber, Color color)
+        {
+            yield return new WaitForSeconds(0.05f);
+            ISaberModelController modelController = saber.gameObject.GetComponentInChildren<MonoBehaviourSaberModelController>(true);
+            if (modelController == null)
+                Plugin.Log.Info("It's null.");
+            if (modelController is BasicSaberModelController)
+            {
+                BasicSaberModelController bsmc = modelController as BasicSaberModelController;
+                Color tintColor = ModelInitData(ref bsmc).trailTintColor;
+                SetSaberGlowColor[] setSaberGlowColors = SaberGlowColor(ref bsmc);
+                SetSaberFakeGlowColor[] setSaberFakeGlowColors = FakeSaberGlowColor(ref bsmc);
+                Light light = SaberLight(ref bsmc);
+                saber.ChangeColor(color, bsmc, tintColor, setSaberGlowColors, setSaberFakeGlowColors, light);
+            }
+            else if (modelController is IColorable)
+            {
+
+                IColorable colorable = modelController as IColorable;
+                colorable.SetColor(color);
+            }
+        }
+
+        public static void ChangeColor(this Saber _, Color color, BasicSaberModelController bsmc, Color tintColor, SetSaberGlowColor[] setSaberGlowColors, SetSaberFakeGlowColor[] setSaberFakeGlowColors, Light light)
+        {
             SaberTrail(ref bsmc).color = (color * tintColor).linear;
-            SetSaberGlowColor[] setSaberGlowColors = SaberGlowColor(ref bsmc);
-            SetSaberFakeGlowColor[] setSaberFakeGlowColors = FakeSaberGlowColor(ref bsmc);
-            Light light = SaberLight(ref bsmc);
 
             for (int i = 0; i < setSaberGlowColors.Length; i++)
             {
@@ -81,35 +118,6 @@ namespace SiraUtil
                 setSaberFakeGlowColors[i].OverrideColor(color);
             }
             light.color = color;
-
-            IEnumerable<Renderer> renderers = saber.gameObject.GetComponentsInChildren<Renderer>();
-            foreach (Renderer renderer in renderers)
-            {
-                if (renderer != null)
-                {
-                    foreach (Material renderMaterial in renderer.sharedMaterials)
-                    {
-                        if (renderMaterial == null)
-                        {
-                            continue;
-                        }
-
-                        if (renderMaterial.HasProperty("_Color"))
-                        {
-                            if (renderMaterial.HasProperty("_CustomColors"))
-                            {
-                                if (renderMaterial.GetFloat("_CustomColors") > 0)
-                                    renderMaterial.SetColor("_Color", color);
-                            }
-                            else if (renderMaterial.HasProperty("_Glow") && renderMaterial.GetFloat("_Glow") > 0
-                                || renderMaterial.HasProperty("_Bloom") && renderMaterial.GetFloat("_Bloom") > 0)
-                            {
-                                renderMaterial.SetColor("_Color", color);
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         public static void SetType(this Saber saber, SaberType type, ColorManager colorManager)
@@ -126,6 +134,22 @@ namespace SiraUtil
         public static void ChangeType(this SaberTypeObject sto, SaberType type)
         {
             ObjectSaberType(ref sto) = type;
+        }
+
+        /// <summary>
+        /// Check if the following code instructions starting from a given index match a list of opcodes.
+        /// </summary>
+        /// <param name="codes">A list of code instructions to check</param>
+        /// <param name="toCheck">A list of op codes that is expected to match</param>
+        /// <param name="startIndex">Index to start checking from (inclusive)</param>
+        /// <returns>Whether or not the op codes found in the code instructions match.</returns>
+        internal static bool OpCodeSequence(List<CodeInstruction> codes, List<OpCode> toCheck, int startIndex)
+        {
+            for (int i = 0; i < toCheck.Count; i++)
+            {
+                if (codes[startIndex + i].opcode != toCheck[i]) return false;
+            }
+            return true;
         }
     }
 }
