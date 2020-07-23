@@ -13,8 +13,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <DebugType>portable</DebugType>
-    <BeatSaberDir>$(ProjectDir)Refs</BeatSaberDir>
-    <BeatSaberReferences>$(BeatSaberDir)</BeatSaberReferences>
+    <BeatSaberDir>..\Refs</BeatSaberDir>
+    <BeatSaberReferences>..\Refs</BeatSaberReferences>
     <ReferencePath>$(SolutionDir)Refs</ReferencePath>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
     <PathMap>$(AppOutputBase)=X:\$(AssemblyName)\</PathMap>
