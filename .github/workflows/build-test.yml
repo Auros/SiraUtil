@@ -2,12 +2,12 @@ name: BuildTest
 
 on:
   push:
-    branches: [ build-test ]
+    branches: [ build-tools ]
     paths: 
       - 'SiraUtil/**'
       - '.github/workflows/build-test.yml'
   pull_request:
-    branches: [ build-test ]
+    branches: [ build-tools ]
     paths: 
       - 'SiraUtil/**'
       - '.github/workflows/build-test.yml'
