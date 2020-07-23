@@ -1,0 +1,37 @@
+::from ./bsinstalldir.txt
+
+"Beat Saber_Data/Managed/
+""Colors.dll?alias=Beat Saber_Data\Managed\Colors.dll
+""HMLib.dll?virt?alias=Beat Saber_Data\Managed\HMLib.dll
+""HMUI.dll?virt?alias=Beat Saber_Data\Managed\HMUI.dll
+""Main.dll?virt?alias=Beat Saber_Data\Managed\Main.dll
+""netstandard.dll?alias=Beat Saber_Data\Managed\netstandard.dll
+""Oculus.VR.dll?alias=Beat Saber_Data\Managed\Oculus.VR.dll
+""Polyglot.dll?alias=Beat Saber_Data\Managed\Polyglot.dll
+""SteamVR.dll?alias=Beat Saber_Data\Managed\SteamVR.dll
+""Steamworks.NET.dll?alias=Beat Saber_Data\Managed\Steamworks.NET.dll
+""Zenject.dll?alias=Beat Saber_Data\Managed\Zenject.dll
+""Unity.TextMeshPro.dll?alias=Beat Saber_Data\Managed\Unity.TextMeshPro.dll
+""UnityEngine.
+"""dll?alias=Beat Saber_Data\Managed\UnityEngine.dll
+"""AssetBundleModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.AssetBundleModule.dll
+"""AudioModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.AudioModule.dll
+"""CoreModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.CoreModule.dll
+"""InputLegacyModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.InputLegacyModule.dll
+"""JSONSerializeModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.JSONSerializeModule.dll
+"""UI.dll?alias=Beat Saber_Data\Managed\UnityEngine.UI.dll
+"""UIModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.UIModule.dll
+"""UnityWebRequestModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.UnityWebRequestModule.dll
+"""UnityWebRequestTextureModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll
+"""VRModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.VRModule.dll
+"""XRModule.dll?alias=Beat Saber_Data\Managed\UnityEngine.XRModule.dll
+
+"Libs/
+""0Harmony.dll?alias=Libs\0Harmony.dll
+
+::startopt
+"::resolveInHere Libs/
+""SemVer.dll?alias=Libs\SemVer.dll
+""Newtonsoft.Json.dll?alias=Libs\Newtonsoft.Json.dll
+"::resolveInHere Beat Saber_Data/Managed/
+""IPA.Loader.dll?alias=Beat Saber_Data\Managed\IPA.Loader.dll
