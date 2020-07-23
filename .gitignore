@@ -10,6 +10,8 @@
 *.userosscache
 *.sln.docstates
 
+Refs/Beat Saber_Data/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
