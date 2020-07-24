@@ -142,6 +142,7 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameplayCore_Installer.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameCore_Installer.cs" />
+    <Compile Include="Zenject\HarmonyPatches\App_Installer.cs" />
     <Compile Include="Zenject\HarmonyPatches\Menu_Installer.cs" />
     <Compile Include="Zenject\Installer.cs" />
     <Compile Include="Plugin.cs" />

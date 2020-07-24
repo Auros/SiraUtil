@@ -1,18 +1,29 @@
 ﻿using System;
 using Zenject;
-using System.Collections.Generic;
-using IPA.Utilities;
 using UnityEngine;
+using IPA.Utilities;
+using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
     public static class Installer
     {
+        internal readonly static HashSet<Type> appInstallers = new HashSet<Type>();
         internal readonly static HashSet<Type> menuInstallers = new HashSet<Type>();
         internal readonly static HashSet<Type> gameCoreSceneSetupInstallers = new HashSet<Type>();
         internal readonly static HashSet<Type> gameplayCoreSceneSetupInstallers = new HashSet<Type>();
         internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Setter SetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetSetter("Container");
         internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Getter AccessDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
+
+        public static void RegisterAppInstaller<T>() where T : MonoInstaller
+        {
+            appInstallers.Add(typeof(T));
+        }
+
+        public static void UnregisterAppInstaller<T>() where T : MonoInstaller
+        {
+            appInstallers.Remove(typeof(T));
+        }
 
         public static void RegisterMenuInstaller<T>() where T : MonoInstaller
         {
