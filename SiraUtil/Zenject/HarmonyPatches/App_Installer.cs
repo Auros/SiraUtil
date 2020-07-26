@@ -1,13 +1,30 @@
 ﻿using HarmonyLib;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Collections.Generic;
 
 namespace SiraUtil.Zenject.HarmonyPatches
 {
     [HarmonyPatch(typeof(AppCoreInstaller), "InstallBindings")]
     internal class App_Installer
     {
-        internal static void Postfix(ref AppCoreInstaller __instance)
+        private static readonly MethodInfo _containerPatch = SymbolExtensions.GetMethodInfo(() => PatchContainer(null));
+
+        internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            Installer.InstallFromBase(__instance, Installer.appInstallers);
+            List<CodeInstruction> codes = instructions.ToList();
+            codes.InsertRange(codes.Count - 1, new List<CodeInstruction>()
+            {
+                new CodeInstruction(OpCodes.Ldarg_0),
+                new CodeInstruction(OpCodes.Call, _containerPatch)
+            });
+            return codes.AsEnumerable();
+        }
+
+        private static void PatchContainer(AppCoreInstaller installer)
+        {
+            Installer.InstallFromBase(installer, Installer.appInstallers);
         }
     }
 }

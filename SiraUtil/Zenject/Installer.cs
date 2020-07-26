@@ -1,8 +1,11 @@
 ﻿using System;
 using Zenject;
 using UnityEngine;
+using System.Linq;
 using IPA.Utilities;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace SiraUtil.Zenject
 {
@@ -73,25 +76,5 @@ namespace SiraUtil.Zenject
                 injectingInstallerBase.InstallBindings();
             }
         }
-
-        /*internal readonly static HashSet<Type> globalInstallers = new HashSet<Type>();
-        /// <summary>
-        /// Installs a MonoInstaller globally. This MUST be done before the MenuViewControllers scene is loaded! (or before menu reloads when the player presses Ok in the settings)
-        /// </summary>
-        /// <typeparam name="T">The MonoInstaller that (you have created and) you want installed.</typeparam>
-        public static void RegisterGlobally<T>() where T : MonoBehaviour
-        {
-            globalInstallers.Add(typeof(T));
-        }
-
-        /// <summary>
-        /// Unregistes a global MonoInstaller that was installed using RegisterGlobally<T>(). The unregister comes in effect the next time the MenuViewControllers scene is loaded.
-        /// </summary>
-        /// <typeparam name="T">The MonoInstaller that (has already been installed and) needs to be uninstalled.</typeparam>
-        public static void UnregisterGlobally<T>() where T : MonoBehaviour
-        {
-            globalInstallers.Remove(typeof(T));
-        }
-        */
     }
 }

@@ -2,8 +2,6 @@
 using HarmonyLib;
 using System.Reflection;
 using IPALogger = IPA.Logging.Logger;
-using SiraUtil.Sabers;
-using UnityEngine;
 
 namespace SiraUtil
 {
@@ -20,39 +18,19 @@ namespace SiraUtil
         {
             Log = logger;
             Instance = this;
-
             _harmony = new Harmony("dev.auros.sirautil");
         }
 
         [OnEnable]
         public void OnEnable()
         {
-            _harmony?.PatchAll(Assembly.GetExecutingAssembly());
-
-            var go = new GameObject();
-            Object.DontDestroyOnLoad(go);
-            var ye = go.AddComponent<BruhModelController>();
-
-            var smp = new SaberModelProvider(100, ye);
-            //SaberModelProvider.AddProvider(smp);
-            //ExtraSabers.Touch();
+            _harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         [OnDisable]
         public void OnDisable()
         {
-            //ExtraSabers.Untouch();
-
-            _harmony?.UnpatchAll();
-        }
-    }
-
-    public class BruhModelController : MonoBehaviourSaberModelController
-    {
-        public override void Init(Transform parent, SaberType saberTypeObject)
-        {
-            transform.SetParent(parent, false);
-            Plugin.Log.Info("Yeah, i initted");
+            _harmony.UnpatchAll();
         }
     }
 }

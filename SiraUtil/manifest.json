@@ -9,5 +9,6 @@
   "dependsOn": {
 
   },
+  "loadBefore": [ "BSIPA", "CameraPlus", "BS Utils" ],
   "features": []
 }

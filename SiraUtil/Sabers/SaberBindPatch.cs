@@ -102,7 +102,6 @@ namespace SiraUtil.Sabers
                         container.Bind<ISaberModelController>().FromComponentInNewPrefab(modelController).AsTransient();
                     }
                 }
-                
             }
 
             private static DiContainer GetContainer(GameCoreSceneSetup gameCoreSceneSetup)
