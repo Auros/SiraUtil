@@ -8,6 +8,7 @@ namespace SiraUtil.Sabers
     {
         public static SaberType nextType = SaberType.SaberB;
 
+        public Saber Saber => _saber;
         private Saber _saber;
         private ColorManager _colorManager;
         private SaberTypeObject _saberTypeObject;
@@ -46,28 +47,31 @@ namespace SiraUtil.Sabers
             if (_saber)
             {
                 Utilities.Time(ref _saber) += Time.deltaTime;
-                Vector3 topPosition = Utilities.TopPos(ref _saber).position;
-                Vector3 bottomPosition = Utilities.BottomPos(ref _saber).position;
-                int i = 0;
-                while (i < Utilities.SwingRatingCounters(ref _saber).Count)
-                {
-                    SaberSwingRatingCounter swingCounter = Utilities.SwingRatingCounters(ref _saber)[i];
-                    if (swingCounter.didFinish)
-                    {
-                        swingCounter.Deinit();
-                        Utilities.SwingRatingCounters(ref _saber).RemoveAt(i);
-                        Utilities.UnusedSwingRatingCounters(ref _saber).Add(swingCounter);
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-                SaberMovementData.Data lastAddedData = Utilities.MovementData(ref _saber).lastAddedData;
-                Utilities.MovementData(ref _saber).AddNewData(topPosition, bottomPosition, Utilities.Time(ref _saber));
                 if (!_saber.disableCutting)
                 {
-                    Utilities.Cutter(ref _saber).Cut(_saber, topPosition, bottomPosition, lastAddedData.topPos, lastAddedData.bottomPos);
+                    Vector3 topPosition = Utilities.TopPos(ref _saber).position;
+                    Vector3 bottomPosition = Utilities.BottomPos(ref _saber).position;
+                    int i = 0;
+                    while (i < Utilities.SwingRatingCounters(ref _saber).Count)
+                    {
+                        SaberSwingRatingCounter swingCounter = Utilities.SwingRatingCounters(ref _saber)[i];
+                        if (swingCounter.didFinish)
+                        {
+                            swingCounter.Deinit();
+                            Utilities.SwingRatingCounters(ref _saber).RemoveAt(i);
+                            Utilities.UnusedSwingRatingCounters(ref _saber).Add(swingCounter);
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+                    SaberMovementData.Data lastAddedData = Utilities.MovementData(ref _saber).lastAddedData;
+                    Utilities.MovementData(ref _saber).AddNewData(topPosition, bottomPosition, Utilities.Time(ref _saber));
+                    if (!_saber.disableCutting)
+                    {
+                        Utilities.Cutter(ref _saber).Cut(_saber, topPosition, bottomPosition, lastAddedData.topPos, lastAddedData.bottomPos);
+                    }
                 }
             }
         }
