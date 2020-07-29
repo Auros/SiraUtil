@@ -36,7 +36,7 @@
 
 > What you should be doing is stating a need, "I need something to drink with lunch," and then we will make sure you have something when you sit down to eat.
 
- Despite the quote, I suggest you do your own research into it and maybe play around with it in a dummy project.
+ Despite the quote, I suggest you do your own research into Dependency Injection as a concept and maybe play around with it in a dummy project.
 
  [Zenject's README](https://github.com/svermeulen/Extenject) on GitHub
 
@@ -114,7 +114,7 @@
  {
      public override void InstallBindings()
      {
-         Container.Bind<MyModGameManager>().AsSingle();
+         Container.BindInterfacesAndSelfTo<MyModGameManager>().AsSingle();
          Container.Bind<MyMonoBehaviourGameManager>().FromComponentOnRoot().AsSingle();
      }
  }
@@ -141,7 +141,7 @@
  ```
 
 ### Notice
-When creating bindings for UI (specifically for BSML), you'll probably be using `BeatSaberUI.CreateViewController` and `BeatSaberUI.CreateFlowCoordinator`, there's an extension method on DiContainers which I've made specifically for injecting and resolving classes already created. Here's an example
+When creating bindings for UI (specifically for BSML), you'll probably be using `BeatSaberUI.CreateViewController` and `BeatSaberUI.CreateFlowCoordinator`, there's an extension method on DiContainers which I've made specifically for injecting and resolving objects that are already created. Here's an example.
 
 ```csharp
 public override void InstallBindings()
