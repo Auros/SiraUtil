@@ -161,6 +161,9 @@ The `SiraUtil.Sabers` namespace provides a way to create new sabers. In your Plu
 ### Saber Model Providers
 One of the big points of SiraUtil is to allow easier mod compatibility. This is an attempt to allow multiple saber model mods to work together. The base game binds the saber model prefab as transient, so whenever it's asked for, whatever that prefab is will be instantiated and served. SiraSabers also ask for a model controller when they are created. Modders can register their own provider by creatin a class that inherits `MonoBehaviourSaberModelController` and setting up their saber in its `Init` method. Then, create a `SaberModelProvider` class, configure it with the type of your inherited `MonoBehaviourSaberModelController` and the priority that your registration should have (higher is more priority).
 
+### IColorable
+IColorable is an interface which you can put on your saber properties so SiraUtil knows how to change its color! This is primarily implemented for use in ChromaToggle.
+
 ### Notice
 Currently, any SiraSabers do not generate VRControllers. I might consider changing this in the future, but I like the idea of a mod explicitly manipulating their saber.
 
