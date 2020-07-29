@@ -55,7 +55,7 @@ namespace SiraUtil.Zenject
             gameplayCoreSceneSetupInstallers.Remove(typeof(T));
         }
 
-        public static void InstallFromBase(MonoBehaviour source, HashSet<Type> monoInstallers)
+        internal static void InstallFromBase(MonoBehaviour source, HashSet<Type> monoInstallers)
         {
             // Convert the main installer to a MonoInstaller base 
             MonoInstallerBase monoInstaller = source as MonoInstallerBase;
@@ -72,6 +72,12 @@ namespace SiraUtil.Zenject
                 // Force install their bindings with the source's DiContainer
                 injectingInstallerBase.InstallBindings();
             }
+        }
+
+        public static void InjectSpecialInstance<T>(this DiContainer Container, Component controller)
+        {
+            Container.BindInstance((T)(object)controller).AsSingle().NonLazy();
+            Container.InjectGameObject(controller.gameObject);
         }
     }
 }
