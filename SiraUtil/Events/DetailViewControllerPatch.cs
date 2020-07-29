@@ -2,7 +2,6 @@
 
 namespace SiraUtil.Events
 {
-
     internal class DetailViewControllerPatch
     {
         [HarmonyPatch(typeof(StandardLevelDetailView), "RefreshContent")]

@@ -6,6 +6,9 @@ namespace SiraUtil.Sabers
     public class SaberModelProvider
     {
         internal static List<SaberModelProvider> providers = new List<SaberModelProvider>();
+        public Type Type { get; private set; }
+        public int Priority { get; private set; }
+        public MonoBehaviourSaberModelController ModelController { get; private set; }
 
         public static void AddProvider(SaberModelProvider provider)
         {
@@ -25,10 +28,5 @@ namespace SiraUtil.Sabers
             Priority = priority;
             ModelController = controller;
         }
-
-
-        public Type Type { get; private set; }
-        public int Priority { get; private set; }
-        public MonoBehaviourSaberModelController ModelController { get; private set; }
     }
 }

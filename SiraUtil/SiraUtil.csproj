@@ -136,7 +136,6 @@
     <Compile Include="Sabers\MonoBehaviourSaberModelController.cs" />
     <Compile Include="Sabers\SaberBindPatch.cs" />
     <Compile Include="Sabers\SaberModelProvider.cs" />
-    <Compile Include="Sabers\SaberTest.cs" />
     <Compile Include="Sabers\SiraSaberInstaller.cs" />
     <Compile Include="Sabers\SiraSaber.cs" />
     <Compile Include="Utilities.cs" />

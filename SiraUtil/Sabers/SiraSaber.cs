@@ -6,7 +6,6 @@ namespace SiraUtil.Sabers
 {
     public class SiraSaber : MonoBehaviour
     {
-
         public static SaberType nextType = SaberType.SaberB;
 
         private Saber _saber;

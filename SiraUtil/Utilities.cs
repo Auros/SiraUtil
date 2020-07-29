@@ -1,11 +1,11 @@
 ﻿using Xft;
+using HarmonyLib;
 using UnityEngine;
 using IPA.Utilities;
-using System.Collections.Generic;
-using System.Collections;
-using HarmonyLib;
-using System.Reflection.Emit;
 using SiraUtil.Sabers;
+using System.Collections;
+using System.Reflection.Emit;
+using System.Collections.Generic;
 
 namespace SiraUtil
 {
@@ -97,7 +97,6 @@ namespace SiraUtil
             }
             else if (modelController is IColorable)
             {
-
                 IColorable colorable = modelController as IColorable;
                 colorable.SetColor(color);
             }
