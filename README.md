@@ -130,13 +130,13 @@
      [OnEnable]
      public void OnEnable()
      {
-         RegisterGameplayCoreInstaller<ModGameInstaller>();
+         SiraUtil.Zenject.Installer.RegisterGameplayCoreInstaller<ModGameInstaller>();
      }
 
      [OnDisable]
      public void OnDisable()
      {
-         UnregisterGameplayCoreInstaller<ModGameInstaller>();
+         SiraUtil.Zenject.Installer.UnregisterGameplayCoreInstaller<ModGameInstaller>();
      }
  }
  
