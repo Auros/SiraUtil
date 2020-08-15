@@ -169,7 +169,5 @@ IColorable is an interface which you can put on your saber properties so SiraUti
 ### Notice
 Currently, any SiraSabers do not generate VRControllers. I might consider changing this in the future, but I like the idea of a mod explicitly manipulating their saber.
 
-Also, because of the way the base game hardcodes two sabers only, the saber burn effects and the saber hitting walls/colliding with each other effect are unpresent on any SiraSabers at the moment.
-
 ## Support
 Have any questions about SiraUtil, Zenject, or the Sabers namespace? Reach out to me (Auros#0001) and I will gladly assist!
