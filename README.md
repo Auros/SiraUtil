@@ -46,6 +46,8 @@
 
  Very simple! In the namespace `SiraUtil.Zenject`, there is a static class called `Installer`. There are a collection of methods that follow the pattern of `RegisterSCENEInstaller<T>()` and `UnregisterSCENEInstaller<T>()`. In your own mod, you create your own class, make it inherit from `MonoInstaller` and register it into the appropriate method. You only should register and unregister once, however SiraUtil won't double register an installer (that would just cause a lot of issues!). You should register and unregister in your OnEnable and OnDisable methods in your Plugin class respectively. 
 
+ In order to use Zenject objects, reference `Zenject.dll` and `Zenject-usage.dll` in Managed.
+
 ### Example
  **System Classes**
  ```csharp
@@ -128,13 +130,13 @@
      [OnEnable]
      public void OnEnable()
      {
-         RegisterGameplayCoreInstaller<ModGameInstaller>();
+         SiraUtil.Zenject.Installer.RegisterGameplayCoreInstaller<ModGameInstaller>();
      }
 
      [OnDisable]
      public void OnDisable()
      {
-         UnregisterGameplayCoreInstaller<ModGameInstaller>();
+         SiraUtil.Zenject.Installer.UnregisterGameplayCoreInstaller<ModGameInstaller>();
      }
  }
  
