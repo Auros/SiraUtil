@@ -14,13 +14,15 @@ namespace SiraUtil.Sabers
         private SaberTypeObject _saberTypeObject;
         private IEnumerator _changeColorCoroutine = null;
         private ISaberModelController _saberModelController;
+        private SiraSaberEffectManager _siraSaberEffectManager;
 
         [Inject]
-        public void Construct(ISaberModelController modelController, ColorManager colorManager)
+        public void Construct(ColorManager colorManager, ISaberModelController modelController, SiraSaberEffectManager siraSaberEffectManager)
         {
             // Woohoo! We received the saber model from Zenject!
             _saberModelController = modelController;
             _saberModelController.Init(transform, nextType);
+            _siraSaberEffectManager = siraSaberEffectManager;
 
             _colorManager = colorManager;
 
@@ -40,6 +42,8 @@ namespace SiraUtil.Sabers
             Utilities.TopPos(ref _saber) = top.transform;
             Utilities.BottomPos(ref _saber) = bottom.transform;
             Utilities.HandlePos(ref _saber) = bottom.transform;
+
+            _siraSaberEffectManager.SaberCreated(_saber);
         }
 
         public void Update()
@@ -74,6 +78,11 @@ namespace SiraUtil.Sabers
                     }
                 }
             }
+        }
+
+        public void OnDestroy()
+        {
+            _siraSaberEffectManager.SaberDestroyed(_saber);
         }
 
         public void SetType(SaberType type)
@@ -112,7 +121,8 @@ namespace SiraUtil.Sabers
         private IEnumerator ChangeColorCoroutine(Color color)
         {
             yield return new WaitForSecondsRealtime(0.05f);
-            _saber.ChangeColor(color);
+            if (_saber.isActiveAndEnabled) _saber.ChangeColor(color);
+            _changeColorCoroutine = null;
         }
 
         /// <summary>
@@ -122,6 +132,7 @@ namespace SiraUtil.Sabers
         public void SetSaber(Saber saber)
         {
             _saber = saber;
+            _siraSaberEffectManager.SaberCreated(_saber);
         }
 
         #region Zenject

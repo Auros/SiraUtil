@@ -1,8 +1,10 @@
 ﻿using System;
 using Zenject;
+using System.Linq;
 using UnityEngine;
 using IPA.Utilities;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace SiraUtil.Zenject
 {
@@ -55,6 +57,20 @@ namespace SiraUtil.Zenject
             gameplayCoreSceneSetupInstallers.Remove(typeof(T));
         }
 
+        /*public static void ContextInject(object obj, string sceneName = "PCInit", bool bind = false)
+        {
+            GetSceneContextAsync(ContextAction, sceneName, obj, bind);
+        }
+
+        private static void ContextAction(SceneContext context, object obj, bool bind)
+        {
+            if (bind)
+            {
+                context.Container.BindInstance(obj);
+            }
+            context.Container.Inject(obj);
+        }*/
+
         internal static void InstallFromBase(MonoBehaviour source, HashSet<Type> monoInstallers)
         {
             // Convert the main installer to a MonoInstaller base 
@@ -73,6 +89,56 @@ namespace SiraUtil.Zenject
                 injectingInstallerBase.InstallBindings();
             }
         }
+
+        public static void GetSceneContextAsync(Action<SceneContext> contextInstalled, string sceneName)
+        {
+            if (contextInstalled == null) throw new ArgumentNullException(nameof(contextInstalled));
+            if (string.IsNullOrEmpty(sceneName)) throw new ArgumentNullException(nameof(sceneName));
+            if (!SceneManager.GetSceneByName(sceneName).isLoaded) throw new Exception($"Scene '{sceneName}' is not loaded");
+            List<SceneContext> sceneContexts = Resources.FindObjectsOfTypeAll<SceneContext>().Where(sc => sc.gameObject.scene.name == sceneName).ToList();
+            if (sceneContexts.Count == 0)
+            {
+                throw new Exception($"Scene context not found in scene '{sceneName}'");
+            }
+            if (sceneContexts.Count > 1)
+            {
+                throw new Exception($"More than one scene context found in scene '{sceneName}'");
+            }
+            SceneContext sceneContext = sceneContexts[0];
+            if (sceneContext.HasInstalled)
+            {
+                contextInstalled(sceneContext);
+            }
+            else
+            {
+                sceneContext.OnPostInstall.AddListener(() => contextInstalled(sceneContext));
+            }
+        }
+
+        /*public static void GetSceneContextAsync(Action<SceneContext, object, bool> contextInstalled, string sceneName, object obj, bool bind = false)
+        {
+            if (contextInstalled == null) throw new ArgumentNullException(nameof(contextInstalled));
+            if (string.IsNullOrEmpty(sceneName)) throw new ArgumentNullException(nameof(sceneName));
+            if (!SceneManager.GetSceneByName(sceneName).isLoaded) throw new Exception($"Scene '{sceneName}' is not loaded");
+            List<SceneContext> sceneContexts = Resources.FindObjectsOfTypeAll<SceneContext>().Where(sc => sc.gameObject.scene.name == sceneName).ToList();
+            if (sceneContexts.Count == 0)
+            {
+                throw new Exception($"Scene context not found in scene '{sceneName}'");
+            }
+            if (sceneContexts.Count > 1)
+            {
+                throw new Exception($"More than one scene context found in scene '{sceneName}'");
+            }
+            SceneContext sceneContext = sceneContexts[0];
+            if (sceneContext.HasInstalled)
+            {
+                contextInstalled(sceneContext, obj, bind);
+            }
+            else
+            {
+                sceneContext.OnPostInstall.AddListener(() => contextInstalled(sceneContext, obj, bind));
+            }
+        }*/
 
         public static void InjectSpecialInstance<T>(this DiContainer Container, Component controller)
         {

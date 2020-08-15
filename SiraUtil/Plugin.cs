@@ -11,26 +11,26 @@ namespace SiraUtil
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; set; }
 
-        private readonly Harmony _harmony;
+        public Harmony Harmony { get; }
 
         [Init]
         public Plugin(IPALogger logger)
         {
             Log = logger;
             Instance = this;
-            _harmony = new Harmony("dev.auros.sirautil");
+            Harmony = new Harmony("dev.auros.sirautil");
         }
 
         [OnEnable]
         public void OnEnable()
         {
-            _harmony.PatchAll(Assembly.GetExecutingAssembly());
+            Harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         [OnDisable]
         public void OnDisable()
         {
-            _harmony.UnpatchAll();
+            Harmony.UnpatchAll();
         }
     }
 }

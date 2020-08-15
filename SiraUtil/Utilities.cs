@@ -1,8 +1,10 @@
 ﻿using Xft;
+using System;
 using HarmonyLib;
 using UnityEngine;
 using IPA.Utilities;
 using SiraUtil.Sabers;
+using System.Reflection;
 using System.Collections;
 using System.Reflection.Emit;
 using System.Collections.Generic;
@@ -77,14 +79,22 @@ namespace SiraUtil
             return Color.white;
         }
 
+        public static void ChangeColorInstant(this Saber saber, Color color)
+        {
+            saber.StartCoroutine(ChangeColorCoroutine(saber, color, 0));
+        }
+
         public static void ChangeColor(this Saber saber, Color color)
         {
             saber.StartCoroutine(ChangeColorCoroutine(saber, color));
         }
 
-        private static IEnumerator ChangeColorCoroutine(Saber saber, Color color)
+        private static IEnumerator ChangeColorCoroutine(Saber saber, Color color, float time = 0.05f)
         {
-            yield return new WaitForSeconds(0.05f);
+            if (time != 0)
+            {
+                yield return new WaitForSeconds(0.05f);
+            }
             ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
             if (modelController is BasicSaberModelController)
             {
@@ -147,6 +157,21 @@ namespace SiraUtil
                 if (codes[startIndex + i].opcode != toCheck[i]) return false;
             }
             return true;
+        }
+
+        public static void FireEvent(this object objectWithEvent, string nameOfEvent, params object[] eventParams)
+        {
+            MulticastDelegate eventDelagate =
+                  (MulticastDelegate)objectWithEvent.GetType().GetField(nameOfEvent,
+                   BindingFlags.Instance |
+                   BindingFlags.NonPublic).GetValue(objectWithEvent);
+
+            Delegate[] delegates = eventDelagate?.GetInvocationList();
+
+            foreach (Delegate dlg in delegates)
+            {
+                dlg?.Method?.Invoke(dlg?.Target, eventParams);
+            }
         }
     }
 }

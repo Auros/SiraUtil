@@ -15,6 +15,7 @@ namespace SiraUtil.Sabers
             if (_registeredAssemblies.Count == 1)
             {
                 Installer.RegisterGameCoreInstaller<SiraSaberInstaller>();
+                BurnPatches.Patch(Plugin.Instance.Harmony);
             }
         }
 
@@ -25,6 +26,11 @@ namespace SiraUtil.Sabers
             if (_registeredAssemblies.Count == 0)
             {
                 Installer.UnregisterGameCoreInstaller<SiraSaberInstaller>();
+                try
+                {
+                    BurnPatches.Unpatch(Plugin.Instance.Harmony);
+                }
+                catch { }
             }
         }
     }

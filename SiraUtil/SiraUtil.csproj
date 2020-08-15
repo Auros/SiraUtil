@@ -96,6 +96,11 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
@@ -117,6 +122,11 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.VRModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.XRModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.XRModule.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Zenject, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Zenject.dll</HintPath>
@@ -133,9 +143,16 @@
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Sabers\ExtraSabers.cs" />
     <Compile Include="Sabers\IColorable.cs" />
+    <Compile Include="Sabers\ISaberRegistrar.cs" />
     <Compile Include="Sabers\MonoBehaviourSaberModelController.cs" />
+    <Compile Include="Sabers\BurnPatches.cs" />
     <Compile Include="Sabers\SaberBindPatch.cs" />
     <Compile Include="Sabers\SaberModelProvider.cs" />
+    <Compile Include="Sabers\SiraObstacleSaberSparkleEffectManager.cs" />
+    <Compile Include="Sabers\SiraSaberBurnMarkArea.cs" />
+    <Compile Include="Sabers\SiraSaberBurnMarkSparkles.cs" />
+    <Compile Include="Sabers\SiraSaberClashChecker.cs" />
+    <Compile Include="Sabers\SiraSaberEffectManager.cs" />
     <Compile Include="Sabers\SiraSaberInstaller.cs" />
     <Compile Include="Sabers\SiraSaber.cs" />
     <Compile Include="Utilities.cs" />
