@@ -117,7 +117,7 @@
      public override void InstallBindings()
      {
          Container.BindInterfacesAndSelfTo<MyModGameManager>().AsSingle();
-         Container.Bind<MyMonoBehaviourGameManager>().FromComponentOnRoot().AsSingle();
+         Container.Bind<MyMonoBehaviourGameManager>().FromNewComponentOnRoot().AsSingle();
      }
  }
  ```
