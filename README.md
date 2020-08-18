@@ -151,8 +151,8 @@ public override void InstallBindings()
     MyViewController myViewController = BeatSaberUI.CreateViewController<MyViewController>();
     MyFlowCoordinator myFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<MyFlowCoordinator>();
 
-    Container.InjectSpecialInstance(myViewController);
-    Container.InjectSpecialInstance(myFlowCoordinator);
+    Container.InjectSpecialInstance<MyViewController>(myViewController);
+    Container.InjectSpecialInstance<MyFlowCoordinator>(myFlowCoordinator);
 }
 ```
 
