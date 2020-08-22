@@ -24,7 +24,7 @@ namespace SiraUtil.Zenject.HarmonyPatches
 
         private static void PatchContainer(AppCoreInstaller installer)
         {
-            Installer.InstallFromBase(installer, Installer.appInstallers);
+            Installer.InstallFromBase(installer, Installer.appInstallers, Installer.appSiraInstallers);
         }
     }
 }

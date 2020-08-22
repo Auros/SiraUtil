@@ -7,7 +7,7 @@ namespace SiraUtil.Zenject.HarmonyPatches
     {
         internal static void Postfix(ref MenuInstaller __instance)
         {
-            Installer.InstallFromBase(__instance, Installer.gameplayCoreSceneSetupInstallers);
+            Installer.InstallFromBase(__instance, Installer.gameplayCoreSceneSetupInstallers, Installer.gameplayCoreSiraInstallers);
         }
     }
 }

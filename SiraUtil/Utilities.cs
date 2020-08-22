@@ -81,19 +81,21 @@ namespace SiraUtil
 
         public static void ChangeColorInstant(this Saber saber, Color color)
         {
-            saber.StartCoroutine(ChangeColorCoroutine(saber, color, 0));
+            if (saber.isActiveAndEnabled)
+                saber.StartCoroutine(ChangeColorCoroutine(saber, color, 0));
         }
 
         public static void ChangeColor(this Saber saber, Color color)
         {
-            saber.StartCoroutine(ChangeColorCoroutine(saber, color));
+            if (saber.isActiveAndEnabled)
+                saber.StartCoroutine(ChangeColorCoroutine(saber, color));
         }
 
         private static IEnumerator ChangeColorCoroutine(Saber saber, Color color, float time = 0.05f)
         {
             if (time != 0)
             {
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(time);
             }
             ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
             if (modelController is BasicSaberModelController)
