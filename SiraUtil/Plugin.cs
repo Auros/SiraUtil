@@ -2,6 +2,11 @@
 using HarmonyLib;
 using System.Reflection;
 using IPALogger = IPA.Logging.Logger;
+using UnityEngine.SceneManagement;
+using SiraUtil.Zenject;
+using System.Collections;
+using UnityEngine;
+using System.Linq;
 
 namespace SiraUtil
 {
@@ -25,6 +30,25 @@ namespace SiraUtil
         public void OnEnable()
         {
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
+
+            SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        }
+
+        private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
+        {
+            if (newScene.name == "MenuViewControllers")
+            {
+                if (Installer.NotAllAppInstallersAreInstalled)
+                {
+                    SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
+                }
+            }
+        }
+
+        private IEnumerator BruteForceRestart()
+        {
+            yield return new WaitForSecondsRealtime(1f);
+            Resources.FindObjectsOfTypeAll<MenuTransitionsHelper>().FirstOrDefault()?.RestartGame();
         }
 
         [OnDisable]
