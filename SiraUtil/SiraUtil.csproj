@@ -96,6 +96,11 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
@@ -139,6 +144,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Events\DetailViewControllerPatch.cs" />
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Sabers\ExtraSabers.cs" />
@@ -155,6 +161,7 @@
     <Compile Include="Sabers\SiraSaberEffectManager.cs" />
     <Compile Include="Sabers\SiraSaberInstaller.cs" />
     <Compile Include="Sabers\SiraSaber.cs" />
+    <Compile Include="Tools\SongControl.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameplayCore_Installer.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameCore_Installer.cs" />
@@ -165,6 +172,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zenject\ISiraInstaller.cs" />
     <Compile Include="Zenject\RequiresInstallerAttribute.cs" />
+    <Compile Include="Zenject\SiraInstaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />

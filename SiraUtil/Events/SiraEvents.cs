@@ -2,7 +2,7 @@
 
 namespace SiraUtil.Events
 {
-    public static class SiraEvents
+    internal static class SiraEvents
     {
         public static event Action<IDifficultyBeatmap, BeatmapCharacteristicSO> LevelSelectionChanged;
 

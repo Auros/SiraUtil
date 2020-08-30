@@ -4,6 +4,7 @@ using UnityEngine;
 using IPA.Utilities;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace SiraUtil.Zenject
 {
@@ -19,13 +20,13 @@ namespace SiraUtil.Zenject
         internal readonly static HashSet<ISiraInstaller> gameCoreSiraInstallers = new HashSet<ISiraInstaller>();
         internal readonly static HashSet<ISiraInstaller> gameplayCoreSiraInstallers = new HashSet<ISiraInstaller>();
 
-        internal readonly static HashSet<Type> _installedInstallers = new HashSet<Type>();
+        private readonly static HashSet<Type> _installedInstallers = new HashSet<Type>();
 
         internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Setter SetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetSetter("Container");
         internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Getter AccessDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
         private static readonly MethodInfo _installMethod = typeof(DiContainer).GetMethod("Install", BindingFlags.Public | BindingFlags.Instance, null, new Type[0], null);
 
-        internal static bool NotAllAppInstallersAreInstalled => appSiraInstallers.Count + appInstallers.Count != _installedInstallers.Count;
+        internal static bool NotAllAppInstallersAreInstalled => appInstallers.Count + appSiraInstallers.Count != _installedInstallers.Count;
 
         public static void RegisterAppInstaller<T>() where T : IInstaller
         {
@@ -142,10 +143,7 @@ namespace SiraUtil.Zenject
                 }
                 else
                 {
-                    Plugin.Log.Info(t.FullName);
                     _installMethod.MakeGenericMethod(t).Invoke(container, null);
-
-                    //_installMethod.MakeGenericMethod(t).Invoke(container, null);
                 }
                 if (isApp && !_installedInstallers.Contains(t))
                 {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
 using System.Reflection;
@@ -10,8 +11,13 @@ namespace SiraUtil.Sabers
     {
         private readonly List<ObstacleSparkleDatum> _obstacleSparkleData = new List<ObstacleSparkleDatum>();
 
+        private readonly Action<SaberType> _sparkleEndEvent;
+        private readonly Action<SaberType> _sparkleStartEvent;
+
         public SiraObstacleSaberSparkleEffectManager()
         {
+            _sparkleEndEvent = Utilities.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidEndEvent");
+            _sparkleStartEvent = Utilities.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidStartEvent");
             ObstacleSaberSparkleEffectManager original = GetComponent<ObstacleSaberSparkleEffectManager>();
             foreach (FieldInfo info in original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
             {
@@ -22,6 +28,7 @@ namespace SiraUtil.Sabers
 
         public override void Start()
         {
+            
             for (int i = 0; i < _sabers.Length; i++)
             {
                 ObstacleSparkleDatum obstacleSparkle = new ObstacleSparkleDatum
@@ -57,7 +64,8 @@ namespace SiraUtil.Sabers
                         if (!osd.wasSystemActive)
                         {
                             osd.sparkleEffect.StartEmission();
-                            this.FireEvent("sparkleEffectDidStartEvent", osd.saber.saberType);
+                            //this.FireEvent("sparkleEffectDidStartEvent", osd.saber.saberType);
+                            _sparkleStartEvent?.Invoke(osd.saber.saberType);
                         }
                     }
                 }
@@ -68,7 +76,8 @@ namespace SiraUtil.Sabers
                 if (!osd.isSystemActive && osd.wasSystemActive)
                 {
                     osd.sparkleEffect.StopEmission();
-                    this.FireEvent("sparkleEffectDidEndEvent", osd.saber.saberType);
+                    //this.FireEvent("sparkleEffectDidEndEvent", osd.saber.saberType);
+                    _sparkleEndEvent?.Invoke(osd.saber.saberType);
                 }
             }
         }

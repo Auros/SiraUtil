@@ -1,36 +1,39 @@
 ﻿using IPA;
 using HarmonyLib;
-using System.Reflection;
-using IPALogger = IPA.Logging.Logger;
-using UnityEngine.SceneManagement;
-using SiraUtil.Zenject;
-using System.Collections;
 using UnityEngine;
 using System.Linq;
+using SiraUtil.Zenject;
+using IPA.Config.Stores;
+using System.Reflection;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using IPALogger = IPA.Logging.Logger;
 
 namespace SiraUtil
 {
     [Plugin(RuntimeOptions.DynamicInit)]
     public class Plugin
     {
-        internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; set; }
+        internal static Harmony Harmony { get; set; }
 
-        public Harmony Harmony { get; }
+        private readonly SiraInstallerInit _siraInstallerInit;
 
         [Init]
-        public Plugin(IPALogger logger)
+        public Plugin(IPA.Config.Config conf, IPALogger logger)
         {
             Log = logger;
-            Instance = this;
+            Config config = conf.Generated<Config>();
             Harmony = new Harmony("dev.auros.sirautil");
+            _siraInstallerInit = new SiraInstallerInit(config);
         }
 
         [OnEnable]
         public void OnEnable()
         {
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
-
+            Installer.RegisterAppInstaller(_siraInstallerInit);
+            Installer.RegisterGameCoreInstaller<SiraGameInstaller>();
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         }
 
@@ -55,6 +58,9 @@ namespace SiraUtil
         public void OnDisable()
         {
             Harmony.UnpatchAll();
+            Installer.UnregisterAppInstaller(_siraInstallerInit);
+            Installer.UnregisterGameCoreInstaller<SiraGameInstaller>();
+            SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
         }
     }
 }

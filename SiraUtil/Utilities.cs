@@ -98,18 +98,16 @@ namespace SiraUtil
                 yield return new WaitForSeconds(time);
             }
             ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
-            if (modelController is BasicSaberModelController)
+            if (modelController is BasicSaberModelController bsmc)
             {
-                BasicSaberModelController bsmc = modelController as BasicSaberModelController;
                 Color tintColor = ModelInitData(ref bsmc).trailTintColor;
                 SetSaberGlowColor[] setSaberGlowColors = SaberGlowColor(ref bsmc);
                 SetSaberFakeGlowColor[] setSaberFakeGlowColors = FakeSaberGlowColor(ref bsmc);
                 Light light = SaberLight(ref bsmc);
                 saber.ChangeColor(color, bsmc, tintColor, setSaberGlowColors, setSaberFakeGlowColors, light);
             }
-            else if (modelController is IColorable)
+            else if (modelController is IColorable colorable)
             {
-                IColorable colorable = modelController as IColorable;
                 colorable.SetColor(color);
             }
         }
@@ -161,19 +159,9 @@ namespace SiraUtil
             return true;
         }
 
-        public static void FireEvent(this object objectWithEvent, string nameOfEvent, params object[] eventParams)
+        public static TDel GetEventHandlers<TTarget, TDel>(this TTarget target, string name)
         {
-            MulticastDelegate eventDelagate =
-                  (MulticastDelegate)objectWithEvent.GetType().GetField(nameOfEvent,
-                   BindingFlags.Instance |
-                   BindingFlags.NonPublic).GetValue(objectWithEvent);
-
-            Delegate[] delegates = eventDelagate?.GetInvocationList();
-
-            foreach (Delegate dlg in delegates)
-            {
-                dlg?.Method?.Invoke(dlg?.Target, eventParams);
-            }
+            return FieldAccessor<TTarget, TDel>.Get(target, name);
         }
     }
 }
