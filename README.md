@@ -44,11 +44,13 @@
 
 ### How do I use Zenject via SiraUtil?
 
- Very simple! In the namespace `SiraUtil.Zenject`, there is a static class called `Installer`. There are a collection of methods that follow the pattern of `RegisterSCENEInstaller<T>()` and `UnregisterSCENEInstaller<T>()`. In your own mod, you create your own class, make it inherit from `MonoInstaller` and register it into the appropriate method. You only should register and unregister once, however SiraUtil won't double register an installer (that would just cause a lot of issues!). You should register and unregister in your OnEnable and OnDisable methods in your Plugin class respectively. 
+ Very simple! In the namespace `SiraUtil.Zenject`, there is a static class called `Installer`. There are a collection of methods that follow the pattern of `RegisterSCENEInstaller<T>()` and `UnregisterSCENEInstaller<T>()`. In your own mod, you create your own class, make it inherit from any class that implements `IInstaller` and register it into the appropriate method. You only should register and unregister once, however SiraUtil won't double register an installer (that would just cause a lot of issues!). You should register and unregister in your OnEnable and OnDisable methods in your Plugin class respectively. 
 
  In order to use Zenject objects, reference `Zenject.dll` and `Zenject-usage.dll` in Managed.
 
 ### Example
+ Please note that these are JUST EXAMPLES!
+
  **System Classes**
  ```csharp
  using System;
@@ -60,7 +62,7 @@
 
      private BeatmapObjectManager _beatmapObjectManager;
 
-     // Ask for the BeatmapObjectManager polietly.
+     // Ask for the BeatmapObjectManager polietly. The BeatmapObjectManager is a MonoBehaviour that's already injected by the base game. As long as you know it's injected, you can ask for it!
      public MyModGameManager(BeatmapObjectManager beatmapObjectManager)
      {
          _beatmapObjectManager = beatmapObjectManager;
@@ -87,7 +89,8 @@
  ```csharp
  using Zenject;
  using UnityEngine;
-
+ 
+ // This shows that you can request your own components as well!
  public class MyMonoBehaviourGameManager : MonoBehaviour
  {
      private MyModGameManager _myModGameManager;
@@ -96,6 +99,7 @@
      [Inject]
      public void Construct(MyModGameManager myModGameManager, IDifficultyBeatmap currentlyPlayingLevel)
      {
+         // The IDifficultyBeatmap is injected into the game scene, so you can ask for it as long as you're in GameCore.
          _myModGameManager = myModGameManager;
          _currentlyPlayingLevel = currentlyPlayingLevel;
      }
@@ -112,6 +116,7 @@
  ```csharp
  using Zenject;
 
+ // Your own installer!
  public class ModGameInstaller : MonoInstaller
  {
      public override void InstallBindings()
@@ -130,18 +135,25 @@
      [OnEnable]
      public void OnEnable()
      {
+         // Registering that installer.
          SiraUtil.Zenject.Installer.RegisterGameplayCoreInstaller<ModGameInstaller>();
      }
 
      [OnDisable]
      public void OnDisable()
      {
+         // Unregistering that installer.
          SiraUtil.Zenject.Installer.UnregisterGameplayCoreInstaller<ModGameInstaller>();
      }
  }
- 
  ```
 
+ Here's some mods that use SiraUtil's Zenject system!
+
+ * [Counters Plus 2.0 by Caeden](https://github.com/Caeden117/CountersPlus/tree/rewrite)
+ * [Eris' SongRequestManager](https://github.com/ErisApps/SongRequestManager)
+ * [Eris' FPS Counter](https://github.com/ErisApps/FPS-Counter)
+  
 ### Notice
 When creating bindings for UI (specifically for BSML), you'll probably be using `BeatSaberUI.CreateViewController` and `BeatSaberUI.CreateFlowCoordinator`, there's an extension method on DiContainers which I've made specifically for injecting and resolving objects that are already created. Here's an example.
 
@@ -151,23 +163,43 @@ public override void InstallBindings()
     MyViewController myViewController = BeatSaberUI.CreateViewController<MyViewController>();
     MyFlowCoordinator myFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<MyFlowCoordinator>();
 
-    Container.InjectSpecialInstance<MyViewController>(myViewController);
-    Container.InjectSpecialInstance<MyFlowCoordinator>(myFlowCoordinator);
+    Container.ForceBindComponent<MyViewController>(myViewController);
+    Container.ForceBindComponent<MyFlowCoordinator>(myFlowCoordinator);
+
 }
 ```
 
+Order matters since the ForceBindComponent will immediately inject it. If the container doesn't have bindings for any object you depend on in your View or Flow coordinator, it will throw an error!
+
+Good rule of thumb when working with UI. Let your flow coordinator handle inter-view controller interactions. Never request the flow coordinator in your view controller. Put events in your view controller and have the flow coordinator subscribe to them (this can be seen is almost every base game flow coordinator).
+
+With this in mind, make sure your flow coordinators are binded last.
+
 ## Sabers
 
-The `SiraUtil.Sabers` namespace provides a way to create new sabers. In your Plugin OnEnable and OnDisable, you can do `ExtraSabers.Touch()` and `ExtraSabers.Untouch()` to add your assembly to conditionally bind the `SiraSaber` factory in order to generate it. In an object that's been created or injected through Zenject, you can request `SiraSaber.Factory` and call .Create() on it. This returns a SiraSaber object with various methods for you to manipulate it however you'd like. There's also quite a few extension methods in `SiraUtil.Utilities` for changing normal Saber data too.
+The `SiraUtil.Sabers` namespace provides a way to create new sabers. In your Plugin OnEnable and OnDisable, you can do `ExtraSabers.Touch()` and `ExtraSabers.Untouch()` to add your assembly to conditionally bind the `SiraSaber` factory in order to generate it. In an object that's been created or injected through Zenject, you can request `SiraSaber.Factory` and call .Create() on it. This returns a SiraSaber object with various methods for you to manipulate it however you'd like. There's also quite a few extension methods in `SiraUtil.Utilities` for changing normal Saber data too. Here's an example.
+
+```csharp
+public class MyCrazySaberMode
+{
+    public MyCrazySaberMode(SiraSaber.Factory factory)
+    {
+        SiraSaber myNewSaber = factory.Create();
+        myNewSaber.ChangeType(SaberType.SaberA);
+    }
+}
+```
+
+SiraUtil does the heavy lifting when it comes to creating and managing sabers. Any SiraSaber's created are automatically registered into the SiraSaberEffectManager, which handles the more visual stuff like the saber burn marks on the area and the collision particles. You can manually request the SiraSaberEffectManager in Zenject if you need to, but you most likely won't need to.
 
 ### Saber Model Providers
-One of the big points of SiraUtil is to allow easier mod compatibility. This is an attempt to allow multiple saber model mods to work together. The base game binds the saber model prefab as transient, so whenever it's asked for, whatever that prefab is will be instantiated and served. SiraSabers also ask for a model controller when they are created. Modders can register their own provider by creatin a class that inherits `MonoBehaviourSaberModelController` and setting up their saber in its `Init` method. Then, create a `SaberModelProvider` class, configure it with the type of your inherited `MonoBehaviourSaberModelController` and the priority that your registration should have (higher is more priority).
+One of the big points of SiraUtil is to allow easier mod compatibility. This is an attempt to allow multiple saber model mods to work together. The base game binds the saber model prefab as transient, so whenever it's asked for, whatever that prefab is will be instantiated and served. SiraSabers also ask for a model controller when they are created. Modders can register their own provider by creating a class that inherits `ISaberModelController` and setting up their saber in its `Init` method. Then, create a `SaberModelProvider` class, configure it with the type of your inherited `ISaberModelController` and the priority that your registration should have (higher is more priority).
 
 ### IColorable
-IColorable is an interface which you can put on your saber properties so SiraUtil knows how to change its color! This is primarily implemented for use in ChromaToggle.
+IColorable is an interface which you can put on your objects so SiraUtil knows how to change its color! This is primarily implemented for use in ChromaToggle. This also allows mod developers to not have to depend on mod in order to change certain colors of objects. (For example, ChromaToggle does not need to reference SaberFactory in order to change the color of SaberFactory sabers, since the controller for the saber factory sabers inherit IColorable)
 
 ### Notice
-Currently, any SiraSabers do not generate VRControllers. I might consider changing this in the future, but I like the idea of a mod explicitly manipulating their saber.
+Currently, any SiraSabers do not generate VRControllers. This means that you cannot expect for all sabers to have their VRControllers active.
 
 ## Support
-Have any questions about SiraUtil, Zenject, or the Sabers namespace? Reach out to me (Auros#0001) and I will gladly assist!
+Have any questions about SiraUtil, Zenject, or the Sabers namespace? Reach out to me (Auros#0001) and I will gladly assist! Seriously! I will convert your entire mod if you ask me to.
