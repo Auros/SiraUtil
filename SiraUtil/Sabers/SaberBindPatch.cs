@@ -60,12 +60,11 @@ namespace SiraUtil.Sabers
                 if (topProvider != null)
                 {
                     if (topProvider.ModelController is MonoBehaviour mbtp)
-                    container.Bind<ISaberModelController>().FromComponentInNewPrefab(mbtp).AsTransient();
+                        container.Bind<ISaberModelController>().FromComponentInNewPrefab(mbtp).AsTransient();
+                    else
+                        container.Bind<ISaberModelController>().FromInstance(topProvider.ModelController).AsTransient();
                 }
-                else
-                {
-                    container.Bind<ISaberModelController>().FromInstance(topProvider.ModelController).AsTransient();
-                }
+                
             }
 
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
