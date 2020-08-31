@@ -4,6 +4,9 @@ using System.Collections;
 
 namespace SiraUtil.Sabers
 {
+    /// <summary>
+    /// A SiraSaber is an extra saber with some useful extension methods. The SiraSaber object is on the same GameObject as the normal Saber object, it's not an overridden version of the default Saber class.
+    /// </summary>
     public class SiraSaber : MonoBehaviour
     {
         public static SaberType nextType = SaberType.SaberB;
@@ -85,16 +88,28 @@ namespace SiraUtil.Sabers
             _siraSaberEffectManager.SaberDestroyed(_saber);
         }
 
+        /// <summary>
+        /// Changes the type and color of the saber.
+        /// </summary>
+        /// <param name="type"></param>
         public void SetType(SaberType type)
         {
             _saber.SetType(type, _colorManager);
         }
 
+        /// <summary>
+        /// Changes the type of the SiraSaber.
+        /// </summary>
+        /// <param name="type"></param>
         public void ChangeType(SaberType type)
         {
             _saber.ChangeType(type);
         }
 
+        /// <summary>
+        /// Swaps the type of the saber.
+        /// </summary>
+        /// <param name="resetColor">Whether or not to change the color as well.</param>
         public void SwapType(bool resetColor = false)
         {
             var saberType = _saberTypeObject.saberType == SaberType.SaberA ? SaberType.SaberB : SaberType.SaberA;
@@ -108,6 +123,10 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// Changes the color of the saber.
+        /// </summary>
+        /// <param name="color">The color you want the saber to be.</param>
         public void ChangeColor(Color color)
         {
             if (_changeColorCoroutine != null)
@@ -121,12 +140,13 @@ namespace SiraUtil.Sabers
         private IEnumerator ChangeColorCoroutine(Color color)
         {
             yield return new WaitForSecondsRealtime(0.05f);
-            if (_saber.isActiveAndEnabled) _saber.ChangeColor(color);
+            if (_saber.isActiveAndEnabled) _saber.ChangeColorInstant(color);
+            _siraSaberEffectManager.ChangeColor(_saber);
             _changeColorCoroutine = null;
         }
 
         /// <summary>
-        /// Set the Saber that lies in this SiraSaber. Don't call unless you know what you're doing.
+        /// Set the Saber that lies in this SiraSaber. Really should only be used when the saber registered in this SiraSaber is destroyed or overridden.
         /// </summary>
         /// <param name="saber"></param>
         public void SetSaber(Saber saber)
@@ -141,6 +161,9 @@ namespace SiraUtil.Sabers
 
         }
 
+        /// <summary>
+        /// A factory for dynamically generating new sabers.
+        /// </summary>
         public class SaberFactory : IFactory<SiraSaber>
         {
             private readonly DiContainer _container;
@@ -150,6 +173,10 @@ namespace SiraUtil.Sabers
                 _container = container;
             }
 
+            /// <summary>
+            /// Creates a new SiraSaber. Any sabers created this way are automatically inserted into the effect manager.
+            /// </summary>
+            /// <returns></returns>
             public SiraSaber Create()
             {
                 GameObject saberObject = new GameObject("SiraUtil Saber");

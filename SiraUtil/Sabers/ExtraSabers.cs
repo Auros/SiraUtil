@@ -8,6 +8,9 @@ namespace SiraUtil.Sabers
     {
         private static readonly HashSet<Assembly> _registeredAssemblies = new HashSet<Assembly>();
 
+        /// <summary>
+        /// Registers your assembly for using ExtraSabers. This enables the ability to request the SiraSaber.Factory in Zenject.
+        /// </summary>
         public static void Touch()
         {
             _registeredAssemblies.Add(Assembly.GetCallingAssembly());
@@ -19,6 +22,9 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// Unregisters your assembly for using ExtraSabers. Make sure to do this when you disable your mod.
+        /// </summary>
         public static void Untouch()
         {
             _registeredAssemblies.Remove(Assembly.GetCallingAssembly());

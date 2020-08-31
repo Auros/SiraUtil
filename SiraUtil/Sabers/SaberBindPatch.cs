@@ -6,6 +6,7 @@ using IPA.Utilities;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace SiraUtil.Sabers
 {
@@ -58,7 +59,12 @@ namespace SiraUtil.Sabers
                 var topProvider = SaberModelProvider.providers.OrderByDescending(q => q.Priority).FirstOrDefault();
                 if (topProvider != null)
                 {
-                    container.Bind<ISaberModelController>().FromComponentInNewPrefab(topProvider.ModelController).AsTransient();
+                    if (topProvider.ModelController is MonoBehaviour mbtp)
+                    container.Bind<ISaberModelController>().FromComponentInNewPrefab(mbtp).AsTransient();
+                }
+                else
+                {
+                    container.Bind<ISaberModelController>().FromInstance(topProvider.ModelController).AsTransient();
                 }
             }
 

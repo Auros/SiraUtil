@@ -28,7 +28,6 @@ namespace SiraUtil.Sabers
 
         public override void Start()
         {
-            
             for (int i = 0; i < _sabers.Length; i++)
             {
                 ObstacleSparkleDatum obstacleSparkle = new ObstacleSparkleDatum

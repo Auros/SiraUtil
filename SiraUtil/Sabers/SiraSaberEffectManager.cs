@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
 {
+    /// <summary>
+    /// Handles the processing and change of saber effects.
+    /// </summary>
     public class SiraSaberEffectManager : MonoBehaviour
     {
         private bool _safeReady = false;
@@ -32,6 +35,10 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// Registers a saber into the effect manager.
+        /// </summary>
+        /// <param name="saber">The saber being registered.</param>
         public void SaberCreated(Saber saber)
         {
             if (!_safeReady)
@@ -44,11 +51,19 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// Unregisters a saber from the effect manager.
+        /// </summary>
+        /// <param name="saber">The saber being unregistered.</param>
         public void SaberDestroyed(Saber saber)
         {
             _saberManagers.ForEach(isr => isr.UnregisterSaber(saber));
         }
 
+        /// <summary>
+        /// Changes the color of a saber in the effect manager. This will update all effects with the correct color.
+        /// </summary>
+        /// <param name="saber">The saber that's having its color changed.</param>
         public void ChangeColor(Saber saber)
         {
             if (!_safeReady)
