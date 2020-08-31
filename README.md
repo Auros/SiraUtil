@@ -2,7 +2,7 @@
  Utility library/mod for Beat Saber modders.
 
 # For Users
- This is a utility mod, so it doesn't actually add any content or improvements to the game on its own. It's a tool for other mods to use. If you have it installed, you might have a mod that's using this!
+ This is mainly a utility mod, so it doesn't actually add any content or improvements to the game on its own other than [SongControl](#songcontrol). It's a tool for other mods to use. If you have it installed, you might have a mod that's using this!
 
 # For Developers
  This utility contains some useful tools that might be of use. Also, this plugin has no outside dependencies! It only depends on files that are included in the base game and Harmony.
@@ -200,6 +200,9 @@ IColorable is an interface which you can put on your objects so SiraUtil knows h
 
 ### Notice
 Currently, any SiraSabers do not generate VRControllers. This means that you cannot expect for all sabers to have their VRControllers active.
+
+## SongControl
+SiraUtil has a system like MusicEscape built in! You can enable it by editing SiraUtil.json in UserData and setting SongControl -> Enabled to true. By default, hitting Escape will exit the game, hitting F2 will pause and unpause the song, and hitting F4 will restart the level. You can change these keys by editing SiraUtil.json and putting in your own key codes (UnityEngine.KeyCode).
 
 ## Support
 Have any questions about SiraUtil, Zenject, or the Sabers namespace? Reach out to me (Auros#0001) and I will gladly assist! Seriously! I will convert your entire mod if you ask me to.

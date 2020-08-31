@@ -2,9 +2,8 @@
 using Zenject;
 using UnityEngine;
 using IPA.Utilities;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
