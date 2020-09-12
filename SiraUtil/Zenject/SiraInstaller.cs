@@ -16,6 +16,7 @@ namespace SiraUtil.Zenject
         }
     }
 
+    [RequiresInstaller(typeof(SiraInstallerInit))]
     internal class SiraInstaller : Installer<Config, SiraInstaller>
     {
         private readonly Config _config;
@@ -24,8 +25,12 @@ namespace SiraUtil.Zenject
 
         public override void InstallBindings()
         {
-
             Container.BindInstance(_config).AsSingle().NonLazy();
+            if (_config.FPFCToggle.Enabled)
+            {
+                Container.BindInstance(_config.FPFCToggle.ToggleKeyCode).WithId("ToggleCode").WhenInjectedInto<FPFCToggle>();
+                Container.Bind<FPFCToggle>().FromNewComponentOnRoot().AsSingle().NonLazy();
+            }
         }
     }
 

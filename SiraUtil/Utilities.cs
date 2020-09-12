@@ -1,10 +1,8 @@
 ﻿using Xft;
-using System;
 using HarmonyLib;
 using UnityEngine;
 using IPA.Utilities;
 using SiraUtil.Sabers;
-using System.Reflection;
 using System.Collections;
 using System.Reflection.Emit;
 using System.Collections.Generic;
@@ -141,6 +139,11 @@ namespace SiraUtil
         public static void ChangeType(this SaberTypeObject sto, SaberType type)
         {
             ObjectSaberType(ref sto) = type;
+        }
+
+        public static void NullCheck(this IPA.Logging.Logger logger, object toCheck)
+        {
+            logger.Info(toCheck != null ? $"{nameof(toCheck)} is not null." : "Object is null");
         }
 
         /// <summary>

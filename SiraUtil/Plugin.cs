@@ -1,4 +1,5 @@
 ﻿using IPA;
+using System;
 using HarmonyLib;
 using UnityEngine;
 using System.Linq;
@@ -25,7 +26,12 @@ namespace SiraUtil
             Log = logger;
             Config config = conf.Generated<Config>();
             Harmony = new Harmony("dev.auros.sirautil");
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            config.MajorVersion = version.Major;
+            config.MinorVersion = version.Minor;
+            config.BuildVersion = version.Build;
             _siraInstallerInit = new SiraInstallerInit(config);
+            
         }
 
         [OnEnable]
