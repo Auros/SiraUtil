@@ -175,6 +175,10 @@ namespace SiraUtil.Zenject
 
         internal static void InstallFromBase(MonoBehaviour source, HashSet<Type> installers, HashSet<ISiraInstaller> siraInstallers, bool isApp = false)
         {
+            Plugin.Log.Debug("Install Analysis for " + source.name);
+            Plugin.Log.Debug($"   --> NonSira Count: {installers.Count}");
+            Plugin.Log.Debug($"   --> Sira Count: {siraInstallers.Count}");
+            Plugin.Log.Debug($"   --> Is In App: {(isApp ? "Yes" : "No")}");
             // Convert the main installer to a MonoInstaller base 
             MonoInstallerBase monoInstaller = source as MonoInstallerBase;
 
@@ -189,24 +193,31 @@ namespace SiraUtil.Zenject
                 {
                     if (!_installedInstallers.Contains(requireInstallerAttr.RequiredInstaller))
                     {
-                        return;
+                        Plugin.Log.Warn($"Not installing {t.FullName} since it's missing the installer dependency {requireInstallerAttr.RequiredInstaller.FullName}");
+                        continue;
                     }
                 }
+
+                Plugin.Log.Debug("Installing: " + t.FullName);
                 if (t.IsSubclassOf(typeof(MonoBehaviour)))
                 {
+                    Plugin.Log.Debug("   --> is a MonoInstaller");
                     // Create the mono installer's game object.
                     MonoInstallerBase injectingInstallerBase = source.gameObject.AddComponent(t) as MonoInstallerBase;
 
+                    Plugin.Log.Debug("   --> is swapping container");
                     // Replace the container from the mod with the one from the source installer.
                     SetDiContainer(ref injectingInstallerBase, container);
 
+                    Plugin.Log.Debug("   --> is forcing install");
                     // Force install their bindings with the source's DiContainer
                     injectingInstallerBase.InstallBindings();
-
                 }
                 else
                 {
+                    Plugin.Log.Debug("   --> is generic");
                     _installMethod.MakeGenericMethod(t).Invoke(container, null);
+
                 }
                 if (isApp && !_installedInstallers.Contains(t))
                 {
@@ -216,14 +227,18 @@ namespace SiraUtil.Zenject
 
             foreach (ISiraInstaller si in siraInstallers)
             {
+                Plugin.Log.Debug("Installing: " + si.GetType().FullName);
                 var attr = si.GetType().GetCustomAttribute<RequiresInstallerAttribute>();
                 if (attr != null && attr is RequiresInstallerAttribute requireInstallerAttr)
                 {
                     if (!_installedInstallers.Contains(requireInstallerAttr.RequiredInstaller))
                     {
-                        return;
+                        Plugin.Log.Warn($"Not installing {si.GetType().FullName} since it's missing the installer dependency {requireInstallerAttr.RequiredInstaller.FullName}");
+                        continue;
                     }
                 }
+                Plugin.Log.Debug("   --> is SiraInstaller");
+                Plugin.Log.Debug("   --> is forcing install");
                 si.Install(container, source.gameObject);
                 if (isApp)
                 {

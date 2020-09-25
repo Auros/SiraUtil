@@ -31,7 +31,6 @@ namespace SiraUtil
             config.MinorVersion = version.Minor;
             config.BuildVersion = version.Build;
             _siraInstallerInit = new SiraInstallerInit(config);
-            
         }
 
         [OnEnable]

@@ -1,5 +1,7 @@
-﻿using Zenject;
+﻿using System;
+using Zenject;
 using UnityEngine;
+using System.Linq;
 using SiraUtil.Tools;
 
 namespace SiraUtil.Zenject
@@ -28,8 +30,15 @@ namespace SiraUtil.Zenject
             Container.BindInstance(_config).AsSingle().NonLazy();
             if (_config.FPFCToggle.Enabled)
             {
+                Container.BindInstance(_config.FPFCToggle.CameraFOV).WithId("CameraFOV").WhenInjectedInto<FPFCToggle>();
                 Container.BindInstance(_config.FPFCToggle.ToggleKeyCode).WithId("ToggleCode").WhenInjectedInto<FPFCToggle>();
+                Container.BindInstance(_config.FPFCToggle.MoveSensitivity).WithId("MoveSensitivity").WhenInjectedInto<FPFCToggle>();
                 Container.Bind<FPFCToggle>().FromNewComponentOnRoot().AsSingle().NonLazy();
+            }
+            if (_config.Localization.Enabled)
+            {
+                Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
+                Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
             }
         }
     }
@@ -53,6 +62,24 @@ namespace SiraUtil.Zenject
                 Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
                 Container.BindInterfacesTo<SongControl>().AsSingle().NonLazy();
             }
+        }
+    }
+
+    [RequiresInstaller(typeof(SiraInstallerInit))]
+    internal class SiraMenuTestInstaller : MonoInstaller
+    {
+        public override void InstallBindings()
+        {
+            Plugin.Log.Info("what? how?");
+        }
+    }
+
+    [RequiresInstaller(typeof(SiraInstallerInit))]
+    internal class SiraMenuTestInstaller2 : global::Zenject.Installer
+    {
+        public override void InstallBindings()
+        {
+            Plugin.Log.Info("what? how?");
         }
     }
 }

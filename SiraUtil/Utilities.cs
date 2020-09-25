@@ -6,6 +6,10 @@ using SiraUtil.Sabers;
 using System.Collections;
 using System.Reflection.Emit;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace SiraUtil
 {
@@ -143,7 +147,7 @@ namespace SiraUtil
 
         public static void NullCheck(this IPA.Logging.Logger logger, object toCheck)
         {
-            logger.Info(toCheck != null ? $"{nameof(toCheck)} is not null." : "Object is null");
+            logger.Info(toCheck != null ? $"{toCheck.GetType().Name} is not null." : "Object is null");
         }
 
         /// <summary>
@@ -153,7 +157,7 @@ namespace SiraUtil
         /// <param name="toCheck">A list of op codes that is expected to match</param>
         /// <param name="startIndex">Index to start checking from (inclusive)</param>
         /// <returns>Whether or not the op codes found in the code instructions match.</returns>
-        internal static bool OpCodeSequence(List<CodeInstruction> codes, List<OpCode> toCheck, int startIndex)
+        public static bool OpCodeSequence(List<CodeInstruction> codes, List<OpCode> toCheck, int startIndex)
         {
             for (int i = 0; i < toCheck.Count; i++)
             {
@@ -165,6 +169,53 @@ namespace SiraUtil
         public static TDel GetEventHandlers<TTarget, TDel>(this TTarget target, string name)
         {
             return FieldAccessor<TTarget, TDel>.Get(target, name);
+        }
+
+        public static Task<Tuple<PlatformUserModelSO.GetUserInfoResult, PlatformUserModelSO.UserInfo>> GetUserInfoAsync(this PlatformUserModelSO platformUserModelSO)
+        {
+            var tcs = new TaskCompletionSource<Tuple<PlatformUserModelSO.GetUserInfoResult, PlatformUserModelSO.UserInfo>>();
+            platformUserModelSO.GetUserInfo(delegate (PlatformUserModelSO.GetUserInfoResult result, PlatformUserModelSO.UserInfo userInfo)
+            {
+                tcs.SetResult(new Tuple<PlatformUserModelSO.GetUserInfoResult, PlatformUserModelSO.UserInfo>(result, userInfo));
+            });
+            return tcs.Task;
+        }
+
+        public static string GetResourceContent(Assembly assembly, string resource)
+        {
+            using (Stream stream = assembly.GetManifestResourceStream(resource))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+        public static void AssemblyFromPath(string inputPath, out Assembly assembly, out string path)
+        {
+            string[] parameters = inputPath.Split(':');
+            switch (parameters.Length)
+            {
+                case 1:
+                    path = parameters[0];
+                    assembly = Assembly.Load(path.Substring(0, path.IndexOf('.')));
+                    break;
+                case 2:
+                    path = parameters[1];
+                    assembly = Assembly.Load(parameters[0]);
+                    break;
+                default:
+                    throw new Exception($"Could not process resource path {inputPath}");
+            }
+        }
+
+        public static byte[] GetResource(Assembly asm, string ResourceName)
+        {
+            Stream stream = asm.GetManifestResourceStream(ResourceName);
+            byte[] data = new byte[stream.Length];
+            stream.Read(data, 0, (int)stream.Length);
+            return data;
         }
     }
 }
