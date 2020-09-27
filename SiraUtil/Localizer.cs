@@ -155,7 +155,7 @@ namespace SiraUtil
             }
 #if DEBUG
             stopwatch.Stop();
-            Plugin.Log.Info($"Took {stopwatch.Elapsed.TotalSeconds} seconds to recalculate languages.");
+            Plugin.Log.Info($"Took {stopwatch.Elapsed:c} to recalculate languages.");
 #endif
 
         }
