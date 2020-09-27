@@ -14,28 +14,24 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
     - name: GetStrippedRefs
       env:
         FILES_URL: ${{ secrets.BSFILES_URL }}
-      run: (new-object System.Net.WebClient).DownloadFile('${{ secrets.BSFILES_URL }}', 'bsfiles.zip')
-      shell: powershell
+      run: wget --no-check-certificate "$FILES_URL" -q -O bsfiles.zip
     - name: ExtractRefs
-      run: |
-        Add-Type -AssemblyName System.IO.Compression.FileSystem
-        function Unzip
-        {
-            param([string]$zipfile, [string]$outpath)
-
-            [System.IO.Compression.ZipFile]::ExtractToDirectory($zipfile, $outpath)
-        }
-        Unzip "bsfiles.zip" "./Refs"    
-      shell: powershell
+      run: unzip -q -n bsfiles.zip -d ./Refs
     - name: Build
       id: Build
-      run: dotnet build --configuration Release -f net472
+      env: 
+        FrameworkPathOverride: /usr/lib/mono/4.7.2-api
+      run: dotnet build --configuration Release
     - name: Echo Filename
       run: echo "$BUILDTEXT ($ASSEMBLYNAME)"
       env:
@@ -48,7 +44,7 @@ jobs:
         path: ./SiraUtil/bin/Release/Final
     - name: CopyPDB
       working-directory: ./SiraUtil/bin/Release
-      run: copy ${{ steps.Build.outputs.assemblyname }}.pdb Final/Plugins/${{ steps.Build.outputs.assemblyname }}.pdb
+      run: cp ${{ steps.Build.outputs.assemblyname }}.pdb Final/Plugins/${{ steps.Build.outputs.assemblyname }}.pdb
     - name: Upload Artifact With PDB
       uses: actions/upload-artifact@v1
       with:
