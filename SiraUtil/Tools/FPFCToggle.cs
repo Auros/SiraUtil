@@ -21,13 +21,13 @@ namespace SiraUtil.Tools
         private MenuScenesTransitionSetupDataSO _menuScenesTransitionSetupDataSO;
 
         [Inject]
-        public void Construct([Inject(Id = "ToggleCode")] KeyCode toggleCode, [Inject(Id = "CameraFOV")] float cameraFOV, [Inject(Id = "MoveSensitivity")] float moveSensitivity, GameScenesManager gameScenesManager, MenuScenesTransitionSetupDataSO menuScenesTransitionSetupDataSO)
+        public void Construct([Inject(Id = "FPFCEnabled")] bool fpfcEnabled, [Inject(Id = "ToggleCode")] KeyCode toggleCode, [Inject(Id = "CameraFOV")] float cameraFOV, [Inject(Id = "MoveSensitivity")] float moveSensitivity, GameScenesManager gameScenesManager, MenuScenesTransitionSetupDataSO menuScenesTransitionSetupDataSO)
         {
+            Enabled = fpfcEnabled;
             _cameraFOV = cameraFOV;
             _toggleCode = toggleCode;
             _moveSensitivity = moveSensitivity;
             _gameScenesManager = gameScenesManager;
-            Enabled = Environment.GetCommandLineArgs().Any(x => x == "fpfc");
             _menuScenesTransitionSetupDataSO = menuScenesTransitionSetupDataSO;
         }
 
@@ -75,7 +75,6 @@ namespace SiraUtil.Tools
             _vrInputModule.enabled = state;
             _vrInputModule.gameObject.SetActive(true);
             _firstPersonFlyingController.enabled = state;
-            _firstPersonFlyingController.gameObject.SetActive(state);
             Cursor.lockState = state ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !state;
             Enabled = state;
