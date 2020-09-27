@@ -20,7 +20,7 @@ jobs:
     - name: GetStrippedRefs
       env:
         FILES_URL: ${{ secrets.BSFILES_URL }}
-      run: (new-object System.Net.WebClient).DownloadFile('$FILES_URL', 'bsfiles.zip')
+      run: (new-object System.Net.WebClient).DownloadFile('"$FILES_URL"', 'bsfiles.zip')
       shell: powershell
     - name: ExtractRefs
       run: |
