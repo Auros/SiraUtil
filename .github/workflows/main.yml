@@ -35,7 +35,7 @@ jobs:
       shell: powershell
     - name: Build
       id: Build
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release -f net472
     - name: Echo Filename
       run: echo "$BUILDTEXT ($ASSEMBLYNAME)"
       env:
