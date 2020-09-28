@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>CS0067</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -163,7 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="Events\DetailViewControllerPatch.cs" />
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="Sabers\ExtraSabers.cs" />
@@ -184,16 +184,20 @@
     <Compile Include="Tools\SongControl.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="WebClient.cs" />
+    <Compile Include="Zenject\HarmonyPatches\SiraContextDecorator.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameplayCore_Installer.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameCore_Installer.cs" />
     <Compile Include="Zenject\HarmonyPatches\App_Installer.cs" />
     <Compile Include="Zenject\HarmonyPatches\Menu_Installer.cs" />
+    <Compile Include="Zenject\InstallBuilder.cs" />
     <Compile Include="Zenject\Installer.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zenject\ISiraInstaller.cs" />
     <Compile Include="Zenject\RequiresInstallerAttribute.cs" />
     <Compile Include="Zenject\SiraInstaller.cs" />
+    <Compile Include="Zenject\ZenjectManager.cs" />
+    <Compile Include="Zenject\Zenjector.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />
@@ -236,6 +240,7 @@
       <Version>4.5.24</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

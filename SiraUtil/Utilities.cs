@@ -1,20 +1,22 @@
 ﻿using Xft;
+using System;
+using System.IO;
 using HarmonyLib;
 using UnityEngine;
 using IPA.Utilities;
 using SiraUtil.Sabers;
+using System.Reflection;
 using System.Collections;
 using System.Reflection.Emit;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
-using System.IO;
-using System.Reflection;
+using System.Collections.Generic;
 
 namespace SiraUtil
 {
     public static class Utilities
     {
+        public const string AssertHit = "(Nice Assert Hit, Ding Dong)";
+
         internal static FieldAccessor<BasicSaberModelController, Light>.Accessor SaberLight = FieldAccessor<BasicSaberModelController, Light>.GetAccessor("_light");
         internal static FieldAccessor<BasicSaberModelController, XWeaponTrail>.Accessor SaberTrail = FieldAccessor<BasicSaberModelController, XWeaponTrail>.GetAccessor("_saberWeaponTrail");
         internal static FieldAccessor<BasicSaberModelController, SetSaberGlowColor[]>.Accessor SaberGlowColor = FieldAccessor<BasicSaberModelController, SetSaberGlowColor[]>.GetAccessor("_setSaberGlowColors");

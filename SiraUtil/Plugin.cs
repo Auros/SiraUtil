@@ -1,5 +1,6 @@
 ﻿using IPA;
 using System;
+using IPA.Loader;
 using HarmonyLib;
 using UnityEngine;
 using System.Linq;
@@ -18,7 +19,31 @@ namespace SiraUtil
         internal static IPALogger Log { get; set; }
         internal static Harmony Harmony { get; set; }
 
-        private readonly SiraInstallerInit _siraInstallerInit;
+        private readonly ZenjectManager _zenjectManager;
+
+        /*[Init]
+        public Plugin(IPA.Config.Config conf, Zenjector zenjector)
+        {
+            Config config = conf.Generated<Config>();
+
+
+            // These three essentially do the same thing.
+            zenjector.OnMenu<SiraMenuTestInstaller>();
+            zenjector.On<MenuInstaller>().Register<SiraMenuTestInstaller>();
+            zenjector.On("MenuInstaller").Register<SiraMenuTestInstaller>();
+
+            // These three essentially do the same thing.
+            zenjector.OnGame<SiraGameInstaller>().WithArguments(config);
+            zenjector.On<GameCoreSceneSetup>().Register<SiraGameInstaller>().WithArguments(config);
+            zenjector.On("GameCoreSceneSetup").Register<SiraGameInstaller>().WithArguments(config);
+
+            // These two essentially do the same thing. Will install their bindings right BEFORE AppCoreInstaller
+            zenjector.Before<AppCoreInstaller>().WithArguments(config);
+            zenjector.Before("AppCoreInstaller").WithArguments(config);
+
+            // This can install stuff using the MenuViewControllers's scene's SceneContext
+            zenjector.On("MenuViewControllers").Register<SiraMenuTestInstaller2>().ForContext();
+        }*/
 
         [Init]
         public Plugin(IPA.Config.Config conf, IPALogger logger)
@@ -26,19 +51,38 @@ namespace SiraUtil
             Log = logger;
             Config config = conf.Generated<Config>();
             Harmony = new Harmony("dev.auros.sirautil");
+
+            // Set Config Verison
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             config.MajorVersion = version.Major;
             config.MinorVersion = version.Minor;
             config.BuildVersion = version.Build;
-            _siraInstallerInit = new SiraInstallerInit(config);
+
+            // Setup Zenjector
+            _zenjectManager = new ZenjectManager();
+            PluginInitInjector.AddInjector(typeof(Zenjector), (prev, __, meta) =>
+            {
+                if (prev != null) return prev;
+                var zen = new Zenjector(meta.Id);
+                _zenjectManager.Add(zen);
+                return zen;
+            });
+
+            // Setup Own Zenject Stuff
+            var zenjector = new Zenjector("SiraUtil");
+            _zenjectManager.Add(zenjector);
+
+            zenjector.OnApp<SiraInstaller>().WithParameters(config);
+            zenjector.OnGame<SiraGameInstaller>();
         }
 
         [OnEnable]
         public void OnEnable()
         {
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
-            Installer.RegisterAppInstaller(_siraInstallerInit);
-            Installer.RegisterGameCoreInstaller<SiraGameInstaller>();
+            //InstallerDetector.Patch(Harmony);
+            //Installer.RegisterAppInstaller(_siraInstallerInit);
+            //Installer.RegisterGameCoreInstaller<SiraGameInstaller>();
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         }
 
@@ -46,7 +90,7 @@ namespace SiraUtil
         {
             if (newScene.name == "MenuViewControllers")
             {
-                if (Installer.NotAllAppInstallersAreInstalled)
+                if (!SiraInstaller.ProjectContextWentOff)
                 {
                     SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
                 }
@@ -62,9 +106,10 @@ namespace SiraUtil
         [OnDisable]
         public void OnDisable()
         {
+            //InstallerDetector.Unpatch(Harmony);
             Harmony.UnpatchAll();
-            Installer.UnregisterAppInstaller(_siraInstallerInit);
-            Installer.UnregisterGameCoreInstaller<SiraGameInstaller>();
+            //Installer.UnregisterAppInstaller(_siraInstallerInit);
+            //Installer.UnregisterGameCoreInstaller<SiraGameInstaller>();
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
         }
     }

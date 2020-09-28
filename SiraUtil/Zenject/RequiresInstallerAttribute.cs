@@ -2,6 +2,7 @@
 
 namespace SiraUtil.Zenject
 {
+    [Obsolete("The new Zenjector system will automatically restart the game if the project installer did not go off.")]
     /// <summary>
     /// Prevents an installer from being installed if the installer in this attribute has not been installed.
     /// </summary>

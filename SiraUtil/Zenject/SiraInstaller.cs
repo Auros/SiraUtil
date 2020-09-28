@@ -1,32 +1,20 @@
 ﻿using System;
 using Zenject;
-using UnityEngine;
-using System.Linq;
 using SiraUtil.Tools;
 
 namespace SiraUtil.Zenject
 {
-    internal class SiraInstallerInit : ISiraInstaller
-    {
-        private readonly Config _config;
-
-        public SiraInstallerInit(Config config) => _config = config;
-
-        public void Install(DiContainer container, GameObject source)
-        {
-            SiraInstaller.Install(container, _config);
-        }
-    }
-
-    [RequiresInstaller(typeof(SiraInstallerInit))]
     internal class SiraInstaller : Installer<Config, SiraInstaller>
     {
+        internal static bool ProjectContextWentOff { get; private set; } = false;
+
         private readonly Config _config;
         
         public SiraInstaller(Config config) => _config = config;
 
         public override void InstallBindings()
         {
+            ProjectContextWentOff = true;
             Container.BindInstance(_config).AsSingle().NonLazy();
             if (_config.FPFCToggle.Enabled)
             {
@@ -44,7 +32,6 @@ namespace SiraUtil.Zenject
         }
     }
 
-    [RequiresInstaller(typeof(SiraInstallerInit))]
     internal class SiraGameInstaller : global::Zenject.Installer
     {
         private readonly Config _config;
@@ -66,7 +53,6 @@ namespace SiraUtil.Zenject
         }
     }
 
-    [RequiresInstaller(typeof(SiraInstallerInit))]
     internal class SiraMenuTestInstaller : MonoInstaller
     {
         public override void InstallBindings()
@@ -75,7 +61,6 @@ namespace SiraUtil.Zenject
         }
     }
 
-    [RequiresInstaller(typeof(SiraInstallerInit))]
     internal class SiraMenuTestInstaller2 : global::Zenject.Installer
     {
         public override void InstallBindings()

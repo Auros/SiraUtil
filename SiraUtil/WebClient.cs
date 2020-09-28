@@ -7,8 +7,8 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading;
 using Newtonsoft.Json.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
 
 namespace SiraUtil
 {

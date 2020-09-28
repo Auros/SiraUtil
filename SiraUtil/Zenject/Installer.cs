@@ -7,6 +7,7 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
+    [Obsolete("Please get the Zenjector class from the Plugin Init Injector")]
     public static class Installer
     {
         internal readonly static HashSet<Type> appInstallers = new HashSet<Type>();
