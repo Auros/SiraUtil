@@ -21,30 +21,6 @@ namespace SiraUtil
 
         private readonly ZenjectManager _zenjectManager;
 
-        /*[Init]
-        public Plugin(IPA.Config.Config conf, Zenjector zenjector)
-        {
-            Config config = conf.Generated<Config>();
-
-
-            // These three essentially do the same thing.
-            zenjector.OnMenu<SiraMenuTestInstaller>();
-            zenjector.On<MenuInstaller>().Register<SiraMenuTestInstaller>();
-            zenjector.On("MenuInstaller").Register<SiraMenuTestInstaller>();
-
-            // These three essentially do the same thing.
-            zenjector.OnGame<SiraGameInstaller>().WithArguments(config);
-            zenjector.On<GameCoreSceneSetup>().Register<SiraGameInstaller>().WithArguments(config);
-            zenjector.On("GameCoreSceneSetup").Register<SiraGameInstaller>().WithArguments(config);
-
-            // These two essentially do the same thing. Will install their bindings right BEFORE AppCoreInstaller
-            zenjector.Before<AppCoreInstaller>().WithArguments(config);
-            zenjector.Before("AppCoreInstaller").WithArguments(config);
-
-            // This can install stuff using the MenuViewControllers's scene's SceneContext
-            zenjector.On("MenuViewControllers").Register<SiraMenuTestInstaller2>().ForContext();
-        }*/
-
         [Init]
         public Plugin(IPA.Config.Config conf, IPALogger logger)
         {
@@ -80,21 +56,13 @@ namespace SiraUtil
         public void OnEnable()
         {
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
-            //InstallerDetector.Patch(Harmony);
-            //Installer.RegisterAppInstaller(_siraInstallerInit);
-            //Installer.RegisterGameCoreInstaller<SiraGameInstaller>();
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         }
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
         {
-            if (newScene.name == "MenuViewControllers")
-            {
-                if (!SiraInstaller.ProjectContextWentOff)
-                {
-                    SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
-                }
-            }
+            if (newScene.name == "MenuViewControllers" && !SiraInstaller.ProjectContextWentOff)
+                SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
         }
 
         private IEnumerator BruteForceRestart()
@@ -106,10 +74,7 @@ namespace SiraUtil
         [OnDisable]
         public void OnDisable()
         {
-            //InstallerDetector.Unpatch(Harmony);
             Harmony.UnpatchAll();
-            //Installer.UnregisterAppInstaller(_siraInstallerInit);
-            //Installer.UnregisterGameCoreInstaller<SiraGameInstaller>();
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
         }
     }
