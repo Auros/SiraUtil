@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Zenject;
 
 namespace SiraUtil.Events
@@ -7,7 +7,7 @@ namespace SiraUtil.Events
     {
         internal static event EventHandler<SceneContextInstalledArgs> ContextInstalling;
 
-        internal static void SendInstallEvent(string name, SceneContext context, DiContainer container, bool post = true)
+        internal static void SendInstallEvent(string name, SceneContext context, DiContainer container)
         {
             var args = new SceneContextInstalledArgs(name, container);
             ContextInstalling.Invoke(context, args);

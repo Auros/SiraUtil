@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace SiraUtil.Sabers
             {
                 if (_sabers[i])
                 {
-                    SaberBurnDatum saberBurnDatum = new SaberBurnDatum
+                    var saberBurnDatum = new SaberBurnDatum
                     {
                         saber = _sabers[i],
                         color = _sabers[i].GetColor(),
@@ -48,7 +48,7 @@ namespace SiraUtil.Sabers
                 ParticleSystem particleSystem = _saberBurnData[i].burnMarkParticleSystem;
                 ParticleSystem.EmissionModule emissionModule = _saberBurnData[i].burnMarkEmissionModule;
 
-                Vector3 vector = new Vector3(0f, 0f, 0f);
+                var vector = new Vector3(0f, 0f, 0f);
                 bool isActive = saber.isActiveAndEnabled && GetBurnMarkPos(saber.saberBladeBottomPos, saber.saberBladeTopPos, out vector);
                 if (isActive)
                 {
@@ -95,7 +95,7 @@ namespace SiraUtil.Sabers
 
         public void RegisterSaber(Saber saber)
         {
-            SaberBurnDatum newSaberDatum = new SaberBurnDatum
+            var newSaberDatum = new SaberBurnDatum
             {
                 saber = saber,
                 prevBurnMarkPos = default,

@@ -1,4 +1,4 @@
-﻿using Xft;
+using Xft;
 using System;
 using System.IO;
 using HarmonyLib;
@@ -15,7 +15,7 @@ namespace SiraUtil
 {
     public static class Utilities
     {
-        public const string AssertHit = "(Nice Assert Hit, Ding Dong)";
+        public const string ASSERTHIT = "(Nice Assert Hit, Ding Dong)";
 
         internal static FieldAccessor<BasicSaberModelController, Light>.Accessor SaberLight = FieldAccessor<BasicSaberModelController, Light>.GetAccessor("_light");
         internal static FieldAccessor<BasicSaberModelController, XWeaponTrail>.Accessor SaberTrail = FieldAccessor<BasicSaberModelController, XWeaponTrail>.GetAccessor("_saberWeaponTrail");
@@ -71,13 +71,13 @@ namespace SiraUtil
             ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
             if (modelController is BasicSaberModelController)
             {
-                BasicSaberModelController bsmc = modelController as BasicSaberModelController;
+                var bsmc = modelController as BasicSaberModelController;
                 Light light = SaberLight(ref bsmc);
                 return light.color;
             }
             else if (modelController is IColorable)
             {
-                IColorable colorable = modelController as IColorable;
+                var colorable = modelController as IColorable;
                 return colorable.Color;
             }
             return Color.white;
@@ -86,14 +86,18 @@ namespace SiraUtil
         public static void ChangeColorInstant(this Saber saber, Color color)
         {
             if (saber.isActiveAndEnabled)
-                saber.StartCoroutine(ChangeColorCoroutine(saber, color, 0));
-        }
+			{
+				saber.StartCoroutine(ChangeColorCoroutine(saber, color, 0));
+			}
+		}
 
         public static void ChangeColor(this Saber saber, Color color)
         {
             if (saber.isActiveAndEnabled)
-                saber.StartCoroutine(ChangeColorCoroutine(saber, color));
-        }
+			{
+				saber.StartCoroutine(ChangeColorCoroutine(saber, color));
+			}
+		}
 
         private static IEnumerator ChangeColorCoroutine(Saber saber, Color color, float time = 0.05f)
         {
@@ -163,8 +167,11 @@ namespace SiraUtil
         {
             for (int i = 0; i < toCheck.Count; i++)
             {
-                if (codes[startIndex + i].opcode != toCheck[i]) return false;
-            }
+                if (codes[startIndex + i].opcode != toCheck[i])
+				{
+					return false;
+				}
+			}
             return true;
         }
 
@@ -187,7 +194,7 @@ namespace SiraUtil
         {
             using (Stream stream = assembly.GetManifestResourceStream(resource))
             {
-                using (StreamReader reader = new StreamReader(stream))
+                using (var reader = new StreamReader(stream))
                 {
                     return reader.ReadToEnd();
                 }

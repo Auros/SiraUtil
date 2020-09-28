@@ -1,12 +1,12 @@
-﻿using Xft;
+using Xft;
 using Zenject;
 using HarmonyLib;
 using System.Linq;
+using UnityEngine;
 using IPA.Utilities;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace SiraUtil.Sabers
 {
@@ -60,17 +60,21 @@ namespace SiraUtil.Sabers
                 if (topProvider != null)
                 {
                     if (topProvider.ModelController is MonoBehaviour mbtp)
-                        container.Bind<ISaberModelController>().FromComponentInNewPrefab(mbtp).AsTransient();
-                    else
-                        container.Bind<ISaberModelController>().FromInstance(topProvider.ModelController).AsTransient();
-                }
+					{
+						container.Bind<ISaberModelController>().FromComponentInNewPrefab(mbtp).AsTransient();
+					}
+					else
+					{
+						container.Bind<ISaberModelController>().FromInstance(topProvider.ModelController).AsTransient();
+					}
+				}
                 
             }
 
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
             {
                 // Remove the BasicSaberModelController bind
-                List<CodeInstruction> codes = instructions.ToList();
+                var codes = instructions.ToList();
                 for (int i = 0; i < codes.Count(); i++)
                 {
                     if (Utilities.OpCodeSequence(codes, _basicModelBind, i))

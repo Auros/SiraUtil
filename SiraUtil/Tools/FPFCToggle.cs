@@ -1,14 +1,12 @@
-﻿using System;
 using Zenject;
 using System.Linq;
 using UnityEngine;
 using VRUIControls;
 using IPA.Utilities;
-using System.Collections;
 
 namespace SiraUtil.Tools
 {
-    public class FPFCToggle : MonoBehaviour
+	public class FPFCToggle : MonoBehaviour
     {
         public bool Enabled { get; private set; } = false;
 

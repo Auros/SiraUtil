@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -13,7 +13,7 @@ namespace SiraUtil.Zenject.HarmonyPatches
 
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            var codes = instructions.ToList();
             codes.InsertRange(codes.Count - 1, new List<CodeInstruction>()
             {
                 new CodeInstruction(OpCodes.Ldarg_0),

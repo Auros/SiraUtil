@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR;
@@ -30,7 +30,7 @@ namespace SiraUtil.Sabers
         {
             for (int i = 0; i < _sabers.Length; i++)
             {
-                ObstacleSparkleDatum obstacleSparkle = new ObstacleSparkleDatum
+                var obstacleSparkle = new ObstacleSparkleDatum
                 {
                     saber = _sabers[i],
                     sparkleEffect = _effects[i],
@@ -63,7 +63,6 @@ namespace SiraUtil.Sabers
                         if (!osd.wasSystemActive)
                         {
                             osd.sparkleEffect.StartEmission();
-                            //this.FireEvent("sparkleEffectDidStartEvent", osd.saber.saberType);
                             _sparkleStartEvent?.Invoke(osd.saber.saberType);
                         }
                     }
@@ -75,7 +74,6 @@ namespace SiraUtil.Sabers
                 if (!osd.isSystemActive && osd.wasSystemActive)
                 {
                     osd.sparkleEffect.StopEmission();
-                    //this.FireEvent("sparkleEffectDidEndEvent", osd.saber.saberType);
                     _sparkleEndEvent?.Invoke(osd.saber.saberType);
                 }
             }
@@ -97,7 +95,7 @@ namespace SiraUtil.Sabers
 
         public void RegisterSaber(Saber saber)
         {
-            ObstacleSparkleDatum osd = new ObstacleSparkleDatum
+            var osd = new ObstacleSparkleDatum
             {
                 saber = saber,
                 sparkleEffect = Instantiate(_obstacleSaberSparkleEffectPefab)

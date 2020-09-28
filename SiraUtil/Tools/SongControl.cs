@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Zenject;
 using UnityEngine;
 
@@ -53,9 +53,15 @@ namespace SiraUtil.Tools
             }
             if (Input.GetKeyDown(_pauseToggleCode))
             {
-                if (_isPaused) _pauseController.HandlePauseMenuManagerDidPressContinueButton();
-                else _pauseController.HandlePauseTriggered();
-                return;
+                if (_isPaused)
+				{
+					_pauseController.HandlePauseMenuManagerDidPressContinueButton();
+				}
+				else
+				{
+					_pauseController.HandlePauseTriggered();
+				}
+				return;
             }
         }
 

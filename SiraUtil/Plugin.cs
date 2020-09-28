@@ -1,4 +1,4 @@
-﻿using IPA;
+using IPA;
 using System;
 using IPA.Loader;
 using HarmonyLib;
@@ -39,8 +39,11 @@ namespace SiraUtil
             _zenjectManager = new ZenjectManager();
             PluginInitInjector.AddInjector(typeof(Zenjector), (prev, __, meta) =>
             {
-                if (prev != null) return prev;
-                var zen = new Zenjector(meta.Id);
+                if (prev != null)
+				{
+					return prev;
+				}
+				var zen = new Zenjector(meta.Id);
                 _zenjectManager.Add(zen);
                 return zen;
             });
@@ -64,9 +67,11 @@ namespace SiraUtil
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
         {
-            if (newScene.name == "MenuViewControllers" && !SiraInstaller.ProjectContextWentOff)
-                SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
-        }
+            if (newScene.name == "MenuViewControllers" && !ZenjectManager.ProjectContextWentOff)
+			{
+				SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
+			}
+		}
 
         private IEnumerator BruteForceRestart()
         {

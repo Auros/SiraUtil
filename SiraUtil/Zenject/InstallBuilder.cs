@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Zenject;
 using ModestTree;
 
@@ -11,9 +11,12 @@ namespace SiraUtil.Zenject
         internal object[] Parameters { get; private set; }
 
         internal InstallBuilder() { }
-        internal InstallBuilder(Type type) => Type = type;
-        
-        public InstallBuilder WithParameters(params object[] parameters)
+		internal InstallBuilder(Type type)
+		{
+			Type = type;
+		}
+
+		public InstallBuilder WithParameters(params object[] parameters)
         {
             Parameters = parameters;
             return this;
@@ -39,11 +42,12 @@ namespace SiraUtil.Zenject
 
         internal void Validate()
         {
-            if (Type is null)
-                throw new ArgumentNullException($"{nameof(Type)}", "Registration must have type.");
-            Assert.That(Type.DerivesFrom<IInstaller>(), $"Type must be an IInstaller {Utilities.AssertHit}");
+			Assert.IsNotNull(Type, $"Zenject Registration must have a type. {Utilities.ASSERTHIT}");
+			Assert.That(Type.DerivesFrom<IInstaller>(), $"Type must be an IInstaller {Utilities.ASSERTHIT}");
             if (string.IsNullOrEmpty(Destination))
-                throw new ArgumentNullException($"{nameof(Type)}:{nameof(Destination)}", "Installer registration needs a destination.");
-        }
+			{
+				throw new ArgumentNullException($"{nameof(Type)}:{nameof(Destination)}", "Installer registration needs a destination.");
+			}
+		}
     }
 }

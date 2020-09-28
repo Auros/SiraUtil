@@ -1,4 +1,4 @@
-﻿using Zenject;
+using Zenject;
 
 namespace SiraUtil.Sabers
 {

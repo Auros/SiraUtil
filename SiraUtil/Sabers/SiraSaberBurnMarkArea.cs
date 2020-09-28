@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace SiraUtil.Sabers
             {
                 if (_sabers[i])
                 {
-                    SaberBurnDatum saberBurnDatum = new SaberBurnDatum
+                    var saberBurnDatum = new SaberBurnDatum
                     {
                         saber = _sabers[i],
                         lineRenderer = _lineRenderers[i],
@@ -108,7 +108,7 @@ namespace SiraUtil.Sabers
 
         public void RegisterSaber(Saber saber)
         {
-            SaberBurnDatum newSaberDatum = new SaberBurnDatum
+            var newSaberDatum = new SaberBurnDatum
             {
                 saber = saber,
                 prevBurnMarkPos = default,

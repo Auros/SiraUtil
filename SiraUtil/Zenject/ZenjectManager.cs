@@ -1,4 +1,4 @@
-﻿using Zenject;
+using Zenject;
 using ModestTree;
 using IPA.Loader;
 using System.Linq;
@@ -9,7 +9,8 @@ namespace SiraUtil.Zenject
 {
     internal class ZenjectManager
     {
-        private readonly IDictionary<string, Zenjector> _allZenjectors = new Dictionary<string, Zenjector>(); //object[]
+		internal static bool ProjectContextWentOff { get; set; } = false;
+		private readonly IDictionary<string, Zenjector> _allZenjectors = new Dictionary<string, Zenjector>();
 
         public ZenjectManager()
         {
@@ -21,14 +22,18 @@ namespace SiraUtil.Zenject
         private void PluginManager_PluginEnabled(PluginMetadata plugin, bool _)
         {
             if (_allZenjectors.TryGetValue(plugin.Id, out Zenjector zenjector) && zenjector.AutoControl)
-                zenjector.Enable();
-        }
+			{
+				zenjector.Enable();
+			}
+		}
 
         private void PluginManager_PluginDisabled(PluginMetadata plugin, bool _)
         {
             if (_allZenjectors.TryGetValue(plugin.Id, out Zenjector zenjector) && zenjector.AutoControl)
-                zenjector.Disable();
-        }
+			{
+				zenjector.Disable();
+			}
+		}
 
         internal void Add(Zenjector zenjector)
         {
@@ -42,32 +47,39 @@ namespace SiraUtil.Zenject
 
         private void SiraEvents_PreInstall(object sender, SiraEvents.SceneContextInstalledArgs e)
         {
-            if (!SiraInstaller.ProjectContextWentOff)
-                if (e.Name == "AppCore") // AppCore is the first reported context.
-                    SiraInstaller.ProjectContextWentOff = true;
-                else return;
-            
-            SceneContext context = sender as SceneContext;
+            if (!ProjectContextWentOff)
+			{
+				if (e.Name == "AppCore") // AppCore is the first reported context.
+				{
+					ProjectContextWentOff = true;
+				}
+				else
+				{
+					return;
+				}
+			}
 
-            List<InstallBuilder> builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name).ToList();
+			var context = sender as SceneContext;
+
+            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name).ToList();
             builders.ForEach(x => x.Validate());
 
             // Handle Parameters (Manually Installed)
             var parameterBased = builders.Where(x => x.Parameters != null && x.Parameters.Length > 0);
-            List<InstallerBase> bases = context.NormalInstallers.ToList();
+            var bases = context.NormalInstallers.ToList();
             for (int i = 0; i < parameterBased.Count(); i++)
             {
                 var paramBuilder = parameterBased.ElementAt(i);
 
                 // Configurable Mono Installers requires the Unity Inspector
-                Assert.That(!paramBuilder.Type.DerivesFrom<MonoInstallerBase>(), $"MonoInstallers cannot have parameters due to Zenject limitations. {Utilities.AssertHit}");
+                Assert.That(!paramBuilder.Type.DerivesFrom<MonoInstallerBase>(), $"MonoInstallers cannot have parameters due to Zenject limitations. {Utilities.ASSERTHIT}");
 
                 bases.Add(e.Container.Instantiate(paramBuilder.Type, paramBuilder.Parameters) as InstallerBase);
             }
             context.NormalInstallers = bases;
 
             // Create Mono Installers
-            List<MonoInstaller> monoInstallers = context.Installers.ToList();
+            var monoInstallers = context.Installers.ToList();
             var monos = builders.Where(x => x.Type.IsSubclassOf(typeof(MonoInstallerBase)));
             for (int i = 0; i < monos.Count(); i++)
             {

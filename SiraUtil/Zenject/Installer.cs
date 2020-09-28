@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Zenject;
 using UnityEngine;
 using IPA.Utilities;
@@ -10,17 +10,17 @@ namespace SiraUtil.Zenject
     [Obsolete("Please get the Zenjector class from the Plugin Init Injector")]
     public static class Installer
     {
-        internal readonly static HashSet<Type> appInstallers = new HashSet<Type>();
-        internal readonly static HashSet<Type> menuInstallers = new HashSet<Type>();
-        internal readonly static HashSet<Type> gameCoreSceneSetupInstallers = new HashSet<Type>();
-        internal readonly static HashSet<Type> gameplayCoreSceneSetupInstallers = new HashSet<Type>();
+        internal static readonly HashSet<Type> appInstallers = new HashSet<Type>();
+        internal static readonly HashSet<Type> menuInstallers = new HashSet<Type>();
+        internal static readonly HashSet<Type> gameCoreSceneSetupInstallers = new HashSet<Type>();
+        internal static readonly HashSet<Type> gameplayCoreSceneSetupInstallers = new HashSet<Type>();
 
-        internal readonly static HashSet<ISiraInstaller> appSiraInstallers = new HashSet<ISiraInstaller>();
-        internal readonly static HashSet<ISiraInstaller> menuSiraInstallers = new HashSet<ISiraInstaller>();
-        internal readonly static HashSet<ISiraInstaller> gameCoreSiraInstallers = new HashSet<ISiraInstaller>();
-        internal readonly static HashSet<ISiraInstaller> gameplayCoreSiraInstallers = new HashSet<ISiraInstaller>();
+        internal static readonly HashSet<ISiraInstaller> appSiraInstallers = new HashSet<ISiraInstaller>();
+        internal static readonly HashSet<ISiraInstaller> menuSiraInstallers = new HashSet<ISiraInstaller>();
+        internal static readonly HashSet<ISiraInstaller> gameCoreSiraInstallers = new HashSet<ISiraInstaller>();
+        internal static readonly HashSet<ISiraInstaller> gameplayCoreSiraInstallers = new HashSet<ISiraInstaller>();
 
-        private readonly static HashSet<Type> _installedInstallers = new HashSet<Type>();
+        private static readonly HashSet<Type> _installedInstallers = new HashSet<Type>();
 
         internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Setter SetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetSetter("Container");
         internal static readonly PropertyAccessor<MonoInstallerBase, DiContainer>.Getter AccessDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
@@ -181,7 +181,7 @@ namespace SiraUtil.Zenject
             Plugin.Log.Debug($"   --> Sira Count: {siraInstallers.Count}");
             Plugin.Log.Debug($"   --> Is In App: {(isApp ? "Yes" : "No")}");
             // Convert the main installer to a MonoInstaller base 
-            MonoInstallerBase monoInstaller = source as MonoInstallerBase;
+            var monoInstaller = source as MonoInstallerBase;
 
             // Store its DiContainer reference
             DiContainer container = AccessDiContainer(ref monoInstaller);
@@ -204,7 +204,7 @@ namespace SiraUtil.Zenject
                 {
                     Plugin.Log.Debug("   --> is a MonoInstaller");
                     // Create the mono installer's game object.
-                    MonoInstallerBase injectingInstallerBase = source.gameObject.AddComponent(t) as MonoInstallerBase;
+                    var injectingInstallerBase = source.gameObject.AddComponent(t) as MonoInstallerBase;
 
                     Plugin.Log.Debug("   --> is swapping container");
                     // Replace the container from the mod with the one from the source installer.
@@ -254,13 +254,15 @@ namespace SiraUtil.Zenject
             Container.InjectGameObject(controller.gameObject);
         }
 
-        /// <summary>
-        /// Forcibly binds an instance of a unity component into a DiContainer.
-        /// </summary>
-        /// <typeparam name="T">The type of the binding contract.</typeparam>
-        /// <param name="Container">The container to install the component in.</param>
-        /// <param name="controller">The instance of the component.</param>
-        public static void ForceBindComponent<T>(this DiContainer Container, Component controller)
-            => InjectSpecialInstance<T>(Container, controller);
-    }
+		/// <summary>
+		/// Forcibly binds an instance of a unity component into a DiContainer.
+		/// </summary>
+		/// <typeparam name="T">The type of the binding contract.</typeparam>
+		/// <param name="Container">The container to install the component in.</param>
+		/// <param name="controller">The instance of the component.</param>
+		public static void ForceBindComponent<T>(this DiContainer Container, Component controller)
+		{
+			InjectSpecialInstance<T>(Container, controller);
+		}
+	}
 }

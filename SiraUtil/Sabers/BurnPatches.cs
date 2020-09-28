@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using System.Reflection;
 
 namespace SiraUtil.Sabers
@@ -47,7 +47,6 @@ namespace SiraUtil.Sabers
             harmony.Patch(_obstacleOriginalStart, null, new HarmonyMethod(_obstaclePostfixStart));
             harmony.Patch(_obstacleOriginalOnDisable, new HarmonyMethod(_obstaclePrefixOnDisable));
             harmony.Patch(_obstacleOriginalUpdate, new HarmonyMethod(_obstaclePrefixUpdate));
-            //harmony.Patch(_obstacleOriginalOnDestroy, new HarmonyMethod(_obstaclePrefixOnDestroy));
         }
 
         internal static void Unpatch(Harmony harmony)
@@ -80,13 +79,9 @@ namespace SiraUtil.Sabers
 
             public static bool PrefixCancelMethod(ref SaberBurnMarkArea __instance)
             {
-                if (!(__instance is SiraSaberBurnMarkArea))
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
+				return __instance is SiraSaberBurnMarkArea;
+			}
+		}
 
         internal class BurnSparkPatch
         {
@@ -100,13 +95,9 @@ namespace SiraUtil.Sabers
 
             public static bool PrefixCancelMethod(ref SaberBurnMarkSparkles __instance)
             {
-                if (!(__instance is SiraSaberBurnMarkSparkles))
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
+				return __instance is SiraSaberBurnMarkSparkles;
+			}
+		}
 
         internal class ClashPatch
         {
@@ -120,13 +111,9 @@ namespace SiraUtil.Sabers
 
             public static bool PrefixCancelMethod(ref SaberClashChecker __instance)
             {
-                if (!(__instance is SiraSaberClashChecker))
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
+				return __instance is SiraSaberClashChecker;
+			}
+		}
 
         internal class ObstaclePatch
         {
@@ -140,12 +127,8 @@ namespace SiraUtil.Sabers
 
             public static bool PrefixCancelMethod(ref ObstacleSaberSparkleEffectManager __instance)
             {
-                if (!(__instance is SiraObstacleSaberSparkleEffectManager))
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
+				return __instance is SiraObstacleSaberSparkleEffectManager;
+			}
+		}
     }
 }

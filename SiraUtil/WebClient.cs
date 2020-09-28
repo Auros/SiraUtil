@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Zenject;
 using System.IO;
 using System.Net;
@@ -24,18 +24,25 @@ namespace SiraUtil
 
         internal WebResponse(HttpResponseMessage resp, byte[] content)
         {
+            _content = content;
+            Headers = resp.Headers;
             StatusCode = resp.StatusCode;
             ReasonPhrase = resp.ReasonPhrase;
-            Headers = resp.Headers;
             RequestMessage = resp.RequestMessage;
             IsSuccessStatusCode = resp.IsSuccessStatusCode;
-
-            _content = content;
         }
 
-        public byte[] ContentToBytes() => _content;
-        public string ContentToString() => Encoding.UTF8.GetString(_content);
-        public T ContentToJson<T>()
+		public byte[] ContentToBytes()
+		{
+			return _content;
+		}
+
+		public string ContentToString()
+		{
+			return Encoding.UTF8.GetString(_content);
+		}
+
+		public T ContentToJson<T>()
         {
             return JsonConvert.DeserializeObject<T>(ContentToString());
         }
@@ -83,14 +90,10 @@ namespace SiraUtil
         {
             var response = await SendAsync(HttpMethod.Get, url, token, authHeader: authHeader);
 
-            if (response.IsSuccessStatusCode)
-            {
-                return response.ContentToBytes();
-            }
-            return null;
-        }
+			return response.IsSuccessStatusCode ? response.ContentToBytes() : null;
+		}
 
-        internal async Task<WebResponse> SendAsync(HttpMethod methodType, string url, CancellationToken token, object postData = null, AuthenticationHeaderValue authHeader = null, IProgress<double> progress = null)
+		internal async Task<WebResponse> SendAsync(HttpMethod methodType, string url, CancellationToken token, object postData = null, AuthenticationHeaderValue authHeader = null, IProgress<double> progress = null)
         {
             var req = new HttpRequestMessage(methodType, url);
             req.Headers.Authorization = authHeader;
@@ -99,8 +102,11 @@ namespace SiraUtil
                 req.Content = new StringContent(JsonConvert.SerializeObject(postData), Encoding.UTF8, "application/json");
             }
             var resp = await _client.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
-            if (token.IsCancellationRequested) throw new TaskCanceledException();
-            using (var memoryStream = new MemoryStream())
+            if (token.IsCancellationRequested)
+			{
+				throw new TaskCanceledException();
+			}
+			using (var memoryStream = new MemoryStream())
             using (var stream = await resp.Content.ReadAsStreamAsync())
             {
                 var buffer = new byte[8192];
@@ -110,9 +116,11 @@ namespace SiraUtil
                 progress?.Report(0);
                 while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
-                    if (token.IsCancellationRequested) throw new TaskCanceledException();
-
-                    if (contentLength != null)
+                    if (token.IsCancellationRequested)
+					{
+						throw new TaskCanceledException();
+					}
+					if (contentLength != null)
                     {
                         progress?.Report(totalRead / (double)contentLength);
                     }

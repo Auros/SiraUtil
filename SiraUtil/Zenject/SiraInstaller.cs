@@ -1,21 +1,22 @@
-﻿using System;
+using System;
 using Zenject;
-using SiraUtil.Tools;
 using UnityEngine;
+using SiraUtil.Tools;
 
 namespace SiraUtil.Zenject
 {
     internal class SiraInstaller : Installer<Config, SiraInstaller>
     {
-        internal static bool ProjectContextWentOff { get; set; } = false;
 
         private readonly Config _config;
-        
-        public SiraInstaller(Config config) => _config = config;
 
-        public override void InstallBindings()
+		public SiraInstaller(Config config)
+		{
+			_config = config;
+		}
+
+		public override void InstallBindings()
         {
-            ProjectContextWentOff = true;
             Container.BindInstance(_config).AsSingle().NonLazy();
             if (_config.FPFCToggle.Enabled)
             {
@@ -51,22 +52,6 @@ namespace SiraUtil.Zenject
                 Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
                 Container.BindInterfacesTo<SongControl>().AsSingle().NonLazy();
             }
-        }
-    }
-
-    internal class SiraMenuTestInstaller : MonoInstaller
-    {
-        public override void InstallBindings()
-        {
-            Plugin.Log.Info("what? how?");
-        }
-    }
-
-    internal class SiraMenuTestInstaller2 : global::Zenject.Installer
-    {
-        public override void InstallBindings()
-        {
-            Plugin.Log.Info("what? how?");
         }
     }
 }

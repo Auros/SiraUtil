@@ -1,4 +1,4 @@
-﻿using Zenject;
+using Zenject;
 using UnityEngine;
 using System.Collections;
 
@@ -36,8 +36,8 @@ namespace SiraUtil.Sabers
             // Create and populate the saber object
             _saber = gameObject.AddComponent<Saber>();
             Utilities.SaberObjectType(ref _saber) = _saberTypeObject;
-            GameObject top = new GameObject("Top");
-            GameObject bottom = new GameObject("Bottom");
+            var top = new GameObject("Top");
+            var bottom = new GameObject("Bottom");
             top.transform.SetParent(transform);
             bottom.transform.SetParent(transform);
             top.transform.position = new Vector3(0f, 0f, 1f);
@@ -91,17 +91,17 @@ namespace SiraUtil.Sabers
         /// <summary>
         /// Changes the type and color of the saber.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">The type of the new saber type.</param>
         public void SetType(SaberType type)
         {
             _saber.SetType(type, _colorManager);
         }
 
-        /// <summary>
-        /// Changes the type of the SiraSaber.
-        /// </summary>
-        /// <param name="type"></param>
-        public void ChangeType(SaberType type)
+		/// <summary>
+		/// Changes the type of the SiraSaber.
+		/// </summary>
+		/// <param name="type">The type of the new saber type.</param>
+		public void ChangeType(SaberType type)
         {
             _saber.ChangeType(type);
         }
@@ -140,15 +140,18 @@ namespace SiraUtil.Sabers
         private IEnumerator ChangeColorCoroutine(Color color)
         {
             yield return new WaitForSecondsRealtime(0.05f);
-            if (_saber.isActiveAndEnabled) _saber.ChangeColorInstant(color);
-            _siraSaberEffectManager.ChangeColor(_saber);
+            if (_saber.isActiveAndEnabled)
+			{
+				_saber.ChangeColorInstant(color);
+			}
+			_siraSaberEffectManager.ChangeColor(_saber);
             _changeColorCoroutine = null;
         }
 
         /// <summary>
         /// Set the Saber that lies in this SiraSaber. Really should only be used when the saber registered in this SiraSaber is destroyed or overridden.
         /// </summary>
-        /// <param name="saber"></param>
+        /// <param name="saber">The new saber.</param>
         public void SetSaber(Saber saber)
         {
             _saber = saber;
@@ -179,7 +182,7 @@ namespace SiraUtil.Sabers
             /// <returns></returns>
             public SiraSaber Create()
             {
-                GameObject saberObject = new GameObject("SiraUtil Saber");
+                var saberObject = new GameObject("SiraUtil Saber");
                 SiraSaber sira = saberObject.AddComponent<SiraSaber>();
                 _container.InjectGameObject(saberObject);
                 return sira;
