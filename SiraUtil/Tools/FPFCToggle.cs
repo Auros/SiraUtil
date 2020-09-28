@@ -53,8 +53,10 @@ namespace SiraUtil.Tools
         {
             if ((setupData == _menuScenesTransitionSetupDataSO || Container.TryResolve<IDifficultyBeatmap>() != null) && Enabled)
             {
-                Toggle(!true);
-                Toggle(!false);
+                Toggle(!Enabled);
+                Toggle(!Enabled);
+
+                
             }
         }
 
@@ -71,6 +73,8 @@ namespace SiraUtil.Tools
                 _firstPersonFlyingController.SetField("_moveSensitivity", _moveSensitivity);
                 _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").fieldOfView = _cameraFOV;
             }
+            _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = false;
+            _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = true;
 
             _vrInputModule.enabled = state;
             _vrInputModule.gameObject.SetActive(true);

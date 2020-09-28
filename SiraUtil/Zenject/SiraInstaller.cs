@@ -1,6 +1,7 @@
 ﻿using System;
 using Zenject;
 using SiraUtil.Tools;
+using UnityEngine;
 
 namespace SiraUtil.Zenject
 {
@@ -22,7 +23,7 @@ namespace SiraUtil.Zenject
                 Container.BindInstance(_config.FPFCToggle.CameraFOV).WithId("CameraFOV").WhenInjectedInto<FPFCToggle>();
                 Container.BindInstance(_config.FPFCToggle.ToggleKeyCode).WithId("ToggleCode").WhenInjectedInto<FPFCToggle>();
                 Container.BindInstance(_config.FPFCToggle.MoveSensitivity).WithId("MoveSensitivity").WhenInjectedInto<FPFCToggle>();
-                Container.Bind<FPFCToggle>().FromNewComponentOnRoot().AsSingle().NonLazy();
+                Container.Bind<FPFCToggle>().FromNewComponentOn(new GameObject("FPFCToggle")).AsSingle().NonLazy();
             }
             if (_config.Localization.Enabled)
             {
