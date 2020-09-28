@@ -7,7 +7,7 @@ namespace SiraUtil.Zenject
 {
     internal class SiraInstaller : Installer<Config, SiraInstaller>
     {
-        internal static bool ProjectContextWentOff { get; private set; } = false;
+        internal static bool ProjectContextWentOff { get; set; } = false;
 
         private readonly Config _config;
         

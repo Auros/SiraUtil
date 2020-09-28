@@ -11,6 +11,11 @@ namespace SiraUtil.Zenject.HarmonyPatches
     {
         private static readonly MethodInfo _containerPatch = SymbolExtensions.GetMethodInfo(() => PatchContainer(null));
 
+        internal static void Prefix()
+        {
+            SiraInstaller.ProjectContextWentOff = true;
+        }
+
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             List<CodeInstruction> codes = instructions.ToList();
