@@ -43,7 +43,7 @@ namespace SiraUtil.Zenject
         private void SiraEvents_PreInstall(object sender, SiraEvents.SceneContextInstalledArgs e)
         {
             if (!SiraInstaller.ProjectContextWentOff)
-                if (e.Name == "AppCore")
+                if (e.Name == "AppCore") // AppCore is the first reported context.
                     SiraInstaller.ProjectContextWentOff = true;
                 else return;
             
@@ -61,7 +61,7 @@ namespace SiraUtil.Zenject
 
                 // Configurable Mono Installers requires the Unity Inspector
                 Assert.That(!paramBuilder.Type.DerivesFrom<MonoInstallerBase>(), $"MonoInstallers cannot have parameters due to Zenject limitations. {Utilities.AssertHit}");
-                Plugin.Log.Info("Instantiating Parameter Installer");
+
                 bases.Add(e.Container.Instantiate(paramBuilder.Type, paramBuilder.Parameters) as InstallerBase);
             }
             context.NormalInstallers = bases;

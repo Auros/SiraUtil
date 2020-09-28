@@ -55,8 +55,6 @@ namespace SiraUtil.Tools
             {
                 Toggle(!Enabled);
                 Toggle(!Enabled);
-
-                
             }
         }
 
