@@ -1,14 +1,14 @@
-﻿{
+{
   "$schema": "https://raw.githubusercontent.com/beat-saber-modding-group/BSIPA-MetadataFileSchema/master/Schema.json",
   "id": "SiraUtil",
   "name": "SiraUtil",
   "author": "Auros",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Utility library/mod for Beat Saber modders.",
   "gameVersion": "1.11.1",
   "dependsOn": {
-    "BSIPA": "^4.0.5"
+    "BSIPA": "^4.0.0"
   },
-  "loadBefore": [ "BS Utils" ],
+  "loadBefore": [ "Ini Parser", "RuntimeUnityEditor.Core" ],
   "features": []
 }

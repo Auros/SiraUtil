@@ -16,8 +16,8 @@ namespace SiraUtil.Sabers
 
         public SiraObstacleSaberSparkleEffectManager()
         {
-            _sparkleEndEvent = Utilities.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidEndEvent");
-            _sparkleStartEvent = Utilities.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidStartEvent");
+            _sparkleEndEvent = Extensions.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidEndEvent");
+            _sparkleStartEvent = Extensions.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidStartEvent");
             ObstacleSaberSparkleEffectManager original = GetComponent<ObstacleSaberSparkleEffectManager>();
             foreach (FieldInfo info in original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
             {

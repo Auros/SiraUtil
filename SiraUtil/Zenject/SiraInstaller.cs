@@ -5,10 +5,10 @@ using SiraUtil.Tools;
 
 namespace SiraUtil.Zenject
 {
-    internal class SiraInstaller : Installer<Config, SiraInstaller>
-    {
+	internal class SiraInstaller : Installer<Config, SiraInstaller>
+	{
 
-        private readonly Config _config;
+		private readonly Config _config;
 
 		public SiraInstaller(Config config)
 		{
@@ -16,26 +16,25 @@ namespace SiraUtil.Zenject
 		}
 
 		public override void InstallBindings()
-        {
-            Container.BindInstance(_config).AsSingle().NonLazy();
-            if (_config.FPFCToggle.Enabled)
-            {
-                Container.BindInstance(_config.FPFCToggle.Enabled).WithId("FPFCEnabled").WhenInjectedInto<FPFCToggle>();
-                Container.BindInstance(_config.FPFCToggle.CameraFOV).WithId("CameraFOV").WhenInjectedInto<FPFCToggle>();
-                Container.BindInstance(_config.FPFCToggle.ToggleKeyCode).WithId("ToggleCode").WhenInjectedInto<FPFCToggle>();
-                Container.BindInstance(_config.FPFCToggle.MoveSensitivity).WithId("MoveSensitivity").WhenInjectedInto<FPFCToggle>();
-                Container.Bind<FPFCToggle>().FromNewComponentOn(new GameObject("FPFCToggle")).AsSingle().NonLazy();
-            }
-            if (_config.Localization.Enabled)
-            {
-                Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
-                Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
-            }
-        }
-    }
-
-    internal class SiraGameInstaller : global::Zenject.Installer
-    {
+		{
+			Container.BindInstance(_config).AsSingle().NonLazy();
+			if (_config.FPFCToggle.Enabled)
+			{
+				Container.BindInstance(_config.FPFCToggle.Enabled).WithId("FPFCEnabled").WhenInjectedInto<FPFCToggle>();
+				Container.BindInstance(_config.FPFCToggle.CameraFOV).WithId("CameraFOV").WhenInjectedInto<FPFCToggle>();
+				Container.BindInstance(_config.FPFCToggle.ToggleKeyCode).WithId("ToggleCode").WhenInjectedInto<FPFCToggle>();
+				Container.BindInstance(_config.FPFCToggle.MoveSensitivity).WithId("MoveSensitivity").WhenInjectedInto<FPFCToggle>();
+				Container.Bind<FPFCToggle>().FromNewComponentOn(new GameObject("FPFCToggle")).AsSingle().NonLazy();
+			}
+			if (_config.Localization.Enabled)
+			{
+				Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
+				Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
+			}
+		}
+	}
+	internal class SiraGameInstaller : Installer
+	{
         private readonly Config _config;
 
         public SiraGameInstaller(Config config)

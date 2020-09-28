@@ -163,13 +163,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accessors.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Events\SiraEvents.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Localizer.cs" />
-    <Compile Include="Sabers\ExtraSabers.cs" />
     <Compile Include="Sabers\IColorable.cs" />
     <Compile Include="Sabers\ISaberRegistrar.cs" />
-    <Compile Include="Sabers\MonoBehaviourSaberModelController.cs" />
     <Compile Include="Sabers\BurnPatches.cs" />
     <Compile Include="Sabers\SaberBindPatch.cs" />
     <Compile Include="Sabers\SaberModelProvider.cs" />
@@ -185,16 +185,9 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="WebClient.cs" />
     <Compile Include="Zenject\HarmonyPatches\SiraContextDecorator.cs" />
-    <Compile Include="Zenject\HarmonyPatches\GameplayCore_Installer.cs" />
-    <Compile Include="Zenject\HarmonyPatches\GameCore_Installer.cs" />
-    <Compile Include="Zenject\HarmonyPatches\App_Installer.cs" />
-    <Compile Include="Zenject\HarmonyPatches\Menu_Installer.cs" />
     <Compile Include="Zenject\InstallBuilder.cs" />
-    <Compile Include="Zenject\Installer.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Zenject\ISiraInstaller.cs" />
-    <Compile Include="Zenject\RequiresInstallerAttribute.cs" />
     <Compile Include="Zenject\SiraInstaller.cs" />
     <Compile Include="Zenject\ZenjectManager.cs" />
     <Compile Include="Zenject\Zenjector.cs" />

@@ -111,7 +111,7 @@ namespace SiraUtil.Sabers
             private static DiContainer GetContainer(GameCoreSceneSetup gameCoreSceneSetup)
             {
                 MonoInstallerBase monoInstaller = gameCoreSceneSetup;
-                DiContainer container = Zenject.Installer.AccessDiContainer(ref monoInstaller);
+                DiContainer container = Accessors.GetDiContainer(ref monoInstaller);
                 return container;
             }
         }
