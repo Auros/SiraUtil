@@ -48,17 +48,16 @@ namespace SiraUtil.Zenject
             List<InstallBuilder> builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name).ToList();
             builders.ForEach(x => x.Validate());
 
-
             // Handle Parameters (Manually Installed)
             var parameterBased = builders.Where(x => x.Parameters != null && x.Parameters.Length > 0);
             List<InstallerBase> bases = context.NormalInstallers.ToList();
             for (int i = 0; i < parameterBased.Count(); i++)
             {
-
                 var paramBuilder = parameterBased.ElementAt(i);
-                Plugin.Log.Info("Installing installer with parameters: " + paramBuilder.Type.Name);
+
                 // Configurable Mono Installers requires the Unity Inspector
                 Assert.That(!paramBuilder.Type.DerivesFrom<MonoInstallerBase>(), $"MonoInstallers cannot have parameters due to Zenject limitations. {Utilities.AssertHit}");
+
                 bases.Add(e.Container.Instantiate(paramBuilder.Type, paramBuilder.Parameters) as InstallerBase);
             }
             context.NormalInstallers = bases;
@@ -77,8 +76,6 @@ namespace SiraUtil.Zenject
                 .ToList().ForEach(x =>
                     context.AddNormalInstallerType(x.Type)
             );
-
-            Plugin.Log.Info($"{e.Name}");
         }
 
         #endregion
