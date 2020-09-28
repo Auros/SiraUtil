@@ -4,6 +4,7 @@ using IPA.Loader;
 using HarmonyLib;
 using UnityEngine;
 using System.Linq;
+using SiraUtil.Sabers;
 using SiraUtil.Zenject;
 using IPA.Config.Stores;
 using System.Reflection;
@@ -49,14 +50,16 @@ namespace SiraUtil
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
+            zenjector.OnGame<SiraSaberInstaller>();
             zenjector.OnGame<SiraGameInstaller>();
         }
 
         [OnEnable]
         public void OnEnable()
         {
-            Harmony.PatchAll(Assembly.GetExecutingAssembly());
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+            Harmony.PatchAll(Assembly.GetExecutingAssembly());
+            BurnPatches.Patch(Harmony);
         }
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
@@ -74,8 +77,9 @@ namespace SiraUtil
         [OnDisable]
         public void OnDisable()
         {
-            Harmony.UnpatchAll();
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+            BurnPatches.Unpatch(Harmony);
+            Harmony.UnpatchAll();
         }
     }
 }
