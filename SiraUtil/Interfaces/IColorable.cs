@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-namespace SiraUtil.Sabers
+namespace SiraUtil.Interfaces
 {
     /// <summary>
     /// An interface which marks something as colorable and allows its color to be changed easily. Mainly used to increase intermod compatibility.

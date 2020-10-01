@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Reflection;
+using SiraUtil.Interfaces;
 using System.Collections.Generic;
 
 namespace SiraUtil.Sabers

@@ -2,7 +2,7 @@ using System;
 using Zenject;
 using UnityEngine;
 using IPA.Utilities;
-using SiraUtil.Sabers;
+using SiraUtil.Interfaces;
 using System.Threading.Tasks;
 
 namespace SiraUtil

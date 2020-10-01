@@ -168,8 +168,8 @@
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Localizer.cs" />
-    <Compile Include="Sabers\IColorable.cs" />
-    <Compile Include="Sabers\ISaberRegistrar.cs" />
+    <Compile Include="Interfaces\IColorable.cs" />
+    <Compile Include="Interfaces\ISaberRegistrar.cs" />
     <Compile Include="Sabers\BurnPatches.cs" />
     <Compile Include="Sabers\SaberBindPatch.cs" />
     <Compile Include="Sabers\SaberModelProvider.cs" />

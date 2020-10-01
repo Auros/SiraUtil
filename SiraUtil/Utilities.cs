@@ -4,9 +4,9 @@ using Zenject;
 using System.IO;
 using HarmonyLib;
 using UnityEngine;
-using SiraUtil.Sabers;
 using System.Reflection;
 using System.Collections;
+using SiraUtil.Interfaces;
 using System.Reflection.Emit;
 using System.Collections.Generic;
 

@@ -1,4 +1,4 @@
-﻿namespace SiraUtil.Sabers
+namespace SiraUtil.Interfaces
 {
     public interface ISaberRegistrar
     {
