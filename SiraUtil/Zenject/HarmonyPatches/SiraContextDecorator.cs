@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Zenject;
 using HarmonyLib;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace SiraUtil.Zenject.HarmonyPatches
         internal static void Prefix(ref SceneContext __instance, ref List<string> ____contractNames,
             ref List<MonoInstaller> ____installerPrefabs, ref List<MonoInstaller> ____monoInstallers,
             ref List<global::Zenject.Installer> ____normalInstallers, ref List<Type> ____normalInstallerTypes,
-            ref List<ScriptableObjectInstaller> ____scriptableObjectInstallers)
+            ref List<ScriptableObjectInstaller> ____scriptableObjectInstallers, ref List<SceneDecoratorContext> ____decoratorContexts)
         {
             var sourceNames =
                 ____contractNames.Concat(
@@ -21,7 +21,8 @@ namespace SiraUtil.Zenject.HarmonyPatches
                 ____monoInstallers.Select(b => b.GetType().Name).Concat(
                 ____normalInstallers.Select(c => c.GetType().Name).Concat(
                 ____normalInstallerTypes.Select(d => d.Name).Concat(
-                ____scriptableObjectInstallers.Select(e => e.GetType().Name))))));
+                ____scriptableObjectInstallers.Select(e => e.GetType().Name).Concat(
+				____decoratorContexts.Select(f => f.DecoratedContractName)))))));
 
             for (int i = 0; i < sourceNames.Count(); i++)
             {

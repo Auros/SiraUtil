@@ -58,7 +58,6 @@ namespace SiraUtil.Zenject
 					return;
 				}
 			}
-
 			var context = sender as SceneContext;
 
             var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name).ToList();
