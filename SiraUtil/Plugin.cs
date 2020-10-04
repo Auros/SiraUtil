@@ -60,7 +60,8 @@ namespace SiraUtil
         [OnEnable]
         public void OnEnable()
         {
-            SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+			Plugin.Log.Info("SiraUtil Enabling");
+			SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
             BurnPatches.Patch(Harmony);
         }
@@ -82,9 +83,10 @@ namespace SiraUtil
         [OnDisable]
         public void OnDisable()
         {
-            SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+			Plugin.Log.Info("SiraUtil Disabling");
+			SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
             BurnPatches.Unpatch(Harmony);
-            Harmony.UnpatchAll();
+            Harmony.UnpatchAll("dev.auros.sirautil");
         }
     }
 }
