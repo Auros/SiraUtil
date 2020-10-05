@@ -17,11 +17,11 @@ namespace SiraUtil.Zenject.HarmonyPatches
         {
             var sourceNames =
                 ____contractNames.Concat(
-                ____installerPrefabs.Select(a => a.GetType().Name).Concat(
-                ____monoInstallers.Select(b => b.GetType().Name).Concat(
-                ____normalInstallers.Select(c => c.GetType().Name).Concat(
-                ____normalInstallerTypes.Select(d => d.Name).Concat(
-                ____scriptableObjectInstallers.Select(e => e.GetType().Name).Concat(
+                ____installerPrefabs.Select(a => a.GetType().FullName).Concat(
+                ____monoInstallers.Select(b => b.GetType().FullName).Concat(
+                ____normalInstallers.Select(c => c.GetType().FullName).Concat(
+                ____normalInstallerTypes.Select(d => d.FullName).Concat(
+                ____scriptableObjectInstallers.Select(e => e.GetType().FullName).Concat(
 				____decoratorContexts.Select(f => f.DecoratedContractName)))))));
 
             for (int i = 0; i < sourceNames.Count(); i++)
