@@ -1,3 +1,4 @@
+using System;
 using Zenject;
 using System.Linq;
 using UnityEngine;
@@ -21,12 +22,12 @@ namespace SiraUtil.Tools
         [Inject]
         public void Construct([Inject(Id = "FPFCEnabled")] bool fpfcEnabled, [Inject(Id = "ToggleCode")] KeyCode toggleCode, [Inject(Id = "CameraFOV")] float cameraFOV, [Inject(Id = "MoveSensitivity")] float moveSensitivity, GameScenesManager gameScenesManager, MenuScenesTransitionSetupDataSO menuScenesTransitionSetupDataSO)
         {
-            Enabled = fpfcEnabled;
             _cameraFOV = cameraFOV;
             _toggleCode = toggleCode;
             _moveSensitivity = moveSensitivity;
             _gameScenesManager = gameScenesManager;
             _menuScenesTransitionSetupDataSO = menuScenesTransitionSetupDataSO;
+            Enabled = fpfcEnabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
         }
 
         protected void Start()
