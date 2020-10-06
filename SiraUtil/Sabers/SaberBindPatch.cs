@@ -1,10 +1,12 @@
 using Xft;
 using Zenject;
+using ModestTree;
 using HarmonyLib;
 using System.Linq;
 using UnityEngine;
 using IPA.Utilities;
 using System.Reflection;
+using SiraUtil.Interfaces;
 using System.Reflection.Emit;
 using System.Collections.Generic;
 
@@ -56,19 +58,19 @@ namespace SiraUtil.Sabers
             {
                 var container = GetContainer(__instance);
 
-                var topProvider = SaberModelProvider.providers.OrderByDescending(q => q.Priority).FirstOrDefault();
-                if (topProvider != null)
+				var providers = container.Resolve<List<IModelProvider>>().Where(x => x.GetType().DerivesFrom(typeof(ISaberModelController)));
+				var topProvider = providers.OrderByDescending(q => q.Priority).FirstOrDefault();
+				if (topProvider is ISaberModelController modelController)
                 {
-                    if (topProvider.ModelController is MonoBehaviour mbtp)
+                    if (modelController is MonoBehaviour mbtp)
 					{
 						container.Bind<ISaberModelController>().FromComponentInNewPrefab(mbtp).AsTransient();
 					}
 					else
 					{
-						container.Bind<ISaberModelController>().FromInstance(topProvider.ModelController).AsTransient();
+						container.Bind<ISaberModelController>().FromInstance(modelController).AsTransient();
 					}
 				}
-                
             }
 
             public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -97,12 +99,13 @@ namespace SiraUtil.Sabers
 
             private static void ConditionalModelControllerBind(GameCoreSceneSetup gameCoreSceneSetup)
             {
-                if (SaberModelProvider.providers.Count == 0)
+				var container = GetContainer(gameCoreSceneSetup);
+				var providers = container.Resolve<List<IModelProvider>>().Where(x => x.GetType().DerivesFrom(typeof(ISaberModelController)));
+				if (providers.Count() == 0)
                 {
                     var modelController = gameCoreSceneSetup.GetField<BasicSaberModelController, GameCoreSceneSetup>("_basicSaberModelControllerPrefab");
                     if (modelController != null)
                     {
-                        var container = GetContainer(gameCoreSceneSetup);
                         container.Bind<ISaberModelController>().FromComponentInNewPrefab(modelController).AsTransient();
                     }
                 }

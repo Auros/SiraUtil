@@ -171,12 +171,12 @@
     <Compile Include="Config.cs" />
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Interfaces\IModelProvider.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="Interfaces\IColorable.cs" />
     <Compile Include="Interfaces\ISaberRegistrar.cs" />
     <Compile Include="Sabers\BurnPatches.cs" />
     <Compile Include="Sabers\SaberBindPatch.cs" />
-    <Compile Include="Sabers\SaberModelProvider.cs" />
     <Compile Include="Sabers\SiraObstacleSaberSparkleEffectManager.cs" />
     <Compile Include="Sabers\SiraSaberBurnMarkArea.cs" />
     <Compile Include="Sabers\SiraSaberBurnMarkSparkles.cs" />

@@ -2,6 +2,7 @@ using System;
 using Zenject;
 using UnityEngine;
 using SiraUtil.Tools;
+using SiraUtil.Interfaces;
 
 namespace SiraUtil.Zenject
 {
@@ -28,8 +29,16 @@ namespace SiraUtil.Zenject
 				Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
 				Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
 			}
+
+			// Make Zenject know this is a list
+			Container.Bind<IModelProvider>().To<DummyProviderA>().AsSingle();
+			Container.Bind<IModelProvider>().To<DummyProviderB>().AsSingle();
 		}
+
+		private class DummyProviderA : IModelProvider { public int Priority => -9999; }
+		private class DummyProviderB : IModelProvider { public int Priority => -9999; }
 	}
+
 	internal class SiraGameInstaller : Installer
 	{
         private readonly Config _config;
