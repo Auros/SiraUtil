@@ -201,6 +201,7 @@
     <None Include=".editorconfig" />
     <None Include="Directory.Build.props" />
     <None Include="Directory.Build.targets" />
+    <EmbeddedResource Include="Resources\master_oct7-2020.tsv" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

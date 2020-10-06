@@ -1,4 +1,4 @@
-﻿using Polyglot;
+using Polyglot;
 using UnityEngine;
 using System.Collections.Generic;
 using IPA.Config.Stores.Converters;
@@ -47,7 +47,7 @@ namespace SiraUtil
 
         public class LocalizationOptions
         {
-            public virtual bool Enabled { get; set; } = false;
+            public virtual bool Enabled { get; set; } = true;
 
             [NonNullable, UseConverter(typeof(DictionaryConverter<LocalizationSource>))]
             public virtual Dictionary<string, LocalizationSource> Sources { get; set; } = new Dictionary<string, LocalizationSource>();

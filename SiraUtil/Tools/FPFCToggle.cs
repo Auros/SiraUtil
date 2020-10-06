@@ -11,6 +11,7 @@ namespace SiraUtil.Tools
     {
         public bool Enabled { get; private set; } = false;
 
+		private bool _start;
         private float _cameraFOV;
         private KeyCode _toggleCode;
         private float _moveSensitivity;
@@ -27,7 +28,7 @@ namespace SiraUtil.Tools
             _moveSensitivity = moveSensitivity;
             _gameScenesManager = gameScenesManager;
             _menuScenesTransitionSetupDataSO = menuScenesTransitionSetupDataSO;
-            Enabled = fpfcEnabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
+            _start = Enabled = fpfcEnabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
         }
 
         protected void Start()
@@ -44,6 +45,11 @@ namespace SiraUtil.Tools
         {
             if (Input.GetKeyDown(_toggleCode))
             {
+				if (!_start)
+				{
+					_start = true;
+					return;
+				}
                 Toggle(!Enabled);
             }
         }

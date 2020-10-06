@@ -1,4 +1,5 @@
-﻿using Zenject;
+using System;
+using Zenject;
 using Polyglot;
 using System.IO;
 using HarmonyLib;
@@ -27,7 +28,7 @@ namespace SiraUtil
 
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            var codes = instructions.ToList();
 
             for (int i = 0; i < codes.Count; i++)
             {
@@ -42,12 +43,23 @@ namespace SiraUtil
         }
     }
 
-    public class Localizer : IInitializable
+	[HarmonyPatch(typeof(UnityEngine.Debug), "LogWarning", argumentTypes: new Type[] { typeof(object) } )]
+	internal static class RemoveLocalizationWarningLog
+	{
+		internal static bool Prefix(ref object message)
+		{
+			return !message.ToString().StartsWith("Could not find key") || Environment.GetCommandLineArgs().Contains("--siralog");
+		}
+	}
+
+
+	public class Localizer : IInitializable, ILateDisposable
     {
         private static readonly Dictionary<string, LocalizationAsset> _lockedAssetCache = new Dictionary<string, LocalizationAsset>();
 
         private readonly Config _config;
         private readonly WebClient _webClient;
+		private LocalizationAsset _siraLocalizationAsset;
 
         public Localizer(Config config, WebClient webClient)
         {
@@ -57,9 +69,8 @@ namespace SiraUtil
 
         public async void Initialize()
         {
-#if DEBUG
-            Stopwatch stopwatch = Stopwatch.StartNew();
-#endif
+			_siraLocalizationAsset = AddLocalizationSheetFromAssembly("SiraUtil.Resources.master_oct7-2020.tsv", GoogleDriveDownloadFormat.TSV, true);
+			var stopwatch = Stopwatch.StartNew();
             int successCount = 0;
             foreach (var source in _config.Localization.Sources.Where(s => s.Value.Enabled == true))
             {
@@ -70,9 +81,9 @@ namespace SiraUtil
                     {
                         if (!_lockedAssetCache.TryGetValue(source.Key, out LocalizationAsset asset))
                         {
-                            using (MemoryStream ms = new MemoryStream(response.ContentToBytes()))
+                            using (var ms = new MemoryStream(response.ContentToBytes()))
                             {
-                                using (StreamReader reader = new StreamReader(ms))
+                                using (var reader = new StreamReader(ms))
                                 {
                                     asset = new LocalizationAsset
                                     {
@@ -98,10 +109,8 @@ namespace SiraUtil
                     Plugin.Log.Warn($"Could not fetch localization data from {source.Key}");
                 }
             }
-#if DEBUG
             stopwatch.Stop();
-            Plugin.Log.Info($"Took {stopwatch.Elapsed.TotalSeconds} seconds to download, parse, and load {successCount} localization sheets.");
-#endif
+            Plugin.Log.Sira($"Took {stopwatch.Elapsed.TotalSeconds} seconds to download, parse, and load {successCount} localization sheets.");
             CheckLanguages();
             /*List<string> keys = LocalizationImporter.GetKeys();
 
@@ -128,7 +137,7 @@ namespace SiraUtil
         public void CheckLanguages()
         {
 #if DEBUG
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            var stopwatch = Stopwatch.StartNew();
 #endif
             var supported = Localization.Instance.GetField<List<Language>, Localization>("supportedLanguages");
             FieldInfo field = typeof(LocalizationImporter).GetField("languageStrings", BindingFlags.NonPublic | BindingFlags.Static);
@@ -157,15 +166,17 @@ namespace SiraUtil
             stopwatch.Stop();
             Plugin.Log.Info($"Took {stopwatch.Elapsed:c} to recalculate languages.");
 #endif
-
+			Localization.Instance.InvokeOnLocalize();
         }
 
         public void AddLocalizationSheet(LocalizationAsset localizationAsset)
         {
             var loc = _lockedAssetCache.Where(x => x.Value == localizationAsset || x.Value.TextAsset.text == localizationAsset.TextAsset.text).FirstOrDefault();
             if (loc.Equals(default(KeyValuePair<string, LocalizationAsset>)))
-                return;
-            Localization.Instance.GetField<List<LocalizationAsset>, Localization>("inputFiles").Add(localizationAsset);
+			{
+				return;
+			}
+			Localization.Instance.GetField<List<LocalizationAsset>, Localization>("inputFiles").Add(localizationAsset);
             LocalizationImporter.Refresh();
         }
 
@@ -185,14 +196,16 @@ namespace SiraUtil
 
         public LocalizationAsset AddLocalizationSheet(string localizationAsset, GoogleDriveDownloadFormat type, string id, bool addToPolyglot = true)
         {
-            LocalizationAsset asset = new LocalizationAsset
+            var asset = new LocalizationAsset
             {
                 Format = type,
                 TextAsset = new TextAsset(localizationAsset)
             };
             if (!_lockedAssetCache.ContainsKey(id))
-                _lockedAssetCache.Add(id, asset);
-            if (addToPolyglot)
+			{
+				_lockedAssetCache.Add(id, asset);
+			}
+			if (addToPolyglot)
             {
                 AddLocalizationSheet(asset);
             }
@@ -205,8 +218,15 @@ namespace SiraUtil
             string content = Utilities.GetResourceContent(assembly, path);
             var locSheet = AddLocalizationSheet(content, type, path, addToPolyglot);
             if (!_lockedAssetCache.ContainsKey(path))
-                _lockedAssetCache.Add(path, locSheet);
-            return locSheet;
+			{
+				_lockedAssetCache.Add(path, locSheet);
+			}
+			return locSheet;
         }
-    }
+
+		public void LateDispose()
+		{
+			RemoveLocalizationSheet(_siraLocalizationAsset);
+		}
+	}
 }

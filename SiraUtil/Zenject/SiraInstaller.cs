@@ -2,7 +2,6 @@ using System;
 using Zenject;
 using UnityEngine;
 using SiraUtil.Tools;
-using System.Linq;
 
 namespace SiraUtil.Zenject
 {

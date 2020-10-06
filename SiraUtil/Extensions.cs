@@ -1,6 +1,7 @@
 using System;
 using Zenject;
 using UnityEngine;
+using System.Linq;
 using IPA.Utilities;
 using SiraUtil.Interfaces;
 using System.Threading.Tasks;
@@ -110,6 +111,14 @@ namespace SiraUtil
 		public static void NullCheck(this IPA.Logging.Logger logger, object toCheck)
 		{
 			logger.Info(toCheck != null ? $"{toCheck.GetType().Name} is not null." : "Object is null");
+		}
+
+		internal static void Sira(this IPA.Logging.Logger logger, string message)
+		{
+			if (Environment.GetCommandLineArgs().Contains("--siralog"))
+			{
+				logger.Debug(message);
+			}
 		}
 
 		public static TDel GetEventHandlers<TTarget, TDel>(this TTarget target, string name)
