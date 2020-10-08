@@ -1,318 +1,318 @@
-STRING ID	DESCRIPTION	ENGLISH	FRENCH / FRANÇAIS	SPANISH / ESPAÑOL	GERMAN / DEUTSCH	ITALIAN / ITALIANO	PORTUGUESE / PORTUGUÊS (BR)	PORTUGUESE / PORTUGUÊS (PT)	RUSSIAN / РУССКИЙ	GREEK / ΕΛΛΗΝΙΚΑ	TURKISH / TÜRKÇE	DANISH / DANSK	NORWEGIAN (NB) / NORSK BOKMÅL	SWEDISH / SVENSKA	DUTCH / NEDERLANDS	POLISH / POLSKI	FINNISH / SUOMI	JAPANESE / 日本語	SIMPLIFIED CHINESE / 简体中文	TRADITIONAL CHINESE / 繁体中文	KOREAN / 한국어	CZECH / ČEŠTINA	HUNGARIAN / MAGYAR	ROMANIAN / ROMÂNĂ	THAI / ภาษาไทย	BULGARIAN / БЪЛГАРСКИ	עברית / HEBREW	 العربية / ARABIC	BOSNIAN
-LANGUAGE_CODE	IETF language tag(s) without dash	enUS enGB	frFR	esES esAR esMX	deDE deCH deAT	itIT itCH	ptBR	ptPT	ruRU	elGR	trTR	daDK	noNB	svSE	nlNL	plPL	fiFI	jaJP	zhCN zhSG	zhTW zhHK zhMO	koKR	csCZ	huHU	roRO	thTH	bgBG	heIL	ar001	bsBS
-LANGUAGE_EN	[LanguageName] in english	English	French	Spanish	German	Italian 	Portuguese (Brazil)	Portuguese	Russian	Greek	Turkish	Danish	Norwegian	Swedish	Dutch	Polish	Finnish	Japanese	Simplified Chinese	Traditional Chinese	Korean	Czech	Hungarian	Romanian	Thai	Bulgarian	Hebrew	Arabic	Bosnian
-LANGUAGE_DIRECTION	ltr or rtl (text direction used by game code)	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	ltr	rtl	rtl	ltr
-																													
-Polyglot	100																												
-HEALTH_AND_SAFETY_WARNING_TITLE		Health And Safety Warning																											
-HEALTH_AND_SAFETY_WARNING_CONTENT		A small percentage of people may experience seizures when exposed to certain lights, patterns or images even with no history of epilepsy or seizures.  Please read health and safety warnings in your VR headset instruction manual before playing Beat Saber. Because you may be encouraged to perform intense action with your controllers also make sure to review your surroundings and clear any obstacles in your play area before starting the game. Always remember to stay in the center of the cleared play area and do not walk around.  Playing Beat Saber requires high physical activity so follow the same habits as doing a regular workout. Don't forget to stretch before playing and rest regularly in between levels. Some people may experience muscle soreness. If you experience this then immediately stop playing the game and rest.																											
-CREDITS_CONTENT		<size=150%>Credits</color></size>  <color=#FFFFFF88>Programming, Game & Level Design, Graphics</color> Jan Ilavsky  <color=#FFFFFF88>Programming, Game Design</color> Vladimir Hrincar  <color=#FFFFFF88>Music Content & Sound</color> Jaroslav Beck  <color=#FFFFFF88>Programming, Game & Level Design</color> Peter Hrincar  <color=#FFFFFF88>Marketing</color> Michaela Dvorakova Zuzana Cinkova  <color=#FFFFFF88>Additional Programming</color> David Rysanek Jakub Tkac Jindrich Skeldal Jaroslav Stehlik Jacob Keen Martin Linda  <color=#FFFFFF88>Additional Level Creators</color> Josh 'Freeek' Joynes Jason 'GreatYazer' Planera Erlend 'Ruckus' Skotheim Benny 'DaBeast' White Matt 'Purphoros' Levet Miroslav Mikolaj Joonas 'Rustic' Jarvinen Daniel 'Kolezan' Pettersson  <color=#FFFFFF88>Additional 3D graphics</color> Daniel Garcia Aranda Alejandro Bielsa Martin Laura Uson Dolsac Pedro Solans  <color=#FFFFFF88>Original Soundtrack Vol.I</color> Jaroslav Beck Summer Haze & James Ruehlmann Generdyn Backchat Kings & Folk Tom Norris (Mastering)  <color=#FFFFFF88>Original Soundtrack Vol.II</color> Jaroslav Beck Mord Fustang Boom Kitty Sedliv Frank Bentley Megaphonix  <color=#FFFFFF88>Original Soundtrack Vol.III</color> Jaroslav Beck & Jan Ilavsky Morgan Page Pegboard Nerds Pixl Slippy Mutrix Boom Kitty  <color=#FFFFFF88>Extras Music Artists</color> K/DA Noisestorm Knower Virtual Self Camellia DJ Genki C-Show  <color=#FFFFFF88>Monstercat Music Pack Vol.1</color> Artists: Aero Chord, Pegboard Nerds, Tokyo Machine, Muzzy, RIOT, Rogue, Stonebank, Kayzo, Tristam, Feint Label: Monstercat  <color=#FFFFFF88>Imagine Dragons Music Pack</color> Natural (2018), Machine (2018), Bad Lair (2018), Thunder (2017), Believer (2017), Whatever It Takes (2017), Radioactive (2012), Digital (2018), It's Time (2012), Warriors (2015). Artist: Imagine Dragons Label: Universal Music s.r.o.  <color=#FFFFFF88>Panic! At The Disco Music Pack</color> The Greatest Show, Victorious, High Hopes, Emperor's New Clothes. Artist: Panic! At The Disco Label: DCD2 / Fueled By Ramen / Elektra Music Group  <color=#FFFFFF88>Rocket League x Monstercat Music Pack</color> Artists: Tokyo Machine, Stephen Walking, Slushii, Dion Timmer Label: Monstercat & Psyonix  <color=#FFFFFF88>Green Day Music Pack</color> Fire, Ready, Aim Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2019 Reprise Records  Father of All… Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2019 Reprise Records  American Idiot Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2004 Reprise Records  Holiday Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2004 Reprise Records  Boulevard Of Broken Dreams Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2004 Reprise Records  Minority Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2000 Reprise Records  <color=#FFFFFF88>Timbaland Music Pack</color> Has A Meaning Written by: Timbaland, Sid Tipton, Angel Lopez, Nash Overstreet, Larrance "Rance" Dopson, Leon Thomas, Jonathan Myvett Produced by: Timbaland for Beatclub Inc. Co-Produced by: Larrance "Rance" Dopson, Anonxmous & Angel Lopez for Beatclub Inc. Performed by: Sid Tipton, Timbaland Published by: Bluestone/Anthem Entertainment, Sony ATV, Blue Nike Publishing / Songs Of Volume Ventures Administered by Peermusic III Ltd., Flexitarian Music, Kobalt Music Group Courtesy of: Timbaland Productions, Inc.  While We're Young Written by: Lauren Christy, Nathan Brown, Mitchell Nugent, Jedidiah Gray, Federico Vindver,Benj Heard Produced by: Federico Vindver for Beatclub, Inc., Lauren Christy, Benj Heard Performed by: Wavezswavesz Published by: Warner Chappell, Benj Heard Music, Reservoir Media Courtesy of: Universal Music Group, Timbaland Productions Inc.  What I Like Written by: KARRA, Nash Overstreet, Angel Lopez, Federico Vindver, Timbaland, Leonardo Brooks Produced by: Federico Vindver, Angel Lopez & Timbaland for BEATCLUB, Inc., Leonardo Brooks Performed by: KARRA, Nash Overstreet, Common Strangers Published by: Bluestone/Anthem Entertainment, Warner Chappell, Flexitarian Music, Leo Brooks Music, Karra Madden Publishing Administered by Ultra Music Publishing Courtesy of: Timbaland Productions, Inc.  Dumb Thingz Written by: Kaydence, Jeffrey Baranowski, Luke Milano, Timbaland, Rickie "Caso" Tice, Federico Vindver Produced by: Timbaland & Federico Vindver for BEATCLUB, Inc. and 9AM Performed by: Kaydence, Timbaland Published by: Bluestone/Anthem Entertainment, Beach Wave Publishing and Last Gang Publishing Administered by Entertainment One Music, Seven Corners Music Administered by BMG Rights Management, Pen Piper Publishing Courtesy of: Timbaland Productions, Inc.  Famous - feat. Jake Davis Written by: Adam Boukis, JoshRa Collins, Jake Davis, Bruno Martini, Timbaland, Performed by: Bruno Martini, Timbaland (feat. Jake Davis) Produced by: Adam Boukis, Jake Davis, JoshRa Collins, Timbaland Published by: Bluestone / Anthem Entertainment, Universal Music Latin Entertainment, Adam Zachary Boukis Publishing, Jake David Publishing, Joshua Trey Daniel Collins Publishing Courtesy of: Timbaland Productions, Inc.  Music Clearance by: Rosie Howe - StraightUp Music Supervision Matthew Kamen - Grubman Shire & Meiselas, P.C. Jaroslav Beck - Beat Games Vickie Nauman - CrossBorderWorks Consulting & Advising  <color=#FFFFFF88>Linkin Park Music Pack</color> Bleed It Out, Breaking the Habit, Faint, Given Up, In the End, New Divide, Numb, One Step Closer, Papercut, Somewhere I Belong, What I've Done Artist: Linkin Park  Thanks to everyone who supported us and helped us make this game a reality!  <color=#FFFFFF88>Special thanks to</color> Barbora Ilavska, Helena Ilavska, Zuzana Vrablova, Jan Ilavsky Sr., Rober Vojta, Pavel Barak, Pavol Buday, Michal Berlinger, Pavel Dobrovsky, Jakub Dvorsky, Lukas Macura, Matous Jezek, Peter Nagy, Jenna Seiden, Marco DeMiroz, Tipatat Chennavasin, Deborah Guzman, Cix, Ruirize, Swan, AJ 'Dr Doom', Petr Sulc, Monika Hrincarova, Julie Planera																											
-BUTTON_PLAY		Play		Tocar																									
-BUTTON_CONTINUE		Continue																											
-BUTTON_SKIP		Skip																											
-BUTTON_CANCEL		Cancel																											
-BUTTON_RETRY		Retry																											
-BUTTON_OK		Ok																											
-BUTTON_APPLY		Apply																											
-BUTTON_PLAY_TUTORIAL		Play Tutorial																											
-BUTTON_CAMPAIGN		Campaign																											
-BUTTON_CAMPAIGN_HINT		Play missions, clear objectives and progress through campaign!																											
-BUTTON_SOLO		Solo																											
-BUTTON_SOLO_HINT		Play any level you like and compete on the online leaderboards!																											
-BUTTON_PARTY		Party																											
-BUTTON_PARTY_HINT		Play with your friends locally!																											
-BUTTON_HOW_TO_PLAY		How To Play																											
-BUTTON_CREDITS		Credits																											
-MENU_FLOOR_ADJUST		Floor Adjust																											
-BUTTON_SETTINGS		Settings																											
-BUTTON_PLAYER_SETTINGS		Player Settings																											
-BUTTON_QUIT		Quit																											
-BUTTON_BASICS		Basics																											
-BUTTON_SCORE_SYSTEM		Score System																											
-BUTTON_LOCAL_PLAYER		Local Player																											
-BUTTON_GUEST_PLAYER		Guest Player																											
-BUTTON_HIGHSCORES_ALL_TIME		All Time																											
-BUTTON_HIGHSCORES_TODAY		Today																											
-BUTTON_HIGHSCORES_CLEAR_ALL		Clear All																											
-BUTTON_HIGHSCORES_GLOBAL		Global																											
-BUTTON_HIGHSCORES_AROUND_YOU		Around You																											
-BUTTON_HIGHSCORES_FRIENDS		Friends																											
-BUTTON_MODIFIERS		Modifiers																											
-BUTTON_BUY_LEVEL		Buy Level																											
-BUTTON_BUY_MUSIC_PACK		Buy Music Pack																											
-BUTTON_RESET_ROOM		Reset Room																											
-BUTTON_MENU		Menu																											
-BUTTON_RESTART		Restart																											
-STATS_ALL		All																											
-STATS_CAMPAIGN		Campaign																											
-STATS_SOLO		Solo																											
-STATS_PARTY		Party																											
-STATS_LEVELS_PLAYED		Levels Played																											
-STATS_LEVELS_CLEARED		Levels Cleared																											
-STATS_LEVELS_FAILED		Levels Failed																											
-STATS_TOTAL_PLAYED_TIME		Total Played Time																											
-STATS_TOTAL_SCORE		Total Score																											
-STATS_HAND_DISTANCE_TRAVELLED		Hand Distance Travelled																											
-STATS_GOOD_CUTS		Good Cuts																											
-STATS_BAD_CUTS		Bad Cuts																											
-STATS_MISSED_NOTES		Missed Notes																											
-STATS_FULL_COMBO		Full Combo																											
-STATS_AVERAGE_CUT_SCORE		Average Cut Score																											
-STATS_MAX_COMBO		Max Combo																											
-STATS_HIGHSCORE		Highscore																											
-STATS_MAX_RANK		Max Rank																											
-STATS_RANK		rank																											
-STATS_SCORE		score																											
-STATS_DIFFICULTY		Difficulty																											
-INFO_BOMBS_COUNT		Bombs Count																											
-INFO_OBSTACLES_COUNT		Obstacles Count																											
-INFO_NOTES_COUNT		Notes Count																											
-INFO_BPM		Beats per Minute																											
-INFO_TIME		Time																											
-TITLE_HOW_TO_PLAY		How To Play																											
-TITLE_PLAYER_SETTINGS		Player Settings																											
-TITLE_PLAYER_STATISTICS		Player Statistics																											
-TITLE_PRACTICE_MODE		Practice Mode																											
-TITLE_LEVEL		Level																											
-TITLE_FLOOR_ADJUST		Floor Adjust																											
-TITLE_HIGHSCORES		Highscores																											
-TITLE_LOCAL_HIGHSCORES		Local Highscores																											
-TITLE_GAME_PLAY_SETUP		Gameplay Setup																											
-TITLE_ENTER_YOUR_NAME		Enter Your Name																											
-TITLE_SOLO		Solo																											
-TITLE_PARTY		Party																											
-TITLE_TUTORIAL		Tutorial																											
-TITLE_CAMPAIGN		Campaign																											
-TITLE_RESULTS		Results																											
-TITLE_LEVEL_CLEARED		Level Cleared																											
-PRACTICE_SONG_START		Song Start																											
-PRACTICE_SPEED		Speed																											
-PLAYER_SETTINGS_LEFT_HANDED		Left-Handed																											
-PLAYER_SETTINGS_SWAP_COLORS		Swap Colors																											
-PLAYER_SETTINGS_STATIC_LIGHTS		Static Lights																											
-PLAYER_SETTINGS_PLAYER_HEIGHT		Player Height																											
-PLAYER_SETTINGS_PLAYER_HEIGHT_HINT		Make sure the room setup is done precisely before setting the player height.																											
-PLAYER_SETTINGS_NO_TEXTS_AND_HUD		No Texts & HUDs																											
-PLAYER_SETTINGS_ADVANCED_HUD		Advanced HUD																											
-PLAYER_SETTINGS_DISABLE_SFX		Disable SFX																											
-PLAYER_SETTINGS_REDUCE_DEBRIS		Reduce Debris																											
-CONTENT_SCORE_INFO		- To get <color=#ffffff88>100</color> points in one cut, perform a swing with a large starting angle, 100 degrees from where the cube is hit, and follow through after hitting the cube for 60 degrees more.  - A bonus <color=#ffffff88>15</color> points will be awarded based on how close to the center of the cube the cut is made.																											
-CONTENT_CONBO_INFO		Combo represents the number of consecutive good cuts which were not interrupted by any mistake.																											
-CONTENT_WARNING_PLAY_AREA		Always remember to stay in the center of the cleared play area and do not walk around!																											
-HOW_TO_PLAY_NOTE_CUT		Cut in the arrow direction and match the color																											
-HOW_TO_PLAY_OBSTACLES		Avoid obstacles with your head																											
-HOW_TO_PLAY_BOMB_CUT		Don't cut the bombs																											
-TUTORIAL_PUT_SABERS_IN_RING		Put your sabers into these rings.																											
-TUTORIAL_CUT_ARROW_DIRECTION_COLOR		Cut in the arrow direction and match the color.																											
-TUTORIAL_CUT_ANY_DIRECTION		Cut in any direction.																											
-TUTORIAL_DO_NOT_CUT_OR_TOUCH		Do not cut or touch with sabers!																											
-TUTORIAL_LEAN_RIGHT		Lean right! <sprite=1 tint=1>																											
-TUTORIAL_LEAN_LEFT		<sprite=3 tint=1> Lean left!																											
-TUTORIAL_CROUCH		Crouch!																											
-TUTORIAL_CONGRATULATIONS		Congratulations! You are ready now.																											
-TUTORIAL_STAND_INSIDE_AREA		Stand inside the marked area.  Hold the <color=#00C0FF>blue</color> saber in your right hand and the <color=#FF0000>red</color> in your left hand.  Place both sabers into these rings to start.																											
-FLOOR_ADJUST_HELP_CONTENT		Here you can adjust the position of the floor. Try to make it match your real floor.																											
-FLOOR_ADJUST_HEIGHT_FROM_FLOOR		Your height from the floor																											
-MODIFIER_BATTERY_ENERGY		Battery Energy																											
-MODIFIER_BATTERY_ENERGY_HINT		You can make just a fixed amount of mistakes.																											
-MODIFIER_NO_FAIL		No Fail																											
-MODIFIER_NO_FAIL_HINT		Bad cuts, misses or hitting an obstacle with your head will not deplete your energy bar.																											
-MODIFIER_NO_OBSTACLES		No Obstacles																											
-MODIFIER_NO_OBSTACLES_HINT		There will be no obstacles in the level.																											
-MODIFIER_DISAPPEARING_ARROWS		Disappearing Arrows																											
-MODIFIER_DISAPPEARING_ARROWS_HINT		Arrows on the cubes will disappear before they reach you.																											
-MODIFIER_FASTER_SONG		Faster Song																											
-MODIFIER_FASTER_SONG_HINT		Song will play faster.																											
-MODIFIER_GHOST_NOTES		Ghost Notes																											
-MODIFIER_GHOST_NOTES_HINT		Cubes are invisible & arrows will disappear before they reach you.																											
-MODIFIER_INSTA_FAIL		Insta Fail																											
-MODIFIER_INSTA_FAIL_HINT		Every mistake will cause instant level fail.																											
-MODIFIER_NO_ARROWS		No Arrows																											
-MODIFIER_NO_ARROWS_HINT		You can cut all the cubes in any direction.																											
-MODIFIER_NO_BOMBS		No Bombs																											
-MODIFIER_NO_BOMBS_HINT		There will be no bombs in the level.																											
-MODIFIER_PRO_MODE		Pro Mode																											
-MODIFIER_PRO_MODE_HINT		There's no tolerance in hitting cubes.																											
-MODIFIER_SLOWER_SONG		Slower Song																											
-MODIFIER_SLOWER_SONG_HINT		Song will play slower.																											
-MODIFIER_STRICT_ANGLES		Strict Angles																											
-MODIFIER_STRICT_ANGLES_HINT		Only really precise cuts will be evaulated as good.																											
-MODIFIER_SUPER_FAST_NOTES		Super Fast Notes																											
-MODIFIER_SUPER_FAST_NOTES_HINT		Cubes will move super fast.																											
-MODIFIERS_TOTAL_MULTIPLIER		Total Multiplier																											
-MODIFIERS_MAX_RANK_WITH_MODIFIERS		Max Rank with current modifiers																											
-STEAM_BOUGHT_CONTENT_INFO		If you bought this content, but don't see it here, please open Steam and check if it was properly downloaded.																											
-STATUS_DOWNLOADING		Downloading																											
-STATUS_ERROR_GETTING_DATA		Error getting data.																											
-MENU_GRAPHICS		Graphics																											
-MENU_ADVANCED_GRAPHICS		Advanced Graphics																											
-MENU_ROOM_ADJUST		Room Adjust																											
-MENU_SMOOTH_CAMERA		Smooth Camera																											
-MENU_OTHERS		Others																											
-SETTINGS_MIRROR_QUALITY		Mirror Quality																											
-SETTINGS_SMOKE		Smoke																											
-SETTINGS_BLOOM_FOG_QUALITY		Bloom Fog Quality																											
-SETTINGS_BLOOM_POST_PROCESS		Bloom Post Process																											
-SETTINGS_ROOM_X_OFFSET		X Offset																											
-SETTINGS_ROOM_Y_OFFSET		Y Offset																											
-SETTINGS_ROOM_Z_OFFSET		Z Offset																											
-SETTINGS_ROOM_ROTATION		Rotation																											
-SETTINGS_NON_VR_RESOLUTION		Non VR Resolution																											
-SETTINGS_FULLSCREEN		Fullscreen																											
-SETTINGS_RENDERING_SCALE		Rendering Scale																											
-SETTINGS_ANTIALIASING_MSAA		Antialiasing (MSAA)																											
-SETTINGS_VOLUME		Volume																											
-SETTINGS_PAUSE_PRESS_DURATION		Pause Press Duration																											
-SETTINGS_SMOOTH_CAMERA		Smooth Camera																											
-SETTINGS_ONLINE_SERVICES		Enable Online Services																											
-SETTINGS_SMOOTH_CAMERA_INFO		Enabling this feature will replace Beat Sabers desktop window with a smoothed, customised field of view, suitable for recording & streaming																											
-SETTINGS_SMOOTH_CAMERA_WARNING		Smooth camera is expensive and can cause bad performance on some hardware configurations.																											
-SETTINGS_FIELD_OF_VIEW		Field Of View																											
-SETTINGS_SMOOTHNESS		Smoothness																											
-SETTINGS_ON		On																											
-SETTINGS_OFF		Off																											
-SETTINGS_LOW		Low																											
-SETTINGS_HIGH		High																											
-SETTINGS_INSTANT		Instant																											
-SETTINGS_LONG		Long																											
-DIFFICULTY_EASY		Easy																											
-DIFFICULTY_EASY_SHORT		E																											
-DIFFICULTY_NORMAL		Normal																											
-DIFFICULTY_NORMAL_SHORT		N																											
-DIFFICULTY_HARD		Hard																											
-DIFFICULTY_HARD_SHORT		H																											
-DIFFICULTY_EXPERT		Expert																											
-DIFFICULTY_EXPERT_SHORT		X																											
-DIFFICULTY_EXPERT_PLUS		Expert+																											
-DIFFICULTY_EXPERT_PLUS_SHORT		X+																											
-DIFFICULTY_UNKNOWN		Unknown																											
-DIFFICULTY_UNKNOWN_SHORT		/																											
-STAGE_LOCK_HINT		To continue up you need to finish some levels before this barrier.																											
-CAMPAIGN_MISSION		Mission																											
-CAMPAIGN_SONG		Song <color=#ffffff88>{0}</color>																											
-CAMPAIGN_DIFFICULTY		Difficulty <color=#ffffff88>{0}</color>																											
-CAMPAIGN_TYPE		Type <color=#ffffff88>{0}</color>																											
-CAMPAIGN_MISSION_COMPLETE		Mission Complete																											
-CAMPAIGN_MISSION_FAILED		Mission Failed																											
-CAMPAIGN_MODIFIERS		Modifiers																											
-CAMPAIGN_OBJECTIVES		Objectives																											
-CAMPAIGN_CHARACTERISTIC		characteristic																											
-CAMPAIGN_FINISH_LEVEL		Finish Level																											
-LEVEL_NO_ARROWS		No Arrows																											
-LEVEL_NO_ARROWS_HINT		No Arrows																											
-LEVEL_ONE_SABER		One Saber																											
-LEVEL_ONE_SABER_HINT		One Saber																											
-LEVEL_STANDARD		Standard																											
-LEVEL_STANDARD_HINT		Standard																											
-PROMPT_INFORMATION		Information																											
-PROMPT_HAVENT_PLAYED_YET		It looks like you haven't played Beat Saber yet. Would you like to play tutorial first?																											
-PROMPT_YES		Yes																											
-PROMPT_NO		No																											
-RESULTS_LEVEL_FAILED		Level FAILED																											
-OBJECTIVE_BAD_CUTS		Bad Cuts																											
-OBJECTIVE_COMBO		Combo																											
-OBJECTIVE_FULL_COMBO		Full Combo																											
-OBJECTIVE_HANDS_MOVEMENT		Hands Movement																											
-OBJECTIVE_MISS		Miss																											
-OBJECTIVE_SCORE		Score																											
-MISSION_NEW_OBJECTIVE_TITLE		New Objective																											
-MISSION_HELP_MIN_SCORE_TITLE		In this mission your score must be higher than the specified minimum.																											
-MISSION_HELP_MAX_BAD_CUTS_TITLE		In this mission you can make only limited amount of mistakes (<color=#ffffff88>BAD CUTS</color> and <color=#ffffff88>MISSED</color> notes)																											
-MISSION_HELP_MIN_COMBO_TITLE		In this mission you must reach specified <color=#ffffff88>combo</color> number.																											
-MISSION_HELP_MIN_HANDS_MOVEMENT_TITLE		In this mission your goal is to move your <color=#FFFFFF88>hands</color> enough to travel the <color=#FFFFFF88>specified MINIMUM distance.</color>																											
-MISSION_HELP_MAX_HANDS_MOVEMENT_DESCRIPTION		Try to limit your movement as much as possible.																											
-MISSION_HELP_MAX_HANDS_MOVEMENT		This objective is special. There is a <color=#FFFFFF88>MAXIMUM distance</color> you can move with your <color=#FFFFFF88>hands.</color>																											
-MISSION_HELP_MIN_HANDS_MOVEMENT_DESCRIPTION		To complete this objective you usually just need to move with your hands a lot. Don't use just your wrists but whole arms.																											
-MISSION_HELP_MAX_COMBO_TITLE		In this mission you have to keep your <color=#FFFFFF88>combo</color> below specified number.																											
-MISSION_HELP_MAX_COMBO_TITLE_DESCRIPTION		One way how to complete this kind of objective is to make deliberate mistakes.																											
-BUTTON_LEVEL_EDITOR		Level Editor																											
-SETTINGS_SCREEN_DISTORTION_EFFECTS		Screen Distortion Effects																											
-CUSTOM_LEVELS_LEADERBOARDS_NOT_SUPPORTED		Leaderboards for custom levels are not supported.																											
-TITLE_CUSTOM_LEVELS		Custom Levels																											
-SETTINGS_AUDIO_LATENCY		Audio Latency																											
-SETTINGS_AUDIO_LATENCY_INFO		This setting can help you compensate an audio delay of your sound system. Adjust the latency value to sync audio with video. Always use your headset to do this calibration.																											
-PLAYER_SETTINGS_AUTO_RESTART		Auto Restart on Fail																											
-SETTINGS_MAX_SHOCKWAVE_PARTICLES		Max Shockwave Particles																											
-TITLE_NEW_HIGHSCORE		New Highscore																											
-STEAM_STORE_DOESNT_OPEN_HINT		If the store window doesn't open after pressing the buy button, please try to purchase this item directly on Steam. We are sorry for the inconvenience.																											
-BUTTON_ENVIRONMENTS		Environments																											
-BUTTON_COLORS		Colors																											
-BUTTON_LOGIN		Login																											
-BUTTON_LOGOUT		Logout																											
-STATUS_CONNECTED		Connected																											
-STATUS_DISCONNECTED		Disconnected																											
-REQUIRES_INTERNET_INFO		Requires an active internet connection.																											
-PLAYER_HEIGHT_MEASURE_BUTTON_HOVER_HINT		Measure and set your current height. Stand straight and make sure your floor position was configured properly in the game settings.																											
-NORMAL_ENVIRONMENT_TYPE		Normal Environment																											
-CIRCLE_ENVIRONMENT_TYPE		Circle Environment																											
-OVERRIDE_ENVIRONMENTS_TOGGLE		Override Default Environments																											
-OVERRIDE_COLORS_TOGGLE		Override Default Colors																											
-CUSTOM_COLORS_EDITING_HINT		Only custom color schemes can be edited.																											
-PREVIOUS_COLOR_HINT		Previous Color																											
-SETTINGS_OVERRIDE_AUDIO_LATENCY		Override Audio Latency																											
-LEADERBOARDS_LOADING_FAILED		Oops something went wrong. You may want to check your internet connection.																											
-LEADERBOARDS_NOT_AVAILABLE		Leaderboards not available.\nProbably you are not signed in or your use of online features is restricted.																											
-LEVEL_SELECTION_BUTTON		Level Selection																											
-HOW_TO_PLAY_BUTTON		How To Play																											
-LOGOUT_BUTTON		Logout																											
-PRIVACY_POLICY_BUTTON		Privacy Policy																											
-PLAYER_SETTINGS_AUTOMATIC_PLAYER_HEIGHT		Automatic Player Height																											
-LEVEL_360DEGREE		360 Degree																											
-LEVEL_360DEGREE_HINT		360 Degree																											
-LEVEL_90DEGREE		90 Degree																											
-LEVEL_90DEGREE_HINT		90 Degree																											
-BUTTON_OPEN_MUSIC_PACK		Open Music Pack																											
-BUY_VIEW_INFO_TEXT		Buying complete music pack is cheaper than buying all the songs individually.																											
-ERROR_LOADING_DATA_NO_INTERNET_MESSAGE		Error loading data. You may want to check your internet connection.																											
-ERROR_LOADING_DATA		Error loading data.																											
-DOWNLOADING		Downloading																											
-PREPERIONG_TO_DOWNLOAD		Preparing to download																											
-MUSIC_PACKS_TABBAR_TITLE		Music Packs																											
-PLAYLISTS_TABBAR_TITLE		Playlists																											
-90_PLAYLIST_NAME		Songs with 90 Degree Levels																											
-360_PLAYLIST_NAME		Songs with 360 Degree Levels																											
-ALL_SONGS_PLAYLIST_NAME		All Songs																											
-USER_PLAYLIST_NAME		Favorites																											
-INFO_AVERAGE_NOTES_PER_SECOND		Average Notes per Second																											
-INFO_SONG_DURATION		Song Duration																											
-PLAYER_SETTINGS_SFX_VOLUME		SFX Volume																											
-OST_&_EXTRA_TABBAR_TITLE		OST & Extras																											
-PROMPT_HAVENT_PLAYED_360_YET		Playing 360 degree levels requires you to rotate around freely. We advise you to either hang the cable from the ceiling or use a wireless solution.																											
-PROMPT_OK		OK																											
-AGREE_TO_PRIVACY_POLICY_LABEL		By clicking Continue you are agreeing to our privacy policy.																											
-LEADERBOARDS_NOT_INITIALIZED_ERROR		Not initialized.																											
-LEADERBOARDS_SOMETHING_WENT_WRONG_ERROR		Oops something went wrong.																											
-LEADERBOARDS_PLATFORM_SERVICES_ERROR		Leaderboards not available. Probably you are not signed in or your use of online features is restricted.																											
-LEADERBOARDS_NO_MODIFIERS_TITLE		Top without modifiers																											
-LEADERBOARDS_MIXED_LEADERBOARDS_TITLE		Top mixed																											
-EMPTY_FAVORITES_LIST_INFO		No songs have been favorited, press the star icon next to a song's name to add it to favorites.																											
-EULA_TITLE		End User License Agreement																											
-PRIVACY_POLICY_TITLE		Privacy Policy																											
-ONLINE_SERVICES_TITLE		Online Services																											
-DISABLE_ONLINE_SERVICES_WARNING_INFO		You are about to disable online services. Functionality like leaderboards will stop working. All your personal data stored on our servers including your scores in leaderboards will be removed. Do you really want to disable online services?																											
-TITLE_WARNING		Warning																											
-BUTTON_DISABLE_ONLINE_SERVICES		Disable online services																											
-BUTTON_ENABLE		Enable																											
-BUTTON_DONT_ENABLE		Don't enable																											
-SETTINGS_ONLINE_SERVICES_INFO		Online services are required for leaderboards functionality.																											
-SETTINGS_ONLINE_SERVICES_TOGGLE		Online services enabled																											
-ONLINE_SERVICES_OPTIN_INFO		Before you start using our leaderboards you need to enable our online services. This is required to showi the best players and to submit your scores. Do you want to enable online services?																											
-EMPTY_CUSTOM_SONG_LIST_INFO		You don't have any custom songs.																											
-MENU_CONTROLLERS_TRANSFORM		Controllers																											
-BUTTON_RESET		Reset																											
-TITLE_POSITION_X		Position X																											
-TITLE_POSITION_Y		Position Y																											
-TITLE_POSITION_Z		Position Z																											
-TITLE_ROTATION_X		Rotation X																											
-TITLE_ROTATION_Y		Rotation Y																											
-TITLE_ROTATION_Z		Rotation Z																											
-MENU_OCULUS_MRC		Mixed Reality Capture																											
-SETTINGS_OCULUS_MRC		Mixed Reality Capture (Beta)																											
-SETTINGS_OCULUS_MRC_INFO		Mixed Reality Capture uses an external camera, such as a webcam, to capture real-world images, against a green-screen, and combine them with a scene generated by a mixed reality supported VR app to create a single blended scene.   For more information search for Mixed Reality Capture Setup Guide in Oculus Documentation.																											
-SETTINGS_OCULUS_MRC_WARNING		Mixed Reality Capture is in development and can cause bad performance. We are continuing to improve the experience, and the set up flow may change.																											
-PLAYER_SETTINGS_SABER_TRAIL_INTENSITY		Trail Intensity																											
-PLAYING_CAMPAIGN_PRESENCE		Playing Campaign																											
-PLAYING_TUTORIAL_PRESENCE		Playing Tutorial																											
-BROWSING_MENUS_PRESENCE		Browsing Menus																											
-																													
-LEVEL_LIGHTSHOW_HINT		Lightshow																											
+STRING ID    DESCRIPTION    ENGLISH    FRENCH / FRANÇAIS    SPANISH / ESPAÑOL    GERMAN / DEUTSCH    ITALIAN / ITALIANO    PORTUGUESE / PORTUGUÊS (BR)    PORTUGUESE / PORTUGUÊS (PT)    RUSSIAN / РУССКИЙ    GREEK / ΕΛΛΗΝΙΚΑ    TURKISH / TÜRKÇE    DANISH / DANSK    NORWEGIAN (NB) / NORSK BOKMÅL    SWEDISH / SVENSKA    DUTCH / NEDERLANDS    POLISH / POLSKI    FINNISH / SUOMI    JAPANESE / 日本語    SIMPLIFIED CHINESE / 简体中文    TRADITIONAL CHINESE / 繁体中文    KOREAN / 한국어    CZECH / ČEŠTINA    HUNGARIAN / MAGYAR    ROMANIAN / ROMÂNĂ    THAI / ภาษาไทย    BULGARIAN / БЪЛГАРСКИ    עברית / HEBREW     العربية / ARABIC    BOSNIAN
+LANGUAGE_CODE    IETF language tag(s) without dash    enUS enGB    frFR    esES esAR esMX    deDE deCH deAT    itIT itCH    ptBR    ptPT    ruRU    elGR    trTR    daDK    noNB    svSE    nlNL    plPL    fiFI    jaJP    zhCN zhSG    zhTW zhHK zhMO    koKR    csCZ    huHU    roRO    thTH    bgBG    heIL    ar001    bsBS
+LANGUAGE_EN    [LanguageName] in english    English    French    Spanish    German    Italian     Portuguese (Brazil)    Portuguese    Russian    Greek    Turkish    Danish    Norwegian    Swedish    Dutch    Polish    Finnish    Japanese    Simplified Chinese    Traditional Chinese    Korean    Czech    Hungarian    Romanian    Thai    Bulgarian    Hebrew    Arabic    Bosnian
+LANGUAGE_DIRECTION    ltr or rtl (text direction used by game code)    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    ltr    rtl    rtl    ltr
+                                                                                                                    
+Polyglot    100                                                                                                                
+HEALTH_AND_SAFETY_WARNING_TITLE        Health And Safety Warning                                                                                                            
+HEALTH_AND_SAFETY_WARNING_CONTENT        A small percentage of people may experience seizures when exposed to certain lights, patterns or images even with no history of epilepsy or seizures.  Please read health and safety warnings in your VR headset instruction manual before playing Beat Saber. Because you may be encouraged to perform intense action with your controllers also make sure to review your surroundings and clear any obstacles in your play area before starting the game. Always remember to stay in the center of the cleared play area and do not walk around.  Playing Beat Saber requires high physical activity so follow the same habits as doing a regular workout. Don't forget to stretch before playing and rest regularly in between levels. Some people may experience muscle soreness. If you experience this then immediately stop playing the game and rest.                                                                                                            
+CREDITS_CONTENT        <size=150%>Credits</color></size>  <color=#FFFFFF88>Programming, Game & Level Design, Graphics</color> Jan Ilavsky  <color=#FFFFFF88>Programming, Game Design</color> Vladimir Hrincar  <color=#FFFFFF88>Music Content & Sound</color> Jaroslav Beck  <color=#FFFFFF88>Programming, Game & Level Design</color> Peter Hrincar  <color=#FFFFFF88>Marketing</color> Michaela Dvorakova Zuzana Cinkova  <color=#FFFFFF88>Additional Programming</color> David Rysanek Jakub Tkac Jindrich Skeldal Jaroslav Stehlik Jacob Keen Martin Linda  <color=#FFFFFF88>Additional Level Creators</color> Josh 'Freeek' Joynes Jason 'GreatYazer' Planera Erlend 'Ruckus' Skotheim Benny 'DaBeast' White Matt 'Purphoros' Levet Miroslav Mikolaj Joonas 'Rustic' Jarvinen Daniel 'Kolezan' Pettersson  <color=#FFFFFF88>Additional 3D graphics</color> Daniel Garcia Aranda Alejandro Bielsa Martin Laura Uson Dolsac Pedro Solans  <color=#FFFFFF88>Original Soundtrack Vol.I</color> Jaroslav Beck Summer Haze & James Ruehlmann Generdyn Backchat Kings & Folk Tom Norris (Mastering)  <color=#FFFFFF88>Original Soundtrack Vol.II</color> Jaroslav Beck Mord Fustang Boom Kitty Sedliv Frank Bentley Megaphonix  <color=#FFFFFF88>Original Soundtrack Vol.III</color> Jaroslav Beck & Jan Ilavsky Morgan Page Pegboard Nerds Pixl Slippy Mutrix Boom Kitty  <color=#FFFFFF88>Extras Music Artists</color> K/DA Noisestorm Knower Virtual Self Camellia DJ Genki C-Show  <color=#FFFFFF88>Monstercat Music Pack Vol.1</color> Artists: Aero Chord, Pegboard Nerds, Tokyo Machine, Muzzy, RIOT, Rogue, Stonebank, Kayzo, Tristam, Feint Label: Monstercat  <color=#FFFFFF88>Imagine Dragons Music Pack</color> Natural (2018), Machine (2018), Bad Lair (2018), Thunder (2017), Believer (2017), Whatever It Takes (2017), Radioactive (2012), Digital (2018), It's Time (2012), Warriors (2015). Artist: Imagine Dragons Label: Universal Music s.r.o.  <color=#FFFFFF88>Panic! At The Disco Music Pack</color> The Greatest Show, Victorious, High Hopes, Emperor's New Clothes. Artist: Panic! At The Disco Label: DCD2 / Fueled By Ramen / Elektra Music Group  <color=#FFFFFF88>Rocket League x Monstercat Music Pack</color> Artists: Tokyo Machine, Stephen Walking, Slushii, Dion Timmer Label: Monstercat & Psyonix  <color=#FFFFFF88>Green Day Music Pack</color> Fire, Ready, Aim Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2019 Reprise Records  Father of All… Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2019 Reprise Records  American Idiot Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2004 Reprise Records  Holiday Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2004 Reprise Records  Boulevard Of Broken Dreams Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2004 Reprise Records  Minority Performed by Green Day Courtesy of Reprise Records By arrangement with Warner Music Group Video Game Licensing (P) 2000 Reprise Records  <color=#FFFFFF88>Timbaland Music Pack</color> Has A Meaning Written by: Timbaland, Sid Tipton, Angel Lopez, Nash Overstreet, Larrance "Rance" Dopson, Leon Thomas, Jonathan Myvett Produced by: Timbaland for Beatclub Inc. Co-Produced by: Larrance "Rance" Dopson, Anonxmous & Angel Lopez for Beatclub Inc. Performed by: Sid Tipton, Timbaland Published by: Bluestone/Anthem Entertainment, Sony ATV, Blue Nike Publishing / Songs Of Volume Ventures Administered by Peermusic III Ltd., Flexitarian Music, Kobalt Music Group Courtesy of: Timbaland Productions, Inc.  While We're Young Written by: Lauren Christy, Nathan Brown, Mitchell Nugent, Jedidiah Gray, Federico Vindver,Benj Heard Produced by: Federico Vindver for Beatclub, Inc., Lauren Christy, Benj Heard Performed by: Wavezswavesz Published by: Warner Chappell, Benj Heard Music, Reservoir Media Courtesy of: Universal Music Group, Timbaland Productions Inc.  What I Like Written by: KARRA, Nash Overstreet, Angel Lopez, Federico Vindver, Timbaland, Leonardo Brooks Produced by: Federico Vindver, Angel Lopez & Timbaland for BEATCLUB, Inc., Leonardo Brooks Performed by: KARRA, Nash Overstreet, Common Strangers Published by: Bluestone/Anthem Entertainment, Warner Chappell, Flexitarian Music, Leo Brooks Music, Karra Madden Publishing Administered by Ultra Music Publishing Courtesy of: Timbaland Productions, Inc.  Dumb Thingz Written by: Kaydence, Jeffrey Baranowski, Luke Milano, Timbaland, Rickie "Caso" Tice, Federico Vindver Produced by: Timbaland & Federico Vindver for BEATCLUB, Inc. and 9AM Performed by: Kaydence, Timbaland Published by: Bluestone/Anthem Entertainment, Beach Wave Publishing and Last Gang Publishing Administered by Entertainment One Music, Seven Corners Music Administered by BMG Rights Management, Pen Piper Publishing Courtesy of: Timbaland Productions, Inc.  Famous - feat. Jake Davis Written by: Adam Boukis, JoshRa Collins, Jake Davis, Bruno Martini, Timbaland, Performed by: Bruno Martini, Timbaland (feat. Jake Davis) Produced by: Adam Boukis, Jake Davis, JoshRa Collins, Timbaland Published by: Bluestone / Anthem Entertainment, Universal Music Latin Entertainment, Adam Zachary Boukis Publishing, Jake David Publishing, Joshua Trey Daniel Collins Publishing Courtesy of: Timbaland Productions, Inc.  Music Clearance by: Rosie Howe - StraightUp Music Supervision Matthew Kamen - Grubman Shire & Meiselas, P.C. Jaroslav Beck - Beat Games Vickie Nauman - CrossBorderWorks Consulting & Advising  <color=#FFFFFF88>Linkin Park Music Pack</color> Bleed It Out, Breaking the Habit, Faint, Given Up, In the End, New Divide, Numb, One Step Closer, Papercut, Somewhere I Belong, What I've Done Artist: Linkin Park  Thanks to everyone who supported us and helped us make this game a reality!  <color=#FFFFFF88>Special thanks to</color> Barbora Ilavska, Helena Ilavska, Zuzana Vrablova, Jan Ilavsky Sr., Rober Vojta, Pavel Barak, Pavol Buday, Michal Berlinger, Pavel Dobrovsky, Jakub Dvorsky, Lukas Macura, Matous Jezek, Peter Nagy, Jenna Seiden, Marco DeMiroz, Tipatat Chennavasin, Deborah Guzman, Cix, Ruirize, Swan, AJ 'Dr Doom', Petr Sulc, Monika Hrincarova, Julie Planera                                                                                                            
+BUTTON_PLAY        Play        Tocar                                                                                                    
+BUTTON_CONTINUE        Continue                                                                                                            
+BUTTON_SKIP        Skip                                                                                                            
+BUTTON_CANCEL        Cancel                                                                                                            
+BUTTON_RETRY        Retry                                                                                                            
+BUTTON_OK        Ok                                                                                                            
+BUTTON_APPLY        Apply                                                                                                            
+BUTTON_PLAY_TUTORIAL        Play Tutorial                                                                                                            
+BUTTON_CAMPAIGN        Campaign                                                                                                            
+BUTTON_CAMPAIGN_HINT        Play missions, clear objectives and progress through campaign!                                                                                                            
+BUTTON_SOLO        Solo                                                                                                            
+BUTTON_SOLO_HINT        Play any level you like and compete on the online leaderboards!                                                                                                            
+BUTTON_PARTY        Party                                                                                                            
+BUTTON_PARTY_HINT        Play with your friends locally!                                                                                                            
+BUTTON_HOW_TO_PLAY        How To Play                                                                                                            
+BUTTON_CREDITS        Credits                                                                                                            
+MENU_FLOOR_ADJUST        Floor Adjust                                                                                                            
+BUTTON_SETTINGS        Settings                                                                                                            
+BUTTON_PLAYER_SETTINGS        Player Settings                                                                                                            
+BUTTON_QUIT        Quit                                                                                                            
+BUTTON_BASICS        Basics                                                                                                            
+BUTTON_SCORE_SYSTEM        Score System                                                                                                            
+BUTTON_LOCAL_PLAYER        Local Player                                                                                                            
+BUTTON_GUEST_PLAYER        Guest Player                                                                                                            
+BUTTON_HIGHSCORES_ALL_TIME        All Time                                                                                                            
+BUTTON_HIGHSCORES_TODAY        Today                                                                                                            
+BUTTON_HIGHSCORES_CLEAR_ALL        Clear All                                                                                                            
+BUTTON_HIGHSCORES_GLOBAL        Global                                                                                                            
+BUTTON_HIGHSCORES_AROUND_YOU        Around You                                                                                                            
+BUTTON_HIGHSCORES_FRIENDS        Friends                                                                                                            
+BUTTON_MODIFIERS        Modifiers                                                                                                            
+BUTTON_BUY_LEVEL        Buy Level                                                                                                            
+BUTTON_BUY_MUSIC_PACK        Buy Music Pack                                                                                                            
+BUTTON_RESET_ROOM        Reset Room                                                                                                            
+BUTTON_MENU        Menu                                                                                                            
+BUTTON_RESTART        Restart                                                                                                            
+STATS_ALL        All                                                                                                            
+STATS_CAMPAIGN        Campaign                                                                                                            
+STATS_SOLO        Solo                                                                                                            
+STATS_PARTY        Party                                                                                                            
+STATS_LEVELS_PLAYED        Levels Played                                                                                                            
+STATS_LEVELS_CLEARED        Levels Cleared                                                                                                            
+STATS_LEVELS_FAILED        Levels Failed                                                                                                            
+STATS_TOTAL_PLAYED_TIME        Total Played Time                                                                                                            
+STATS_TOTAL_SCORE        Total Score                                                                                                            
+STATS_HAND_DISTANCE_TRAVELLED        Hand Distance Travelled                                                                                                            
+STATS_GOOD_CUTS        Good Cuts                                                                                                            
+STATS_BAD_CUTS        Bad Cuts                                                                                                            
+STATS_MISSED_NOTES        Missed Notes                                                                                                            
+STATS_FULL_COMBO        Full Combo                                                                                                            
+STATS_AVERAGE_CUT_SCORE        Average Cut Score                                                                                                            
+STATS_MAX_COMBO        Max Combo                                                                                                            
+STATS_HIGHSCORE        Highscore                                                                                                            
+STATS_MAX_RANK        Max Rank                                                                                                            
+STATS_RANK        rank                                                                                                            
+STATS_SCORE        score                                                                                                            
+STATS_DIFFICULTY        Difficulty                                                                                                            
+INFO_BOMBS_COUNT        Bombs Count                                                                                                            
+INFO_OBSTACLES_COUNT        Obstacles Count                                                                                                            
+INFO_NOTES_COUNT        Notes Count                                                                                                            
+INFO_BPM        Beats per Minute                                                                                                            
+INFO_TIME        Time                                                                                                            
+TITLE_HOW_TO_PLAY        How To Play                                                                                                            
+TITLE_PLAYER_SETTINGS        Player Settings                                                                                                            
+TITLE_PLAYER_STATISTICS        Player Statistics                                                                                                            
+TITLE_PRACTICE_MODE        Practice Mode                                                                                                            
+TITLE_LEVEL        Level                                                                                                            
+TITLE_FLOOR_ADJUST        Floor Adjust                                                                                                            
+TITLE_HIGHSCORES        Highscores                                                                                                            
+TITLE_LOCAL_HIGHSCORES        Local Highscores                                                                                                            
+TITLE_GAME_PLAY_SETUP        Gameplay Setup                                                                                                            
+TITLE_ENTER_YOUR_NAME        Enter Your Name                                                                                                            
+TITLE_SOLO        Solo                                                                                                            
+TITLE_PARTY        Party                                                                                                            
+TITLE_TUTORIAL        Tutorial                                                                                                            
+TITLE_CAMPAIGN        Campaign                                                                                                            
+TITLE_RESULTS        Results                                                                                                            
+TITLE_LEVEL_CLEARED        Level Cleared                                                                                                            
+PRACTICE_SONG_START        Song Start                                                                                                            
+PRACTICE_SPEED        Speed                                                                                                            
+PLAYER_SETTINGS_LEFT_HANDED        Left-Handed                                                                                                            
+PLAYER_SETTINGS_SWAP_COLORS        Swap Colors                                                                                                            
+PLAYER_SETTINGS_STATIC_LIGHTS        Static Lights                                                                                                            
+PLAYER_SETTINGS_PLAYER_HEIGHT        Player Height                                                                                                            
+PLAYER_SETTINGS_PLAYER_HEIGHT_HINT        Make sure the room setup is done precisely before setting the player height.                                                                                                            
+PLAYER_SETTINGS_NO_TEXTS_AND_HUD        No Texts & HUDs                                                                                                            
+PLAYER_SETTINGS_ADVANCED_HUD        Advanced HUD                                                                                                            
+PLAYER_SETTINGS_DISABLE_SFX        Disable SFX                                                                                                            
+PLAYER_SETTINGS_REDUCE_DEBRIS        Reduce Debris                                                                                                            
+CONTENT_SCORE_INFO        - To get <color=#ffffff88>100</color> points in one cut, perform a swing with a large starting angle, 100 degrees from where the cube is hit, and follow through after hitting the cube for 60 degrees more.  - A bonus <color=#ffffff88>15</color> points will be awarded based on how close to the center of the cube the cut is made.                                                                                                            
+CONTENT_CONBO_INFO        Combo represents the number of consecutive good cuts which were not interrupted by any mistake.                                                                                                            
+CONTENT_WARNING_PLAY_AREA        Always remember to stay in the center of the cleared play area and do not walk around!                                                                                                            
+HOW_TO_PLAY_NOTE_CUT        Cut in the arrow direction and match the color                                                                                                            
+HOW_TO_PLAY_OBSTACLES        Avoid obstacles with your head                                                                                                            
+HOW_TO_PLAY_BOMB_CUT        Don't cut the bombs                                                                                                            
+TUTORIAL_PUT_SABERS_IN_RING        Put your sabers into these rings.                                                                                                            
+TUTORIAL_CUT_ARROW_DIRECTION_COLOR        Cut in the arrow direction and match the color.                                                                                                            
+TUTORIAL_CUT_ANY_DIRECTION        Cut in any direction.                                                                                                            
+TUTORIAL_DO_NOT_CUT_OR_TOUCH        Do not cut or touch with sabers!                                                                                                            
+TUTORIAL_LEAN_RIGHT        Lean right! <sprite=1 tint=1>                                                                                                            
+TUTORIAL_LEAN_LEFT        <sprite=3 tint=1> Lean left!                                                                                                            
+TUTORIAL_CROUCH        Crouch!                                                                                                            
+TUTORIAL_CONGRATULATIONS        Congratulations! You are ready now.                                                                                                            
+TUTORIAL_STAND_INSIDE_AREA        Stand inside the marked area.  Hold the <color=#00C0FF>blue</color> saber in your right hand and the <color=#FF0000>red</color> in your left hand.  Place both sabers into these rings to start.                                                                                                            
+FLOOR_ADJUST_HELP_CONTENT        Here you can adjust the position of the floor. Try to make it match your real floor.                                                                                                            
+FLOOR_ADJUST_HEIGHT_FROM_FLOOR        Your height from the floor                                                                                                            
+MODIFIER_BATTERY_ENERGY        Battery Energy                                                                                                            
+MODIFIER_BATTERY_ENERGY_HINT        You can make just a fixed amount of mistakes.                                                                                                            
+MODIFIER_NO_FAIL        No Fail                                                                                                            
+MODIFIER_NO_FAIL_HINT        Bad cuts, misses or hitting an obstacle with your head will not deplete your energy bar.                                                                                                            
+MODIFIER_NO_OBSTACLES        No Obstacles                                                                                                            
+MODIFIER_NO_OBSTACLES_HINT        There will be no obstacles in the level.                                                                                                            
+MODIFIER_DISAPPEARING_ARROWS        Disappearing Arrows                                                                                                            
+MODIFIER_DISAPPEARING_ARROWS_HINT        Arrows on the cubes will disappear before they reach you.                                                                                                            
+MODIFIER_FASTER_SONG        Faster Song                                                                                                            
+MODIFIER_FASTER_SONG_HINT        Song will play faster.                                                                                                            
+MODIFIER_GHOST_NOTES        Ghost Notes                                                                                                            
+MODIFIER_GHOST_NOTES_HINT        Cubes are invisible & arrows will disappear before they reach you.                                                                                                            
+MODIFIER_INSTA_FAIL        Insta Fail                                                                                                            
+MODIFIER_INSTA_FAIL_HINT        Every mistake will cause instant level fail.                                                                                                            
+MODIFIER_NO_ARROWS        No Arrows                                                                                                            
+MODIFIER_NO_ARROWS_HINT        You can cut all the cubes in any direction.                                                                                                            
+MODIFIER_NO_BOMBS        No Bombs                                                                                                            
+MODIFIER_NO_BOMBS_HINT        There will be no bombs in the level.                                                                                                            
+MODIFIER_PRO_MODE        Pro Mode                                                                                                            
+MODIFIER_PRO_MODE_HINT        There's no tolerance in hitting cubes.                                                                                                            
+MODIFIER_SLOWER_SONG        Slower Song                                                                                                            
+MODIFIER_SLOWER_SONG_HINT        Song will play slower.                                                                                                            
+MODIFIER_STRICT_ANGLES        Strict Angles                                                                                                            
+MODIFIER_STRICT_ANGLES_HINT        Only really precise cuts will be evaulated as good.                                                                                                            
+MODIFIER_SUPER_FAST_NOTES        Super Fast Notes                                                                                                            
+MODIFIER_SUPER_FAST_NOTES_HINT        Cubes will move super fast.                                                                                                            
+MODIFIERS_TOTAL_MULTIPLIER        Total Multiplier                                                                                                            
+MODIFIERS_MAX_RANK_WITH_MODIFIERS        Max Rank with current modifiers                                                                                                            
+STEAM_BOUGHT_CONTENT_INFO        If you bought this content, but don't see it here, please open Steam and check if it was properly downloaded.                                                                                                            
+STATUS_DOWNLOADING        Downloading                                                                                                            
+STATUS_ERROR_GETTING_DATA        Error getting data.                                                                                                            
+MENU_GRAPHICS        Graphics                                                                                                            
+MENU_ADVANCED_GRAPHICS        Advanced Graphics                                                                                                            
+MENU_ROOM_ADJUST        Room Adjust                                                                                                            
+MENU_SMOOTH_CAMERA        Smooth Camera                                                                                                            
+MENU_OTHERS        Others                                                                                                            
+SETTINGS_MIRROR_QUALITY        Mirror Quality                                                                                                            
+SETTINGS_SMOKE        Smoke                                                                                                            
+SETTINGS_BLOOM_FOG_QUALITY        Bloom Fog Quality                                                                                                            
+SETTINGS_BLOOM_POST_PROCESS        Bloom Post Process                                                                                                            
+SETTINGS_ROOM_X_OFFSET        X Offset                                                                                                            
+SETTINGS_ROOM_Y_OFFSET        Y Offset                                                                                                            
+SETTINGS_ROOM_Z_OFFSET        Z Offset                                                                                                            
+SETTINGS_ROOM_ROTATION        Rotation                                                                                                            
+SETTINGS_NON_VR_RESOLUTION        Non VR Resolution                                                                                                            
+SETTINGS_FULLSCREEN        Fullscreen                                                                                                            
+SETTINGS_RENDERING_SCALE        Rendering Scale                                                                                                            
+SETTINGS_ANTIALIASING_MSAA        Antialiasing (MSAA)                                                                                                            
+SETTINGS_VOLUME        Volume                                                                                                            
+SETTINGS_PAUSE_PRESS_DURATION        Pause Press Duration                                                                                                            
+SETTINGS_SMOOTH_CAMERA        Smooth Camera                                                                                                            
+SETTINGS_ONLINE_SERVICES        Enable Online Services                                                                                                            
+SETTINGS_SMOOTH_CAMERA_INFO        Enabling this feature will replace Beat Sabers desktop window with a smoothed, customised field of view, suitable for recording & streaming                                                                                                            
+SETTINGS_SMOOTH_CAMERA_WARNING        Smooth camera is expensive and can cause bad performance on some hardware configurations.                                                                                                            
+SETTINGS_FIELD_OF_VIEW        Field Of View                                                                                                            
+SETTINGS_SMOOTHNESS        Smoothness                                                                                                            
+SETTINGS_ON        On                                                                                                            
+SETTINGS_OFF        Off                                                                                                            
+SETTINGS_LOW        Low                                                                                                            
+SETTINGS_HIGH        High                                                                                                            
+SETTINGS_INSTANT        Instant                                                                                                            
+SETTINGS_LONG        Long                                                                                                            
+DIFFICULTY_EASY        Easy                                                                                                            
+DIFFICULTY_EASY_SHORT        E                                                                                                            
+DIFFICULTY_NORMAL        Normal                                                                                                            
+DIFFICULTY_NORMAL_SHORT        N                                                                                                            
+DIFFICULTY_HARD        Hard                                                                                                            
+DIFFICULTY_HARD_SHORT        H                                                                                                            
+DIFFICULTY_EXPERT        Expert                                                                                                            
+DIFFICULTY_EXPERT_SHORT        X                                                                                                            
+DIFFICULTY_EXPERT_PLUS        Expert+                                                                                                            
+DIFFICULTY_EXPERT_PLUS_SHORT        X+                                                                                                            
+DIFFICULTY_UNKNOWN        Unknown                                                                                                            
+DIFFICULTY_UNKNOWN_SHORT        /                                                                                                            
+STAGE_LOCK_HINT        To continue up you need to finish some levels before this barrier.                                                                                                            
+CAMPAIGN_MISSION        Mission                                                                                                            
+CAMPAIGN_SONG        Song <color=#ffffff88>{0}</color>                                                                                                            
+CAMPAIGN_DIFFICULTY        Difficulty <color=#ffffff88>{0}</color>                                                                                                            
+CAMPAIGN_TYPE        Type <color=#ffffff88>{0}</color>                                                                                                            
+CAMPAIGN_MISSION_COMPLETE        Mission Complete                                                                                                            
+CAMPAIGN_MISSION_FAILED        Mission Failed                                                                                                            
+CAMPAIGN_MODIFIERS        Modifiers                                                                                                            
+CAMPAIGN_OBJECTIVES        Objectives                                                                                                            
+CAMPAIGN_CHARACTERISTIC        characteristic                                                                                                            
+CAMPAIGN_FINISH_LEVEL        Finish Level                                                                                                            
+LEVEL_NO_ARROWS        No Arrows                                                                                                            
+LEVEL_NO_ARROWS_HINT        No Arrows                                                                                                            
+LEVEL_ONE_SABER        One Saber                                                                                                            
+LEVEL_ONE_SABER_HINT        One Saber                                                                                                            
+LEVEL_STANDARD        Standard                                                                                                            
+LEVEL_STANDARD_HINT        Standard                                                                                                            
+PROMPT_INFORMATION        Information                                                                                                            
+PROMPT_HAVENT_PLAYED_YET        It looks like you haven't played Beat Saber yet. Would you like to play tutorial first?                                                                                                            
+PROMPT_YES        Yes                                                                                                            
+PROMPT_NO        No                                                                                                            
+RESULTS_LEVEL_FAILED        Level FAILED                                                                                                            
+OBJECTIVE_BAD_CUTS        Bad Cuts                                                                                                            
+OBJECTIVE_COMBO        Combo                                                                                                            
+OBJECTIVE_FULL_COMBO        Full Combo                                                                                                            
+OBJECTIVE_HANDS_MOVEMENT        Hands Movement                                                                                                            
+OBJECTIVE_MISS        Miss                                                                                                            
+OBJECTIVE_SCORE        Score                                                                                                            
+MISSION_NEW_OBJECTIVE_TITLE        New Objective                                                                                                            
+MISSION_HELP_MIN_SCORE_TITLE        In this mission your score must be higher than the specified minimum.                                                                                                            
+MISSION_HELP_MAX_BAD_CUTS_TITLE        In this mission you can make only limited amount of mistakes (<color=#ffffff88>BAD CUTS</color> and <color=#ffffff88>MISSED</color> notes)                                                                                                            
+MISSION_HELP_MIN_COMBO_TITLE        In this mission you must reach specified <color=#ffffff88>combo</color> number.                                                                                                            
+MISSION_HELP_MIN_HANDS_MOVEMENT_TITLE        In this mission your goal is to move your <color=#FFFFFF88>hands</color> enough to travel the <color=#FFFFFF88>specified MINIMUM distance.</color>                                                                                                            
+MISSION_HELP_MAX_HANDS_MOVEMENT_DESCRIPTION        Try to limit your movement as much as possible.                                                                                                            
+MISSION_HELP_MAX_HANDS_MOVEMENT        This objective is special. There is a <color=#FFFFFF88>MAXIMUM distance</color> you can move with your <color=#FFFFFF88>hands.</color>                                                                                                            
+MISSION_HELP_MIN_HANDS_MOVEMENT_DESCRIPTION        To complete this objective you usually just need to move with your hands a lot. Don't use just your wrists but whole arms.                                                                                                            
+MISSION_HELP_MAX_COMBO_TITLE        In this mission you have to keep your <color=#FFFFFF88>combo</color> below specified number.                                                                                                            
+MISSION_HELP_MAX_COMBO_TITLE_DESCRIPTION        One way how to complete this kind of objective is to make deliberate mistakes.                                                                                                            
+BUTTON_LEVEL_EDITOR        Level Editor                                                                                                            
+SETTINGS_SCREEN_DISTORTION_EFFECTS        Screen Distortion Effects                                                                                                            
+CUSTOM_LEVELS_LEADERBOARDS_NOT_SUPPORTED        Leaderboards for custom levels are not supported.                                                                                                            
+TITLE_CUSTOM_LEVELS        Custom Levels                                                                                                            
+SETTINGS_AUDIO_LATENCY        Audio Latency                                                                                                            
+SETTINGS_AUDIO_LATENCY_INFO        This setting can help you compensate an audio delay of your sound system. Adjust the latency value to sync audio with video. Always use your headset to do this calibration.                                                                                                            
+PLAYER_SETTINGS_AUTO_RESTART        Auto Restart on Fail                                                                                                            
+SETTINGS_MAX_SHOCKWAVE_PARTICLES        Max Shockwave Particles                                                                                                            
+TITLE_NEW_HIGHSCORE        New Highscore                                                                                                            
+STEAM_STORE_DOESNT_OPEN_HINT        If the store window doesn't open after pressing the buy button, please try to purchase this item directly on Steam. We are sorry for the inconvenience.                                                                                                            
+BUTTON_ENVIRONMENTS        Environments                                                                                                            
+BUTTON_COLORS        Colors                                                                                                            
+BUTTON_LOGIN        Login                                                                                                            
+BUTTON_LOGOUT        Logout                                                                                                            
+STATUS_CONNECTED        Connected                                                                                                            
+STATUS_DISCONNECTED        Disconnected                                                                                                            
+REQUIRES_INTERNET_INFO        Requires an active internet connection.                                                                                                            
+PLAYER_HEIGHT_MEASURE_BUTTON_HOVER_HINT        Measure and set your current height. Stand straight and make sure your floor position was configured properly in the game settings.                                                                                                            
+NORMAL_ENVIRONMENT_TYPE        Normal Environment                                                                                                            
+CIRCLE_ENVIRONMENT_TYPE        Circle Environment                                                                                                            
+OVERRIDE_ENVIRONMENTS_TOGGLE        Override Default Environments                                                                                                            
+OVERRIDE_COLORS_TOGGLE        Override Default Colors                                                                                                            
+CUSTOM_COLORS_EDITING_HINT        Only custom color schemes can be edited.                                                                                                            
+PREVIOUS_COLOR_HINT        Previous Color                                                                                                            
+SETTINGS_OVERRIDE_AUDIO_LATENCY        Override Audio Latency                                                                                                            
+LEADERBOARDS_LOADING_FAILED        Oops something went wrong. You may want to check your internet connection.                                                                                                            
+LEADERBOARDS_NOT_AVAILABLE        Leaderboards not available.\nProbably you are not signed in or your use of online features is restricted.                                                                                                            
+LEVEL_SELECTION_BUTTON        Level Selection                                                                                                            
+HOW_TO_PLAY_BUTTON        How To Play                                                                                                            
+LOGOUT_BUTTON        Logout                                                                                                            
+PRIVACY_POLICY_BUTTON        Privacy Policy                                                                                                            
+PLAYER_SETTINGS_AUTOMATIC_PLAYER_HEIGHT        Automatic Player Height                                                                                                            
+LEVEL_360DEGREE        360 Degree                                                                                                            
+LEVEL_360DEGREE_HINT        360 Degree                                                                                                            
+LEVEL_90DEGREE        90 Degree                                                                                                            
+LEVEL_90DEGREE_HINT        90 Degree                                                                                                            
+BUTTON_OPEN_MUSIC_PACK        Open Music Pack                                                                                                            
+BUY_VIEW_INFO_TEXT        Buying complete music pack is cheaper than buying all the songs individually.                                                                                                            
+ERROR_LOADING_DATA_NO_INTERNET_MESSAGE        Error loading data. You may want to check your internet connection.                                                                                                            
+ERROR_LOADING_DATA        Error loading data.                                                                                                            
+DOWNLOADING        Downloading                                                                                                            
+PREPERIONG_TO_DOWNLOAD        Preparing to download                                                                                                            
+MUSIC_PACKS_TABBAR_TITLE        Music Packs                                                                                                            
+PLAYLISTS_TABBAR_TITLE        Playlists                                                                                                            
+90_PLAYLIST_NAME        Songs with 90 Degree Levels                                                                                                            
+360_PLAYLIST_NAME        Songs with 360 Degree Levels                                                                                                            
+ALL_SONGS_PLAYLIST_NAME        All Songs                                                                                                            
+USER_PLAYLIST_NAME        Favorites                                                                                                            
+INFO_AVERAGE_NOTES_PER_SECOND        Average Notes per Second                                                                                                            
+INFO_SONG_DURATION        Song Duration                                                                                                            
+PLAYER_SETTINGS_SFX_VOLUME        SFX Volume                                                                                                            
+OST_&_EXTRA_TABBAR_TITLE        OST & Extras                                                                                                            
+PROMPT_HAVENT_PLAYED_360_YET        Playing 360 degree levels requires you to rotate around freely. We advise you to either hang the cable from the ceiling or use a wireless solution.                                                                                                            
+PROMPT_OK        OK                                                                                                            
+AGREE_TO_PRIVACY_POLICY_LABEL        By clicking Continue you are agreeing to our privacy policy.                                                                                                            
+LEADERBOARDS_NOT_INITIALIZED_ERROR        Not initialized.                                                                                                            
+LEADERBOARDS_SOMETHING_WENT_WRONG_ERROR        Oops something went wrong.                                                                                                            
+LEADERBOARDS_PLATFORM_SERVICES_ERROR        Leaderboards not available. Probably you are not signed in or your use of online features is restricted.                                                                                                            
+LEADERBOARDS_NO_MODIFIERS_TITLE        Top without modifiers                                                                                                            
+LEADERBOARDS_MIXED_LEADERBOARDS_TITLE        Top mixed                                                                                                            
+EMPTY_FAVORITES_LIST_INFO        No songs have been favorited, press the star icon next to a song's name to add it to favorites.                                                                                                            
+EULA_TITLE        End User License Agreement                                                                                                            
+PRIVACY_POLICY_TITLE        Privacy Policy                                                                                                            
+ONLINE_SERVICES_TITLE        Online Services                                                                                                            
+DISABLE_ONLINE_SERVICES_WARNING_INFO        You are about to disable online services. Functionality like leaderboards will stop working. All your personal data stored on our servers including your scores in leaderboards will be removed. Do you really want to disable online services?                                                                                                            
+TITLE_WARNING        Warning                                                                                                            
+BUTTON_DISABLE_ONLINE_SERVICES        Disable online services                                                                                                            
+BUTTON_ENABLE        Enable                                                                                                            
+BUTTON_DONT_ENABLE        Don't enable                                                                                                            
+SETTINGS_ONLINE_SERVICES_INFO        Online services are required for leaderboards functionality.                                                                                                            
+SETTINGS_ONLINE_SERVICES_TOGGLE        Online services enabled                                                                                                            
+ONLINE_SERVICES_OPTIN_INFO        Before you start using our leaderboards you need to enable our online services. This is required to showi the best players and to submit your scores. Do you want to enable online services?                                                                                                            
+EMPTY_CUSTOM_SONG_LIST_INFO        You don't have any custom songs.                                                                                                            
+MENU_CONTROLLERS_TRANSFORM        Controllers                                                                                                            
+BUTTON_RESET        Reset                                                                                                            
+TITLE_POSITION_X        Position X                                                                                                            
+TITLE_POSITION_Y        Position Y                                                                                                            
+TITLE_POSITION_Z        Position Z                                                                                                            
+TITLE_ROTATION_X        Rotation X                                                                                                            
+TITLE_ROTATION_Y        Rotation Y                                                                                                            
+TITLE_ROTATION_Z        Rotation Z                                                                                                            
+MENU_OCULUS_MRC        Mixed Reality Capture                                                                                                            
+SETTINGS_OCULUS_MRC        Mixed Reality Capture (Beta)                                                                                                            
+SETTINGS_OCULUS_MRC_INFO        Mixed Reality Capture uses an external camera, such as a webcam, to capture real-world images, against a green-screen, and combine them with a scene generated by a mixed reality supported VR app to create a single blended scene.   For more information search for Mixed Reality Capture Setup Guide in Oculus Documentation.                                                                                                            
+SETTINGS_OCULUS_MRC_WARNING        Mixed Reality Capture is in development and can cause bad performance. We are continuing to improve the experience, and the set up flow may change.                                                                                                            
+PLAYER_SETTINGS_SABER_TRAIL_INTENSITY        Trail Intensity                                                                                                            
+PLAYING_CAMPAIGN_PRESENCE        Playing Campaign                                                                                                            
+PLAYING_TUTORIAL_PRESENCE        Playing Tutorial                                                                                                            
+BROWSING_MENUS_PRESENCE        Browsing Menus                                                                                                            
+                                                                                                                    
+LEVEL_LIGHTSHOW_HINT        Lightshow                                                                                                            

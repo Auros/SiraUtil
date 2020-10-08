@@ -1,7 +1,7 @@
 namespace SiraUtil.Interfaces
 {
-	public interface IModelProvider
-	{
-		int Priority { get; }
-	}
+    public interface IModelProvider
+    {
+        int Priority { get; }
+    }
 }
