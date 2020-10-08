@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
-    public class Zenjector
-    {
-        public string Name { get; }
-        internal bool Enabled { get; private set; } = true;
-        internal bool AutoControl { get; private set; } = true;
-        internal IList<InstallBuilder> Builders { get; } = new List<InstallBuilder>();
+	public class Zenjector
+	{
+		public string Name { get; }
+		internal bool Enabled { get; private set; } = true;
+		internal bool AutoControl { get; private set; } = true;
+		internal IList<InstallBuilder> Builders { get; } = new List<InstallBuilder>();
 
 		internal Zenjector(string name)
 		{
@@ -51,35 +51,35 @@ namespace SiraUtil.Zenject
 		}
 
 		public InstallBuilder OnApp<T>() where T : IInstaller
-        {
-            var ib = new InstallBuilder(typeof(T));
-            Builders.Add(ib);
-            ib.On(nameof(AppCoreInstaller));
-            return ib;
-        }
+		{
+			var ib = new InstallBuilder(typeof(T));
+			Builders.Add(ib);
+			ib.On(nameof(AppCoreInstaller));
+			return ib;
+		}
 
-        public InstallBuilder OnMenu<T>() where T : IInstaller
-        {
-            var ib = new InstallBuilder(typeof(T));
-            Builders.Add(ib);
-            ib.On(nameof(MenuInstaller));
-            return ib;
-        }
+		public InstallBuilder OnMenu<T>() where T : IInstaller
+		{
+			var ib = new InstallBuilder(typeof(T));
+			Builders.Add(ib);
+			ib.On(nameof(MenuInstaller));
+			return ib;
+		}
 
-        public InstallBuilder OnGame<T>() where T : IInstaller
-        {
-            var ib = new InstallBuilder(typeof(T));
-            Builders.Add(ib);
-            ib.On(nameof(GameCoreSceneSetup));
-            return ib;
-        }
+		public InstallBuilder OnGame<T>() where T : IInstaller
+		{
+			var ib = new InstallBuilder(typeof(T));
+			Builders.Add(ib);
+			ib.On(nameof(GameCoreSceneSetup));
+			return ib;
+		}
 
-        public InstallBuilder Register<T>() where T : IInstaller
-        {
-            var ib = new InstallBuilder();
-            Builders.Add(ib);
-            return ib.Register<T>();
-        }
+		public InstallBuilder Register<T>() where T : IInstaller
+		{
+			var ib = new InstallBuilder();
+			Builders.Add(ib);
+			return ib.Register<T>();
+		}
 
 		public InstallBuilder On<T>()
 		{
@@ -92,10 +92,10 @@ namespace SiraUtil.Zenject
 		}
 
 		private InstallBuilder OnGeneric(string destination = null)
-        {
-            var ib = new InstallBuilder();
-            Builders.Add(ib);
-            return ib.On(destination);
-        }
-    }
+		{
+			var ib = new InstallBuilder();
+			Builders.Add(ib);
+			return ib.On(destination);
+		}
+	}
 }
