@@ -2,13 +2,14 @@
  Utility library/mod for Beat Saber modders.
 
 # For Users
- This is mainly a utility mod, so it doesn't actually add any content or improvements to the game on its own other than [SongControl](#songcontrol). It's a tool for other mods to use. If you have it installed, you might have a mod that's using this!
+ This is mainly a utility mod, so it doesn't actually add any content or improvements to the game on its own other than [SongControl](#songcontrol) and [FPFCToggle](#fpfctoggle). It's a tool for other mods to use. If you have it installed, you might have a mod that's using this!
 
 # For Developers
  This utility contains some useful tools that might be of use. Also, this plugin has no outside dependencies! It only depends on files that are included in the base game and Harmony.
 
 ## Zenject
- This mod provides a wrapper to use Zenject, the dependency injection system that's in Beat Saber. Currently there are 4 scenes that you can inject into. AppCore (a global installer, anything injected here can be accessed anywhere, no matter which scene you're in), Menu (anything injected here is created and accessible in the menu scene), Gameplay (anything injected here is accessible in GameplayCore AND GameCore), and GameCore (anything injected in here can be accessed in GameCore only, but you can take stuff from GameplayCore).
+
+ This mod provides a wrapper to use Zenject, the dependency injection system that's in Beat Saber. You can inject your stuff into any container that it uses and access any items in that container.
 
 ### Alright cool, but what does this all mean?
  The base game heavily relies on using Zenject to serve components and classes to various systems and game objects. By subscribing to the Zenject pattern as a mod, this allows you to avoid the worries finding your own components as well as finding the base game components through `Resources.FindObjectsOfTypeAll`. It's incredible useful.
@@ -39,6 +40,8 @@
 > What you should be doing is stating a need, "I need something to drink with lunch," and then we will make sure you have something when you sit down to eat.
 
  Despite the quote, I suggest you do your own research into Dependency Injection as a concept and maybe play around with it in a dummy project.
+
+ If you do understand the general idea of Zenject, I HIGHLY recommend you check out these two resources. Trying to use Zenject without knowing how it works is like a chain around your leg.
 
  [Zenject's README](https://github.com/svermeulen/Extenject) on GitHub
 
