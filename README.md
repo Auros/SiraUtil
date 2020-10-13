@@ -27,6 +27,8 @@
 
  However, some of the things the base game has available can't be seen in the installer, since they're manually setup in the unity project. There's still a way to figure out if they're injected or not. For example, in the `MainFlowCoordinator`, there's quite a couple field that are marked with the `[Inject]` attribute. One of which is the `MenuLightsManager`. Obviously if the `MainFlowCoordinator` can access this, and the `MainFlowCoordinator` is in the menu, if you create your own menu installer, you can ask for the `MenuLightsManager` as well!
 
+ Finding every object you can request takes some assumptions and a bit of playing around. Using the [UnityRuntimeEditor](https://github.com/Caeden117/RuntimeUnityEditor) for BSIPA can allow you to easily view every provider in each scene container(s).
+
 ### Where can I learn more about Zenject?
 
  Before getting into this, make sure you understand Dependency Injection as a concept. Here is a quote by John Munsch which summarizes it in a way that almost anyone can understand.
@@ -44,9 +46,24 @@
 
 ### How do I use Zenject via SiraUtil?
 
- Very simple! In the namespace `SiraUtil.Zenject`, there is a static class called `Installer`. There are a collection of methods that follow the pattern of `RegisterSCENEInstaller<T>()` and `UnregisterSCENEInstaller<T>()`. In your own mod, you create your own class, make it inherit from any class that implements `IInstaller` and register it into the appropriate method. You only should register and unregister once, however SiraUtil won't double register an installer (that would just cause a lot of issues!). You should register and unregister in your OnEnable and OnDisable methods in your Plugin class respectively. 
+ In your Plugin `[Init]`, you can request the `Zenjector` class from the constructor or method just like how you'd do with the BSIPA config or logger. You can then construct your bindings there.
 
- In order to use Zenject objects, reference `Zenject.dll` and `Zenject-usage.dll` in Managed.
+ ```cs
+ [Init]
+ public Plugin(Zenjector zenjector)
+ {
+     zenjector.OnApp<MyMainInstaller>().WithParameters(10); // Use Zenject's installer parameter system!
+     zenjector.OnMenu<MyMenuUIInstaller>();
+     zenjector.OnGame<MyGameInstaller>();
+
+     // Specify the scene name or contract or installer!
+     zenject.On("Menu").Register<MyMenuEffectsInstaller>();
+ }
+ ```
+
+ SiraUtil will automatically handle enabling or disabling your bindings based on the state of your plugin. You can manually enable and disable them by saving the reference to the `Zenjector` class and calling `.Enable()` and `.Disable()` on it respectively.
+
+ In order to use Zenject types, reference `Zenject.dll` and `Zenject-usage.dll` in Managed.
 
 ### Example
  Please note that these are JUST EXAMPLES!
@@ -117,7 +134,7 @@
  using Zenject;
 
  // Your own installer!
- public class ModGameInstaller : MonoInstaller
+ public class MyGameInstaller : Installer
  {
      public override void InstallBindings()
      {
@@ -132,52 +149,37 @@
  [Plugin(RuntimeOptions.DynamicInit)]
  public class Plugin
  {
-     [OnEnable]
-     public void OnEnable()
+     [Init]
+     public Plugin(Zenjector zenjector)
      {
-         // Registering that installer.
-         SiraUtil.Zenject.Installer.RegisterGameplayCoreInstaller<ModGameInstaller>();
-     }
-
-     [OnDisable]
-     public void OnDisable()
-     {
-         // Unregistering that installer.
-         SiraUtil.Zenject.Installer.UnregisterGameplayCoreInstaller<ModGameInstaller>();
+         zenjector.OnGame<MyGameInstaller>();
      }
  }
  ```
 
  Here's some mods that use SiraUtil's Zenject system!
 
- * [Counters Plus 2.0 by Caeden](https://github.com/Caeden117/CountersPlus/tree/rewrite)
- * [Eris' SongRequestManager](https://github.com/ErisApps/SongRequestManager)
+ * [SiraUtil](https://github.com/Auros/SiraUtil)
+ * [DiColors](https://github.com/Auros/DiColors)
+ * [Enhancements](https://github.com/Auros/Enhancements)
  * [Eris' FPS Counter](https://github.com/ErisApps/FPS-Counter)
+ * [Eris' SongRequestManager](https://github.com/ErisApps/SongRequestManager)
+ * [Counters Plus 2.0 by Caeden](https://github.com/Caeden117/CountersPlus/tree/rewrite)
   
 ### Notice
-When creating bindings for UI (specifically for BSML), you'll probably be using `BeatSaberUI.CreateViewController` and `BeatSaberUI.CreateFlowCoordinator`, there's an extension method on DiContainers which I've made specifically for injecting and resolving objects that are already created. Here's an example.
+When creating bindings for view controllers, you'll need to do a small amount of setup first. Call `.OnInstantiated(SiraUtil.Utilities.SetupViewController)` to ensure your view controller is formatted properly.
 
 ```csharp
 public override void InstallBindings()
 {
-    MyViewController myViewController = BeatSaberUI.CreateViewController<MyViewController>();
-    MyFlowCoordinator myFlowCoordinator = BeatSaberUI.CreateFlowCoordinator<MyFlowCoordinator>();
-
-    Container.ForceBindComponent<MyViewController>(myViewController);
-    Container.ForceBindComponent<MyFlowCoordinator>(myFlowCoordinator);
-
+    Container.Bind<MyViewController>().FromComponentOnNewGameObject().AsSingle().OnInstantiated(SiraUtil.Utilities.SetupViewController);
+    Container.Bind<MyFlowCoordinator>().FromComponentOnNewGameObject().AsSingle();
 }
 ```
 
-Order matters since the ForceBindComponent will immediately inject it. If the container doesn't have bindings for any object you depend on in your View or Flow coordinator, it will throw an error!
-
-Good rule of thumb when working with UI. Let your flow coordinator handle inter-view controller interactions. Never request the flow coordinator in your view controller. Put events in your view controller and have the flow coordinator subscribe to them (this can be seen is almost every base game flow coordinator).
-
-With this in mind, make sure your flow coordinators are binded last.
-
 ## Sabers
 
-The `SiraUtil.Sabers` namespace provides a way to create new sabers. In your Plugin OnEnable and OnDisable, you can do `ExtraSabers.Touch()` and `ExtraSabers.Untouch()` to add your assembly to conditionally bind the `SiraSaber` factory in order to generate it. In an object that's been created or injected through Zenject, you can request `SiraSaber.Factory` and call .Create() on it. This returns a SiraSaber object with various methods for you to manipulate it however you'd like. There's also quite a few extension methods in `SiraUtil.Utilities` for changing normal Saber data too. Here's an example.
+The `SiraUtil.Sabers` namespace provides a way to create new sabers. You can request `SiraSaber.Factory` in a game scene container and call .Create() on it. This returns a SiraSaber object with various methods for you to manipulate it however you'd like. There's also quite a few extension methods in `SiraUtil.Utilities` for changing normal Saber data too. Here's an example.
 
 ```csharp
 public class MyCrazySaberMode
@@ -193,7 +195,7 @@ public class MyCrazySaberMode
 SiraUtil does the heavy lifting when it comes to creating and managing sabers. Any SiraSaber's created are automatically registered into the SiraSaberEffectManager, which handles the more visual stuff like the saber burn marks on the area and the collision particles. You can manually request the SiraSaberEffectManager in Zenject if you need to, but you most likely won't need to.
 
 ### Saber Model Providers
-One of the big points of SiraUtil is to allow easier mod compatibility. This is an attempt to allow multiple saber model mods to work together. The base game binds the saber model prefab as transient, so whenever it's asked for, whatever that prefab is will be instantiated and served. SiraSabers also ask for a model controller when they are created. Modders can register their own provider by creating a class that inherits `ISaberModelController` and setting up their saber in its `Init` method. Then, create a `SaberModelProvider` class, configure it with the type of your inherited `ISaberModelController` and the priority that your registration should have (higher is more priority).
+One of the big points of SiraUtil is to allow easier mod compatibility. This is an attempt to allow multiple saber model mods to work together. The base game binds the saber model prefab as transient, so whenever it's asked for, whatever that prefab is will be instantiated and served. SiraSabers also ask for a model controller when they are created. Modders can register their own provider by creating a class that inherits both `ISaberModelController` and `IModelProvider`, configure it, and specify the priority of the model. (highest priority in the provider list gets picked as the saber to use).
 
 ### IColorable
 IColorable is an interface which you can put on your objects so SiraUtil knows how to change its color! This is primarily implemented for use in ChromaToggle. This also allows mod developers to not have to depend on mod in order to change certain colors of objects. (For example, ChromaToggle does not need to reference SaberFactory in order to change the color of SaberFactory sabers, since the controller for the saber factory sabers inherit IColorable)
@@ -201,8 +203,11 @@ IColorable is an interface which you can put on your objects so SiraUtil knows h
 ### Notice
 Currently, any SiraSabers do not generate VRControllers. This means that you cannot expect for all sabers to have their VRControllers active.
 
+# FPFCToggle
+SiraUtil has FPFCToggle built in! You can enable it by editing SiraUtil.json in UserData and setting FPFCToggle -> Enabled to true. By default, hitting G will toggle. You can change other settings like the FOV, speed and more.
+
 ## SongControl
-SiraUtil has a system like MusicEscape built in! You can enable it by editing SiraUtil.json in UserData and setting SongControl -> Enabled to true. By default, hitting Escape will exit the game, hitting F2 will pause and unpause the song, and hitting F4 will restart the level. You can change these keys by editing SiraUtil.json and putting in your own key codes (UnityEngine.KeyCode).
+SiraUtil has a system like MusicEscape built in! You can enable it by editing SiraUtil.json in UserData and setting SongControl -> Enabled to true. By default, hitting Escape will exit the game, hitting F2 will pause and unpause the song, and hitting F4 will restart the level. You can change these keys by editing SiraUtil.json and putting in your own key codes.
 
 ## Support
 Have any questions about SiraUtil, Zenject, or the Sabers namespace? Reach out to me (Auros#0001) and I will gladly assist! Seriously! I will convert your entire mod if you ask me to.

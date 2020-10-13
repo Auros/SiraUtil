@@ -112,9 +112,9 @@ namespace SiraUtil
             stopwatch.Stop();
             Plugin.Log.Sira($"Took {stopwatch.Elapsed.TotalSeconds} seconds to download, parse, and load {successCount} localization sheets.");
             CheckLanguages();
+			/*
             List<string> keys = LocalizationImporter.GetKeys();
 
-			/*
             string savePath = Path.Combine(UnityGame.UserDataPath, "SiraUtil", "Localization", "Dumps");
             if (!Directory.Exists(savePath))
             {

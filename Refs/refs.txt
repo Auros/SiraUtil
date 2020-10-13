@@ -5,6 +5,7 @@
 ""HMLib.dll?virt?alias=Beat Saber_Data\Managed\HMLib.dll
 ""HMUI.dll?virt?alias=Beat Saber_Data\Managed\HMUI.dll
 ""Main.dll?virt?alias=Beat Saber_Data\Managed\Main.dll
+""MediaLoader.dll?virt?alias=Beat Saber_Data\Managed\MediaLoader.dll
 ""netstandard.dll?alias=Beat Saber_Data\Managed\netstandard.dll
 ""Oculus.VR.dll?alias=Beat Saber_Data\Managed\Oculus.VR.dll
 ""Polyglot.dll?alias=Beat Saber_Data\Managed\Polyglot.dll
