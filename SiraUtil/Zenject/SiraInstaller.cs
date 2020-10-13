@@ -19,6 +19,7 @@ namespace SiraUtil.Zenject
         public override void InstallBindings()
         {
             Container.BindInstance(_config).AsSingle().NonLazy();
+			Container.Bind<CachedSpriteMediaAsyncLoader>().AsSingle();
             Container.BindInstance(_config.FPFCToggle.Enabled).WithId("FPFCEnabled").WhenInjectedInto<FPFCToggle>();
             Container.BindInstance(_config.FPFCToggle.CameraFOV).WithId("CameraFOV").WhenInjectedInto<FPFCToggle>();
             Container.BindInstance(_config.FPFCToggle.ToggleKeyCode).WithId("ToggleCode").WhenInjectedInto<FPFCToggle>();

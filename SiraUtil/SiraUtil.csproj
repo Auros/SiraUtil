@@ -60,6 +60,11 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\HMRendering.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="MediaLoader, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\MediaLoader.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Libs\Newtonsoft.Json.dll</HintPath>
@@ -184,6 +189,7 @@
     <Compile Include="Sabers\SiraSaberEffectManager.cs" />
     <Compile Include="Sabers\SiraSaberInstaller.cs" />
     <Compile Include="Sabers\SiraSaber.cs" />
+    <Compile Include="Tools\CachedSpriteMediaAsyncLoader.cs" />
     <Compile Include="Tools\FPFCToggle.cs" />
     <Compile Include="Tools\SongControl.cs" />
     <Compile Include="Utilities.cs" />

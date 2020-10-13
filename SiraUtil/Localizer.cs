@@ -112,16 +112,17 @@ namespace SiraUtil
             stopwatch.Stop();
             Plugin.Log.Sira($"Took {stopwatch.Elapsed.TotalSeconds} seconds to download, parse, and load {successCount} localization sheets.");
             CheckLanguages();
-            /*List<string> keys = LocalizationImporter.GetKeys();
+            List<string> keys = LocalizationImporter.GetKeys();
 
+			/*
             string savePath = Path.Combine(UnityGame.UserDataPath, "SiraUtil", "Localization", "Dumps");
             if (!Directory.Exists(savePath))
             {
                 Directory.CreateDirectory(savePath);
             }
-            File.WriteAllLines(Path.Combine(savePath, "Keys.txt"), keys.ToArray());*/
-            /*
-            List<string> english = new List<string>();
+            File.WriteAllLines(Path.Combine(savePath, "Keys.txt"), keys.ToArray());
+
+            var english = new List<string>();
             foreach (var key in keys)
             {
                 var contains = LocalizationImporter.GetLanguagesContains(key);
@@ -129,8 +130,8 @@ namespace SiraUtil
             }
             File.WriteAllLines(Path.Combine(savePath, "English.txt"), english.ToArray());
             */
-            /*
-            Localization.Instance.GetField<List<Language>, Localization>("supportedLanguages").Add(Language.French);
+            
+            /*Localization.Instance.GetField<List<Language>, Localization>("supportedLanguages").Add(Language.French);
             Localization.Instance.SelectedLanguage = Language.French;*/
         }
 
