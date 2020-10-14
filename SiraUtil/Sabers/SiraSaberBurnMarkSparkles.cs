@@ -22,6 +22,8 @@ namespace SiraUtil.Sabers
 
         public override void Start()
         {
+			_sabers[0] = _saberManager.leftSaber;
+			_sabers[1] = _saberManager.rightSaber;
             for (int i = 0; i < 2; i++)
             {
                 if (_sabers[i])
@@ -33,7 +35,7 @@ namespace SiraUtil.Sabers
                         prevBurnMarkPos = _prevBurnMarkPos[i],
                         burnMarkParticleSystem = _burnMarksPS[i],
                         prevBurnMarkPosValid = _prevBurnMarkPosValid[i],
-                        burnMarkEmissionModule = _burnMarksEmmisionModules[i]
+                        burnMarkEmissionModule = _burnMarksEmissionModules[i]
                     };
                     _saberBurnData.Add(saberBurnDatum);
                 }

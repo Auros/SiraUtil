@@ -55,6 +55,11 @@
       <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="GameplayCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\GameplayCore.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="HMRendering, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\HMRendering.dll</HintPath>
@@ -177,6 +182,7 @@
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Interfaces\IModelProvider.cs" />
+    <Compile Include="Interfaces\SaberProvider.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="Interfaces\IColorable.cs" />
     <Compile Include="Interfaces\ISaberRegistrar.cs" />

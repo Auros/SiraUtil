@@ -48,7 +48,7 @@ namespace SiraUtil.Sabers
                 _obstacleSparkleData[i].wasSystemActive = _obstacleSparkleData[i].isSystemActive;
                 _obstacleSparkleData[i].isSystemActive = false;
             }
-            foreach (ObstacleController obstacleController in _obstaclePool.activeItems)
+            foreach (ObstacleController obstacleController in _beatmapObjectManager.activeObstacleControllers)
             {
                 Bounds bounds = obstacleController.bounds;
                 for (int i = 0; i < _obstacleSparkleData.Count; i++)
@@ -60,7 +60,7 @@ namespace SiraUtil.Sabers
                         osd.burnMarkPosition = pos;
                         osd.sparkleEffect.SetPositionAndRotation(pos, GetEffectRotation(pos, obstacleController.transform, bounds));
                         XRNode node = osd.saber.saberType == SaberType.SaberA ? XRNode.LeftHand : XRNode.RightHand;
-                        _hapticFeedbackController.ContinuousRumble(node);
+                        _hapticFeedbackController.PlayHapticFeedback(node, _rumblePreset);
                         if (!osd.wasSystemActive)
                         {
                             osd.sparkleEffect.StartEmission();
@@ -99,7 +99,7 @@ namespace SiraUtil.Sabers
             var osd = new ObstacleSparkleDatum
             {
                 saber = saber,
-                sparkleEffect = Instantiate(_obstacleSaberSparkleEffectPefab)
+                sparkleEffect = Instantiate(_obstacleSaberSparkleEffectPrefab)
             };
             osd.sparkleEffect.color = _colorManager.GetObstacleEffectColor();
             osd.effectTransform = osd.sparkleEffect.transform;

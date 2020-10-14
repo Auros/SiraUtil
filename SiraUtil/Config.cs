@@ -39,7 +39,7 @@ namespace SiraUtil
         {
             public virtual bool Enabled { get; set; } = false;
             public virtual float CameraFOV { get; set; } = 90f;
-            public virtual float MoveSensitivity { get; set; } = 0.1f;
+            public virtual float MoveSensitivity { get; set; } = 5f;
 
             [UseConverter(typeof(EnumConverter<KeyCode>))]
             public virtual KeyCode ToggleKeyCode { get; set; } = KeyCode.G;

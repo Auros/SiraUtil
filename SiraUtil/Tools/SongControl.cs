@@ -59,7 +59,7 @@ namespace SiraUtil.Tools
                 }
                 else
                 {
-                    _pauseController.HandlePauseTriggered();
+					_pauseController.Pause();
                 }
                 return;
             }

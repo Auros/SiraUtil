@@ -19,7 +19,7 @@ namespace SiraUtil
         {
             return binder.FromNewComponentOn(new GameObject(name));
         }
-
+		
         internal static void OverrideColor(this SetSaberGlowColor ssgc, Color color)
         {
             MeshRenderer mesh = Accessors.GlowMeshRenderer(ref ssgc);
@@ -46,17 +46,15 @@ namespace SiraUtil
 
         public static Color GetColor(this Saber saber)
         {
-            ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
-            if (modelController is BasicSaberModelController)
-            {
-                var bsmc = modelController as BasicSaberModelController;
-                Light light = Accessors.SaberLight(ref bsmc);
-                return light.color;
-            }
-            else if (modelController is IColorable)
+            SaberModelController modelController = saber.gameObject.GetComponentInChildren<SaberModelController>(true);
+            if (modelController is IColorable)
             {
                 var colorable = modelController as IColorable;
                 return colorable.Color;
+            }
+            else if (modelController is SaberModelController smc)
+            {
+				return Accessors.TrailColor(ref Accessors.SaberTrail(ref smc)).gamma;
             }
             return Color.white;
         }
@@ -77,9 +75,9 @@ namespace SiraUtil
             }
         }
 
-        public static void ChangeColor(this Saber _, Color color, BasicSaberModelController bsmc, Color tintColor, SetSaberGlowColor[] setSaberGlowColors, SetSaberFakeGlowColor[] setSaberFakeGlowColors, Light light)
+        public static void ChangeColor(this Saber _, Color color, SaberModelController smc, Color tintColor, SetSaberGlowColor[] setSaberGlowColors, SetSaberFakeGlowColor[] setSaberFakeGlowColors, TubeBloomPrePassLight light)
         {
-            Accessors.SaberTrail(ref bsmc).color = (color * tintColor).linear;
+            Accessors.TrailColor(ref Accessors.SaberTrail(ref smc)) = (color * tintColor).linear;
 
             for (int i = 0; i < setSaberGlowColors.Length; i++)
             {
@@ -89,7 +87,10 @@ namespace SiraUtil
             {
                 setSaberFakeGlowColors[i].OverrideColor(color);
             }
-            light.color = color;
+            if (light != null)
+			{
+				light.color = color;
+			}
         }
 
         public static void SetType(this Saber saber, SaberType type, ColorManager colorManager)
@@ -110,7 +111,7 @@ namespace SiraUtil
 
         public static void NullCheck(this IPA.Logging.Logger logger, object toCheck)
         {
-            logger.Info(toCheck != null ? $"{toCheck.GetType().Name} is not null." : "Object is null");
+            logger.Info(toCheck != null ? $"{toCheck.GetType().Name} is not null." : $"{toCheck.GetType().FullName} is null");
         }
 
         internal static void Sira(this IPA.Logging.Logger logger, string message)
@@ -124,16 +125,6 @@ namespace SiraUtil
         public static TDel GetEventHandlers<TTarget, TDel>(this TTarget target, string name)
         {
             return FieldAccessor<TTarget, TDel>.Get(target, name);
-        }
-
-        public static Task<Tuple<PlatformUserModelSO.GetUserInfoResult, PlatformUserModelSO.UserInfo>> GetUserInfoAsync(this PlatformUserModelSO platformUserModelSO)
-        {
-            var tcs = new TaskCompletionSource<Tuple<PlatformUserModelSO.GetUserInfoResult, PlatformUserModelSO.UserInfo>>();
-            platformUserModelSO.GetUserInfo(delegate (PlatformUserModelSO.GetUserInfoResult result, PlatformUserModelSO.UserInfo userInfo)
-            {
-                tcs.SetResult(new Tuple<PlatformUserModelSO.GetUserInfoResult, PlatformUserModelSO.UserInfo>(result, userInfo));
-            });
-            return tcs.Task;
         }
     }
 }

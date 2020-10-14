@@ -33,18 +33,18 @@ namespace SiraUtil
             {
                 yield return new WaitForSeconds(time);
             }
-            ISaberModelController modelController = saber.gameObject.GetComponentInChildren<ISaberModelController>(true);
-            if (modelController is BasicSaberModelController bsmc)
-            {
-                Color tintColor = Accessors.ModelInitData(ref bsmc).trailTintColor;
-                SetSaberGlowColor[] setSaberGlowColors = Accessors.SaberGlowColor(ref bsmc);
-                SetSaberFakeGlowColor[] setSaberFakeGlowColors = Accessors.FakeSaberGlowColor(ref bsmc);
-                Light light = Accessors.SaberLight(ref bsmc);
-                saber.ChangeColor(color, bsmc, tintColor, setSaberGlowColors, setSaberFakeGlowColors, light);
-            }
-            else if (modelController is IColorable colorable)
+            SaberModelController modelController = saber.gameObject.GetComponentInChildren<SaberModelController>(true);
+            if (modelController is IColorable colorable)
             {
                 colorable.SetColor(color);
+            }
+            if (modelController is SaberModelController smc)
+            {
+                Color tintColor = Accessors.ModelInitData(ref smc).trailTintColor;
+                SetSaberGlowColor[] setSaberGlowColors = Accessors.SaberGlowColor(ref smc);
+                SetSaberFakeGlowColor[] setSaberFakeGlowColors = Accessors.FakeSaberGlowColor(ref smc);
+                TubeBloomPrePassLight light = Accessors.SaberLight(ref smc);
+                saber.ChangeColor(color, smc, tintColor, setSaberGlowColors, setSaberFakeGlowColors, light);
             }
         }
 
