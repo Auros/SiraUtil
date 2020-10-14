@@ -23,12 +23,19 @@ namespace SiraUtil.Sabers
 				}
 				return true;
 			}
-			var baseProvider = providers.First();
+			var baseProvider = providers.OrderByDescending(x => x.Priority).First();
 			SaberModelController saberModelController = null;
 			var providerX = ____container.Resolve<SaberProvider>();
 			if (!providerX.IsSafe())
 			{
-				providerX.ModelPrefab = new GameObject(baseProvider.GetType().FullName).AddComponent(baseProvider.Type) as SaberModelController;
+				/*Plugin.Log.Info($"Provider Count: {providers.Count()}");
+				providers.ToList().ForEach(x => Plugin.Log.Info($"Provider {x.Type.Name} with priority {x.Priority}"));
+				Plugin.Log.Info($"Selecting {baseProvider.Type.Name}");*/
+				saberModelController = providerX.ModelPrefab = new GameObject(baseProvider.GetType().FullName).AddComponent(baseProvider.Type) as SaberModelController;
+			}
+			else
+			{
+				saberModelController = providerX.ModelPrefab;
 			}
 			____container.Inject(saberModelController);
 			Accessors.SaberTrail(ref saberModelController) = Accessors.SaberTrail(ref ____saberModelControllerPrefab);
@@ -48,17 +55,6 @@ namespace SiraUtil.Sabers
 			saberModelController.gameObject.transform.SetParent(__instance.transform, false);
 			saberModelController.Init(__instance.transform, ____saber);
 			return false;
-		}
-
-		private static void SetupSaberParent(InjectContext _, object source)
-		{
-			if (source is SaberModelController saberController)
-			{
-				Plugin.Log.Info("Moving controller");
-				var go = new GameObject(saberController.GetType().FullName);
-				
-				saberController.gameObject.transform.SetParent(go.transform, false);
-			}
 		}
 	}
 }

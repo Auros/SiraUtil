@@ -5,7 +5,7 @@ namespace SiraUtil.Interfaces
 	public class SaberProvider
 	{
 		private DiContainer _container;
-		internal SaberModelController ModelPrefab { private get; set; }
+		internal SaberModelController ModelPrefab { get; set; }
 
 		public SaberProvider(DiContainer container)
 		{

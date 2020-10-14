@@ -7,9 +7,9 @@ namespace SiraUtil.Events
     {
         internal static event EventHandler<SceneContextInstalledArgs> ContextInstalling;
 
-        internal static void SendInstallEvent(string name, SceneContext context, DiContainer container)
+        internal static void SendInstallEvent(string name, SceneContext context, DiContainer container, string mode = null, string transition = null)
         {
-            var args = new SceneContextInstalledArgs(name, container);
+            var args = new SceneContextInstalledArgs(name, container, new ModeInfo(transition, mode));
             ContextInstalling.Invoke(context, args);
         }
 
@@ -17,12 +17,26 @@ namespace SiraUtil.Events
         {
             public string Name { get; }
             public DiContainer Container { get; }
+			public ModeInfo ModeInfo { get; }
 
-            public SceneContextInstalledArgs(string name, DiContainer container)
+            public SceneContextInstalledArgs(string name, DiContainer container, ModeInfo modeInfo)
             {
                 Name = name;
+				ModeInfo = modeInfo;
                 Container = container;
             }
         }
+
+		internal class ModeInfo
+		{
+			public string Gamemode { get; }
+			public string Transition { get; }
+
+			public ModeInfo(string gamemode, string transition)
+			{
+				Gamemode = gamemode ?? "";
+				Transition = transition ?? "";
+			}
+		}
     }
 }

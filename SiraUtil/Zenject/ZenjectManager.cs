@@ -43,26 +43,29 @@ namespace SiraUtil.Zenject
             }
         }
 
-        #region Events
+		#region Events
 
-        private void SiraEvents_PreInstall(object sender, SiraEvents.SceneContextInstalledArgs e)
-        {
-            if (!ProjectContextWentOff)
-            {
-                if (e.Name == "AppCore") // AppCore is the first reported context.
-                {
-                    ProjectContextWentOff = true;
-                }
-                else
-                {
-                    return;
-                }
-            }
-            var context = sender as SceneContext;
+		private void SiraEvents_PreInstall(object sender, SiraEvents.SceneContextInstalledArgs e)
+		{
+			if (!ProjectContextWentOff)
+			{
+				if (e.Name == "AppCore") // AppCore is the first reported context.
+				{
+					ProjectContextWentOff = true;
+				}
+				else
+				{
+					return;
+				}
+			}
+			var context = sender as SceneContext;
+			var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name && !x.Circuits.Contains(e.Name) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode)).ToList();
 
-            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name).ToList();
-            builders.ForEach(x => x.Validate());
-
+			builders.ForEach(x => x.Validate());
+			
+			var dupe = builders.GroupBy(x => x.Type).FirstOrDefault(g => g.Count() > 1);
+			Assert.IsNull(dupe, $"Multiple installers detected on same container. {Utilities.ASSERTHIT}", dupe);
+			
             // Handle Parameters (Manually Installed)
             var parameterBased = builders.Where(x => x.Parameters != null && x.Parameters.Length > 0);
             var bases = context.NormalInstallers.ToList();

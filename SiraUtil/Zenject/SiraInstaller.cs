@@ -2,6 +2,7 @@ using System;
 using Zenject;
 using SiraUtil.Tools;
 using SiraUtil.Interfaces;
+using UnityEngine;
 
 namespace SiraUtil.Zenject
 {
@@ -33,7 +34,6 @@ namespace SiraUtil.Zenject
             // Make Zenject know this is a list
             Container.Bind<IModelProvider>().To<DummyProviderA>().AsSingle();
             Container.Bind<IModelProvider>().To<DummyProviderB>().AsSingle();
-
         }
 
         private class DummyProviderA : IModelProvider { public int Priority => -9999; public Type Type => typeof(DummyProviderB); }
@@ -51,7 +51,6 @@ namespace SiraUtil.Zenject
 
         public override void InstallBindings()
         {
-			Container.Bind<SaberProvider>().AsSingle();
             if (_config.SongControl.Enabled)
             {
                 Container.BindInstance(_config.SongControl.ExitKeyCode).WithId("ExitCode");
@@ -59,6 +58,51 @@ namespace SiraUtil.Zenject
                 Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
                 Container.BindInterfacesTo<SongControl>().AsSingle().NonLazy();
 			}
+
+			//Container.Bind<IModelProvider>().To<GamerSaberProvider>().AsSingle();
+			//Container.Bind<IModelProvider>().To<GamerSaberProvider2>().AsSingle();
 		}
     }
+	/*
+	public class GamerSaberController : SaberModelController
+	{
+		public override void Init(Transform transform, Saber saber)
+		{
+			Plugin.Log.Info("bruh moment");
+		}
+	}
+
+	public class GamerSaberProvider : IModelProvider
+	{
+		public Type Type => typeof(GamerSaberController);
+		public int Priority => 200;
+	}
+	public class TheInstaller : Installer
+	{
+		public override void InstallBindings()
+		{
+			Container.Bind<IModelProvider>().To<GamerSaberProvider>().AsSingle();
+		}
+	}
+
+	public class GamerSaberController2 : SaberModelController
+	{
+		public override void Init(Transform transform, Saber saber)
+		{
+			Plugin.Log.Info("bruh moment 2");
+		}
+	}
+
+	public class GamerSaberProvider2 : IModelProvider
+	{
+		public Type Type => typeof(GamerSaberController2);
+		public int Priority => 201;
+	}
+	public class TheInstaller2 : Installer
+	{
+		public override void InstallBindings()
+		{
+			Container.Bind<IModelProvider>().To<GamerSaberProvider>().AsSingle();
+		}
+	}*/
 }
