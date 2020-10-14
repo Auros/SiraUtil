@@ -1,13 +1,14 @@
 using Zenject;
 using UnityEngine;
 using System.Collections;
+using SiraUtil.Interfaces;
 
 namespace SiraUtil.Sabers
 {
-    /// <summary>
-    /// A SiraSaber is an extra saber with some useful extension methods. The SiraSaber object is on the same GameObject as the normal Saber object, it's not an overridden version of the default Saber class.
-    /// </summary>
-    public class SiraSaber : MonoBehaviour
+	/// <summary>
+	/// A SiraSaber is an extra saber with some useful extension methods. The SiraSaber object is on the same GameObject as the normal Saber object, it's not an overridden version of the default Saber class.
+	/// </summary>
+	public class SiraSaber : MonoBehaviour
     {
         public static SaberType nextType = SaberType.SaberB;
 
@@ -16,15 +17,13 @@ namespace SiraUtil.Sabers
         private ColorManager _colorManager;
         private SaberTypeObject _saberTypeObject;
         private IEnumerator _changeColorCoroutine = null;
-        private ISaberModelController _saberModelController;
+        private SaberModelController _saberModelController;
         private SiraSaberEffectManager _siraSaberEffectManager;
 
         [Inject]
-        public void Construct(ColorManager colorManager, ISaberModelController modelController, SiraSaberEffectManager siraSaberEffectManager)
+        public void Construct(ColorManager colorManager, SaberProvider controller, SiraSaberEffectManager siraSaberEffectManager)
         {
-            // Woohoo! We received the saber model from Zenject!
-            _saberModelController = modelController;
-            _saberModelController.Init(transform, nextType);
+            _saberModelController = controller.GetModel();
             _siraSaberEffectManager = siraSaberEffectManager;
 
             _colorManager = colorManager;
@@ -41,10 +40,13 @@ namespace SiraUtil.Sabers
             top.transform.SetParent(transform);
             bottom.transform.SetParent(transform);
             top.transform.position = new Vector3(0f, 0f, 1f);
+            _saberModelController.Init(transform, _saber);
 
-            Accessors.TopPos(ref _saber) = top.transform;
-            Accessors.BottomPos(ref _saber) = bottom.transform;
-            Accessors.HandlePos(ref _saber) = bottom.transform;
+            Accessors.SaberHandleTransform(ref _saber) = bottom.transform;
+            Accessors.SaberBladeTopTransform(ref _saber) = top.transform;
+            Accessors.SaberBladeBottomTransform(ref _saber) = bottom.transform;
+			Accessors.SaberBladeTopPosition(ref _saber) = top.transform.localPosition;
+			Accessors.SaberBladeBottomPosition(ref _saber) = bottom.transform.localPosition;
 
             _siraSaberEffectManager.SaberCreated(_saber);
         }
@@ -53,11 +55,10 @@ namespace SiraUtil.Sabers
         {
             if (_saber)
             {
-                Accessors.Time(ref _saber) += Time.deltaTime;
-                if (!_saber.disableCutting)
+                if (!_saber.disableCutting && _saber.gameObject.activeInHierarchy)
                 {
-                    Vector3 topPosition = Accessors.TopPos(ref _saber).position;
-                    Vector3 bottomPosition = Accessors.BottomPos(ref _saber).position;
+                    Vector3 topPosition = Accessors.SaberBladeTopTransform(ref _saber).position;
+                    Vector3 bottomPosition = Accessors.SaberBladeBottomTransform(ref _saber).position;
                     int i = 0;
                     while (i < Accessors.SwingRatingCounters(ref _saber).Count)
                     {
@@ -73,12 +74,8 @@ namespace SiraUtil.Sabers
                             i++;
                         }
                     }
-                    SaberMovementData.Data lastAddedData = Accessors.MovementData(ref _saber).lastAddedData;
-                    Accessors.MovementData(ref _saber).AddNewData(topPosition, bottomPosition, Accessors.Time(ref _saber));
-                    if (!_saber.disableCutting)
-                    {
-                        Accessors.Cutter(ref _saber).Cut(_saber, topPosition, bottomPosition, lastAddedData.topPos, lastAddedData.bottomPos);
-                    }
+                    var lastAddedData = Saber.movementData.lastAddedData;
+                    Accessors.MovementData(ref _saber).AddNewData(topPosition, bottomPosition, TimeHelper.time);
                 }
             }
         }

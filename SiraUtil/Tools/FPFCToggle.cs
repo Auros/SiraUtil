@@ -4,6 +4,9 @@ using System.Linq;
 using UnityEngine;
 using VRUIControls;
 using IPA.Utilities;
+using System.Threading;
+using System.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 namespace SiraUtil.Tools
 {
@@ -12,54 +15,49 @@ namespace SiraUtil.Tools
         public bool Enabled { get; private set; } = false;
 
         private bool _start;
-        private float _cameraFOV;
-        private KeyCode _toggleCode;
-        private float _moveSensitivity;
         private VRInputModule _vrInputModule;
-        private GameScenesManager _gameScenesManager;
+		private Config.FPFCToggleOptions _options;
         private FirstPersonFlyingController _firstPersonFlyingController;
-        private MenuScenesTransitionSetupDataSO _menuScenesTransitionSetupDataSO;
 
         [Inject]
-        public void Construct([Inject(Id = "FPFCEnabled")] bool fpfcEnabled, [Inject(Id = "ToggleCode")] KeyCode toggleCode, [Inject(Id = "CameraFOV")] float cameraFOV, [Inject(Id = "MoveSensitivity")] float moveSensitivity, GameScenesManager gameScenesManager, MenuScenesTransitionSetupDataSO menuScenesTransitionSetupDataSO)
+        public void Construct(Config.FPFCToggleOptions options)
         {
-            _cameraFOV = cameraFOV;
-            _toggleCode = toggleCode;
-            _moveSensitivity = moveSensitivity;
-            _gameScenesManager = gameScenesManager;
-            _menuScenesTransitionSetupDataSO = menuScenesTransitionSetupDataSO;
-            _start = Enabled = fpfcEnabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
+			_options = options;
+            _start = Enabled = _options.Enabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
         }
 
         protected void Start()
         {
-            _gameScenesManager.transitionDidFinishEvent += GameScenesManager_transitionDidFinishEvent;
+			SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         }
 
-        protected void OnDestroy()
+		private async void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
+		{
+			if (newScene.name == "MenuViewControllers" || newScene.name == "GameCore")
+			{
+				await Task.Run(() => Thread.Sleep(200));
+				Toggle(!Enabled);
+				await Task.Run(() => Thread.Sleep(200));
+				Toggle(!Enabled);
+			}
+		}
+
+		protected void OnDestroy()
         {
-            _gameScenesManager.transitionDidFinishEvent -= GameScenesManager_transitionDidFinishEvent;
-        }
+			SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+		}
 
         protected void Update()
         {
-            if (Input.GetKeyDown(_toggleCode))
+            if (Input.GetKeyDown(_options.ToggleKeyCode))
             {
                 if (!_start)
                 {
                     _start = true;
                     return;
                 }
-                Toggle(!Enabled);
-            }
-        }
-
-        private void GameScenesManager_transitionDidFinishEvent(ScenesTransitionSetupDataSO setupData, DiContainer Container)
-        {
-            if ((setupData == _menuScenesTransitionSetupDataSO || Container.TryResolve<IDifficultyBeatmap>() != null) && Enabled)
-            {
-                Toggle(!Enabled);
-                Toggle(!Enabled);
+				Refresh();
+				Toggle(!Enabled);
             }
         }
 
@@ -67,14 +65,7 @@ namespace SiraUtil.Tools
         {
             if (_firstPersonFlyingController == null)
             {
-                _firstPersonFlyingController = Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>().FirstOrDefault();
-                _vrInputModule = _firstPersonFlyingController.GetField<VRInputModule, FirstPersonFlyingController>("_vrInputModule");
-                _vrInputModule.transform.SetParent(transform);
-                _firstPersonFlyingController.transform.SetParent(transform);
-
-                _firstPersonFlyingController.SetField("_cameraFov", _cameraFOV);
-                _firstPersonFlyingController.SetField("_moveSensitivity", _moveSensitivity);
-                _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").fieldOfView = _cameraFOV;
+				Refresh();
             }
             _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = false;
             _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = true;
@@ -86,5 +77,17 @@ namespace SiraUtil.Tools
             Cursor.visible = !state;
             Enabled = state;
         }
+
+		public void Refresh()
+		{
+			_firstPersonFlyingController = Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>().FirstOrDefault();
+			_vrInputModule = _firstPersonFlyingController.GetField<VRInputModule, FirstPersonFlyingController>("_vrInputModule");
+			_vrInputModule.transform.SetParent(transform);
+			_firstPersonFlyingController.transform.SetParent(transform);
+
+			_firstPersonFlyingController.SetField("_cameraFov", _options.CameraFOV);
+			_firstPersonFlyingController.SetField("_moveSensitivity", _options.MoveSensitivity);
+			_firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").fieldOfView = _options.CameraFOV;
+		}
     }
 }

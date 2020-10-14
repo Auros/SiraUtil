@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Tools
 {
+	/*
 	public class CachedSpriteMediaAsyncLoader
 	{
 		private readonly CachedMediaAsyncLoader _cachedMediaAsyncLoader;
@@ -31,7 +32,7 @@ namespace SiraUtil.Tools
 			}
 			try
 			{
-				var tex = await _cachedMediaAsyncLoader.LoadImageAsync(path, token);
+				var tex = await _cachedMediaAsyncLoader.load(path, token);
 				if (_spriteCache.TryGetValue(((string, Vector2, float, int, SpriteMeshType))(path, pivot, ppu, extrude, type), out Sprite sprite))
 				{
 					return sprite;
@@ -47,5 +48,5 @@ namespace SiraUtil.Tools
 			}
 			return null;
 		}
-	}
+	}*/
 }

@@ -21,7 +21,7 @@ namespace SiraUtil.Sabers
             // Unfortunately, this is pretty WeirdChamp, I'm sorry.
             yield return new WaitUntil(() => Resources.FindObjectsOfTypeAll<SiraSaberBurnMarkArea>().Any());
             _saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraSaberBurnMarkArea>().First());
-            _saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraSaberClashChecker>().First());
+            //_saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraSaberClashChecker>().First());
             _saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraSaberBurnMarkSparkles>().First());
             _saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraObstacleSaberSparkleEffectManager>().First());
             yield return new WaitForSecondsRealtime(0.1f); // Wait for any initial created sabers, sometimes their color isn't set immediately.

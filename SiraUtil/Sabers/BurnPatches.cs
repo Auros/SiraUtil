@@ -19,10 +19,10 @@ namespace SiraUtil.Sabers
         private static readonly MethodInfo _burnClashPrefixOnDestroy = typeof(BurnSparkPatch).GetMethod("PrefixCancelMethod");
         private static readonly MethodInfo _burnClashPrefixLateUpdate = typeof(BurnSparkPatch).GetMethod("PrefixCancelMethod");
 
-        private static readonly MethodInfo _clashCheckOriginalStart = typeof(SaberClashChecker).GetMethod("Start");
+        /*private static readonly MethodInfo _clashCheckOriginalStart = typeof(SaberClashChecker).GetMethod("Start");
         private static readonly MethodInfo _clashCheckOriginalUpdate = typeof(SaberClashChecker).GetMethod("Update");
         private static readonly MethodInfo _clashCheckPostfixStart = typeof(ClashPatch).GetMethod("PostfixStart");
-        private static readonly MethodInfo _clashCheckPrefixUpdate = typeof(ClashPatch).GetMethod("PrefixCancelMethod");
+        private static readonly MethodInfo _clashCheckPrefixUpdate = typeof(ClashPatch).GetMethod("PrefixCancelMethod");*/
 
         private static readonly MethodInfo _obstacleOriginalStart = typeof(ObstacleSaberSparkleEffectManager).GetMethod("Start");
         private static readonly MethodInfo _obstacleOriginalOnDisable = typeof(ObstacleSaberSparkleEffectManager).GetMethod("OnDisable");
@@ -41,8 +41,8 @@ namespace SiraUtil.Sabers
             harmony.Patch(_sparkOriginalOnDestroy, new HarmonyMethod(_burnClashPrefixOnDestroy));
             harmony.Patch(_sparkOriginalLateUpdate, new HarmonyMethod(_burnClashPrefixLateUpdate));
 
-            harmony.Patch(_clashCheckOriginalStart, null, new HarmonyMethod(_clashCheckPostfixStart));
-            harmony.Patch(_clashCheckOriginalUpdate, new HarmonyMethod(_clashCheckPrefixUpdate));
+            /*harmony.Patch(_clashCheckOriginalStart, null, new HarmonyMethod(_clashCheckPostfixStart));
+            harmony.Patch(_clashCheckOriginalUpdate, new HarmonyMethod(_clashCheckPrefixUpdate));*/
 
             harmony.Patch(_obstacleOriginalStart, null, new HarmonyMethod(_obstaclePostfixStart));
             harmony.Patch(_obstacleOriginalOnDisable, new HarmonyMethod(_obstaclePrefixOnDisable));
@@ -59,8 +59,8 @@ namespace SiraUtil.Sabers
             harmony.Unpatch(_sparkOriginalOnDestroy, _burnClashPrefixOnDestroy);
             harmony.Unpatch(_sparkOriginalLateUpdate, _burnClashPrefixLateUpdate);
 
-            harmony.Unpatch(_clashCheckOriginalStart, _clashCheckPostfixStart);
-            harmony.Unpatch(_clashCheckOriginalUpdate, _clashCheckPrefixUpdate);
+            /*harmony.Unpatch(_clashCheckOriginalStart, _clashCheckPostfixStart);
+            harmony.Unpatch(_clashCheckOriginalUpdate, _clashCheckPrefixUpdate);*/
 
             harmony.Unpatch(_obstacleOriginalStart, _obstaclePostfixStart);
             harmony.Unpatch(_obstacleOriginalOnDisable, _obstaclePrefixOnDisable);
@@ -103,15 +103,15 @@ namespace SiraUtil.Sabers
         {
             public static void PostfixStart(ref SaberClashChecker __instance)
             {
-                if (!(__instance is SiraSaberClashChecker))
+                /*if (!(__instance is SiraSaberClashChecker))
                 {
                     __instance.gameObject.AddComponent<SiraSaberClashChecker>();
-                }
+                }*/
             }
 
             public static bool PrefixCancelMethod(ref SaberClashChecker __instance)
             {
-                return __instance is SiraSaberClashChecker;
+				return true; //return __instance is SiraSaberClashChecker;
             }
         }
 

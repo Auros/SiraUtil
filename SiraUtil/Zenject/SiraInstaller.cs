@@ -1,12 +1,12 @@
 using System;
 using Zenject;
-using UnityEngine;
 using SiraUtil.Tools;
 using SiraUtil.Interfaces;
+using UnityEngine;
 
 namespace SiraUtil.Zenject
 {
-    internal class SiraInstaller : Installer<Config, SiraInstaller>
+	internal class SiraInstaller : Installer<Config, SiraInstaller>
     {
 
         private readonly Config _config;
@@ -19,12 +19,12 @@ namespace SiraUtil.Zenject
         public override void InstallBindings()
         {
             Container.BindInstance(_config).AsSingle().NonLazy();
-			Container.Bind<CachedSpriteMediaAsyncLoader>().AsSingle();
-            Container.BindInstance(_config.FPFCToggle.Enabled).WithId("FPFCEnabled").WhenInjectedInto<FPFCToggle>();
-            Container.BindInstance(_config.FPFCToggle.CameraFOV).WithId("CameraFOV").WhenInjectedInto<FPFCToggle>();
-            Container.BindInstance(_config.FPFCToggle.ToggleKeyCode).WithId("ToggleCode").WhenInjectedInto<FPFCToggle>();
-            Container.BindInstance(_config.FPFCToggle.MoveSensitivity).WithId("MoveSensitivity").WhenInjectedInto<FPFCToggle>();
-            Container.Bind<FPFCToggle>().FromNewComponentOn(new GameObject("FPFCToggle")).AsSingle().NonLazy();
+			Container.BindInstance(_config.FPFCToggle).AsSingle();
+			if (_config.FPFCToggle.Enabled)
+			{
+				Container.Bind<FPFCToggle>().FromNewComponentOnNewGameObject(nameof(FPFCToggle)).AsSingle().NonLazy();
+
+			}
             if (_config.Localization.Enabled)
             {
                 Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
@@ -36,11 +36,11 @@ namespace SiraUtil.Zenject
             Container.Bind<IModelProvider>().To<DummyProviderB>().AsSingle();
         }
 
-        private class DummyProviderA : IModelProvider { public int Priority => -9999; }
-        private class DummyProviderB : IModelProvider { public int Priority => -9999; }
+        private class DummyProviderA : IModelProvider { public int Priority => -9999; public Type Type => typeof(DummyProviderB); }
+		private class DummyProviderB : IModelProvider { public int Priority => -9999; public Type Type => typeof(DummyProviderA); }
     }
 
-    internal class SiraGameInstaller : Installer
+	internal class SiraGameInstaller : Installer
     {
         private readonly Config _config;
 
@@ -57,7 +57,52 @@ namespace SiraUtil.Zenject
                 Container.BindInstance(_config.SongControl.RestartKeyCode).WithId("RestartCode");
                 Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
                 Container.BindInterfacesTo<SongControl>().AsSingle().NonLazy();
-            }
-        }
+			}
+
+			//Container.Bind<IModelProvider>().To<GamerSaberProvider>().AsSingle();
+			//Container.Bind<IModelProvider>().To<GamerSaberProvider2>().AsSingle();
+		}
     }
+	/*
+	public class GamerSaberController : SaberModelController
+	{
+		public override void Init(Transform transform, Saber saber)
+		{
+			Plugin.Log.Info("bruh moment");
+		}
+	}
+
+	public class GamerSaberProvider : IModelProvider
+	{
+		public Type Type => typeof(GamerSaberController);
+		public int Priority => 200;
+	}
+	public class TheInstaller : Installer
+	{
+		public override void InstallBindings()
+		{
+			Container.Bind<IModelProvider>().To<GamerSaberProvider>().AsSingle();
+		}
+	}
+
+	public class GamerSaberController2 : SaberModelController
+	{
+		public override void Init(Transform transform, Saber saber)
+		{
+			Plugin.Log.Info("bruh moment 2");
+		}
+	}
+
+	public class GamerSaberProvider2 : IModelProvider
+	{
+		public Type Type => typeof(GamerSaberController2);
+		public int Priority => 201;
+	}
+	public class TheInstaller2 : Installer
+	{
+		public override void InstallBindings()
+		{
+			Container.Bind<IModelProvider>().To<GamerSaberProvider>().AsSingle();
+		}
+	}*/
 }

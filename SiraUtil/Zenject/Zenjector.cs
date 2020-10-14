@@ -54,7 +54,7 @@ namespace SiraUtil.Zenject
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
-            ib.On(nameof(AppCoreInstaller));
+            ib.On(nameof(PCAppInit));
             return ib;
         }
 
@@ -62,7 +62,7 @@ namespace SiraUtil.Zenject
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
-            ib.On(nameof(MenuInstaller));
+            ib.On("Menu");
             return ib;
         }
 
