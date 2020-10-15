@@ -16,6 +16,7 @@ namespace SiraUtil
     {
         public const string ASSERTHIT = "(Nice Assert Hit, Ding Dong)";
 
+		[Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller.")]
         public static void SetupViewController(InjectContext context, object source)
         {
             if (source is ViewController viewController)

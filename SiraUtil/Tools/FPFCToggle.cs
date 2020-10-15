@@ -63,19 +63,22 @@ namespace SiraUtil.Tools
 
         public void Toggle(bool state)
         {
-            if (_firstPersonFlyingController == null)
-            {
-				Refresh();
-            }
-            _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = false;
-            _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = true;
+            if (_start)
+			{
+				if (_firstPersonFlyingController == null)
+				{
+					Refresh();
+				}
+				_firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = false;
+				_firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = true;
 
-            _vrInputModule.enabled = state;
-            _vrInputModule.gameObject.SetActive(true);
-            _firstPersonFlyingController.enabled = state;
-            Cursor.lockState = state ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !state;
-            Enabled = state;
+				_vrInputModule.enabled = state;
+				_vrInputModule.gameObject.SetActive(true);
+				_firstPersonFlyingController.enabled = state;
+				Cursor.lockState = state ? CursorLockMode.Locked : CursorLockMode.None;
+				Cursor.visible = !state;
+				Enabled = state;
+			}
         }
 
 		public void Refresh()

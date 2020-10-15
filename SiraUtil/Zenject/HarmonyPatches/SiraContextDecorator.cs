@@ -10,8 +10,8 @@ namespace SiraUtil.Zenject.HarmonyPatches
 	[HarmonyPatch(typeof(SceneContext), "InstallBindings")]
     internal class SiraContextDecorator
     {
-		internal static string LastTransitionSetupName { private get; set; }
-		internal static string LastGamemodeSetupName { private get; set; }
+		internal static string LastTransitionSetupName { get; set; }
+		internal static string LastGamemodeSetupName { get; set; }
 
         internal static void Prefix(ref SceneContext __instance, ref List<string> ____contractNames,
             ref List<MonoInstaller> ____installerPrefabs, ref List<MonoInstaller> ____monoInstallers,
@@ -24,11 +24,11 @@ namespace SiraUtil.Zenject.HarmonyPatches
                 ____monoInstallers.Select(b => b.GetType().FullName).Concat(
                 ____normalInstallers.Select(c => c.GetType().FullName).Concat(
                 ____normalInstallerTypes.Select(d => d.FullName).Concat(
-                ____scriptableObjectInstallers.Select(e => e.GetType().FullName))))));
-
+                ____scriptableObjectInstallers.Select(e => e.GetType().FullName).Concat(
+				____decoratorContexts.Select(f => f.gameObject.scene.name)))))));
             for (int i = 0; i < sourceNames.Count(); i++)
             {
-                SiraEvents.SendInstallEvent(sourceNames.ElementAt(i), __instance, __instance.Container, LastGamemodeSetupName, LastTransitionSetupName ?? "");
+                SiraEvents.SendInstallEvent(sourceNames.ElementAt(i), __instance, __instance.Container, ____decoratorContexts, LastGamemodeSetupName, LastTransitionSetupName ?? "");
             }
         }
     }

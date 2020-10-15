@@ -4,6 +4,8 @@ using IPA.Loader;
 using System.Linq;
 using SiraUtil.Events;
 using System.Collections.Generic;
+using UnityEngine;
+using IPA.Utilities;
 
 namespace SiraUtil.Zenject
 {
@@ -62,9 +64,25 @@ namespace SiraUtil.Zenject
 			var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name && !x.Circuits.Contains(e.Name) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode)).ToList();
 
 			builders.ForEach(x => x.Validate());
-			
-			var dupe = builders.GroupBy(x => x.Type).FirstOrDefault(g => g.Count() > 1);
-			Assert.IsNull(dupe, $"Multiple installers detected on same container. {Utilities.ASSERTHIT}", dupe);
+
+			// Expose injectables from decorators if requested. @Caeden
+			var allInjectables = e.Decorators.SelectMany(x => x.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours"));
+
+			for (int i = 0; i < builders.Count(); i++)
+			{
+				var toExpose = builders[i].Exposers;
+				for (int d = 0; d < toExpose.Count; d++)
+				{
+					var exposableType = toExpose.ElementAt(d);
+					var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == exposableType);
+					Assert.IsNotNull(behaviour, $"Could not find an object to expose in a decorator context. {Utilities.ASSERTHIT}", exposableType);
+					if (!e.Container.HasBinding(behaviour.GetType()))
+					{
+						e.Container.Bind(exposableType).FromInstance(behaviour).AsSingle();
+						break;
+					}
+				}
+			}
 			
             // Handle Parameters (Manually Installed)
             var parameterBased = builders.Where(x => x.Parameters != null && x.Parameters.Length > 0);

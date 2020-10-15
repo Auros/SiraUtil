@@ -11,6 +11,7 @@ namespace SiraUtil.Zenject
         internal string Destination { get; private set; }
         internal object[] Parameters { get; private set; }
 		internal List<string> Circuits { get; } = new List<string>();
+		internal HashSet<Type> Exposers { get; private set; } = new HashSet<Type>();
 
 		internal InstallBuilder() { }
         internal InstallBuilder(Type type)
@@ -44,10 +45,6 @@ namespace SiraUtil.Zenject
 
 		public InstallBuilder ShortCircuitOn(string shortCircuiter)
 		{
-			Plugin.Log.Info(shortCircuiter);
-			Plugin.Log.Info(shortCircuiter);
-			Plugin.Log.Info(shortCircuiter);
-			Plugin.Log.Info(shortCircuiter);
 			Circuits.Add(shortCircuiter);
 			return this;
 		}
@@ -75,6 +72,12 @@ namespace SiraUtil.Zenject
 		public InstallBuilder ShortCircuitOnMultiplayer()
 		{
 			return ShortCircuitOn(nameof(MultiplayerLevelScenesTransitionSetupDataSO));
+		}
+
+		public InstallBuilder Expose<T>()
+		{
+			Exposers.Add(typeof(T));
+			return this;
 		}
 
 		internal void Validate()
