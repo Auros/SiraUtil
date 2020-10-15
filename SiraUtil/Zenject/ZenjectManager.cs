@@ -61,9 +61,22 @@ namespace SiraUtil.Zenject
 				}
 			}
 			var context = sender as SceneContext;
-			var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name && !x.Circuits.Contains(e.Name) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode)).ToList();
+			var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name && !x.Circuits.Contains(e.Name) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
 
-			builders.ForEach(x => x.Validate());
+			builders.ForEach(x =>
+			{
+				x.Validate();
+
+				x.Circuits.ForEach(y =>
+				{
+					Plugin.Log.Info(x.Type.FullName);
+					Plugin.Log.Info(y);
+					Plugin.Log.Info(e.Name);
+					Plugin.Log.Info(e.ModeInfo.Gamemode);
+					Plugin.Log.Info(e.ModeInfo.Transition);
+					Plugin.Log.Info(e.ModeInfo.MidScene);
+				});
+			});
 
 			// Expose injectables from decorators if requested. @Caeden
 			var allInjectables = e.Decorators.SelectMany(x => x.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours"));

@@ -12,6 +12,7 @@ namespace SiraUtil.Zenject.HarmonyPatches
     {
 		internal static string LastTransitionSetupName { get; set; }
 		internal static string LastGamemodeSetupName { get; set; }
+		internal static string LastMidSceneName { get; set; }
 
         internal static void Prefix(ref SceneContext __instance, ref List<string> ____contractNames,
             ref List<MonoInstaller> ____installerPrefabs, ref List<MonoInstaller> ____monoInstallers,
@@ -28,7 +29,7 @@ namespace SiraUtil.Zenject.HarmonyPatches
 				____decoratorContexts.Select(f => f.gameObject.scene.name)))))));
             for (int i = 0; i < sourceNames.Count(); i++)
             {
-                SiraEvents.SendInstallEvent(sourceNames.ElementAt(i), __instance, __instance.Container, ____decoratorContexts, LastGamemodeSetupName, LastTransitionSetupName ?? "");
+                SiraEvents.SendInstallEvent(sourceNames.ElementAt(i), __instance, __instance.Container, ____decoratorContexts, LastGamemodeSetupName, LastTransitionSetupName, LastMidSceneName);
             }
         }
     }

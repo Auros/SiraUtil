@@ -66,7 +66,7 @@ namespace SiraUtil.Zenject
 
 		public InstallBuilder ShortCircuitOnTutorial()
 		{
-			return ShortCircuitOn(nameof(TutorialScenesTransitionSetupDataSO));
+			return ShortCircuitOn("Tutorial");
 		}
 
 		public InstallBuilder ShortCircuitOnMultiplayer()
