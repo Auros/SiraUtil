@@ -179,6 +179,7 @@
   <ItemGroup>
     <Compile Include="Accessors.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Converters\Vector3Converter.cs" />
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Interfaces\IModelProvider.cs" />

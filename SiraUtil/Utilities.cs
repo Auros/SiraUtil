@@ -9,12 +9,21 @@ using System.Collections;
 using SiraUtil.Interfaces;
 using System.Reflection.Emit;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace SiraUtil
 {
     public static class Utilities
     {
         public const string ASSERTHIT = "(Nice Assert Hit, Ding Dong)";
+
+		public static Task PauseChamp => AwaitSleep(100);
+
+		public static Task AwaitSleep(int ms)
+		{
+			return Task.Run(() => Thread.Sleep(ms));
+		}
 
 		[Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller.")]
         public static void SetupViewController(InjectContext context, object source)
