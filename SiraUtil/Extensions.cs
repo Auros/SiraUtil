@@ -1,15 +1,16 @@
+using HMUI;
 using System;
 using Zenject;
 using UnityEngine;
 using System.Linq;
 using IPA.Utilities;
 using SiraUtil.Interfaces;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using VRUIControls;
+using UnityEngine.EventSystems;
 
 namespace SiraUtil
 {
-    public static class Extensions
+	public static class Extensions
     {
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder binder, string name = "GameObject")
         {
@@ -20,8 +21,29 @@ namespace SiraUtil
         {
             return binder.FromNewComponentOn(new GameObject(name));
         }
-		
-        internal static void OverrideColor(this SetSaberGlowColor ssgc, Color color)
+
+		public static void BindViewController<T>(this DiContainer Container, ViewController viewController) where T : ViewController
+		{
+			var raycaster = Container.Resolve<PhysicsRaycasterWithCache>();
+			viewController.GetComponent<VRGraphicRaycaster>().SetField("_physicsRaycaster", raycaster);
+			Container.QueueForInject(viewController);
+			Container.BindInstance(viewController as T).AsCached();
+
+			viewController.rectTransform.anchorMin = new Vector2(0f, 0f);
+			viewController.rectTransform.anchorMax = new Vector2(1f, 1f);
+			viewController.rectTransform.sizeDelta = new Vector2(0f, 0f);
+			viewController.rectTransform.anchoredPosition = new Vector2(0f, 0f);
+		}
+
+		public static void BindFlowCoordinator<T>(this DiContainer Container, FlowCoordinator flowCoordinator) where T : FlowCoordinator
+		{
+			var inputSystem = Container.Resolve<BaseInputModule>();
+			flowCoordinator.SetField("_baseInputModule", inputSystem);
+			Container.QueueForInject(flowCoordinator);
+			Container.BindInstance(flowCoordinator as T).AsCached();
+		}
+
+		internal static void OverrideColor(this SetSaberGlowColor ssgc, Color color)
         {
             MeshRenderer mesh = Accessors.GlowMeshRenderer(ref ssgc);
             MaterialPropertyBlock block = Accessors.GlowMaterialPropertyBlock(ref ssgc);
