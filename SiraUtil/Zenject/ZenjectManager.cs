@@ -67,14 +67,24 @@ namespace SiraUtil.Zenject
 
 			var allInjectables = e.Decorators.SelectMany(x => x.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours"));
 
-			// Mutate any requested properties
-			for (int i = 0; i < builders.Count(); i++)
+			foreach (var decorator in e.Decorators)
 			{
-				foreach (var mutator in builders[i].Mutators)
+				// Mutate any requested properties
+				for (int i = 0; i < builders.Count(); i++)
 				{
-					var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == mutator.Item1);
-					Assert.IsNotNull(behaviour, $"Could not find an object to mutate in a decorator context. {Utilities.ASSERTHIT}", mutator.Item1);
-					mutator.Item2.Invoke(e.Container, behaviour);
+					foreach (var mutator in builders[i].Mutators)
+					{
+						if (!allInjectables.Any(x => x.GetType() == mutator.Item1))
+						{
+							Assert.CreateException($"Could not find an object to mutate in a decorator context. {Utilities.ASSERTHIT}", mutator.Item1);
+						}
+						var injectables = decorator.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours");
+						var behaviour = injectables.FirstOrDefault(x => x.GetType() == mutator.Item1);
+						if (behaviour != null)
+						{
+							mutator.Item2.Invoke(new MutationContext(e.Container, injectables), behaviour);
+						}
+					}
 				}
 			}
 

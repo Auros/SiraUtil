@@ -1,20 +1,19 @@
 using System;
 using Zenject;
 using ModestTree;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
-    public class InstallBuilder
+	public class InstallBuilder
     {
         internal Type Type { get; private set; }
         internal string Destination { get; private set; }
         internal object[] Parameters { get; private set; }
 		internal List<string> Circuits { get; } = new List<string>();
 		internal HashSet<Type> Exposers { get; private set; } = new HashSet<Type>();
-		internal HashSet<Tuple<Type, Action<DiContainer, MonoBehaviour>>> Mutators { get; private set; } = new HashSet<Tuple<Type, Action<DiContainer, MonoBehaviour>>>();
+		internal HashSet<Tuple<Type, Action<MutationContext, MonoBehaviour>>> Mutators { get; private set; } = new HashSet<Tuple<Type, Action<MutationContext, MonoBehaviour>>>();
 
 		internal InstallBuilder() { }
         internal InstallBuilder(Type type)
@@ -170,13 +169,13 @@ namespace SiraUtil.Zenject
 		/// <typeparam name="T">The type of the <see cref="MonoBehaviour"/>.</typeparam>
 		/// <param name="action">The callback to handle mutations in.</param>
 		/// <returns></returns>
-		public InstallBuilder Mutate<T>(Action<DiContainer, MonoBehaviour> action) where T : MonoBehaviour
+		public InstallBuilder Mutate<T>(Action<MutationContext, MonoBehaviour> action) where T : MonoBehaviour
 		{
 			if (action == null)
 			{
 				return this;
 			}
-			Mutators.Add(new Tuple<Type, Action<DiContainer, MonoBehaviour>>(typeof(T), action));
+			Mutators.Add(new Tuple<Type, Action<MutationContext, MonoBehaviour>>(typeof(T), action));
 			return this;
 		}
 

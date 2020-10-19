@@ -53,28 +53,28 @@ namespace SiraUtil
 			zenjector.OnGame<SiraSaberInstaller>();
 
 			zenjector.OnGame<SiraSaberEffectInstaller>()
-				.Mutate<SaberBurnMarkArea>((container, obj) =>
+				.Mutate<SaberBurnMarkArea>((ctx, obj) =>
 				{
 					var burnArea = obj as SaberBurnMarkArea;
 					// Override (or modify) the component BEFORE it's installed
 					var siraBurnArea = burnArea.gameObject.AddComponent<SiraSaberBurnMarkArea>();
-					container.QueueForInject(siraBurnArea);
-					container.Bind<SaberBurnMarkArea>().To<SiraSaberBurnMarkArea>().FromInstance(siraBurnArea).AsCached();
+					ctx.Container.QueueForInject(siraBurnArea);
+					ctx.Container.Bind<SaberBurnMarkArea>().To<SiraSaberBurnMarkArea>().FromInstance(siraBurnArea).AsCached();
 				})
-				.Mutate<SaberBurnMarkSparkles>((container, obj) =>
+				.Mutate<SaberBurnMarkSparkles>((ctx, obj) =>
 				{
 					var burnSparkles = obj as SaberBurnMarkSparkles;
 					var siraBurnSparkles = burnSparkles.gameObject.AddComponent<SiraSaberBurnMarkSparkles>();
-					container.QueueForInject(siraBurnSparkles);
-					container.Bind<SaberBurnMarkSparkles>().To<SiraSaberBurnMarkSparkles>().FromInstance(siraBurnSparkles).AsCached();
+					ctx.Container.QueueForInject(siraBurnSparkles);
+					ctx.Container.Bind<SaberBurnMarkSparkles>().To<SiraSaberBurnMarkSparkles>().FromInstance(siraBurnSparkles).AsCached();
 				})
-				.Mutate<ObstacleSaberSparkleEffectManager>((container, obj) =>
+				.Mutate<ObstacleSaberSparkleEffectManager>((ctx, obj) =>
 				{
 					var obstacleSparkles = obj as ObstacleSaberSparkleEffectManager;
 					var siraObstacleSparkles = obstacleSparkles.gameObject.AddComponent<SiraObstacleSaberSparkleEffectManager>();
 					UnityEngine.Object.Destroy(obstacleSparkles);
-					container.QueueForInject(siraObstacleSparkles);
-					container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
+					ctx.Container.QueueForInject(siraObstacleSparkles);
+					ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
 				})
 				.ShortCircuitForMultiplayer();
 

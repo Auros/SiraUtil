@@ -214,6 +214,7 @@
     <Compile Include="Zenject\InstallBuilder.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Zenject\MutationContext.cs" />
     <Compile Include="Zenject\SiraInstaller.cs" />
     <Compile Include="Zenject\ZenjectManager.cs" />
     <Compile Include="Zenject\Zenjector.cs" />
