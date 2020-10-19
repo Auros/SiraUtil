@@ -2,13 +2,11 @@ using System;
 using Zenject;
 using SiraUtil.Tools;
 using SiraUtil.Interfaces;
-using UnityEngine;
 
 namespace SiraUtil.Zenject
 {
 	internal class SiraInstaller : Installer<Config, SiraInstaller>
     {
-
         private readonly Config _config;
 
         public SiraInstaller(Config config)

@@ -69,6 +69,10 @@ namespace SiraUtil
 
         public static Color GetColor(this Saber saber)
         {
+			if (saber is IColorable saberColorable)
+			{
+				return saberColorable.Color;
+			}
             SaberModelController modelController = saber.gameObject.GetComponentInChildren<SaberModelController>(true);
             if (modelController is IColorable)
             {

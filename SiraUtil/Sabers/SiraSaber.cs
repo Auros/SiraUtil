@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
+using SiraUtil.Services;
 using System.Collections;
-using SiraUtil.Interfaces;
 
 namespace SiraUtil.Sabers
 {
@@ -14,20 +14,21 @@ namespace SiraUtil.Sabers
 
         public Saber Saber => _saber;
         private Saber _saber;
+		private NoteCutter _noteCutter;
         private ColorManager _colorManager;
+		private SaberProvider _saberProvider;
         private SaberTypeObject _saberTypeObject;
         private IEnumerator _changeColorCoroutine = null;
         private SaberModelController _saberModelController;
         private SiraSaberEffectManager _siraSaberEffectManager;
 
         [Inject]
-        public void Construct(ColorManager colorManager, SaberProvider controller, SiraSaberEffectManager siraSaberEffectManager)
+        public void Construct(NoteCutter noteCutter, ColorManager colorManager, SaberProvider saberProvider, SiraSaberEffectManager siraSaberEffectManager)
         {
-            _saberModelController = controller.GetModel();
-            _siraSaberEffectManager = siraSaberEffectManager;
-
+			_noteCutter = noteCutter;
             _colorManager = colorManager;
-
+			_saberProvider = saberProvider;
+            _siraSaberEffectManager = siraSaberEffectManager;
             // Create all the stuff thats supposed to be on the saber
             _saberTypeObject = gameObject.AddComponent<SaberTypeObject>();
             Accessors.ObjectSaberType(ref _saberTypeObject) = nextType;
@@ -40,49 +41,62 @@ namespace SiraUtil.Sabers
             top.transform.SetParent(transform);
             bottom.transform.SetParent(transform);
             top.transform.position = new Vector3(0f, 0f, 1f);
-            _saberModelController.Init(transform, _saber);
 
             Accessors.SaberHandleTransform(ref _saber) = bottom.transform;
             Accessors.SaberBladeTopTransform(ref _saber) = top.transform;
             Accessors.SaberBladeBottomTransform(ref _saber) = bottom.transform;
-			Accessors.SaberBladeTopPosition(ref _saber) = top.transform.localPosition;
-			Accessors.SaberBladeBottomPosition(ref _saber) = bottom.transform.localPosition;
+			Accessors.SaberBladeTopPosition(ref _saber) = top.transform.position;
+			Accessors.SaberBladeBottomPosition(ref _saber) = bottom.transform.position;
+
+			_saberProvider.ControllerReady += ModelsReady;
+			_saberProvider.IsSafe();
 
             _siraSaberEffectManager.SaberCreated(_saber);
         }
 
+		public void ModelsReady()
+		{
+			_saberModelController = _saberProvider.GetModel();
+			_saberProvider.ControllerReady -= ModelsReady;
+			_saberModelController.Init(transform, _saber);
+		}
+
         public void Update()
         {
-            if (_saber)
+            if (_saber != null && _saber.gameObject.activeInHierarchy)
             {
-                if (!_saber.disableCutting && _saber.gameObject.activeInHierarchy)
-                {
-                    Vector3 topPosition = Accessors.SaberBladeTopTransform(ref _saber).position;
-                    Vector3 bottomPosition = Accessors.SaberBladeBottomTransform(ref _saber).position;
-                    int i = 0;
-                    while (i < Accessors.SwingRatingCounters(ref _saber).Count)
-                    {
-                        SaberSwingRatingCounter swingCounter = Accessors.SwingRatingCounters(ref _saber)[i];
-                        if (swingCounter.didFinish)
-                        {
-                            swingCounter.Deinit();
-                            Accessors.SwingRatingCounters(ref _saber).RemoveAt(i);
-                            Accessors.UnusedSwingRatingCounters(ref _saber).Add(swingCounter);
-                        }
-                        else
-                        {
-                            i++;
-                        }
-                    }
-                    var lastAddedData = Saber.movementData.lastAddedData;
-                    Accessors.MovementData(ref _saber).AddNewData(topPosition, bottomPosition, TimeHelper.time);
-                }
-            }
+				var topTrans = Accessors.SaberBladeTopTransform(ref _saber);
+				var botTrans = Accessors.SaberBladeBottomTransform(ref _saber);
+
+				var topPos = Accessors.SaberBladeTopPosition(ref _saber) = topTrans.position;
+				var botPos = Accessors.SaberBladeBottomPosition(ref _saber) = botTrans.position;
+				
+				int i = 0;
+				var swingRatingCounters = Accessors.SwingRatingCounters(ref _saber);
+				var unusedSwingRatingCounters = Accessors.UnusedSwingRatingCounters(ref _saber);
+				while (i < swingRatingCounters.Count)
+				{
+					var counter = swingRatingCounters[i];
+					if (counter.didFinish)
+					{
+						counter.Deinit();
+						swingRatingCounters.RemoveAt(i);
+						unusedSwingRatingCounters.Add(counter);
+					}
+					else
+					{
+						i++;
+					}
+				}
+				Accessors.MovementData(ref _saber).AddNewData(topPos, botPos, TimeHelper.time);
+				_noteCutter.Cut(_saber);
+			}
         }
 
         public void OnDestroy()
         {
-            _siraSaberEffectManager.SaberDestroyed(_saber);
+			_saberProvider.ControllerReady -= ModelsReady;
+			_siraSaberEffectManager.SaberDestroyed(_saber);
         }
 
         /// <summary>

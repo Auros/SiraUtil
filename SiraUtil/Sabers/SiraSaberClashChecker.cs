@@ -1,86 +1,83 @@
-/*using System.Linq;
 using UnityEngine;
-using IPA.Utilities;
-using System.Reflection;
+using System.Linq;
 using SiraUtil.Interfaces;
 using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
 {
-    // Not a perfect implementation. It won't spawn more than one clash effect.
-    public class SiraSaberClashChecker : SaberClashChecker, ISaberRegistrar
+	public class SiraSaberClashChecker : SaberClashChecker, ISaberRegistrar
     {
-        private SaberClashChecker _instance;
-        private readonly List<Saber> _sabers = new List<Saber>();
-        private readonly PropertyAccessor<SaberClashChecker, Vector3>.Setter ClashingPoint = PropertyAccessor<SaberClashChecker, Vector3>.GetSetter("clashingPoint");
-        private readonly PropertyAccessor<SaberClashChecker, bool>.Setter SabersAreClashing = PropertyAccessor<SaberClashChecker, bool>.GetSetter("sabersAreClashing");
+        private readonly HashSet<Saber> _sabers = new HashSet<Saber>();
 
-        public SiraSaberClashChecker()
+		public void Initialize(SaberManager saberManager)
+		{
+			_sabers.Clear();
+			Init(saberManager);
+			_sabers.Add(_leftSaber);
+			_sabers.Add(_rightSaber);
+		}
+		
+        public override bool AreSabersClashing(out Vector3 clashingPoint)
         {
-            SaberClashChecker original = GetComponent<SaberClashChecker>();
-            foreach (FieldInfo info in original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
-            {
-                info.SetValue(this, info.GetValue(original));
-            }
-            Destroy(original);
-        }
+			_sabers.RemoveWhere(x => x == null);
+			if (_leftSaber.movementData.lastAddedData.time < 0.1f)
+			{
+				clashingPoint = _clashingPoint;
+				return false;
+			}
+			if (_prevGetFrameNum == Time.frameCount)
+			{
+				clashingPoint = _clashingPoint;
+				return _sabersAreClashing;
+			}
+			_prevGetFrameNum = Time.frameCount;
+			for (int i = 0; i < _sabers.Count; i++)
+			{
+				for (int h = 0; h < _sabers.Count; h++)
+				{
+					if (i > h)
+					{
+						Saber saberA = _sabers.ElementAt(i);
+						Saber saberB = _sabers.ElementAt(h);
+						if (saberA == saberB || saberA == null || saberB == null)
+						{
+							break;
+						}
+						Vector3 saberBladeTopPos = saberA.saberBladeTopPos;
+						Vector3 saberBladeTopPos2 = saberB.saberBladeTopPos;
+						Vector3 saberBladeBottomPos = saberA.saberBladeBottomPos;
+						Vector3 saberBladeBottomPos2 = saberB.saberBladeBottomPos;
 
-        public override void Start()
-        {
-            _instance = this;
-            _sabers.Add(_leftSaber);
-            _sabers.Add(_rightSaber);
-            Resources.FindObjectsOfTypeAll<SaberClashEffect>().First().SetField("_saberClashChecker", _instance);
-        }
+						if (SegmentToSegmentDist(saberBladeBottomPos, saberBladeTopPos, saberBladeBottomPos2, saberBladeTopPos2, out var clashingPoint2) < 0.08f && saberA.isActiveAndEnabled && saberB.isActiveAndEnabled)
+						{
+							_clashingPoint = clashingPoint2;
+							clashingPoint = _clashingPoint;
+							_sabersAreClashing = true;
+							return _sabersAreClashing;
+						}
+						else
+						{
+							_sabersAreClashing = false;
+						}
+					}
+				}
+			}
+			clashingPoint = _clashingPoint;
+			return _sabersAreClashing;
+		}
 
-        public override void Update()
-        {
-            for (int i = 0; i < _sabers.Count; i++)
-            {
-                for (int h = 0; h < _sabers.Count; h++)
-                {
-                    if (i > h)
-                    {
-                        Saber iSaber = _sabers[i];
-                        Saber hSaber = _sabers[h];
+		public void ChangeColor(Saber _) { }
 
-                        if (iSaber.isActiveAndEnabled && hSaber.isActiveAndEnabled)
-                        {
-                            Vector3 isbTop = iSaber.saberBladeTopPos;
-                            Vector3 hsbTop = hSaber.saberBladeTopPos;
-                            Vector3 isbBot = iSaber.saberBladeBottomPos;
-                            Vector3 hsbBot = hSaber.saberBladeBottomPos;
-                            if (isbBot == hsbBot)
-                            {
-                                SabersAreClashing(ref _instance, false);
-                                return;
-                            }
-                            if (SegmentToSegmentDist(isbBot, isbTop, hsbBot, hsbTop, out Vector3 clashPoint) < _minDistanceToClash)
-                            {
-                                ClashingPoint(ref _instance, clashPoint);
-                                SabersAreClashing(ref _instance, true);
-                                return;
-                            }
-                            SabersAreClashing(ref _instance, false);
-                        }
-                    }
-                }
-            }
-        }
+		public void RegisterSaber(Saber saber)
+		{
+			_sabers.RemoveWhere(x => x == null);
+			_sabers.Add(saber);
+		}
 
-        public void RegisterSaber(Saber saber)
-        {
-            _sabers.Add(saber);
-        }
-
-        public void UnregisterSaber(Saber saber)
-        {
-            _sabers.Remove(saber);
-        }
-
-        public void ChangeColor(Saber saber)
-        {
-
-        }
-    }
-}*/
+		public void UnregisterSaber(Saber saber)
+		{
+			_sabers.RemoveWhere(x => x == null);
+			_sabers.Remove(saber);
+		}
+	}
+}

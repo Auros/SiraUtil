@@ -9,7 +9,6 @@ namespace SiraUtil.Zenject.HarmonyPatches
 		internal static void Prefix(ScenesTransitionSetupDataSO scenesTransitionSetupData)
 		{
 			SiraContextDecorator.LastTransitionSetupName = scenesTransitionSetupData.GetType().Name;
-			scenesTransitionSetupData.scenes.ToList().ForEach(x => Plugin.Log.Info(x.sceneName));
 			// Let's check if it has a gamemode associated with it.
 			var gameModeProperty = scenesTransitionSetupData.GetType().GetProperty("gameMode");
 			if (gameModeProperty != null)

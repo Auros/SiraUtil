@@ -21,26 +21,62 @@ namespace SiraUtil.Sabers
             Destroy(original);
         }
 
+		private bool _initted = false;
+
         public override void Start()
         {
-            for (int i = 0; i < 2; i++)
-            {
-                if (_sabers[i])
-                {
-                    var saberBurnDatum = new SaberBurnDatum
-                    {
-                        saber = _sabers[i],
-                        lineRenderer = _lineRenderers[i],
-                        renderTexture = _renderTextures[i],
-                        prevBurnMarkPos = _prevBurnMarkPos[i],
-                        prevBurnMarkPosValid = _prevBurnMarkPosValid[i]
-                    };
-                    _saberBurnData.Add(saberBurnDatum);
-                }
-            }
+			if (!_initted)
+			{
+				base.Start();
+				for (int i = 0; i < 2; i++)
+				{
+					if (_sabers[i])
+					{
+						var saberBurnDatum = new SaberBurnDatum
+						{
+							saber = _sabers[i],
+							lineRenderer = _lineRenderers[i],
+							renderTexture = _renderTextures[i],
+							prevBurnMarkPos = _prevBurnMarkPos[i],
+							prevBurnMarkPosValid = _prevBurnMarkPosValid[i]
+						};
+						_saberBurnData.Add(saberBurnDatum);
+					}
+				}
+				_initted = true;
+			}
         }
 
-        public override void LateUpdate()
+		public void Initialize(SaberManager saberManager)
+		{
+			if (!_initted)
+			{
+				base.Start();
+				for (int i = 0; i < 2; i++)
+				{
+					if (_sabers[i])
+					{
+						var saberBurnDatum = new SaberBurnDatum
+						{
+							saber = _sabers[i],
+							lineRenderer = _lineRenderers[i],
+							renderTexture = _renderTextures[i],
+							prevBurnMarkPos = _prevBurnMarkPos[i],
+							prevBurnMarkPosValid = _prevBurnMarkPosValid[i]
+						};
+						_saberBurnData.Add(saberBurnDatum);
+					}
+				}
+				_initted = true;
+			}
+			_sabers = new Saber[2];
+			_sabers[0] = saberManager.leftSaber;
+			_sabers[1] = saberManager.rightSaber;
+			_saberBurnData[0].saber = _sabers[0];
+			_saberBurnData[1].saber = _sabers[1];
+		}
+
+		public override void LateUpdate()
         {
             for (int i = 0; i < _saberBurnData.Count; i++)
             {
@@ -48,7 +84,7 @@ namespace SiraUtil.Sabers
                 LineRenderer lineRenderer = _saberBurnData[i].lineRenderer;
 
                 Vector3 zero = Vector3.zero;
-                bool flag = saber.isActiveAndEnabled && GetBurnMarkPos(saber.saberBladeBottomPos, saber.saberBladeTopPos, out zero);
+                bool flag = saber != null && saber.isActiveAndEnabled && GetBurnMarkPos(saber.saberBladeBottomPos, saber.saberBladeTopPos, out zero);
                 if (flag && _saberBurnData[i].prevBurnMarkPosValid)
                 {
                     Vector3 vector = zero - _saberBurnData[i].prevBurnMarkPos;
@@ -107,7 +143,29 @@ namespace SiraUtil.Sabers
             }
         }
 
-        public void RegisterSaber(Saber saber)
+		public override void OnEnable()
+		{
+			foreach (var sbm in _saberBurnData)
+			{
+				if (sbm.lineRenderer != null)
+				{
+					sbm.lineRenderer.gameObject.SetActive(true);
+				}
+			}
+		}
+
+		public override void OnDisable()
+		{
+			foreach (var sbm in _saberBurnData)
+			{
+				if (sbm.lineRenderer != null)
+				{
+					sbm.lineRenderer.gameObject.SetActive(false);
+				}
+			}
+		}
+
+		public void RegisterSaber(Saber saber)
         {
             var newSaberDatum = new SaberBurnDatum
             {
@@ -159,11 +217,12 @@ namespace SiraUtil.Sabers
                 color = Color.HSVToRGB(h, s, 1f);
                 saberBurnDatum.lineRenderer.startColor = color;
                 saberBurnDatum.lineRenderer.endColor = color;
+				saberBurnDatum.lineRenderer.SetColors(color, color);
                 saberBurnDatum.lineRenderer.positionCount = 2;
             }
         }
 
-        private class SaberBurnDatum
+		private class SaberBurnDatum
         {
             public Saber saber;
             public Vector3 prevBurnMarkPos;

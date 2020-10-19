@@ -3,7 +3,10 @@ using HarmonyLib;
 using ModestTree;
 using System.Linq;
 using UnityEngine;
+using System.Reflection;
+using SiraUtil.Services;
 using SiraUtil.Interfaces;
+using System.Reflection.Emit;
 using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
@@ -55,6 +58,48 @@ namespace SiraUtil.Sabers
 			saberModelController.gameObject.transform.SetParent(__instance.transform, false);
 			saberModelController.Init(__instance.transform, ____saber);
 			return false;
+		}
+	}
+
+	[HarmonyPatch(typeof(GameplayCoreInstaller), "InstallBindings")]
+	public class GameplayCoreClashCheckerSwap
+	{
+		private static readonly MethodInfo _clashAttacher = SymbolExtensions.GetMethodInfo(() => ClashAttacher(null));
+
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+			var codes = instructions.ToList();
+			int runIns = 0;
+			for (int i = codes.Count - 1; i > 15; i--)
+			{
+				if (codes[i].opcode == OpCodes.Pop && codes[i - 1].opcode == OpCodes.Callvirt &&
+					codes[i - 2].opcode == OpCodes.Callvirt && codes[i - 3].opcode == OpCodes.Call &&
+					codes[i - 4].opcode == OpCodes.Ldarg_0)
+				{
+					runIns++;
+					if (runIns == 3)
+					{
+						codes.Insert(i - 1, new CodeInstruction(OpCodes.Callvirt, _clashAttacher));
+						break;
+					}
+				}
+			}
+			return codes.AsEnumerable();
+		}
+
+		private static FromBinderGeneric<SiraSaberClashChecker> ClashAttacher(ConcreteIdBinderGeneric<SaberClashChecker> contract)
+		{
+			return contract.To<SiraSaberClashChecker>();
+		}
+	}
+
+	public class Ins : MonoInstaller
+	{
+		public override void InstallBindings()
+		{
+			Container.Bind<SaberClashChecker>().To<SiraSaberClashChecker>().AsSingle();
+			Container.Bind<NoteRibbonCutter>().AsSingle();
+			Container.Bind<PlayerHeadAndObstacleInteraction>().AsSingle();
 		}
 	}
 }

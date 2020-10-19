@@ -53,9 +53,37 @@ namespace SiraUtil
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
-            zenjector.OnGame<SiraSaberInstaller>();
+			zenjector.OnGame<SiraSaberInstaller>();
 
-			zenjector.OnGame<SiraGameInstaller>().ShortCircuitOnMultiplayer();
+			zenjector.OnGame<SiraSaberEffectInstaller>()
+				.Mutate<SaberBurnMarkArea>((container, obj) =>
+				{
+					var burnArea = obj as SaberBurnMarkArea;
+					// Override (or modify) the component BEFORE it's installed
+					var siraBurnArea = burnArea.gameObject.AddComponent<SiraSaberBurnMarkArea>();
+					container.QueueForInject(siraBurnArea);
+					container.BindInstance(siraBurnArea).AsCached();
+				})
+				.Mutate<SaberBurnMarkSparkles>((container, obj) =>
+				{
+					var burnSparkles = obj as SaberBurnMarkSparkles;
+					var siraBurnSparkles = burnSparkles.gameObject.AddComponent<SiraSaberBurnMarkSparkles>();
+					container.QueueForInject(siraBurnSparkles);
+					container.BindInstance(siraBurnSparkles).AsCached();
+				})
+				.Mutate<ObstacleSaberSparkleEffectManager>((container, obj) =>
+				{
+					var obstacleSparkles = obj as ObstacleSaberSparkleEffectManager;
+					var siraObstacleSparkles = obstacleSparkles.gameObject.AddComponent<SiraObstacleSaberSparkleEffectManager>();
+					UnityEngine.Object.Destroy(obstacleSparkles);
+					container.QueueForInject(siraObstacleSparkles);
+					container.BindInstance(siraObstacleSparkles).AsCached();
+				})
+				.ShortCircuitForMultiplayer();
+
+			zenjector.OnGame<SiraGameInstaller>()
+				.ShortCircuitForMultiplayer();
+				
         }
 
         [OnEnable]
@@ -63,11 +91,11 @@ namespace SiraUtil
         {
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
-            BurnPatches.Patch(Harmony);
         }
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
         {
+			//Plugin.Log.Info($"{oldScene.name} -> {newScene.name}");
             if (newScene.name == "MenuViewControllers" && !ZenjectManager.ProjectContextWentOff)
             {
                 SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
@@ -84,7 +112,6 @@ namespace SiraUtil
         public void OnDisable()
         {
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
-            BurnPatches.Unpatch(Harmony);
             Harmony.UnpatchAll("dev.auros.sirautil");
         }
     }

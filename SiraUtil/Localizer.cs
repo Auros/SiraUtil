@@ -159,14 +159,10 @@ namespace SiraUtil
             for (int i = 0; i < validLanguages.Count; i++)
             {
                 supported.Add((Language)validLanguages.ElementAt(i));
-#if DEBUG
-                Plugin.Log.Info($"Language Detected: {(Language)validLanguages.ElementAt(i)}");
-#endif
+                Plugin.Log.Sira($"Language Detected: {(Language)validLanguages.ElementAt(i)}");
             }
-#if DEBUG
             stopwatch.Stop();
-            Plugin.Log.Info($"Took {stopwatch.Elapsed:c} to recalculate languages.");
-#endif
+            Plugin.Log.Sira($"Took {stopwatch.Elapsed:c} to recalculate languages.");
             Localization.Instance.InvokeOnLocalize();
         }
 

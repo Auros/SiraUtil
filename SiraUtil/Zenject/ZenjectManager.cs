@@ -63,36 +63,31 @@ namespace SiraUtil.Zenject
 			var context = sender as SceneContext;
 			var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name && !x.Circuits.Contains(e.Name) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
 
-			builders.ForEach(x =>
-			{
-				x.Validate();
+			builders.ForEach(x => x.Validate());
 
-				x.Circuits.ForEach(y =>
-				{
-					Plugin.Log.Info(x.Type.FullName);
-					Plugin.Log.Info(y);
-					Plugin.Log.Info(e.Name);
-					Plugin.Log.Info(e.ModeInfo.Gamemode);
-					Plugin.Log.Info(e.ModeInfo.Transition);
-					Plugin.Log.Info(e.ModeInfo.MidScene);
-				});
-			});
-
-			// Expose injectables from decorators if requested. @Caeden
 			var allInjectables = e.Decorators.SelectMany(x => x.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours"));
 
+			// Mutate any requested properties
 			for (int i = 0; i < builders.Count(); i++)
 			{
-				var toExpose = builders[i].Exposers;
-				for (int d = 0; d < toExpose.Count; d++)
+				foreach (var mutator in builders[i].Mutators)
 				{
-					var exposableType = toExpose.ElementAt(d);
+					var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == mutator.Item1);
+					Assert.IsNotNull(behaviour, $"Could not find an object to mutate in a decorator context. {Utilities.ASSERTHIT}", mutator.Item1);
+					mutator.Item2.Invoke(e.Container, behaviour);
+				}
+			}
+
+			// Expose injectables from decorators if requested. @Caeden
+			for (int i = 0; i < builders.Count(); i++)
+			{
+				foreach (var exposableType in builders[i].Exposers)
+				{
 					var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == exposableType);
 					Assert.IsNotNull(behaviour, $"Could not find an object to expose in a decorator context. {Utilities.ASSERTHIT}", exposableType);
 					if (!e.Container.HasBinding(behaviour.GetType()))
 					{
 						e.Container.Bind(exposableType).FromInstance(behaviour).AsSingle();
-						break;
 					}
 				}
 			}

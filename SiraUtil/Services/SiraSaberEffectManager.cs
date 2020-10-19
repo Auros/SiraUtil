@@ -1,30 +1,54 @@
-using UnityEngine;
-using System.Linq;
-using System.Collections;
+using System;
+using Zenject;
+using SiraUtil.Sabers;
 using SiraUtil.Interfaces;
 using System.Collections.Generic;
 
-namespace SiraUtil.Sabers
+namespace SiraUtil.Services
 {
-    /// <summary>
-    /// Handles the processing and change of saber effects.
-    /// </summary>
-    public class SiraSaberEffectManager : MonoBehaviour
+	/// <summary>
+	/// Handles the processing and change of saber effects.
+	/// </summary>
+	public class SiraSaberEffectManager : IInitializable, IDisposable
     {
         private bool _safeReady = false;
+		private readonly IGamePause _gamePause;
         private readonly Queue<Saber> _temporaryQueue = new Queue<Saber>();
         private readonly Queue<Saber> _temporaryColorQueue = new Queue<Saber>();
         private readonly List<ISaberRegistrar> _saberManagers = new List<ISaberRegistrar>();
 
-        public IEnumerator Start()
+		private readonly List<Saber> _managedSabers = new List<Saber>();
+
+		public SiraSaberEffectManager(IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SiraSaberBurnMarkArea saberBurnMarkArea,
+									  SiraSaberBurnMarkSparkles saberBurnMarkSparkles, SiraObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
+		{
+			_gamePause = gamePause;
+			saberClashChecker.Init(saberManager);
+			_saberManagers.Add(saberClashChecker as SiraSaberClashChecker);
+			_saberManagers.Add(saberBurnMarkArea);
+			_saberManagers.Add(saberBurnMarkSparkles);
+			_saberManagers.Add(obstacleSaberSparkleEffectManager);
+		}
+
+		public void RepatchDefault(Saber left, Saber right, SaberManager saberManager)
+		{
+			Accessors.SMLeftSaber(ref saberManager) = left;
+			Accessors.SMRightSaber(ref saberManager) = right;
+			_saberManagers.ForEach(x => x.Initialize(saberManager));
+		}
+
+		private void DidResume()
+		{
+			_managedSabers.ForEach(x => { if (x != null) { x.gameObject.SetActive(true); } });
+		}
+
+		private void DidPause()
+		{
+			_managedSabers.ForEach(x => { if (x != null) { x.gameObject.SetActive(false); } });
+		}
+
+		public void Initialize()
         {
-            // Unfortunately, this is pretty WeirdChamp, I'm sorry.
-            yield return new WaitUntil(() => Resources.FindObjectsOfTypeAll<SiraSaberBurnMarkArea>().Any());
-            _saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraSaberBurnMarkArea>().First());
-            //_saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraSaberClashChecker>().First());
-            _saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraSaberBurnMarkSparkles>().First());
-            _saberManagers.Add(Resources.FindObjectsOfTypeAll<SiraObstacleSaberSparkleEffectManager>().First());
-            yield return new WaitForSecondsRealtime(0.1f); // Wait for any initial created sabers, sometimes their color isn't set immediately.
             _safeReady = true;
             while (_temporaryQueue.Count != 0)
             {
@@ -34,7 +58,10 @@ namespace SiraUtil.Sabers
             {
                 ChangeColor(_temporaryColorQueue.Dequeue());
             }
-        }
+
+			_gamePause.didPauseEvent += DidPause;
+			_gamePause.didResumeEvent += DidResume;
+		}
 
         /// <summary>
         /// Registers a saber into the effect manager.
@@ -49,8 +76,10 @@ namespace SiraUtil.Sabers
             else if (saber != null)
             {
                 _saberManagers.ForEach(isr => isr.RegisterSaber(saber));
+				_managedSabers.Add(saber);
             }
-        }
+			//_siraSaberClashChecker.MultiSaberMode = true;
+		}
 
         /// <summary>
         /// Unregisters a saber from the effect manager.
@@ -58,6 +87,7 @@ namespace SiraUtil.Sabers
         /// <param name="saber">The saber being unregistered.</param>
         public void SaberDestroyed(Saber saber)
         {
+			_managedSabers.Remove(saber);
             _saberManagers.ForEach(isr => isr.UnregisterSaber(saber));
         }
 
@@ -76,5 +106,11 @@ namespace SiraUtil.Sabers
                 _saberManagers.ForEach(isr => isr.ChangeColor(saber));
             }
         }
-    }
+
+		public void Dispose()
+		{
+			_gamePause.didPauseEvent -= DidPause;
+			_gamePause.didResumeEvent -= DidResume;
+		}
+	}
 }
