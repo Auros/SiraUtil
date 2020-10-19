@@ -10,6 +10,7 @@ namespace SiraUtil
         public static PropertyAccessor<MonoInstallerBase, DiContainer>.Getter GetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
 
         internal static FieldAccessor<SaberTrail, Color>.Accessor TrailColor = FieldAccessor<SaberTrail, Color>.GetAccessor("_color");
+        internal static FieldAccessor<SceneDecoratorContext, List<MonoBehaviour>>.Accessor Injectables = FieldAccessor<SceneDecoratorContext, List<MonoBehaviour>>.GetAccessor("_injectableMonoBehaviours");
 
 		internal static FieldAccessor<SaberManager, Saber>.Accessor SMLeftSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_leftSaber");
 		internal static FieldAccessor<SaberManager, Saber>.Accessor SMRightSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_rightSaber");

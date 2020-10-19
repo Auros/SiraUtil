@@ -8,6 +8,7 @@ namespace SiraUtil.Sabers
 	public class SiraSaberClashChecker : SaberClashChecker, ISaberRegistrar
     {
         private readonly HashSet<Saber> _sabers = new HashSet<Saber>();
+		public bool MultiSaberMode { get; set; } = false;
 
 		public void Initialize(SaberManager saberManager)
 		{
@@ -19,6 +20,10 @@ namespace SiraUtil.Sabers
 		
         public override bool AreSabersClashing(out Vector3 clashingPoint)
         {
+			if (!MultiSaberMode)
+			{
+				base.AreSabersClashing(out clashingPoint);
+			}
 			_sabers.RemoveWhere(x => x == null);
 			if (_leftSaber.movementData.lastAddedData.time < 0.1f)
 			{

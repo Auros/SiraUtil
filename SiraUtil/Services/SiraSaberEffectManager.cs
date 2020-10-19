@@ -16,8 +16,8 @@ namespace SiraUtil.Services
         private readonly Queue<Saber> _temporaryQueue = new Queue<Saber>();
         private readonly Queue<Saber> _temporaryColorQueue = new Queue<Saber>();
         private readonly List<ISaberRegistrar> _saberManagers = new List<ISaberRegistrar>();
-
 		private readonly List<Saber> _managedSabers = new List<Saber>();
+		private readonly SiraSaberClashChecker _siraSaberClashChecker;
 
 		public SiraSaberEffectManager(IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SaberBurnMarkArea saberBurnMarkArea,
 									  SaberBurnMarkSparkles saberBurnMarkSparkles, ObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
@@ -28,6 +28,8 @@ namespace SiraUtil.Services
 			_saberManagers.Add(saberBurnMarkArea as SiraSaberBurnMarkArea);
 			_saberManagers.Add(saberBurnMarkSparkles as SiraSaberBurnMarkSparkles);
 			_saberManagers.Add(obstacleSaberSparkleEffectManager as SiraObstacleSaberSparkleEffectManager);
+
+			_siraSaberClashChecker = saberClashChecker as SiraSaberClashChecker;
 		}
 
 		/// <summary>
@@ -84,7 +86,7 @@ namespace SiraUtil.Services
                 _saberManagers.ForEach(isr => isr.RegisterSaber(saber));
 				_managedSabers.Add(saber);
             }
-			//_siraSaberClashChecker.MultiSaberMode = true;
+			_siraSaberClashChecker.MultiSaberMode = true;
 		}
 
         /// <summary>
