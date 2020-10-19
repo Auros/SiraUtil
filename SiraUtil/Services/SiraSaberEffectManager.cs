@@ -19,17 +19,23 @@ namespace SiraUtil.Services
 
 		private readonly List<Saber> _managedSabers = new List<Saber>();
 
-		public SiraSaberEffectManager(IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SiraSaberBurnMarkArea saberBurnMarkArea,
-									  SiraSaberBurnMarkSparkles saberBurnMarkSparkles, SiraObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
+		public SiraSaberEffectManager(IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SaberBurnMarkArea saberBurnMarkArea,
+									  SaberBurnMarkSparkles saberBurnMarkSparkles, ObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
 		{
 			_gamePause = gamePause;
 			saberClashChecker.Init(saberManager);
 			_saberManagers.Add(saberClashChecker as SiraSaberClashChecker);
-			_saberManagers.Add(saberBurnMarkArea);
-			_saberManagers.Add(saberBurnMarkSparkles);
-			_saberManagers.Add(obstacleSaberSparkleEffectManager);
+			_saberManagers.Add(saberBurnMarkArea as SiraSaberBurnMarkArea);
+			_saberManagers.Add(saberBurnMarkSparkles as SiraSaberBurnMarkSparkles);
+			_saberManagers.Add(obstacleSaberSparkleEffectManager as SiraObstacleSaberSparkleEffectManager);
 		}
 
+		/// <summary>
+		/// Replaces the references of each saber to a new set of sabers for all effect systems.
+		/// </summary>
+		/// <param name="left"></param>
+		/// <param name="right"></param>
+		/// <param name="saberManager"></param>
 		public void RepatchDefault(Saber left, Saber right, SaberManager saberManager)
 		{
 			Accessors.SMLeftSaber(ref saberManager) = left;

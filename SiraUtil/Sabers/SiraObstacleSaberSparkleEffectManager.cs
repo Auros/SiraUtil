@@ -1,14 +1,13 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.XR;
 using System.Reflection;
 using SiraUtil.Interfaces;
 using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
 {
-    public class SiraObstacleSaberSparkleEffectManager : ObstacleSaberSparkleEffectManager, ISaberRegistrar
+	public class SiraObstacleSaberSparkleEffectManager : ObstacleSaberSparkleEffectManager, ISaberRegistrar
     {
         private readonly List<ObstacleSparkleDatum> _obstacleSparkleData = new List<ObstacleSparkleDatum>();
 
@@ -146,10 +145,7 @@ namespace SiraUtil.Sabers
             }
         }
 
-        public void ChangeColor(Saber saber)
-        {
-
-        }
+        public void ChangeColor(Saber _) { }
 
 		private class ObstacleSparkleDatum
         {

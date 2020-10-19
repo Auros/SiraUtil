@@ -65,7 +65,7 @@ namespace SiraUtil
         public void Initialize()
         {
             _client = new HttpClient();
-            _client.DefaultRequestHeaders.UserAgent.TryParseAdd($"SiraUtil/{_config.MajorVersion}.{_config.MinorVersion}.{_config.BuildVersion}");
+            _client.DefaultRequestHeaders.UserAgent.TryParseAdd($"SiraUtil/{_config.Version}");
         }
 
         public void Dispose()

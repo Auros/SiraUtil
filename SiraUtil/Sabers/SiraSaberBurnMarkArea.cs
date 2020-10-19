@@ -217,7 +217,6 @@ namespace SiraUtil.Sabers
                 color = Color.HSVToRGB(h, s, 1f);
                 saberBurnDatum.lineRenderer.startColor = color;
                 saberBurnDatum.lineRenderer.endColor = color;
-				saberBurnDatum.lineRenderer.SetColors(color, color);
                 saberBurnDatum.lineRenderer.positionCount = 2;
             }
         }

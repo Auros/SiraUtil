@@ -59,7 +59,7 @@ namespace SiraUtil
 
         private readonly Config _config;
         private readonly WebClient _webClient;
-        private LocalizationAsset _siraLocalizationAsset;
+        //private LocalizationAsset _siraLocalizationAsset;
 
         public Localizer(Config config, WebClient webClient)
         {
@@ -69,7 +69,7 @@ namespace SiraUtil
 
         public async void Initialize()
         {
-            _siraLocalizationAsset = AddLocalizationSheetFromAssembly("SiraUtil.Resources.master_oct7-2020.tsv", GoogleDriveDownloadFormat.TSV, true);
+            //_siraLocalizationAsset = AddLocalizationSheetFromAssembly("SiraUtil.Resources.master_oct7-2020.tsv", GoogleDriveDownloadFormat.TSV, true);
             var stopwatch = Stopwatch.StartNew();
             int successCount = 0;
             foreach (var source in _config.Localization.Sources.Where(s => s.Value.Enabled == true))
@@ -137,9 +137,7 @@ namespace SiraUtil
 
         public void CheckLanguages()
         {
-#if DEBUG
             var stopwatch = Stopwatch.StartNew();
-#endif
             var supported = Localization.Instance.GetField<List<Language>, Localization>("supportedLanguages");
             FieldInfo field = typeof(LocalizationImporter).GetField("languageStrings", BindingFlags.NonPublic | BindingFlags.Static);
             var locTable = (Dictionary<string, List<string>>)field.GetValue(null);
@@ -166,6 +164,10 @@ namespace SiraUtil
             Localization.Instance.InvokeOnLocalize();
         }
 
+		/// <summary>
+		/// Adds a localization asset to Polyglot.
+		/// </summary>
+		/// <param name="localizationAsset"></param>
         public void AddLocalizationSheet(LocalizationAsset localizationAsset)
         {
             var loc = _lockedAssetCache.Where(x => x.Value == localizationAsset || x.Value.TextAsset.text == localizationAsset.TextAsset.text).FirstOrDefault();
@@ -177,6 +179,10 @@ namespace SiraUtil
             LocalizationImporter.Refresh();
         }
 
+		/// <summary>
+		/// Removes a localization asset from Polyglot.
+		/// </summary>
+		/// <param name="localizationAsset"></param>
         public void RemoveLocalizationSheet(LocalizationAsset localizationAsset)
         {
             var loc = _lockedAssetCache.Where(x => x.Value == localizationAsset || x.Value.TextAsset.text == localizationAsset.TextAsset.text).FirstOrDefault();
@@ -186,11 +192,23 @@ namespace SiraUtil
             }
         }
 
+		/// <summary>
+		/// Removes a localization asset from Polyglot.
+		/// </summary>
+		/// <param name="key">The name or source of the asset.</param>
         public void RemoveLocalizationSheet(string key)
         {
             _lockedAssetCache.Remove(key);
         }
 
+		/// <summary>
+		/// Creates a localization asset.
+		/// </summary>
+		/// <param name="localizationAsset">The text to generate it from.</param>
+		/// <param name="type">The format of the localization data.</param>
+		/// <param name="id">The ID of the localization data.</param>
+		/// <param name="addToPolyglot">Wheether or not to add it to Polyglot immediately.</param>
+		/// <returns></returns>
         public LocalizationAsset AddLocalizationSheet(string localizationAsset, GoogleDriveDownloadFormat type, string id, bool addToPolyglot = true)
         {
             var asset = new LocalizationAsset
@@ -209,7 +227,14 @@ namespace SiraUtil
             return asset;
         }
 
-        public LocalizationAsset AddLocalizationSheetFromAssembly(string assemblyPath, GoogleDriveDownloadFormat type, bool addToPolyglot = true)
+		/// <summary>
+		/// Adds a localization sheet from an assembly path.
+		/// </summary>
+		/// <param name="assemblyPath">The assembly path to the localization asset file.</param>
+		/// <param name="id">The ID of the localization data.</param>
+		/// <param name="addToPolyglot">Wheether or not to add it to Polyglot immediately.</param>
+		/// <returns></returns>
+		public LocalizationAsset AddLocalizationSheetFromAssembly(string assemblyPath, GoogleDriveDownloadFormat type, bool addToPolyglot = true)
         {
             Utilities.AssemblyFromPath(assemblyPath, out Assembly assembly, out string path);
             string content = Utilities.GetResourceContent(assembly, path);
@@ -223,7 +248,7 @@ namespace SiraUtil
 
         public void LateDispose()
         {
-            RemoveLocalizationSheet(_siraLocalizationAsset);
+            //RemoveLocalizationSheet(_siraLocalizationAsset);
         }
     }
 }

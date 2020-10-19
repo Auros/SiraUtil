@@ -54,13 +54,34 @@ namespace SiraUtil.Zenject
                 Container.BindInstance(_config.SongControl.ExitKeyCode).WithId("ExitCode");
                 Container.BindInstance(_config.SongControl.RestartKeyCode).WithId("RestartCode");
                 Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
-                Container.BindInterfacesTo<SongControl>().AsSingle().NonLazy();
+				Container.BindInterfacesTo<SongControl>().AsSingle().NonLazy();
 			}
 
 			//Container.Bind<IModelProvider>().To<GamerSaberProvider>().AsSingle();
 			//Container.Bind<IModelProvider>().To<GamerSaberProvider2>().AsSingle();
 		}
     }
+
+	internal class SiraMultiGameInstaller : Installer
+	{
+		private readonly Config _config;
+
+		public SiraMultiGameInstaller(Config config)
+		{
+			_config = config;
+		}
+
+		public override void InstallBindings()
+		{
+			if (_config.SongControl.Enabled)
+			{
+				Container.BindInstance(_config.SongControl.ExitKeyCode).WithId("ExitCode");
+				Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
+				Container.BindInterfacesTo<MultiSongControl>().AsSingle().NonLazy();
+			}
+		}
+	}
+
 	/*
 	public class GamerSaberController : SaberModelController
 	{

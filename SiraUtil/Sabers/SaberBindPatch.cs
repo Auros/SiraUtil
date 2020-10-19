@@ -31,9 +31,6 @@ namespace SiraUtil.Sabers
 			var providerX = ____container.Resolve<SaberProvider>();
 			if (!providerX.IsSafe())
 			{
-				/*Plugin.Log.Info($"Provider Count: {providers.Count()}");
-				providers.ToList().ForEach(x => Plugin.Log.Info($"Provider {x.Type.Name} with priority {x.Priority}"));
-				Plugin.Log.Info($"Selecting {baseProvider.Type.Name}");*/
 				saberModelController = providerX.ModelPrefab = new GameObject(baseProvider.GetType().FullName).AddComponent(baseProvider.Type) as SaberModelController;
 			}
 			else
@@ -90,16 +87,6 @@ namespace SiraUtil.Sabers
 		private static FromBinderGeneric<SiraSaberClashChecker> ClashAttacher(ConcreteIdBinderGeneric<SaberClashChecker> contract)
 		{
 			return contract.To<SiraSaberClashChecker>();
-		}
-	}
-
-	public class Ins : MonoInstaller
-	{
-		public override void InstallBindings()
-		{
-			Container.Bind<SaberClashChecker>().To<SiraSaberClashChecker>().AsSingle();
-			Container.Bind<NoteRibbonCutter>().AsSingle();
-			Container.Bind<PlayerHeadAndObstacleInteraction>().AsSingle();
 		}
 	}
 }

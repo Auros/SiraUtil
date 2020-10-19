@@ -1,5 +1,8 @@
 namespace SiraUtil.Interfaces
 {
+	/// <summary>
+	/// An interface for a manager to handle a dynamic number of sabers.
+	/// </summary>
     public interface ISaberRegistrar
     {
 		void Initialize(SaberManager saberManager);

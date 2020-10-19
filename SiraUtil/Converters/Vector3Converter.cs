@@ -5,6 +5,9 @@ using IPA.Config.Stores;
 
 namespace SiraUtil.Converters
 {
+	/// <summary>
+	/// A config converter for BSIPA which can serialize and deserialize <see cref="Vector3"/> values.
+	/// </summary>
 	public class Vector3Converter : ValueConverter<Vector3>
 	{
 		public override Vector3 FromValue(Value value, object parent)

@@ -15,42 +15,43 @@ namespace SiraUtil.Zenject
             Name = name;
         }
 
+		/// <summary>
+		/// Enable the Zenjector. (Enabled by default)
+		/// </summary>
         public void Enable()
         {
             Enabled = true;
         }
 
+		/// <summary>
+		/// Disable this Zenjector.
+		/// </summary>
         public void Disable()
         {
             Enabled = false;
         }
 
+		/// <summary>
+		/// Allow SiraUtil to automatically handle the state of your installers based on the status of your plugin. (Enabled by default)
+		/// </summary>
         public void Auto()
         {
             AutoControl = true;
         }
 
+		/// <summary>
+		/// Disallow SiraUtil from automatically handling the state of your installers.
+		/// </summary>
         public void Manual()
         {
             AutoControl = false;
         }
 
-        public InstallBuilder OnApp(string destination = null)
-        {
-            return OnGeneric(destination);
-        }
-
-        public InstallBuilder OnMenu(string destination = null)
-        {
-            return OnGeneric(destination);
-        }
-
-        public InstallBuilder OnGame(string destination = null)
-        {
-            return OnGeneric(destination);
-        }
-
-        public InstallBuilder OnApp<T>() where T : IInstaller
+		/// <summary>
+		/// Install your installer on the app installer (project context), any bindings made here are available throughout the entire game.
+		/// </summary>
+		/// <typeparam name="T">The type of your installer.</typeparam>
+		public InstallBuilder OnApp<T>() where T : IInstaller
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
@@ -58,7 +59,11 @@ namespace SiraUtil.Zenject
             return ib;
         }
 
-        public InstallBuilder OnMenu<T>() where T : IInstaller
+		/// <summary>
+		/// Installs your installer on the menu scene.
+		/// </summary>
+		/// <typeparam name="T">The type of your installer.</typeparam>
+		public InstallBuilder OnMenu<T>() where T : IInstaller
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
@@ -66,7 +71,11 @@ namespace SiraUtil.Zenject
             return ib;
         }
 
-        public InstallBuilder OnGame<T>() where T : IInstaller
+		/// <summary>
+		/// Installs your installer on the game scene.
+		/// </summary>
+		/// <typeparam name="T">The type of your installer.</typeparam>
+		public InstallBuilder OnGame<T>() where T : IInstaller
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
@@ -74,6 +83,10 @@ namespace SiraUtil.Zenject
             return ib;
         }
 
+		/// <summary>
+		/// Installs an installer.
+		/// </summary>
+		/// <typeparam name="T">The type of your installer.</typeparam>
         public InstallBuilder Register<T>() where T : IInstaller
         {
             var ib = new InstallBuilder();
@@ -81,11 +94,19 @@ namespace SiraUtil.Zenject
             return ib.Register<T>();
         }
 
-        public InstallBuilder On<T>()
+		/// <summary>
+		/// Provides a destination for your installer to be installed on.
+		/// </summary>
+		/// <typeparam name="T">The type of the destination.</typeparam>
+		public InstallBuilder On<T>()
         {
             return OnGeneric(nameof(T));
         }
 
+		/// <summary>
+		/// Provides a destination for your installer to be installed on.
+		/// </summary>
+		/// <param name="destination">The name of the destination.</param>
         public InstallBuilder On(string destination)
         {
             return OnGeneric(destination);

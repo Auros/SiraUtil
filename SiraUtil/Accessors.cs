@@ -14,7 +14,6 @@ namespace SiraUtil
 		internal static FieldAccessor<SaberManager, Saber>.Accessor SMLeftSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_leftSaber");
 		internal static FieldAccessor<SaberManager, Saber>.Accessor SMRightSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_rightSaber");
 
-
 		internal static FieldAccessor<SaberModelController, SaberTrail>.Accessor SaberTrail = FieldAccessor<SaberModelController, SaberTrail>.GetAccessor("_saberTrail");
 		internal static FieldAccessor<SaberModelController, ColorManager>.Accessor SaberColorManager = FieldAccessor<SaberModelController, ColorManager>.GetAccessor("_colorManager");
         internal static FieldAccessor<SaberModelController, TubeBloomPrePassLight>.Accessor SaberLight = FieldAccessor<SaberModelController, TubeBloomPrePassLight>.GetAccessor("_saberLight");
@@ -40,6 +39,5 @@ namespace SiraUtil
         internal static FieldAccessor<Saber, SaberMovementData>.Accessor MovementData = FieldAccessor<Saber, SaberMovementData>.GetAccessor("_movementData");
         internal static FieldAccessor<Saber, Vector3>.Accessor SaberBladeTopPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeTopPos");
         internal static FieldAccessor<Saber, Vector3>.Accessor SaberBladeBottomPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeBottomPos");
-        /*internal static FieldAccessor<Saber, Cutter>.Accessor Cutter = FieldAccessor<Saber, Cutter>.GetAccessor("_cutter");*/
     }
 }

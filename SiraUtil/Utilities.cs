@@ -25,7 +25,7 @@ namespace SiraUtil
 			return Task.Run(() => Thread.Sleep(ms));
 		}
 
-		[Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller.")]
+		[Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller. Create the View Controller manually (for example, through BSML).")]
         public static void SetupViewController(InjectContext context, object source)
         {
             if (source is ViewController viewController)

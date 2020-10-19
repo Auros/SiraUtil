@@ -3,9 +3,9 @@ using System;
 using Zenject;
 using UnityEngine;
 using System.Linq;
+using VRUIControls;
 using IPA.Utilities;
 using SiraUtil.Interfaces;
-using VRUIControls;
 using UnityEngine.EventSystems;
 
 namespace SiraUtil
@@ -67,6 +67,11 @@ namespace SiraUtil
             sliceSpriteController.Refresh();
         }
 
+		/// <summary>
+		/// Gets the color of a saber.
+		/// </summary>
+		/// <param name="saber">The saber to get the color of.</param>
+		/// <returns></returns>
         public static Color GetColor(this Saber saber)
         {
 			if (saber is IColorable saberColorable)
@@ -86,6 +91,12 @@ namespace SiraUtil
             return Color.white;
         }
 
+
+		/// <summary>
+		/// Changes the color of a saber instantly.
+		/// </summary>
+		/// <param name="saber">The saber to change the color of.</param>
+		/// <param name="color">The color to change the saber to.</param>
         public static void ChangeColorInstant(this Saber saber, Color color)
         {
             if (saber.isActiveAndEnabled)
@@ -94,7 +105,12 @@ namespace SiraUtil
             }
         }
 
-        public static void ChangeColor(this Saber saber, Color color)
+		/// <summary>
+		/// Changes the color of a saber.
+		/// </summary>
+		/// <param name="saber">The saber to change the color of.</param>
+		/// <param name="color">The color to change the saber to.</param>
+		public static void ChangeColor(this Saber saber, Color color)
         {
             if (saber.isActiveAndEnabled)
             {
@@ -120,25 +136,46 @@ namespace SiraUtil
 			}
         }
 
+		/// <summary>
+		/// Sets the type of a saber. This will change its color and the type of note it can hit.
+		/// </summary>
+		/// <param name="saber">The saber to change the type of.</param>
+		/// <param name="type">The type to change the saber to.</param>
+		/// <param name="colorManager">The color manager used to change the color of the saber.</param>
         public static void SetType(this Saber saber, SaberType type, ColorManager colorManager)
         {
             saber.ChangeType(type);
             saber.ChangeColor(colorManager.ColorForSaberType(type));
         }
 
+		/// <summary>
+		/// Changes the type of the saber. This does NOT change the color of the saber.
+		/// </summary>
+		/// <param name="saber">The saber to change the type of.</param>
+		/// <param name="type">The type to change the saber to.</param>
         public static void ChangeType(this Saber saber, SaberType type)
         {
             saber.GetComponent<SaberTypeObject>().ChangeType(type);
         }
 
-        public static void ChangeType(this SaberTypeObject sto, SaberType type)
-        {
-            Accessors.ObjectSaberType(ref sto) = type;
-        }
+		/// <summary>
+		/// Changes the type of a saber type object.
+		/// </summary>
+		/// <param name="sto">The SaberTypeObject.</param>
+		/// <param name="type">The Saber Type</param>
+		public static void ChangeType(this SaberTypeObject sto, SaberType type)
+		{
+			Accessors.ObjectSaberType(ref sto) = type;
+		}
 
+		/// <summary>
+		/// Will log the nullity of an object.
+		/// </summary>
+		/// <param name="logger">The logger to log to.</param>
+		/// <param name="toCheck">The object to check nullability.</param>
         public static void NullCheck(this IPA.Logging.Logger logger, object toCheck)
         {
-            logger.Info(toCheck != null ? $"{toCheck.GetType().Name} is not null." : $"{toCheck.GetType().FullName} is null");
+            logger.Info(toCheck != null ? $"The {toCheck.GetType().Name} is not null." : $"The {toCheck.GetType().FullName} is null");
         }
 
         internal static void Sira(this IPA.Logging.Logger logger, string message)
@@ -149,6 +186,9 @@ namespace SiraUtil
             }
         }
 
+		/// <summary>
+		/// Gets the event of an object.
+		/// </summary>
         public static TDel GetEventHandlers<TTarget, TDel>(this TTarget target, string name)
         {
             return FieldAccessor<TTarget, TDel>.Get(target, name);

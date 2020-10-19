@@ -1,5 +1,7 @@
+using SemVer;
 using Polyglot;
 using UnityEngine;
+using SiraUtil.Converters;
 using System.Collections.Generic;
 using IPA.Config.Stores.Converters;
 using IPA.Config.Stores.Attributes;
@@ -8,9 +10,8 @@ namespace SiraUtil
 {
     public class Config
     {
-        public virtual int MajorVersion { get; set; }
-        public virtual int MinorVersion { get; set; }
-        public virtual int BuildVersion { get; set; }
+		[NonNullable, UseConverter(typeof(VersionConverter))]
+        public virtual Version Version { get; set; }
 
         [NonNullable]
         public virtual FPFCToggleOptions FPFCToggle { get; set; } = new FPFCToggleOptions();

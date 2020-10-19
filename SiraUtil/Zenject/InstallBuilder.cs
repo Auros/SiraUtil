@@ -2,6 +2,8 @@ using System;
 using Zenject;
 using ModestTree;
 using System.Collections.Generic;
+using System.ComponentModel;
+using UnityEngine;
 
 namespace SiraUtil.Zenject
 {
@@ -12,7 +14,7 @@ namespace SiraUtil.Zenject
         internal object[] Parameters { get; private set; }
 		internal List<string> Circuits { get; } = new List<string>();
 		internal HashSet<Type> Exposers { get; private set; } = new HashSet<Type>();
-		internal HashSet<Tuple<Type, Action<DiContainer, object>>> Mutators { get; private set; } = new HashSet<Tuple<Type, Action<DiContainer, object>>>();
+		internal HashSet<Tuple<Type, Action<DiContainer, MonoBehaviour>>> Mutators { get; private set; } = new HashSet<Tuple<Type, Action<DiContainer, MonoBehaviour>>>();
 
 		internal InstallBuilder() { }
         internal InstallBuilder(Type type)
@@ -20,91 +22,129 @@ namespace SiraUtil.Zenject
             Type = type;
         }
 
+		/// <summary>
+		/// Add instance parameters to be injected into your installer.
+		/// </summary>
+		/// <param name="parameters">The parameters for your installer.</param>
         public InstallBuilder WithParameters(params object[] parameters)
         {
             Parameters = parameters;
             return this;
         }
 
+		/// <summary>
+		/// Installs the installer at a destination.
+		/// </summary>
+		/// <param name="destination">The name of the destination (scene name, installer type, scene context name, etc).</param>
         public InstallBuilder On(string destination)
         {
             Destination = destination;
             return this;
         }
 
+		/// <summary>
+		/// Installs the installer at a destination.
+		/// </summary>
+		/// <typeparam name="T">The type of the destination (installer type, etc).</typeparam>
         public InstallBuilder On<T>()
         {
             On(nameof(T));
             return this;
         }
 
+		/// <summary>
+		/// Registers an installer to be installed.
+		/// </summary>
+		/// <typeparam name="T">The type of the installer.</typeparam>
         public InstallBuilder Register<T>() where T : IInstaller
         {
             Type = typeof(T);
             return this;
         }
 
-		public InstallBuilder ShortCircuitOn(string shortCircuiter)
+		/// <summary>
+		/// Prevents the installer from being installed at a destination.
+		/// </summary>
+		/// <typeparam name="T">The type of the destination.</typeparam>
+		public InstallBuilder ShortCircuitFor<T>()
+		{
+			return ShortCircuitFor(typeof(T).Name);
+		}
+
+		/// <summary>
+		/// Prevents the installer from being installed on the standard game level.
+		/// </summary>
+		public InstallBuilder ShortCircuitForStandard()
+		{
+			return ShortCircuitFor(nameof(StandardLevelScenesTransitionSetupDataSO));
+		}
+
+		/// <summary>
+		/// Prevents the installer from being installed on the campaign game level.
+		/// </summary>
+		public InstallBuilder ShortCircuitForCampaign()
+		{
+			return ShortCircuitFor(nameof(MissionLevelScenesTransitionSetupDataSO));
+		}
+
+		/// <summary>
+		/// Prevents the installer from being installed on the tutorial game level.
+		/// </summary>
+		public InstallBuilder ShortCircuitForTutorial()
+		{
+			return ShortCircuitFor("Tutorial");
+		}
+
+		/// <summary>
+		/// Prevents the installer from being installed on the multiplayer game level.
+		/// </summary>
+		public InstallBuilder ShortCircuitForMultiplayer()
+		{
+			return ShortCircuitFor(nameof(MultiplayerLevelScenesTransitionSetupDataSO));
+		}
+
+		/// <summary>
+		/// Prevents the installer from being installed at a destination.
+		/// </summary>
+		public InstallBuilder ShortCircuitFor(string shortCircuiter)
 		{
 			Circuits.Add(shortCircuiter);
 			return this;
 		}
 
-		public InstallBuilder ShortCircuitFor<T>()
-		{
-			return ShortCircuitOn(typeof(T).Name);
-		}
-
-		public InstallBuilder ShortCircuitForStandard()
-		{
-			return ShortCircuitOn(nameof(StandardLevelScenesTransitionSetupDataSO));
-		}
-
-		public InstallBuilder ShortCircuitForCampaign()
-		{
-			return ShortCircuitOn(nameof(MissionLevelScenesTransitionSetupDataSO));
-		}
-
-		public InstallBuilder ShortCircuitForTutorial()
-		{
-			return ShortCircuitOn("Tutorial");
-		}
-
-		public InstallBuilder ShortCircuitForMultiplayer()
-		{
-			return ShortCircuitOn(nameof(MultiplayerLevelScenesTransitionSetupDataSO));
-		}
-
 		[Obsolete("Use ShortCircuitFor<T>() instead.")]
 		public InstallBuilder ShortCircuitOn<T>()
 		{
-			return ShortCircuitOn(typeof(T).Name);
+			return ShortCircuitFor(typeof(T).Name);
 		}
 
 		[Obsolete("Use ShortCircuitForStandard() instead.")]
 		public InstallBuilder ShortCircuitOnStandard()
 		{
-			return ShortCircuitOn(nameof(StandardLevelScenesTransitionSetupDataSO));
+			return ShortCircuitFor(nameof(StandardLevelScenesTransitionSetupDataSO));
 		}
 
 		[Obsolete("Use ShortCircuitForCampaign() instead.")]
 		public InstallBuilder ShortCircuitOnCampaign()
 		{
-			return ShortCircuitOn(nameof(MissionLevelScenesTransitionSetupDataSO));
+			return ShortCircuitFor(nameof(MissionLevelScenesTransitionSetupDataSO));
 		}
 
 		[Obsolete("Use ShortCircuitForTutorial() instead.")]
 		public InstallBuilder ShortCircuitOnTutorial()
 		{
-			return ShortCircuitOn("Tutorial");
+			return ShortCircuitFor("Tutorial");
 		}
 
 		[Obsolete("Use ShortCircuitForMultiplayer() instead.")]
 		public InstallBuilder ShortCircuitOnMultiplayer()
 		{
-			return ShortCircuitOn(nameof(MultiplayerLevelScenesTransitionSetupDataSO));
+			return ShortCircuitFor(nameof(MultiplayerLevelScenesTransitionSetupDataSO));
 		}
 
+		/// <summary>
+		/// Only install this installer on the standard game.
+		/// </summary>
 		public InstallBuilder OnlyForStandard()
 		{
 			ShortCircuitForCampaign();
@@ -113,19 +153,30 @@ namespace SiraUtil.Zenject
 			return this;
 		}
 
-		public InstallBuilder Expose<T>()
+		/// <summary>
+		/// Exposes a <see cref="MonoBehaviour"/> in a <see cref="SceneDecoratorContext"/> to the <seealso cref="DiContainer"/> and binds it, thus making it available to be received in Zenject.
+		/// </summary>
+		/// <typeparam name="T">The type of the <see cref="MonoBehaviour"/>.</typeparam>
+		/// <returns></returns>
+		public InstallBuilder Expose<T>() where T : MonoBehaviour
 		{
 			Exposers.Add(typeof(T));
 			return this;
 		}
 
-		public InstallBuilder Mutate<T>(Action<DiContainer, object> action)
+		/// <summary>
+		/// Mutate a <see cref="MonoBehaviour"/> in a <see cref="SceneDecoratorContext"/> before it gets injected.
+		/// </summary>
+		/// <typeparam name="T">The type of the <see cref="MonoBehaviour"/>.</typeparam>
+		/// <param name="action">The callback to handle mutations in.</param>
+		/// <returns></returns>
+		public InstallBuilder Mutate<T>(Action<DiContainer, MonoBehaviour> action) where T : MonoBehaviour
 		{
 			if (action == null)
 			{
 				return this;
 			}
-			Mutators.Add(new Tuple<Type, Action<DiContainer, object>>(typeof(T), action));
+			Mutators.Add(new Tuple<Type, Action<DiContainer, MonoBehaviour>>(typeof(T), action));
 			return this;
 		}
 

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Events
 {
+	/// <summary>
+	/// A collection of events used by SIRA`
+	/// </summary>
     public class SiraEvents
     {
         internal static event EventHandler<SceneContextInstalledArgs> ContextInstalling;

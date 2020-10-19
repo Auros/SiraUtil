@@ -1,13 +1,10 @@
 using System;
 using Zenject;
 using UnityEngine;
-using IPA.Utilities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SiraUtil.Tools
 {
-    public class SongControl : IInitializable, IDisposable, ITickable
+	public class SongControl : IInitializable, IDisposable, ITickable
     {
         private bool _isPaused = false;
         private readonly PauseController _pauseController;
@@ -15,7 +12,6 @@ namespace SiraUtil.Tools
         private readonly KeyCode _exitCode;
         private readonly KeyCode _restartCode;
         private readonly KeyCode _pauseToggleCode;
-
 
         public SongControl([Inject(Id = "ExitCode")] KeyCode exitCode, [Inject(Id = "RestartCode")] KeyCode restartCode, [Inject(Id = "PauseToggleCode")] KeyCode pauseToggleCode, PauseController pauseController)
         {
@@ -31,15 +27,6 @@ namespace SiraUtil.Tools
         {
             _pauseController.didPauseEvent += OnPause;
             _pauseController.didResumeEvent += OnResume;
-			/*var decorator = _context.GetField<List<SceneDecoratorContext>, SceneContext>("_decoratorContexts").FirstOrDefault(x => x.DecoratedContractName == "Environment");
-			if (decorator != null)
-			{
-				var hud = decorator.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours").FirstOrDefault(x => x.GetType() == typeof(CoreGameHUDController));
-				if (hud != null)
-				{
-					Plugin.Log.Info("It's gamer time.");
-				}
-			}*/
         }
 
         private void OnPause()
@@ -83,5 +70,25 @@ namespace SiraUtil.Tools
             _pauseController.didPauseEvent -= OnPause;
             _pauseController.didResumeEvent -= OnResume;
         }
-    }
+
+		public void Exit()
+		{
+			
+		}
+
+		public void Play()
+		{
+			
+		}
+
+		public void Pause()
+		{
+			
+		}
+
+		public void Restart()
+		{
+			
+		}
+	}
 }

@@ -4,7 +4,10 @@ using IPA.Config.Stores;
 
 namespace SiraUtil.Converters
 {
-	public class VersionConverter : ValueConverter<SemVer.Version>
+	/// <summary>
+	/// A config converter for BSIPA which can serialize and deserialize SemVer <see cref="Version"/> values.
+	/// </summary>
+	public class VersionConverter : ValueConverter<Version>
 	{
 		public override Version FromValue(Value value, object parent)
 		{
