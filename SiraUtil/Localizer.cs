@@ -52,7 +52,6 @@ namespace SiraUtil
         }
     }
 
-
     public class Localizer : IInitializable, ILateDisposable
     {
         private static readonly Dictionary<string, LocalizationAsset> _lockedAssetCache = new Dictionary<string, LocalizationAsset>();
