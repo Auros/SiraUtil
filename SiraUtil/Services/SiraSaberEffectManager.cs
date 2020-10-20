@@ -47,7 +47,7 @@ namespace SiraUtil.Services
 
 		private void DidResume()
 		{
-			_managedSabers.ForEach(x => { if (x != null) { x.gameObject.SetActive(true); } });
+			_managedSabers.ForEach(x => { if (x != null) { x.gameObject.SetActive(true); } ChangeColor(x); });
 		}
 
 		private void DidPause()

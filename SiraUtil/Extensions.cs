@@ -22,25 +22,28 @@ namespace SiraUtil
             return binder.FromNewComponentOn(new GameObject(name));
         }
 
-		public static void BindViewController<T>(this DiContainer Container, ViewController viewController) where T : ViewController
+		public static void BindViewController<T>(this DiContainer Container, bool active = false) where T : ViewController
 		{
+			T vc = new GameObject(typeof(T).Name, typeof(VRGraphicRaycaster), typeof(CurvedCanvasSettings), typeof(CanvasGroup), typeof(T)).GetComponent<T>();
 			var raycaster = Container.Resolve<PhysicsRaycasterWithCache>();
-			viewController.GetComponent<VRGraphicRaycaster>().SetField("_physicsRaycaster", raycaster);
-			Container.QueueForInject(viewController);
-			Container.BindInstance(viewController as T).AsCached();
+			vc.GetComponent<VRGraphicRaycaster>().SetField("_physicsRaycaster", raycaster);
+			vc.rectTransform.anchorMin = new Vector2(0f, 0f);
+			vc.rectTransform.anchorMax = new Vector2(1f, 1f);
+			vc.rectTransform.sizeDelta = new Vector2(0f, 0f);
+			vc.rectTransform.anchoredPosition = new Vector2(0f, 0f);
+			vc.gameObject.SetActive(active);
 
-			viewController.rectTransform.anchorMin = new Vector2(0f, 0f);
-			viewController.rectTransform.anchorMax = new Vector2(1f, 1f);
-			viewController.rectTransform.sizeDelta = new Vector2(0f, 0f);
-			viewController.rectTransform.anchoredPosition = new Vector2(0f, 0f);
+			Container.QueueForInject(vc);
+			Container.BindInstance(vc).AsSingle();
 		}
 
-		public static void BindFlowCoordinator<T>(this DiContainer Container, FlowCoordinator flowCoordinator) where T : FlowCoordinator
+		public static void BindFlowCoordinator<T>(this DiContainer Container) where T : FlowCoordinator
 		{
 			var inputSystem = Container.Resolve<BaseInputModule>();
-			flowCoordinator.SetField("_baseInputModule", inputSystem);
+			T flowCoordinator = new GameObject(typeof(T).Name).AddComponent<T>();
+			flowCoordinator.SetField<FlowCoordinator, BaseInputModule>("_baseInputModule", inputSystem);
 			Container.QueueForInject(flowCoordinator);
-			Container.BindInstance(flowCoordinator as T).AsCached();
+			Container.BindInstance(flowCoordinator).AsSingle();
 		}
 
 		internal static void OverrideColor(this SetSaberGlowColor ssgc, Color color)
@@ -48,7 +51,6 @@ namespace SiraUtil
             MeshRenderer mesh = Accessors.GlowMeshRenderer(ref ssgc);
             MaterialPropertyBlock block = Accessors.GlowMaterialPropertyBlock(ref ssgc);
             SetSaberGlowColor.PropertyTintColorPair[] tintPairs = Accessors.GlowPropertyTintPair(ref ssgc);
-
             if (block == null)
             {
                 block = new MaterialPropertyBlock();

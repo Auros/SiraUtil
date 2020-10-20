@@ -4,13 +4,13 @@ using Zenject;
 using System.IO;
 using HarmonyLib;
 using UnityEngine;
+using System.Threading;
 using System.Reflection;
 using System.Collections;
 using SiraUtil.Interfaces;
 using System.Reflection.Emit;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading;
+using System.Collections.Generic;
 
 namespace SiraUtil
 {
@@ -28,9 +28,9 @@ namespace SiraUtil
 		[Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller. Create the View Controller manually (for example, through BSML).")]
         public static void SetupViewController(InjectContext context, object source)
         {
-            if (source is ViewController viewController)
+			if (source is ViewController viewController)
             {
-                viewController.rectTransform.anchorMin = new Vector2(0f, 0f);
+				viewController.rectTransform.anchorMin = new Vector2(0f, 0f);
                 viewController.rectTransform.anchorMax = new Vector2(1f, 1f);
                 viewController.rectTransform.sizeDelta = new Vector2(0f, 0f);
                 viewController.rectTransform.anchoredPosition = new Vector2(0f, 0f);
