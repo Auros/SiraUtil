@@ -1,5 +1,4 @@
 using IPA;
-using System;
 using IPA.Loader;
 using HarmonyLib;
 using UnityEngine;
@@ -14,7 +13,7 @@ using IPALogger = IPA.Logging.Logger;
 
 namespace SiraUtil
 {
-    [Plugin(RuntimeOptions.DynamicInit)]
+	[Plugin(RuntimeOptions.DynamicInit)]
     public class Plugin
     {
         internal static IPALogger Log { get; set; }
@@ -72,7 +71,7 @@ namespace SiraUtil
 				{
 					var obstacleSparkles = obj as ObstacleSaberSparkleEffectManager;
 					var siraObstacleSparkles = obstacleSparkles.gameObject.AddComponent<SiraObstacleSaberSparkleEffectManager>();
-					UnityEngine.Object.Destroy(obstacleSparkles);
+					Object.Destroy(obstacleSparkles);
 					ctx.Container.QueueForInject(siraObstacleSparkles);
 					ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
 				})

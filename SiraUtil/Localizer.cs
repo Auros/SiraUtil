@@ -58,7 +58,7 @@ namespace SiraUtil
 
         private readonly Config _config;
         private readonly WebClient _webClient;
-        //private LocalizationAsset _siraLocalizationAsset;
+        private LocalizationAsset _siraLocalizationAsset;
 
         public Localizer(Config config, WebClient webClient)
         {
@@ -68,8 +68,8 @@ namespace SiraUtil
 
         public async void Initialize()
         {
-            //_siraLocalizationAsset = AddLocalizationSheetFromAssembly("SiraUtil.Resources.master_oct7-2020.tsv", GoogleDriveDownloadFormat.TSV, true);
             var stopwatch = Stopwatch.StartNew();
+            //_siraLocalizationAsset = AddLocalizationSheetFromAssembly("SiraUtil.Resources.master_oct20-2020.tsv", GoogleDriveDownloadFormat.TSV, true);
             int successCount = 0;
             foreach (var source in _config.Localization.Sources.Where(s => s.Value.Enabled == true))
             {
@@ -108,11 +108,11 @@ namespace SiraUtil
                     Plugin.Log.Warn($"Could not fetch localization data from {source.Key}");
                 }
             }
+            CheckLanguages();
             stopwatch.Stop();
             Plugin.Log.Sira($"Took {stopwatch.Elapsed.TotalSeconds} seconds to download, parse, and load {successCount} localization sheets.");
-            CheckLanguages();
-			/*
-            List<string> keys = LocalizationImporter.GetKeys();
+			
+            /*List<string> keys = LocalizationImporter.GetKeys();
 
             string savePath = Path.Combine(UnityGame.UserDataPath, "SiraUtil", "Localization", "Dumps");
             if (!Directory.Exists(savePath))
@@ -127,8 +127,8 @@ namespace SiraUtil
                 var contains = LocalizationImporter.GetLanguagesContains(key);
                 english.Add(contains[key].First());
             }
-            File.WriteAllLines(Path.Combine(savePath, "English.txt"), english.ToArray());
-            */
+            File.WriteAllLines(Path.Combine(savePath, "English.txt"), english.ToArray());*/
+            
             
             /*Localization.Instance.GetField<List<Language>, Localization>("supportedLanguages").Add(Language.French);
             Localization.Instance.SelectedLanguage = Language.French;*/

@@ -31,11 +31,26 @@ namespace SiraUtil.Sabers
 			var providerX = ____container.Resolve<SaberProvider>();
 			if (!providerX.IsSafe())
 			{
-				saberModelController = providerX.ModelPrefab = new GameObject(baseProvider.GetType().FullName).AddComponent(baseProvider.Type) as SaberModelController;
+				var smc = new GameObject(baseProvider.GetType().FullName).AddComponent(baseProvider.Type) as SaberModelController;
+				Accessors.SaberTrail(ref smc) = Accessors.SaberTrail(ref ____saberModelControllerPrefab);
+				Accessors.SaberGlowColor(ref smc) = Accessors.SaberGlowColor(ref ____saberModelControllerPrefab);
+				var glowColorsX = Accessors.SaberGlowColor(ref smc);
+				for (int i = 0; i < glowColorsX.Length; i++)
+				{
+					____container.Inject(glowColorsX[i]);
+				}
+				Accessors.FakeSaberGlowColor(ref smc) = Accessors.FakeSaberGlowColor(ref ____saberModelControllerPrefab);
+				var fakeGlowColorsX = Accessors.FakeSaberGlowColor(ref smc);
+				for (int i = 0; i < fakeGlowColorsX.Length; i++)
+				{
+					____container.Inject(fakeGlowColorsX[i]);
+				}
+				Accessors.SaberLight(ref smc) = Accessors.SaberLight(ref ____saberModelControllerPrefab);
+				saberModelController = providerX.ModelPrefab = smc;
 			}
 			else
 			{
-				saberModelController = providerX.ModelPrefab;
+				saberModelController = providerX.GetModel();
 			}
 			____container.Inject(saberModelController);
 			Accessors.SaberTrail(ref saberModelController) = Accessors.SaberTrail(ref ____saberModelControllerPrefab);
@@ -74,7 +89,7 @@ namespace SiraUtil.Sabers
 					codes[i - 4].opcode == OpCodes.Ldarg_0)
 				{
 					runIns++;
-					if (runIns == 3)
+					if (runIns == 2)
 					{
 						codes.Insert(i - 1, new CodeInstruction(OpCodes.Callvirt, _clashAttacher));
 						break;

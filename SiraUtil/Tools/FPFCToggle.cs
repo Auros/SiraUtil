@@ -4,13 +4,11 @@ using System.Linq;
 using UnityEngine;
 using VRUIControls;
 using IPA.Utilities;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
 namespace SiraUtil.Tools
 {
-    public class FPFCToggle : MonoBehaviour
+	public class FPFCToggle : MonoBehaviour
     {
         public bool Enabled { get; private set; } = false;
 
@@ -23,7 +21,8 @@ namespace SiraUtil.Tools
         public void Construct(Config.FPFCToggleOptions options)
         {
 			_options = options;
-            _start = Enabled = _options.Enabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
+			_start = options.Enabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
+			Enabled = _options.Enabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
         }
 
         protected void Start()
@@ -33,11 +32,11 @@ namespace SiraUtil.Tools
 
 		private async void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
 		{
-			if (newScene.name == "MenuViewControllers" || newScene.name == "GameCore")
+			if (_start && (newScene.name == "MenuViewControllers" || newScene.name == "GameCore"))
 			{
-				await Task.Run(() => Thread.Sleep(200));
+				await Utilities.PauseChamp;
 				Toggle(!Enabled);
-				await Task.Run(() => Thread.Sleep(200));
+				await Utilities.PauseChamp;
 				Toggle(!Enabled);
 			}
 		}

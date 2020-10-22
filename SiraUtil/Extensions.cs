@@ -177,7 +177,7 @@ namespace SiraUtil
 		/// <param name="toCheck">The object to check nullability.</param>
         public static void NullCheck(this IPA.Logging.Logger logger, object toCheck)
         {
-            logger.Info(toCheck != null ? $"The {toCheck.GetType().Name} is not null." : $"The {toCheck.GetType().FullName} is null");
+            logger.Info(toCheck != null ? $"The {toCheck.GetType().Name} is not null." : $"The object is null");
         }
 
         internal static void Sira(this IPA.Logging.Logger logger, string message)

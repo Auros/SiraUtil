@@ -55,7 +55,8 @@ namespace SiraUtil.Services
 		/// <returns>The current saber model.</returns>
 		public SaberModelController GetModel()
 		{
-			return ModelPrefab == null ? null : _container.InstantiatePrefab(ModelPrefab).GetComponent<SaberModelController>();
+			var smc = ModelPrefab == null ? null : _container.InstantiatePrefab(ModelPrefab).GetComponent<SaberModelController>();
+			return smc;
 		}
 	}
 }

@@ -18,6 +18,7 @@ namespace SiraUtil.Zenject
         {
             Container.BindInstance(_config).AsSingle().NonLazy();
 			Container.BindInstance(_config.FPFCToggle).AsSingle();
+
 			if (_config.FPFCToggle.Enabled)
 			{
 				Container.Bind<FPFCToggle>().FromNewComponentOnNewGameObject(nameof(FPFCToggle)).AsSingle().NonLazy();
