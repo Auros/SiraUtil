@@ -58,7 +58,7 @@ namespace SiraUtil
 
         private readonly Config _config;
         private readonly WebClient _webClient;
-        private LocalizationAsset _siraLocalizationAsset;
+        //private LocalizationAsset _siraLocalizationAsset;
 
         public Localizer(Config config, WebClient webClient)
         {
