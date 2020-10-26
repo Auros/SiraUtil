@@ -207,6 +207,7 @@
     <Compile Include="Tools\FPFCToggle.cs" />
     <Compile Include="Tools\MultiSongControl.cs" />
     <Compile Include="Tools\SongControl.cs" />
+    <Compile Include="Tweaks\SubMesh_CapMidAdjustment.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="WebClient.cs" />
     <Compile Include="Zenject\HarmonyPatches\GamemodeDecorator.cs" />
@@ -215,7 +216,9 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zenject\MutationContext.cs" />
+    <Compile Include="Zenject\SiraGameInstaller.cs" />
     <Compile Include="Zenject\SiraInstaller.cs" />
+    <Compile Include="Zenject\SiraMultiGameInstaller.cs" />
     <Compile Include="Zenject\ZenjectManager.cs" />
     <Compile Include="Zenject\Zenjector.cs" />
   </ItemGroup>
@@ -264,9 +267,7 @@
       <Version>4.5.24</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

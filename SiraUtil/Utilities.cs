@@ -18,19 +18,19 @@ namespace SiraUtil
     {
         public const string ASSERTHIT = "(Nice Assert Hit, Ding Dong)";
 
-		public static Task PauseChamp => AwaitSleep(100);
+        public static Task PauseChamp => AwaitSleep(100);
 
-		public static Task AwaitSleep(int ms)
-		{
-			return Task.Run(() => Thread.Sleep(ms));
-		}
+        public static Task AwaitSleep(int ms)
+        {
+            return Task.Run(() => Thread.Sleep(ms));
+        }
 
-		[Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller. Create the View Controller manually (for example, through BSML).")]
+        [Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller. Create the View Controller manually (for example, through BSML).")]
         public static void SetupViewController(InjectContext context, object source)
         {
-			if (source is ViewController viewController)
+            if (source is ViewController viewController)
             {
-				viewController.rectTransform.anchorMin = new Vector2(0f, 0f);
+                viewController.rectTransform.anchorMin = new Vector2(0f, 0f);
                 viewController.rectTransform.anchorMax = new Vector2(1f, 1f);
                 viewController.rectTransform.sizeDelta = new Vector2(0f, 0f);
                 viewController.rectTransform.anchoredPosition = new Vector2(0f, 0f);

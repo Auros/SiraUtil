@@ -5,18 +5,18 @@ using System.Collections;
 
 namespace SiraUtil.Sabers
 {
-	/// <summary>
-	/// A SiraSaber is an extra saber with some useful extension methods. The SiraSaber object is on the same GameObject as the normal Saber object, it's not an overridden version of the default Saber class.
-	/// </summary>
-	public class SiraSaber : MonoBehaviour
+    /// <summary>
+    /// A SiraSaber is an extra saber with some useful extension methods. The SiraSaber object is on the same GameObject as the normal Saber object, it's not an overridden version of the default Saber class.
+    /// </summary>
+    public class SiraSaber : MonoBehaviour
     {
         public static SaberType nextType = SaberType.SaberB;
 
         public Saber Saber => _saber;
         private Saber _saber;
-		private NoteCutter _noteCutter;
+        private NoteCutter _noteCutter;
         private ColorManager _colorManager;
-		private SaberProvider _saberProvider;
+        private SaberProvider _saberProvider;
         private SaberTypeObject _saberTypeObject;
         private IEnumerator _changeColorCoroutine = null;
         private SaberModelController _saberModelController;
@@ -25,9 +25,9 @@ namespace SiraUtil.Sabers
         [Inject]
         public void Construct(NoteCutter noteCutter, ColorManager colorManager, SaberProvider saberProvider, SiraSaberEffectManager siraSaberEffectManager)
         {
-			_noteCutter = noteCutter;
+            _noteCutter = noteCutter;
             _colorManager = colorManager;
-			_saberProvider = saberProvider;
+            _saberProvider = saberProvider;
             _siraSaberEffectManager = siraSaberEffectManager;
             // Create all the stuff thats supposed to be on the saber
             _saberTypeObject = gameObject.AddComponent<SaberTypeObject>();
@@ -45,58 +45,58 @@ namespace SiraUtil.Sabers
             Accessors.SaberHandleTransform(ref _saber) = bottom.transform;
             Accessors.SaberBladeTopTransform(ref _saber) = top.transform;
             Accessors.SaberBladeBottomTransform(ref _saber) = bottom.transform;
-			Accessors.SaberBladeTopPosition(ref _saber) = top.transform.position;
-			Accessors.SaberBladeBottomPosition(ref _saber) = bottom.transform.position;
+            Accessors.SaberBladeTopPosition(ref _saber) = top.transform.position;
+            Accessors.SaberBladeBottomPosition(ref _saber) = bottom.transform.position;
 
-			_saberProvider.ControllerReady += ModelsReady;
-			_saberProvider.IsSafe();
+            _saberProvider.ControllerReady += ModelsReady;
+            _saberProvider.IsSafe();
 
             _siraSaberEffectManager.SaberCreated(_saber);
         }
 
-		public void ModelsReady()
-		{
-			_saberModelController = _saberProvider.GetModel();
-			_saberProvider.ControllerReady -= ModelsReady;
-			_saberModelController.Init(transform, _saber);
-		}
+        public void ModelsReady()
+        {
+            _saberModelController = _saberProvider.GetModel();
+            _saberProvider.ControllerReady -= ModelsReady;
+            _saberModelController.Init(transform, _saber);
+        }
 
         public void Update()
         {
             if (_saber != null && _saber.gameObject.activeInHierarchy)
             {
-				var topTrans = Accessors.SaberBladeTopTransform(ref _saber);
-				var botTrans = Accessors.SaberBladeBottomTransform(ref _saber);
+                var topTrans = Accessors.SaberBladeTopTransform(ref _saber);
+                var botTrans = Accessors.SaberBladeBottomTransform(ref _saber);
 
-				var topPos = Accessors.SaberBladeTopPosition(ref _saber) = topTrans.position;
-				var botPos = Accessors.SaberBladeBottomPosition(ref _saber) = botTrans.position;
-				
-				int i = 0;
-				var swingRatingCounters = Accessors.SwingRatingCounters(ref _saber);
-				var unusedSwingRatingCounters = Accessors.UnusedSwingRatingCounters(ref _saber);
-				while (i < swingRatingCounters.Count)
-				{
-					var counter = swingRatingCounters[i];
-					if (counter.didFinish)
-					{
-						counter.Deinit();
-						swingRatingCounters.RemoveAt(i);
-						unusedSwingRatingCounters.Add(counter);
-					}
-					else
-					{
-						i++;
-					}
-				}
-				Accessors.MovementData(ref _saber).AddNewData(topPos, botPos, TimeHelper.time);
-				_noteCutter.Cut(_saber);
-			}
+                var topPos = Accessors.SaberBladeTopPosition(ref _saber) = topTrans.position;
+                var botPos = Accessors.SaberBladeBottomPosition(ref _saber) = botTrans.position;
+                
+                int i = 0;
+                var swingRatingCounters = Accessors.SwingRatingCounters(ref _saber);
+                var unusedSwingRatingCounters = Accessors.UnusedSwingRatingCounters(ref _saber);
+                while (i < swingRatingCounters.Count)
+                {
+                    var counter = swingRatingCounters[i];
+                    if (counter.didFinish)
+                    {
+                        counter.Deinit();
+                        swingRatingCounters.RemoveAt(i);
+                        unusedSwingRatingCounters.Add(counter);
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                Accessors.MovementData(ref _saber).AddNewData(topPos, botPos, TimeHelper.time);
+                _noteCutter.Cut(_saber);
+            }
         }
 
         public void OnDestroy()
         {
-			_saberProvider.ControllerReady -= ModelsReady;
-			_siraSaberEffectManager.SaberDestroyed(_saber);
+            _saberProvider.ControllerReady -= ModelsReady;
+            _siraSaberEffectManager.SaberDestroyed(_saber);
         }
 
         /// <summary>

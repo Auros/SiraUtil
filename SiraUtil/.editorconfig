@@ -2,8 +2,8 @@
 root = true
 
 [*]
-indent_style = tab
-indent_size = tab
+indent_style = Space
+indent_size = Space
 tab_width = 4
 trim_trailing_whitespace = true
 charset = utf-8

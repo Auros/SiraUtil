@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
 {
-	public class SiraObstacleSaberSparkleEffectManager : ObstacleSaberSparkleEffectManager, ISaberRegistrar
+    public class SiraObstacleSaberSparkleEffectManager : ObstacleSaberSparkleEffectManager, ISaberRegistrar
     {
         private readonly List<ObstacleSparkleDatum> _obstacleSparkleData = new List<ObstacleSparkleDatum>();
 
@@ -23,41 +23,41 @@ namespace SiraUtil.Sabers
             Destroy(original);
         }
 
-		private bool _initted;
+        private bool _initted;
 
         public override void Start()
         {
-			Run();
+            Run();
         }
 
-		public void Initialize(SaberManager saberManager)
-		{
-			Run();
-			_sabers = new Saber[2];
-			_sabers[0] = saberManager.leftSaber;
-			_sabers[1] = saberManager.rightSaber;
-			_obstacleSparkleData[0].saber = _sabers[0];
-			_obstacleSparkleData[1].saber = _sabers[1];
-		}
+        public void Initialize(SaberManager saberManager)
+        {
+            Run();
+            _sabers = new Saber[2];
+            _sabers[0] = saberManager.leftSaber;
+            _sabers[1] = saberManager.rightSaber;
+            _obstacleSparkleData[0].saber = _sabers[0];
+            _obstacleSparkleData[1].saber = _sabers[1];
+        }
 
-		private void Run()
-		{
-			if (!_initted)
-			{
-				base.Start();
-				for (int i = 0; i < _sabers.Length; i++)
-				{
-					var obstacleSparkle = new ObstacleSparkleDatum
-					{
-						saber = _sabers[i],
-						sparkleEffect = _effects[i],
-						effectTransform = _effectsTransforms[i]
-					};
-					_obstacleSparkleData.Add(obstacleSparkle);
-				}
-				_initted = true;
-			}
-		}
+        private void Run()
+        {
+            if (!_initted)
+            {
+                base.Start();
+                for (int i = 0; i < _sabers.Length; i++)
+                {
+                    var obstacleSparkle = new ObstacleSparkleDatum
+                    {
+                        saber = _sabers[i],
+                        sparkleEffect = _effects[i],
+                        effectTransform = _effectsTransforms[i]
+                    };
+                    _obstacleSparkleData.Add(obstacleSparkle);
+                }
+                _initted = true;
+            }
+        }
 
         public override void Update()
         {
@@ -81,7 +81,7 @@ namespace SiraUtil.Sabers
                         if (!osd.wasSystemActive)
                         {
                             osd.sparkleEffect.StartEmission();
-							Extensions.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidStartEvent")?.Invoke(osd.saber.saberType);
+                            Extensions.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidStartEvent")?.Invoke(osd.saber.saberType);
                         }
                     }
                 }
@@ -92,7 +92,7 @@ namespace SiraUtil.Sabers
                 if (!osd.isSystemActive && osd.wasSystemActive)
                 {
                     osd.sparkleEffect.StopEmission();
-					Extensions.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidEndEvent")?.Invoke(osd.saber.saberType);
+                    Extensions.GetEventHandlers<ObstacleSaberSparkleEffectManager, Action<SaberType>>(this, "sparkleEffectDidEndEvent")?.Invoke(osd.saber.saberType);
                 }
             }
         }
@@ -111,20 +111,20 @@ namespace SiraUtil.Sabers
             }
         }
 
-		public override Vector3 BurnMarkPosForSaberType(SaberType saberType)
-		{
-			if (_obstacleSparkleData.Count() >= 2)
-			{
-				if (_obstacleSparkleData[0].saber != null && saberType == _obstacleSparkleData[0].saber.saberType)
-				{
-					return _obstacleSparkleData[0].burnMarkPosition;
-				}
-				return _obstacleSparkleData[1].burnMarkPosition;
-			}
-			return Vector3.zero;
-		}
+        public override Vector3 BurnMarkPosForSaberType(SaberType saberType)
+        {
+            if (_obstacleSparkleData.Count() >= 2)
+            {
+                if (_obstacleSparkleData[0].saber != null && saberType == _obstacleSparkleData[0].saber.saberType)
+                {
+                    return _obstacleSparkleData[0].burnMarkPosition;
+                }
+                return _obstacleSparkleData[1].burnMarkPosition;
+            }
+            return Vector3.zero;
+        }
 
-		public void RegisterSaber(Saber saber)
+        public void RegisterSaber(Saber saber)
         {
             var osd = new ObstacleSparkleDatum
             {
@@ -147,7 +147,7 @@ namespace SiraUtil.Sabers
 
         public void ChangeColor(Saber _) { }
 
-		private class ObstacleSparkleDatum
+        private class ObstacleSparkleDatum
         {
             public Saber saber;
             public bool isSystemActive;

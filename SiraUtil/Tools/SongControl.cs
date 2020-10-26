@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SiraUtil.Tools
 {
-	public class SongControl : IInitializable, IDisposable, ITickable
+    public class SongControl : IInitializable, IDisposable, ITickable
     {
         private bool _isPaused = false;
         private readonly PauseController _pauseController;
@@ -59,7 +59,7 @@ namespace SiraUtil.Tools
                 }
                 else
                 {
-					_pauseController.Pause();
+                    _pauseController.Pause();
                 }
                 return;
             }
@@ -71,24 +71,24 @@ namespace SiraUtil.Tools
             _pauseController.didResumeEvent -= OnResume;
         }
 
-		public void Exit()
-		{
-			
-		}
+        public void Exit()
+        {
+            
+        }
 
-		public void Play()
-		{
-			
-		}
+        public void Play()
+        {
+            
+        }
 
-		public void Pause()
-		{
-			
-		}
+        public void Pause()
+        {
+            
+        }
 
-		public void Restart()
-		{
-			
-		}
-	}
+        public void Restart()
+        {
+            
+        }
+    }
 }

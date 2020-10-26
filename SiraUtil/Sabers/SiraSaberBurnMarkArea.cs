@@ -21,62 +21,62 @@ namespace SiraUtil.Sabers
             Destroy(original);
         }
 
-		private bool _initted = false;
+        private bool _initted = false;
 
         public override void Start()
         {
-			if (!_initted)
-			{
-				base.Start();
-				for (int i = 0; i < 2; i++)
-				{
-					if (_sabers[i])
-					{
-						var saberBurnDatum = new SaberBurnDatum
-						{
-							saber = _sabers[i],
-							lineRenderer = _lineRenderers[i],
-							renderTexture = _renderTextures[i],
-							prevBurnMarkPos = _prevBurnMarkPos[i],
-							prevBurnMarkPosValid = _prevBurnMarkPosValid[i]
-						};
-						_saberBurnData.Add(saberBurnDatum);
-					}
-				}
-				_initted = true;
-			}
+            if (!_initted)
+            {
+                base.Start();
+                for (int i = 0; i < 2; i++)
+                {
+                    if (_sabers[i])
+                    {
+                        var saberBurnDatum = new SaberBurnDatum
+                        {
+                            saber = _sabers[i],
+                            lineRenderer = _lineRenderers[i],
+                            renderTexture = _renderTextures[i],
+                            prevBurnMarkPos = _prevBurnMarkPos[i],
+                            prevBurnMarkPosValid = _prevBurnMarkPosValid[i]
+                        };
+                        _saberBurnData.Add(saberBurnDatum);
+                    }
+                }
+                _initted = true;
+            }
         }
 
-		public void Initialize(SaberManager saberManager)
-		{
-			if (!_initted)
-			{
-				base.Start();
-				for (int i = 0; i < 2; i++)
-				{
-					if (_sabers[i])
-					{
-						var saberBurnDatum = new SaberBurnDatum
-						{
-							saber = _sabers[i],
-							lineRenderer = _lineRenderers[i],
-							renderTexture = _renderTextures[i],
-							prevBurnMarkPos = _prevBurnMarkPos[i],
-							prevBurnMarkPosValid = _prevBurnMarkPosValid[i]
-						};
-						_saberBurnData.Add(saberBurnDatum);
-					}
-				}
-				_initted = true;
-			}
-			_sabers = new Saber[2];
-			_sabers[0] = saberManager.leftSaber;
-			_sabers[1] = saberManager.rightSaber;
-			_saberBurnData[0].saber = _sabers[0];
-			_saberBurnData[1].saber = _sabers[1];
-		}
+        public void Initialize(SaberManager saberManager)
+        {
+            if (!_initted)
+            {
+                base.Start();
+                for (int i = 0; i < 2; i++)
+                {
+                    if (_sabers[i])
+                    {
+                        var saberBurnDatum = new SaberBurnDatum
+                        {
+                            saber = _sabers[i],
+                            lineRenderer = _lineRenderers[i],
+                            renderTexture = _renderTextures[i],
+                            prevBurnMarkPos = _prevBurnMarkPos[i],
+                            prevBurnMarkPosValid = _prevBurnMarkPosValid[i]
+                        };
+                        _saberBurnData.Add(saberBurnDatum);
+                    }
+                }
+                _initted = true;
+            }
+            _sabers = new Saber[2];
+            _sabers[0] = saberManager.leftSaber;
+            _sabers[1] = saberManager.rightSaber;
+            _saberBurnData[0].saber = _sabers[0];
+            _saberBurnData[1].saber = _sabers[1];
+        }
 
-		public override void LateUpdate()
+        public override void LateUpdate()
         {
             for (int i = 0; i < _saberBurnData.Count; i++)
             {
@@ -143,29 +143,29 @@ namespace SiraUtil.Sabers
             }
         }
 
-		public override void OnEnable()
-		{
-			foreach (var sbm in _saberBurnData)
-			{
-				if (sbm.lineRenderer != null)
-				{
-					sbm.lineRenderer.gameObject.SetActive(true);
-				}
-			}
-		}
+        public override void OnEnable()
+        {
+            foreach (var sbm in _saberBurnData)
+            {
+                if (sbm.lineRenderer != null)
+                {
+                    sbm.lineRenderer.gameObject.SetActive(true);
+                }
+            }
+        }
 
-		public override void OnDisable()
-		{
-			foreach (var sbm in _saberBurnData)
-			{
-				if (sbm.lineRenderer != null)
-				{
-					sbm.lineRenderer.gameObject.SetActive(false);
-				}
-			}
-		}
+        public override void OnDisable()
+        {
+            foreach (var sbm in _saberBurnData)
+            {
+                if (sbm.lineRenderer != null)
+                {
+                    sbm.lineRenderer.gameObject.SetActive(false);
+                }
+            }
+        }
 
-		public void RegisterSaber(Saber saber)
+        public void RegisterSaber(Saber saber)
         {
             var newSaberDatum = new SaberBurnDatum
             {
@@ -221,7 +221,7 @@ namespace SiraUtil.Sabers
             }
         }
 
-		private class SaberBurnDatum
+        private class SaberBurnDatum
         {
             public Saber saber;
             public Vector3 prevBurnMarkPos;

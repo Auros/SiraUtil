@@ -10,7 +10,7 @@ namespace SiraUtil
 {
     public class Config
     {
-		[NonNullable, UseConverter(typeof(VersionConverter))]
+        [NonNullable, UseConverter(typeof(VersionConverter))]
         public virtual Version Version { get; set; }
 
         [NonNullable]

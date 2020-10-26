@@ -12,11 +12,11 @@ namespace SiraUtil
         internal static FieldAccessor<SaberTrail, Color>.Accessor TrailColor = FieldAccessor<SaberTrail, Color>.GetAccessor("_color");
         internal static FieldAccessor<SceneDecoratorContext, List<MonoBehaviour>>.Accessor Injectables = FieldAccessor<SceneDecoratorContext, List<MonoBehaviour>>.GetAccessor("_injectableMonoBehaviours");
 
-		internal static FieldAccessor<SaberManager, Saber>.Accessor SMLeftSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_leftSaber");
-		internal static FieldAccessor<SaberManager, Saber>.Accessor SMRightSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_rightSaber");
+        internal static FieldAccessor<SaberManager, Saber>.Accessor SMLeftSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_leftSaber");
+        internal static FieldAccessor<SaberManager, Saber>.Accessor SMRightSaber = FieldAccessor<SaberManager, Saber>.GetAccessor("_rightSaber");
 
-		internal static FieldAccessor<SaberModelController, SaberTrail>.Accessor SaberTrail = FieldAccessor<SaberModelController, SaberTrail>.GetAccessor("_saberTrail");
-		internal static FieldAccessor<SaberModelController, ColorManager>.Accessor SaberColorManager = FieldAccessor<SaberModelController, ColorManager>.GetAccessor("_colorManager");
+        internal static FieldAccessor<SaberModelController, SaberTrail>.Accessor SaberTrail = FieldAccessor<SaberModelController, SaberTrail>.GetAccessor("_saberTrail");
+        internal static FieldAccessor<SaberModelController, ColorManager>.Accessor SaberColorManager = FieldAccessor<SaberModelController, ColorManager>.GetAccessor("_colorManager");
         internal static FieldAccessor<SaberModelController, TubeBloomPrePassLight>.Accessor SaberLight = FieldAccessor<SaberModelController, TubeBloomPrePassLight>.GetAccessor("_saberLight");
         internal static FieldAccessor<SaberModelController, SetSaberGlowColor[]>.Accessor SaberGlowColor = FieldAccessor<SaberModelController, SetSaberGlowColor[]>.GetAccessor("_setSaberGlowColors");
         internal static FieldAccessor<SaberModelController, SetSaberFakeGlowColor[]>.Accessor FakeSaberGlowColor = FieldAccessor<SaberModelController, SetSaberFakeGlowColor[]>.GetAccessor("_setSaberFakeGlowColors");

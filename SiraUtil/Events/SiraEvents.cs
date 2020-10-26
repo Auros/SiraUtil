@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Events
 {
-	/// <summary>
-	/// A collection of events used by SIRA`
-	/// </summary>
+    /// <summary>
+    /// A collection of events used by SIRA`
+    /// </summary>
     public class SiraEvents
     {
         internal static event EventHandler<SceneContextInstalledArgs> ContextInstalling;
@@ -20,32 +20,32 @@ namespace SiraUtil.Events
         internal class SceneContextInstalledArgs : EventArgs
         {
             public string Name { get; }
-			public ModeInfo ModeInfo { get; }
+            public ModeInfo ModeInfo { get; }
             public DiContainer Container { get; }
-			public List<SceneDecoratorContext> Decorators { get; }
+            public List<SceneDecoratorContext> Decorators { get; }
 
 
-			public SceneContextInstalledArgs(string name, DiContainer container, ModeInfo modeInfo, List<SceneDecoratorContext> decorators)
+            public SceneContextInstalledArgs(string name, DiContainer container, ModeInfo modeInfo, List<SceneDecoratorContext> decorators)
             {
                 Name = name;
-				ModeInfo = modeInfo;
+                ModeInfo = modeInfo;
                 Container = container;
-				Decorators = decorators;
+                Decorators = decorators;
             }
         }
 
-		internal class ModeInfo
-		{
-			public string Gamemode { get; }
-			public string Transition { get; }
-			public string MidScene { get; }
+        internal class ModeInfo
+        {
+            public string Gamemode { get; }
+            public string Transition { get; }
+            public string MidScene { get; }
 
-			public ModeInfo(string gamemode, string transition, string midScene)
-			{
-				Gamemode = gamemode ?? "";
-				Transition = transition ?? "";
-				MidScene = midScene ?? "";
-			}
-		}
+            public ModeInfo(string gamemode, string transition, string midScene)
+            {
+                Gamemode = gamemode ?? "";
+                Transition = transition ?? "";
+                MidScene = midScene ?? "";
+            }
+        }
     }
 }
