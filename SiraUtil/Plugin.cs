@@ -1,12 +1,15 @@
 using IPA;
+using Zenject;
 using IPA.Loader;
 using HarmonyLib;
 using UnityEngine;
 using System.Linq;
+using IPA.Utilities;
 using SiraUtil.Sabers;
 using SiraUtil.Zenject;
 using IPA.Config.Stores;
 using System.Reflection;
+using SiraUtil.Services;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using IPALogger = IPA.Logging.Logger;
@@ -76,6 +79,16 @@ namespace SiraUtil
                     ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
                 })
                 .ShortCircuitForMultiplayer();
+            zenjector.OnGame<SiraGameLevelInstaller>()
+                .Mutate<PrepareLevelCompletionResults>((ctx, obj) =>
+                {
+                    var completionResults = obj as PrepareLevelCompletionResults;
+                    var binding = completionResults.GetComponent<ZenjectBinding>();
+                    var siraCompletionResults = completionResults.gameObject.AddComponent<Submission.SiraPrepareLevelCompletionResults>();
+                    binding.SetField("_ifNotBound", true);
+                    ctx.Container.QueueForInject(siraCompletionResults);
+                    ctx.Container.Bind<PrepareLevelCompletionResults>().To<Submission.SiraPrepareLevelCompletionResults>().FromInstance(siraCompletionResults).AsCached();
+                }).OnlyForStandard();
 
             zenjector.OnGame<SiraGameInstaller>().ShortCircuitForMultiplayer();
         }

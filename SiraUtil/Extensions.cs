@@ -1,6 +1,7 @@
 using HMUI;
 using System;
 using Zenject;
+using Polyglot;
 using UnityEngine;
 using System.Linq;
 using VRUIControls;
@@ -12,6 +13,12 @@ namespace SiraUtil
 {
     public static class Extensions
     {
+        public static string LocalizationGetOr(this string key, string or)
+        {
+            key = Localization.Get(key);
+            return string.IsNullOrWhiteSpace(key) ? or : key;
+        }
+
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder binder, string name = "GameObject")
         {
             return binder.FromNewComponentOn(new GameObject(name));

@@ -218,6 +218,7 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zenject\MutationContext.cs" />
+    <Compile Include="Zenject\SiraGameLevelInstaller.cs" />
     <Compile Include="Zenject\SiraGameInstaller.cs" />
     <Compile Include="Zenject\SiraInstaller.cs" />
     <Compile Include="Zenject\SiraMultiGameInstaller.cs" />

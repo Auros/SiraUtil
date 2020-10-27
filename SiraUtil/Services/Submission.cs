@@ -1,4 +1,5 @@
 using System;
+using Zenject;
 using System.Linq;
 using IPA.Utilities;
 using System.Reflection;
@@ -9,18 +10,24 @@ namespace SiraUtil.Services
     public class Submission : IDisposable
     {
         private readonly List<Ticket> _tickets = new List<Ticket>();
-        private readonly GameplayCoreSceneSetupData _gameplaycoreSceneSetupData;
+        private readonly RichPresenceManager _richPresenceManager;
+        private readonly GameplayCoreSceneSetupData _gameplayCoreSceneSetupData;
+        private readonly StandardLevelScenesTransitionSetupDataSO _standardLevelScenesTransitionSetupDataSO;
 
-        public Submission(GameplayCoreSceneSetupData gameplayCoreSceneSetupData)
+        public Submission(RichPresenceManager richPresenceManager, GameplayCoreSceneSetupData gameplayCoreSceneSetupData)
         {
-            _gameplaycoreSceneSetupData = gameplayCoreSceneSetupData;
+            _richPresenceManager = richPresenceManager;
+            _gameplayCoreSceneSetupData = gameplayCoreSceneSetupData;
+            _standardLevelScenesTransitionSetupDataSO = _richPresenceManager.GetField<StandardLevelScenesTransitionSetupDataSO, RichPresenceManager>("_standardLevelScenesTransitionSetupData");
+
         }
 
         public void Dispose()
         {
             if (_tickets.Count > 0)
             {
-                _gameplaycoreSceneSetupData.SetField("practiceSettings", new PracticeSettings());
+                Plugin.Log.Info("disapf");
+                _gameplayCoreSceneSetupData.SetField("practiceSettings", new PracticeSettings());
             }
         }
 
@@ -35,6 +42,7 @@ namespace SiraUtil.Services
             if (ticket is null)
             {
                 ticket = new Ticket(source, Assembly.GetCallingAssembly());
+                _tickets.Add(ticket);
                 ticket.AddReason(subsource);
             }
             else
@@ -87,6 +95,36 @@ namespace SiraUtil.Services
                     ticket.AddReason(_reasons.ElementAt(i));
                 }
                 return ticket;
+            }
+        }
+
+        internal class SiraPrepareLevelCompletionResults : PrepareLevelCompletionResults
+        {
+            public SiraPrepareLevelCompletionResults()
+            {
+                PrepareLevelCompletionResults original = GetComponent<PrepareLevelCompletionResults>();
+                foreach (FieldInfo info in original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+                {
+                    info.SetValue(this, info.GetValue(original));
+                }
+                Destroy(original);
+            }
+
+            private Submission _submission;
+            [Inject]
+            public void Construct(Submission submission)
+            {
+                _submission = submission;
+            }
+
+            public override LevelCompletionResults FillLevelCompletionResults(LevelCompletionResults.LevelEndStateType levelEndStateType, LevelCompletionResults.LevelEndAction levelEndAction)
+            {
+                var results = base.FillLevelCompletionResults(levelEndStateType, levelEndAction);
+                if (_submission._tickets.Count() > 0)
+                {
+                    results.SetField("rawScore", 0);
+                }
+                return results;
             }
         }
     }
