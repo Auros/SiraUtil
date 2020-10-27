@@ -189,6 +189,7 @@
     <Compile Include="Converters\VersionConverter.cs" />
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Interfaces\ILocalizer.cs" />
     <Compile Include="Interfaces\IModelProvider.cs" />
     <Compile Include="Services\SaberProvider.cs" />
     <Compile Include="Localizer.cs" />

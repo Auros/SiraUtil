@@ -24,11 +24,8 @@ namespace SiraUtil.Zenject
                 Container.Bind<FPFCToggle>().FromNewComponentOnNewGameObject(nameof(FPFCToggle)).AsSingle().NonLazy();
 
             }
-            if (_config.Localization.Enabled)
-            {
-                Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
-                Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
-            }
+            Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
 
             // Make Zenject know this is a list
             Container.Bind<IModelProvider>().To<DummyProviderA>().AsSingle();

@@ -7,8 +7,7 @@ using UnityEngine;
 using System.Linq;
 using IPA.Utilities;
 using System.Threading;
-using System.Reflection;
-using System.Diagnostics;
+using SiraUtil.Interfaces;
 using System.Reflection.Emit;
 using System.Collections.Generic;
 
@@ -43,7 +42,7 @@ namespace SiraUtil
         }
     }
 
-    [HarmonyPatch(typeof(UnityEngine.Debug), "LogWarning", argumentTypes: new Type[] { typeof(object) })]
+    [HarmonyPatch(typeof(Debug), "LogWarning", argumentTypes: new Type[] { typeof(object) })]
     internal static class RemoveLocalizationWarningLog
     {
         internal static bool Prefix(ref object message)
@@ -52,24 +51,23 @@ namespace SiraUtil
         }
     }
 
-    public class Localizer : IInitializable, ILateDisposable
+    public class Localizer
     {
         private static readonly Dictionary<string, LocalizationAsset> _lockedAssetCache = new Dictionary<string, LocalizationAsset>();
 
         private readonly Config _config;
         private readonly WebClient _webClient;
-        //private LocalizationAsset _siraLocalizationAsset;
+        private readonly ILocalizer _localizer;
 
-        public Localizer(Config config, WebClient webClient)
+        public Localizer(Config config, WebClient webClient, [InjectOptional(Id = "SIRA.Localizer")] ILocalizer localizer)
         {
             _config = config;
             _webClient = webClient;
+            _localizer = localizer;
         }
 
         public async void Initialize()
         {
-            var stopwatch = Stopwatch.StartNew();
-            //_siraLocalizationAsset = AddLocalizationSheetFromAssembly("SiraUtil.Resources.master_oct20-2020.tsv", GoogleDriveDownloadFormat.TSV, true);
             int successCount = 0;
             foreach (var source in _config.Localization.Sources.Where(s => s.Value.Enabled == true))
             {
@@ -108,10 +106,6 @@ namespace SiraUtil
                     Plugin.Log.Warn($"Could not fetch localization data from {source.Key}");
                 }
             }
-            CheckLanguages();
-            stopwatch.Stop();
-            Plugin.Log.Sira($"Took {stopwatch.Elapsed.TotalSeconds} seconds to download, parse, and load {successCount} localization sheets.");
-            
             /*List<string> keys = LocalizationImporter.GetKeys();
 
             string savePath = Path.Combine(UnityGame.UserDataPath, "SiraUtil", "Localization", "Dumps");
@@ -128,126 +122,31 @@ namespace SiraUtil
                 english.Add(contains[key].First());
             }
             File.WriteAllLines(Path.Combine(savePath, "English.txt"), english.ToArray());*/
-            
-            
-            /*Localization.Instance.GetField<List<Language>, Localization>("supportedLanguages").Add(Language.French);
-            Localization.Instance.SelectedLanguage = Language.French;*/
         }
 
-        public void CheckLanguages()
-        {
-            var stopwatch = Stopwatch.StartNew();
-            var supported = Localization.Instance.GetField<List<Language>, Localization>("supportedLanguages");
-            FieldInfo field = typeof(LocalizationImporter).GetField("languageStrings", BindingFlags.NonPublic | BindingFlags.Static);
-            var locTable = (Dictionary<string, List<string>>)field.GetValue(null);
-            ISet<int> validLanguages = new HashSet<int>();
-            foreach (var value in locTable.Values)
-            {
-                for (int i = 0; i < value.Count; i++)
-                {
-                    if (!string.IsNullOrEmpty(value.ElementAtOrDefault(i)))
-                    {
-                        validLanguages.Add(i);
-                    }
-                }
-            }
-
-            supported.Clear();
-            for (int i = 0; i < validLanguages.Count; i++)
-            {
-                supported.Add((Language)validLanguages.ElementAt(i));
-                Plugin.Log.Sira($"Language Detected: {(Language)validLanguages.ElementAt(i)}");
-            }
-            stopwatch.Stop();
-            Plugin.Log.Sira($"Took {stopwatch.Elapsed:c} to recalculate languages.");
-            Localization.Instance.InvokeOnLocalize();
-        }
-
-        /// <summary>
-        /// Adds a localization asset to Polyglot.
-        /// </summary>
-        /// <param name="localizationAsset"></param>
         public void AddLocalizationSheet(LocalizationAsset localizationAsset)
         {
-            var loc = _lockedAssetCache.Where(x => x.Value == localizationAsset || x.Value.TextAsset.text == localizationAsset.TextAsset.text).FirstOrDefault();
-            if (loc.Equals(default(KeyValuePair<string, LocalizationAsset>)))
-            {
-                return;
-            }
-            Localization.Instance.GetField<List<LocalizationAsset>, Localization>("inputFiles").Add(localizationAsset);
-            LocalizationImporter.Refresh();
+            _localizer?.AddLocalizationSheet(localizationAsset);
         }
 
-        /// <summary>
-        /// Removes a localization asset from Polyglot.
-        /// </summary>
-        /// <param name="localizationAsset"></param>
         public void RemoveLocalizationSheet(LocalizationAsset localizationAsset)
         {
-            var loc = _lockedAssetCache.Where(x => x.Value == localizationAsset || x.Value.TextAsset.text == localizationAsset.TextAsset.text).FirstOrDefault();
-            if (!loc.Equals(default(KeyValuePair<string, LocalizationAsset>)))
-            {
-                _lockedAssetCache.Remove(loc.Key);
-            }
+            _localizer?.RemoveLocalizationSheet(localizationAsset);
         }
 
-        /// <summary>
-        /// Removes a localization asset from Polyglot.
-        /// </summary>
-        /// <param name="key">The name or source of the asset.</param>
         public void RemoveLocalizationSheet(string key)
         {
-            _lockedAssetCache.Remove(key);
+            _localizer?.RemoveLocalizationSheet(key);
         }
 
-        /// <summary>
-        /// Creates a localization asset.
-        /// </summary>
-        /// <param name="localizationAsset">The text to generate it from.</param>
-        /// <param name="type">The format of the localization data.</param>
-        /// <param name="id">The ID of the localization data.</param>
-        /// <param name="addToPolyglot">Wheether or not to add it to Polyglot immediately.</param>
-        /// <returns></returns>
-        public LocalizationAsset AddLocalizationSheet(string localizationAsset, GoogleDriveDownloadFormat type, string id, bool addToPolyglot = true)
+        public LocalizationAsset AddLocalizationSheet(string localizationAsset, GoogleDriveDownloadFormat type, string id, bool shadow = false)
         {
-            var asset = new LocalizationAsset
-            {
-                Format = type,
-                TextAsset = new TextAsset(localizationAsset)
-            };
-            if (!_lockedAssetCache.ContainsKey(id))
-            {
-                _lockedAssetCache.Add(id, asset);
-            }
-            if (addToPolyglot)
-            {
-                AddLocalizationSheet(asset);
-            }
-            return asset;
+            return _localizer?.AddLocalizationSheet(localizationAsset, type, id, shadow);
         }
 
-        /// <summary>
-        /// Adds a localization sheet from an assembly path.
-        /// </summary>
-        /// <param name="assemblyPath">The assembly path to the localization asset file.</param>
-        /// <param name="id">The ID of the localization data.</param>
-        /// <param name="addToPolyglot">Wheether or not to add it to Polyglot immediately.</param>
-        /// <returns></returns>
-        public LocalizationAsset AddLocalizationSheetFromAssembly(string assemblyPath, GoogleDriveDownloadFormat type, bool addToPolyglot = true)
+        public LocalizationAsset AddLocalizationSheetFromAssembly(string assemblyPath, GoogleDriveDownloadFormat type, bool shadow = false)
         {
-            Utilities.AssemblyFromPath(assemblyPath, out Assembly assembly, out string path);
-            string content = Utilities.GetResourceContent(assembly, path);
-            var locSheet = AddLocalizationSheet(content, type, path, addToPolyglot);
-            if (!_lockedAssetCache.ContainsKey(path))
-            {
-                _lockedAssetCache.Add(path, locSheet);
-            }
-            return locSheet;
-        }
-
-        public void LateDispose()
-        {
-            //RemoveLocalizationSheet(_siraLocalizationAsset);
+            return _localizer?.AddLocalizationSheetFromAssembly(assemblyPath, type, shadow);
         }
     }
 }

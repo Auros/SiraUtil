@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 
 namespace SiraUtil
 {
-    internal class WebResponse
+    public class WebResponse
     {
         public readonly string ReasonPhrase;
         public readonly bool IsSuccessStatusCode;
@@ -46,6 +46,7 @@ namespace SiraUtil
         {
             return JsonConvert.DeserializeObject<T>(ContentToString());
         }
+
         public JObject ConvertToJObject()
         {
             return JObject.Parse(ContentToString());
@@ -76,24 +77,23 @@ namespace SiraUtil
             }
         }
 
-        internal async Task<WebResponse> PostAsync(string url, object postData, CancellationToken token, AuthenticationHeaderValue authHeader = null)
+        public async Task<WebResponse> PostAsync(string url, object postData, CancellationToken token, AuthenticationHeaderValue authHeader = null)
         {
             return await SendAsync(HttpMethod.Post, url, token, postData, authHeader);
         }
 
-        internal async Task<WebResponse> GetAsync(string url, CancellationToken token, AuthenticationHeaderValue authHeader = null)
+        public async Task<WebResponse> GetAsync(string url, CancellationToken token, AuthenticationHeaderValue authHeader = null)
         {
             return await SendAsync(HttpMethod.Get, url, token, authHeader: authHeader);
         }
 
-        internal async Task<byte[]> DownloadImage(string url, CancellationToken token, AuthenticationHeaderValue authHeader = null)
+        public async Task<byte[]> DownloadImage(string url, CancellationToken token, AuthenticationHeaderValue authHeader = null)
         {
             var response = await SendAsync(HttpMethod.Get, url, token, authHeader: authHeader);
-
             return response.IsSuccessStatusCode ? response.ContentToBytes() : null;
         }
 
-        internal async Task<WebResponse> SendAsync(HttpMethod methodType, string url, CancellationToken token, object postData = null, AuthenticationHeaderValue authHeader = null, IProgress<double> progress = null)
+        public async Task<WebResponse> SendAsync(HttpMethod methodType, string url, CancellationToken token, object postData = null, AuthenticationHeaderValue authHeader = null, IProgress<double> progress = null)
         {
             var req = new HttpRequestMessage(methodType, url);
             req.Headers.Authorization = authHeader;
