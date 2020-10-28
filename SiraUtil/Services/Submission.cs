@@ -26,7 +26,6 @@ namespace SiraUtil.Services
         {
             if (_tickets.Count > 0)
             {
-                Plugin.Log.Info("disapf");
                 _gameplayCoreSceneSetupData.SetField("practiceSettings", new PracticeSettings());
             }
         }
