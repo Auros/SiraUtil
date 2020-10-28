@@ -78,7 +78,9 @@ namespace SiraUtil
                     ctx.Container.QueueForInject(siraObstacleSparkles);
                     ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
                 })
+                .Expose<SaberClashEffect>()
                 .ShortCircuitForMultiplayer();
+
             zenjector.OnGame<SiraGameLevelInstaller>()
                 .Mutate<PrepareLevelCompletionResults>((ctx, obj) =>
                 {

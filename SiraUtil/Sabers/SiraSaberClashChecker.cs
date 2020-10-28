@@ -1,7 +1,9 @@
+using Zenject;
 using UnityEngine;
 using System.Linq;
 using SiraUtil.Interfaces;
 using System.Collections.Generic;
+using IPA.Utilities;
 
 namespace SiraUtil.Sabers
 {
@@ -9,6 +11,15 @@ namespace SiraUtil.Sabers
     {
         private readonly HashSet<Saber> _sabers = new HashSet<Saber>();
         public bool MultiSaberMode { get; set; } = false;
+
+        private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor GlowParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_glowParticleSystem");
+        private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor SparkleParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_sparkleParticleSystem");
+
+        [Inject]
+        protected DiContainer _container;
+
+        private Saber _lastSaberA;
+        private Saber _lastSaberB;
 
         public void Initialize(SaberManager saberManager)
         {
@@ -55,6 +66,18 @@ namespace SiraUtil.Sabers
 
                         if (SegmentToSegmentDist(saberBladeBottomPos, saberBladeTopPos, saberBladeBottomPos2, saberBladeTopPos2, out var clashingPoint2) < 0.08f && saberA.isActiveAndEnabled && saberB.isActiveAndEnabled)
                         {
+                            if (_lastSaberA == null && _lastSaberB == null)
+                            {
+                                _lastSaberA = saberA;
+                                _lastSaberB = saberB;
+
+                                // pseudo-lock dep
+                                var clashEffect = _container.Resolve<SaberClashEffect>();
+                                var glowPS = GlowParticles(ref clashEffect).main;
+                                var sparkPS = SparkleParticles(ref clashEffect).main;
+
+                                sparkPS.startColor = glowPS.startColor = Color.Lerp(_lastSaberA.GetColor(), _lastSaberB.GetColor(), 0.5f);
+                            }
                             _clashingPoint = clashingPoint2;
                             clashingPoint = _clashingPoint;
                             _sabersAreClashing = true;
@@ -62,6 +85,8 @@ namespace SiraUtil.Sabers
                         }
                         else
                         {
+                            _lastSaberA = null;
+                            _lastSaberB = null;
                             _sabersAreClashing = false;
                         }
                     }
@@ -71,7 +96,7 @@ namespace SiraUtil.Sabers
             return _sabersAreClashing;
         }
 
-        public void ChangeColor(Saber _) { }
+        public void ChangeColor(Saber _) { MultiSaberMode = true; }
 
         public void RegisterSaber(Saber saber)
         {
