@@ -13,16 +13,25 @@ namespace SiraUtil.Tools
         public bool Enabled { get; private set; } = false;
 
         private bool _start;
+        private Camera _camera;
+
+        private IVRPlatformHelper _helper;
+        private bool _fpfcCommandArgument;
         private VRInputModule _vrInputModule;
+        private VRController _leftController;
+        private VRController _rightController;
         private Config.FPFCToggleOptions _options;
+        private Transform _originalOriginLocation;
         private FirstPersonFlyingController _firstPersonFlyingController;
 
         [Inject]
-        public void Construct(Config.FPFCToggleOptions options)
+        public void Construct(IVRPlatformHelper helper, Config.FPFCToggleOptions options)
         {
+            _helper = helper;
             _options = options;
-            _start = options.Enabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
-            Enabled = _options.Enabled && Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
+            _fpfcCommandArgument = Environment.GetCommandLineArgs().Any(x => x.ToLower() == "fpfc");
+            _start = options.Enabled && _fpfcCommandArgument;
+            Enabled = _start;
         }
 
         protected void Start()
@@ -38,6 +47,10 @@ namespace SiraUtil.Tools
                 Toggle(!Enabled);
                 await Utilities.PauseChamp;
                 Toggle(!Enabled);
+
+                _camera.transform.localPosition = Vector3.zero;
+                _leftController.transform.localPosition = Vector3.zero;
+                _rightController.transform.localPosition = Vector3.zero;
             }
         }
 
@@ -53,7 +66,10 @@ namespace SiraUtil.Tools
                 if (!_start)
                 {
                     _start = true;
-                    return;
+                    if (!_options.OnFirstRequest)
+                    {
+                        return;
+                    }
                 }
                 Refresh();
                 Toggle(!Enabled);
@@ -68,8 +84,8 @@ namespace SiraUtil.Tools
                 {
                     Refresh();
                 }
-                _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = false;
-                _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").enabled = true;
+                _camera.enabled = false;
+                _camera.enabled = true;
 
                 _vrInputModule.enabled = state;
                 _vrInputModule.gameObject.SetActive(true);
@@ -77,6 +93,36 @@ namespace SiraUtil.Tools
                 Cursor.lockState = state ? CursorLockMode.Locked : CursorLockMode.None;
                 Cursor.visible = !state;
                 Enabled = state;
+
+                if (_options.OnFirstRequest)
+                {
+                    if (state)
+                    {
+                        Refresh();
+                        _firstPersonFlyingController.enabled = true;
+                        _firstPersonFlyingController.Start();
+                    }
+                    else
+                    {
+                        _vrInputModule.transform.SetParent(null);
+                        _firstPersonFlyingController.transform.SetParent(_originalOriginLocation);
+                        _camera.stereoTargetEye = StereoTargetEyeMask.Both;
+                        foreach (var go in _firstPersonFlyingController.GetField<GameObject[], FirstPersonFlyingController>("_controllerModels"))
+                        {
+                            if (go != null)
+                            {
+                                go.SetActive(true);
+                            }
+                        }
+                        var adjust = _firstPersonFlyingController.GetField<VRCenterAdjust, FirstPersonFlyingController>("_centerAdjust");
+                        _firstPersonFlyingController.enabled = false;
+                        adjust.enabled = true;
+                        adjust.HandleRoomCenterDidChange();
+                        adjust.HandleRoomRotationDidChange();
+                        _rightController.enabled = true;
+                        _leftController.enabled = true;
+                    }
+                }
             }
         }
 
@@ -84,12 +130,21 @@ namespace SiraUtil.Tools
         {
             _firstPersonFlyingController = Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>().FirstOrDefault();
             _vrInputModule = _firstPersonFlyingController.GetField<VRInputModule, FirstPersonFlyingController>("_vrInputModule");
+            _camera = _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera");
             _vrInputModule.transform.SetParent(transform);
+            if (_originalOriginLocation == null)
+            {
+                _originalOriginLocation = _firstPersonFlyingController.transform;
+            }
+            if (_helper.currentXRDeviceModel == XRDeviceModel.Unknown)
+            {
+                _camera.fieldOfView = _options.CameraFOV;
+            }
             _firstPersonFlyingController.transform.SetParent(transform);
-
             _firstPersonFlyingController.SetField("_cameraFov", _options.CameraFOV);
             _firstPersonFlyingController.SetField("_moveSensitivity", _options.MoveSensitivity);
-            _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera").fieldOfView = _options.CameraFOV;
+            _leftController = _firstPersonFlyingController.GetField<VRController, FirstPersonFlyingController>("_controller0");
+            _rightController = _firstPersonFlyingController.GetField<VRController, FirstPersonFlyingController>("_controller1");
         }
     }
 }

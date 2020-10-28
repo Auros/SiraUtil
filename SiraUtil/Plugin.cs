@@ -52,6 +52,7 @@ namespace SiraUtil
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
+            zenjector.OnMenu<SiraMenuInstaller>();
             zenjector.OnGame<SiraSaberInstaller>();
 
             zenjector.OnGame<SiraSaberEffectInstaller>()

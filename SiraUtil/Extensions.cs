@@ -15,8 +15,8 @@ namespace SiraUtil
     {
         public static string LocalizationGetOr(this string key, string or)
         {
-            key = Localization.Get(key);
-            return string.IsNullOrWhiteSpace(key) ? or : key;
+            var localized = Localization.Get(key);
+            return string.IsNullOrWhiteSpace(localized) || key == localized ? or : localized;
         }
 
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder binder, string name = "GameObject")
