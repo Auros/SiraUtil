@@ -16,7 +16,7 @@ namespace SiraUtil.Sabers
     {
         internal static bool Prefix(ref Saber ____saber, ref DiContainer ____container, ref SaberModelContainer __instance, SaberModelController ____saberModelControllerPrefab)
         {
-            var providers = ____container.Resolve<List<IModelProvider>>().Where(x => x.Type.DerivesFrom(typeof(SaberModelController)));
+            var providers = ____container.Resolve<List<IModelProvider>>().Where(x => x.Type.DerivesFrom(typeof(SaberModelController)) && x.Priority >= 0);
             if (providers.Count() == 0)
             {
                 var provider = ____container.Resolve<SaberProvider>();
