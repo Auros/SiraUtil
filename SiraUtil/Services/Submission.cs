@@ -1,13 +1,13 @@
+using HMUI;
+using TMPro;
 using System;
 using Zenject;
+using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 using IPA.Utilities;
 using System.Reflection;
 using System.Collections.Generic;
-using HMUI;
-using TMPro;
-using UnityEngine.UI;
-using UnityEngine;
 
 namespace SiraUtil.Services
 {
@@ -28,7 +28,7 @@ namespace SiraUtil.Services
             var disabled = _tickets.Count > 0;
             if (disabled)
             {
-                _gameplayCoreSceneSetupData.SetField("practiceSettings", new PracticeSettings());
+                //_gameplayCoreSceneSetupData.SetField("practiceSettings", new PracticeSettings());
             }
             _data.Set(disabled, _tickets.ToArray());
         }
