@@ -201,7 +201,8 @@ namespace SiraUtil.Services
                 var results = base.FillLevelCompletionResults(levelEndStateType, levelEndAction);
                 if (_submission._tickets.Count() > 0)
                 {
-                    results.SetField("rawScore", 0);
+                    results.SetField("rawScore", -results.rawScore);
+                    results.SetField("modifiedScore", -results.modifiedScore);
                 }
                 return results;
             }

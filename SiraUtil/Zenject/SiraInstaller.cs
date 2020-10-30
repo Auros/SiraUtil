@@ -17,7 +17,7 @@ namespace SiraUtil.Zenject
 
         public override void InstallBindings()
         {
-            Container.BindInstance(_config).AsSingle().NonLazy();
+            Container.BindInstance(_config).AsSingle();
             Container.BindInstance(_config.FPFCToggle).AsSingle();
 
             if (_config.FPFCToggle.Enabled)
@@ -25,7 +25,10 @@ namespace SiraUtil.Zenject
                 Container.Bind<FPFCToggle>().FromNewComponentOnNewGameObject(nameof(FPFCToggle)).AsSingle().NonLazy();
             }
             Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
-            Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
+            if (_config.Localization.Enabled)
+            {
+                Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
+            }
             Container.Bind<Submission.Data>().AsSingle();
 
             // Make Zenject know this is a list
