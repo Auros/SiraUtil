@@ -193,6 +193,7 @@
     <Compile Include="Interfaces\IModelProvider.cs" />
     <Compile Include="Interfaces\IPrefabProvider.cs" />
     <Compile Include="Objects\BeatmapObjectRedecorator.cs" />
+    <Compile Include="Objects\SiraPrefabContainer.cs" />
     <Compile Include="Services\SaberProvider.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="Interfaces\IColorable.cs" />
