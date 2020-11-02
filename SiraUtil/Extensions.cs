@@ -6,6 +6,8 @@ using UnityEngine;
 using System.Linq;
 using VRUIControls;
 using IPA.Utilities;
+using System.Reflection;
+using SiraUtil.Services;
 using SiraUtil.Interfaces;
 using UnityEngine.EventSystems;
 
@@ -13,6 +15,42 @@ namespace SiraUtil
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Registers a logger as a SiraLogger, which can be then requested by Dependency Injection
+        /// </summary>
+        /// <param name="logger">The main logger to be used.</param>
+        /// <param name="elevatedDebugMode">If this is true, any calls to .Debug will be redirected to .Info instead.</param>
+        public static void BindLoggerAsSiraLogger(this DiContainer container, IPA.Logging.Logger logger, bool elevatedDebugMode = false)
+        {
+            var siraLogManager = container.Resolve<SiraLogManager>();
+            siraLogManager.AddLogger(Assembly.GetCallingAssembly(), logger, elevatedDebugMode);
+        }
+
+        /// <summary>
+        /// Upgrade a component to a type that inherits it.
+        /// </summary>
+        /// <typeparam name="T">The type of the component.</typeparam>
+        /// <typeparam name="U">The type of the upgraded component.</typeparam>
+        /// <param name="monoBehaviour">The original component.</param>
+        /// <remarks>By putting an object into here you are permanently destroying it. Any and all references to this object need to be repaired.</remarks>
+        /// <returns>The upgraded component.</returns>
+        public static U Upgrade<T, U>(this T monoBehaviour) where U : T where T : MonoBehaviour 
+        {
+            var gameObject = monoBehaviour.gameObject;
+            var upgradedDummyComponent = Activator.CreateInstance(typeof(U));
+            foreach (FieldInfo info in typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+            {
+                info.SetValue(upgradedDummyComponent, info.GetValue(monoBehaviour));
+            }
+            UnityEngine.Object.DestroyImmediate(monoBehaviour);
+            var upgradedMonoBehaviour = gameObject.AddComponent<U>();
+            foreach (FieldInfo info in typeof(U).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+            {
+                info.SetValue(upgradedMonoBehaviour, info.GetValue(upgradedDummyComponent));
+            }
+            return upgradedMonoBehaviour;
+        }
+
         public static string LocalizationGetOr(this string key, string or)
         {
             var localized = Localization.Get(key);

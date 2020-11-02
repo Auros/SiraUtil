@@ -204,12 +204,14 @@
     <Compile Include="Sabers\SiraSaberBurnMarkSparkles.cs" />
     <Compile Include="Sabers\SiraSaberClashChecker.cs" />
     <Compile Include="Sabers\SiraSaberEffectInstaller.cs" />
+    <Compile Include="Services\SiraLogManager.cs" />
     <Compile Include="Services\SiraSaberEffectManager.cs" />
     <Compile Include="Sabers\SiraSaberInstaller.cs" />
     <Compile Include="Sabers\SiraSaber.cs" />
     <Compile Include="Services\Submission.cs" />
     <Compile Include="Tools\FPFCToggle.cs" />
     <Compile Include="Tools\MultiSongControl.cs" />
+    <Compile Include="Tools\SiraLog.cs" />
     <Compile Include="Tools\SongControl.cs" />
     <Compile Include="Tweaks\SubMesh_CapMidAdjustment.cs" />
     <Compile Include="Utilities.cs" />

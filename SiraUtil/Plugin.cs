@@ -114,7 +114,7 @@ namespace SiraUtil
 
         private IEnumerator BruteForceRestart()
         {
-            yield return new WaitForSecondsRealtime(1f);
+            yield return new WaitForSecondsRealtime(2.5f);
             Resources.FindObjectsOfTypeAll<MenuTransitionsHelper>().FirstOrDefault()?.RestartGame();
         }
 
