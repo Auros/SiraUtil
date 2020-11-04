@@ -79,6 +79,18 @@ namespace SiraUtil.Zenject
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
+            ib.On(nameof(GameplayCoreInstaller));
+            return ib;
+        }
+
+        /// <summary>
+        /// Installs your installer as the game scene is setting up.
+        /// </summary>
+        /// <typeparam name="T">The type of your installer.</typeparam>
+        public InstallBuilder OnGameSetup<T>() where T : IInstaller
+        {
+            var ib = new InstallBuilder(typeof(T));
+            Builders.Add(ib);
             ib.On(nameof(GameCoreSceneSetup));
             return ib;
         }

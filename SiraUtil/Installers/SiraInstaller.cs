@@ -4,7 +4,7 @@ using SiraUtil.Tools;
 using SiraUtil.Services;
 using SiraUtil.Interfaces;
 
-namespace SiraUtil.Zenject
+namespace SiraUtil.Installers
 {
     internal class SiraInstaller : Installer<Config, SiraInstaller>
     {

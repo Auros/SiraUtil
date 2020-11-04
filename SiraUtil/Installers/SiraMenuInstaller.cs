@@ -1,7 +1,7 @@
 using Zenject;
 using SiraUtil.Services;
 
-namespace SiraUtil.Zenject
+namespace SiraUtil.Installers
 {
     internal class SiraMenuInstaller : Installer
     {

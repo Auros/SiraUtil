@@ -4,17 +4,16 @@ using System;
 using Zenject;
 using UnityEngine;
 using System.Linq;
-using UnityEngine.UI;
 using IPA.Utilities;
+using UnityEngine.UI;
 using System.Reflection;
 using System.Collections.Generic;
 
 namespace SiraUtil.Services
 {
-    public class Submission : ILateDisposable
+    public sealed class Submission : IDisposable
     {
         private readonly Data _data;
-        private readonly PracticeSettings _cachedPracticeSettings;
         private readonly List<Ticket> _tickets = new List<Ticket>();
         private readonly GameplayCoreSceneSetupData _gameplayCoreSceneSetupData;
 
@@ -22,13 +21,15 @@ namespace SiraUtil.Services
         {
             _data = data;
             _gameplayCoreSceneSetupData = gameplayCoreSceneSetupData;
-            _cachedPracticeSettings = _gameplayCoreSceneSetupData.practiceSettings;
         }
 
-        public void LateDispose()
+        public void Dispose()
         {
             var disabled = _tickets.Count > 0;
-            _gameplayCoreSceneSetupData.SetField("practiceSettings", _cachedPracticeSettings);
+            if (disabled)
+            {
+                //_gameplayCoreSceneSetupData.SetField("practiceSettings", new SiraPracticeSettings(_gameplayCoreSceneSetupData.practiceSettings));
+            }
             _data.Set(disabled, _tickets.ToArray());
         }
 
@@ -102,6 +103,7 @@ namespace SiraUtil.Services
         internal sealed class Data
         {
             private string _data = "";
+
             public bool disabled;
 
             internal void Set(bool disabled, Ticket[] tickets)
@@ -181,16 +183,6 @@ namespace SiraUtil.Services
             private Submission _submission;
             private GameplayCoreSceneSetupData _gameplayCoreSceneSetupData;
 
-            public SiraPrepareLevelCompletionResults()
-            {
-                PrepareLevelCompletionResults original = GetComponent<PrepareLevelCompletionResults>();
-                foreach (FieldInfo info in original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
-                {
-                    info.SetValue(this, info.GetValue(original));
-                }
-                Destroy(original);
-            }
-
             [Inject]
             public void Construct(Submission submission, GameplayCoreSceneSetupData gameplayCoreSceneSetupData)
             {
@@ -201,12 +193,25 @@ namespace SiraUtil.Services
             public override LevelCompletionResults FillLevelCompletionResults(LevelCompletionResults.LevelEndStateType levelEndStateType, LevelCompletionResults.LevelEndAction levelEndAction)
             {
                 var results = base.FillLevelCompletionResults(levelEndStateType, levelEndAction);
-                if (_submission._tickets.Count() > 0)
+                if (levelEndStateType == LevelCompletionResults.LevelEndStateType.Cleared)
                 {
-                    results.SetField("rawScore", -results.rawScore);
-                    _gameplayCoreSceneSetupData.SetField("practiceSettings", new PracticeSettings());
+                    if (_submission._tickets.Count() > 0)
+                    {
+                        _gameplayCoreSceneSetupData.SetField<GameplayCoreSceneSetupData, PracticeSettings>("practiceSettings", new SiraPracticeSettings(_gameplayCoreSceneSetupData.practiceSettings));
+                        results.SetField("rawScore", -results.rawScore);
+                    }
                 }
                 return results;
+            }
+        }
+
+        internal class SiraPracticeSettings : PracticeSettings
+        {
+            public readonly PracticeSettings normalPracticeSettings;
+
+            internal SiraPracticeSettings(PracticeSettings normalPracticeSettings)
+            {
+                this.normalPracticeSettings = normalPracticeSettings;
             }
         }
     }

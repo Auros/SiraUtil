@@ -19,7 +19,6 @@ namespace SiraUtil.Sabers
         private SaberProvider _saberProvider;
         private SaberTypeObject _saberTypeObject;
         private IEnumerator _changeColorCoroutine = null;
-        private SaberModelController _saberModelController;
         private SiraSaberEffectManager _siraSaberEffectManager;
 
         [Inject]
@@ -48,17 +47,9 @@ namespace SiraUtil.Sabers
             Accessors.SaberBladeTopPosition(ref _saber) = top.transform.position;
             Accessors.SaberBladeBottomPosition(ref _saber) = bottom.transform.position;
 
-            _saberProvider.ControllerReady += ModelsReady;
-            _saberProvider.IsSafe();
+            _saberProvider.GetModel(smc => smc.Init(transform, _saber));
 
             _siraSaberEffectManager.SaberCreated(_saber);
-        }
-
-        public void ModelsReady()
-        {
-            _saberModelController = _saberProvider.GetModel();
-            _saberProvider.ControllerReady -= ModelsReady;
-            _saberModelController.Init(transform, _saber);
         }
 
         public void Update()
@@ -95,7 +86,7 @@ namespace SiraUtil.Sabers
 
         public void OnDestroy()
         {
-            _saberProvider.ControllerReady -= ModelsReady;
+            //_saberProvider.ControllerReady -= ModelsReady;
             _siraSaberEffectManager.SaberDestroyed(_saber);
         }
 

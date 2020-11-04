@@ -60,45 +60,49 @@ namespace SiraUtil.Zenject
                     return;
                 }
             }
-            var context = sender as SceneContext;
+            var context = sender as Context;
+
             var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name && !x.Circuits.Contains(e.Name) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
 
             builders.ForEach(x => x.Validate());
 
-            var allInjectables = e.Decorators.SelectMany(x => x.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours"));
-
-            for (int b = 0; b < e.Decorators.Count(); b++)
+            if (context is SceneContext sceneContext && e.Decorators != null)
             {
-                var decorator = e.Decorators[b];
-                // Mutate any requested properties
-                for (int i = 0; i < builders.Count(); i++)
+                var allInjectables = e.Decorators.SelectMany(x => x.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours"));
+
+                for (int b = 0; b < e.Decorators.Count(); b++)
                 {
-                    foreach (var mutator in builders[i].Mutators)
+                    var decorator = e.Decorators[b];
+                    // Mutate any requested properties
+                    for (int i = 0; i < builders.Count(); i++)
                     {
-                        if (!allInjectables.Any(x => x.GetType() == mutator.Item1))
+                        foreach (var mutator in builders[i].Mutators)
                         {
-                            Assert.CreateException($"Could not find an object to mutate in a decorator context. {Utilities.ASSERTHIT}", mutator.Item1);
-                        }
-                        var injectables = Accessors.Injectables(ref decorator);
-                        var behaviour = injectables.FirstOrDefault(x => x.GetType() == mutator.Item1);
-                        if (behaviour != null)
-                        {
-                            mutator.Item2.Invoke(new MutationContext(e.Container, decorator), behaviour);
+                            if (!allInjectables.Any(x => x.GetType() == mutator.Item1))
+                            {
+                                Assert.CreateException($"Could not find an object to mutate in a decorator context. {Utilities.ASSERTHIT}", mutator.Item1);
+                            }
+                            var injectables = Accessors.Injectables(ref decorator);
+                            var behaviour = injectables.FirstOrDefault(x => x.GetType() == mutator.Item1);
+                            if (behaviour != null)
+                            {
+                                mutator.Item2.Invoke(new MutationContext(e.Container, decorator), behaviour);
+                            }
                         }
                     }
                 }
-            }
 
-            // Expose injectables from decorators if requested. @Caeden
-            for (int i = 0; i < builders.Count(); i++)
-            {
-                foreach (var exposableType in builders[i].Exposers)
+                // Expose injectables from decorators if requested. @Caeden
+                for (int i = 0; i < builders.Count(); i++)
                 {
-                    var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == exposableType);
-                    Assert.IsNotNull(behaviour, $"Could not find an object to expose in a decorator context. {Utilities.ASSERTHIT}", exposableType);
-                    if (!e.Container.HasBinding(behaviour.GetType()))
+                    foreach (var exposableType in builders[i].Exposers)
                     {
-                        e.Container.Bind(exposableType).FromInstance(behaviour).AsSingle();
+                        var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == exposableType);
+                        Assert.IsNotNull(behaviour, $"Could not find an object to expose in a decorator context. {Utilities.ASSERTHIT}", exposableType);
+                        if (!e.Container.HasBinding(behaviour.GetType()))
+                        {
+                            e.Container.Bind(exposableType).FromInstance(behaviour).AsSingle();
+                        }
                     }
                 }
             }

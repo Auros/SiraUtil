@@ -11,6 +11,7 @@ using IPA.Config.Stores;
 using System.Reflection;
 using SiraUtil.Services;
 using System.Collections;
+using SiraUtil.Installers;
 using UnityEngine.SceneManagement;
 using IPALogger = IPA.Logging.Logger;
 
@@ -53,9 +54,9 @@ namespace SiraUtil
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
             zenjector.OnMenu<SiraMenuInstaller>();
-            zenjector.OnGame<SiraSaberInstaller>();
+            zenjector.OnGameSetup<SiraSaberInstaller>();
 
-            zenjector.OnGame<SiraSaberEffectInstaller>()
+            zenjector.OnGameSetup<SiraSaberEffectInstaller>()
                 .Mutate<SaberBurnMarkArea>((ctx, obj) =>
                 {
                     var burnArea = obj as SaberBurnMarkArea;
@@ -87,7 +88,7 @@ namespace SiraUtil
                 {
                     var completionResults = obj as PrepareLevelCompletionResults;
                     var binding = completionResults.GetComponent<ZenjectBinding>();
-                    var siraCompletionResults = completionResults.gameObject.AddComponent<Submission.SiraPrepareLevelCompletionResults>();
+                    var siraCompletionResults = completionResults.Upgrade<PrepareLevelCompletionResults, Submission.SiraPrepareLevelCompletionResults>();
                     binding.SetField("_ifNotBound", true);
                     ctx.Container.QueueForInject(siraCompletionResults);
                     ctx.Container.Bind<PrepareLevelCompletionResults>().To<Submission.SiraPrepareLevelCompletionResults>().FromInstance(siraCompletionResults).AsCached();
@@ -114,7 +115,7 @@ namespace SiraUtil
 
         private IEnumerator BruteForceRestart()
         {
-            yield return new WaitForSecondsRealtime(2.5f);
+            yield return new WaitForSecondsRealtime(1f);
             Resources.FindObjectsOfTypeAll<MenuTransitionsHelper>().FirstOrDefault()?.RestartGame();
         }
 

@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace SiraUtil.Zenject
+namespace SiraUtil.Installers
 {
     internal class SiraGameLevelInstaller : Installer
     {

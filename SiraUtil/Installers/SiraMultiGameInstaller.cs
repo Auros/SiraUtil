@@ -1,7 +1,7 @@
 using Zenject;
 using SiraUtil.Tools;
 
-namespace SiraUtil.Zenject
+namespace SiraUtil.Installers
 {
     internal class SiraMultiGameInstaller : Installer
     {

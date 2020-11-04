@@ -206,14 +206,13 @@
     <Compile Include="Sabers\SiraSaberEffectInstaller.cs" />
     <Compile Include="Services\SiraLogManager.cs" />
     <Compile Include="Services\SiraSaberEffectManager.cs" />
-    <Compile Include="Sabers\SiraSaberInstaller.cs" />
+    <Compile Include="Installers\SiraSaberInstaller.cs" />
     <Compile Include="Sabers\SiraSaber.cs" />
     <Compile Include="Services\Submission.cs" />
     <Compile Include="Tools\FPFCToggle.cs" />
     <Compile Include="Tools\MultiSongControl.cs" />
     <Compile Include="Tools\SiraLog.cs" />
     <Compile Include="Tools\SongControl.cs" />
-    <Compile Include="Tweaks\SubMesh_CapMidAdjustment.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="WebClient.cs" />
     <Compile Include="Zenject\HarmonyPatches\GamemodeDecorator.cs" />
@@ -223,11 +222,11 @@
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Zenject\MutationContext.cs" />
-    <Compile Include="Zenject\SiraGameLevelInstaller.cs" />
-    <Compile Include="Zenject\SiraGameInstaller.cs" />
-    <Compile Include="Zenject\SiraInstaller.cs" />
-    <Compile Include="Zenject\SiraMenuInstaller.cs" />
-    <Compile Include="Zenject\SiraMultiGameInstaller.cs" />
+    <Compile Include="Installers\SiraGameLevelInstaller.cs" />
+    <Compile Include="Installers\SiraGameInstaller.cs" />
+    <Compile Include="Installers\SiraInstaller.cs" />
+    <Compile Include="Installers\SiraMenuInstaller.cs" />
+    <Compile Include="Installers\SiraMultiGameInstaller.cs" />
     <Compile Include="Zenject\ZenjectManager.cs" />
     <Compile Include="Zenject\Zenjector.cs" />
   </ItemGroup>
