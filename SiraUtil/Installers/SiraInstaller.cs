@@ -28,6 +28,7 @@ namespace SiraUtil.Installers
 
             Container.BindInstance(_config).AsSingle();
             Container.BindInstance(_config.FPFCToggle).AsSingle();
+            Container.BindInstance(_config.SongControl).AsSingle();
 
             if (_config.FPFCToggle.Enabled)
             {

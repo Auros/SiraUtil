@@ -153,6 +153,17 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
+        /// Only install this installer in a multiplayer game.
+        /// </summary>
+        public InstallBuilder OnlyForMultiplayer()
+        {
+            ShortCircuitForCampaign();
+            ShortCircuitForTutorial();
+            ShortCircuitForStandard();
+            return this;
+        }
+
+        /// <summary>
         /// Exposes a <see cref="MonoBehaviour"/> in a <see cref="SceneDecoratorContext"/> to the <seealso cref="DiContainer"/> and binds it, thus making it available to be received in Zenject.
         /// </summary>
         /// <typeparam name="T">The type of the <see cref="MonoBehaviour"/>.</typeparam>

@@ -16,9 +16,6 @@ namespace SiraUtil.Zenject
         {
             if (_config.SongControl.Enabled)
             {
-                Container.BindInstance(_config.SongControl.ExitKeyCode).WithId("ExitCode");
-                Container.BindInstance(_config.SongControl.RestartKeyCode).WithId("RestartCode");
-                Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
                 Container.BindInterfacesTo<SongControl>().AsSingle();
             }
         }

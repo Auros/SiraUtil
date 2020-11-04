@@ -13,14 +13,14 @@ namespace SiraUtil.Tools
         private readonly KeyCode _restartCode;
         private readonly KeyCode _pauseToggleCode;
 
-        public SongControl([Inject(Id = "ExitCode")] KeyCode exitCode, [Inject(Id = "RestartCode")] KeyCode restartCode, [Inject(Id = "PauseToggleCode")] KeyCode pauseToggleCode, PauseController pauseController)
+        public SongControl(Config.SongControlOptions songControlOptions, PauseController pauseController)
         {
             _isPaused = false;
             _pauseController = pauseController;
 
-            _exitCode = exitCode;
-            _restartCode = restartCode;
-            _pauseToggleCode = pauseToggleCode;
+            _exitCode = songControlOptions.ExitKeyCode;
+            _restartCode = songControlOptions.RestartKeyCode;
+            _pauseToggleCode = songControlOptions.PauseToggleKeyCode;
         }
 
         public void Initialize()

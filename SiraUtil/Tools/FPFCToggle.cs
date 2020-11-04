@@ -96,33 +96,38 @@ namespace SiraUtil.Tools
 
                 if (_options.OnFirstRequest)
                 {
-                    if (state)
+                    BruteForce(state);
+                }
+            }
+        }
+
+        private void BruteForce(bool state)
+        {
+            if (state)
+            {
+                Refresh();
+                _firstPersonFlyingController.enabled = true;
+                _firstPersonFlyingController.Start();
+            }
+            else
+            {
+                _vrInputModule.transform.SetParent(null);
+                _firstPersonFlyingController.transform.SetParent(_originalOriginLocation);
+                _camera.stereoTargetEye = StereoTargetEyeMask.Both;
+                foreach (var go in _firstPersonFlyingController.GetField<GameObject[], FirstPersonFlyingController>("_controllerModels"))
+                {
+                    if (go != null)
                     {
-                        Refresh();
-                        _firstPersonFlyingController.enabled = true;
-                        _firstPersonFlyingController.Start();
-                    }
-                    else
-                    {
-                        _vrInputModule.transform.SetParent(null);
-                        _firstPersonFlyingController.transform.SetParent(_originalOriginLocation);
-                        _camera.stereoTargetEye = StereoTargetEyeMask.Both;
-                        foreach (var go in _firstPersonFlyingController.GetField<GameObject[], FirstPersonFlyingController>("_controllerModels"))
-                        {
-                            if (go != null)
-                            {
-                                go.SetActive(true);
-                            }
-                        }
-                        var adjust = _firstPersonFlyingController.GetField<VRCenterAdjust, FirstPersonFlyingController>("_centerAdjust");
-                        _firstPersonFlyingController.enabled = false;
-                        adjust.enabled = true;
-                        adjust.HandleRoomCenterDidChange();
-                        adjust.HandleRoomRotationDidChange();
-                        _rightController.enabled = true;
-                        _leftController.enabled = true;
+                        go.SetActive(true);
                     }
                 }
+                var adjust = _firstPersonFlyingController.GetField<VRCenterAdjust, FirstPersonFlyingController>("_centerAdjust");
+                _firstPersonFlyingController.enabled = false;
+                adjust.enabled = true;
+                adjust.HandleRoomCenterDidChange();
+                adjust.HandleRoomRotationDidChange();
+                _rightController.enabled = true;
+                _leftController.enabled = true;
             }
         }
 

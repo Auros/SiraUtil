@@ -95,6 +95,7 @@ namespace SiraUtil
                 }).OnlyForStandard();
 
             zenjector.OnGame<SiraGameInstaller>().ShortCircuitForMultiplayer();
+            zenjector.OnGame<SiraMultiGameInstaller>().OnlyForMultiplayer();
         }
 
         [OnEnable]

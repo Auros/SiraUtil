@@ -6,11 +6,13 @@ namespace SiraUtil.Tools
     public class MultiSongControl : ITickable
     {
         private readonly KeyCode _exitCode;
+        private readonly KeyCode _pauseKeyCode;
         private readonly MultiplayerLocalActivePlayerInGameMenuViewController _multiplayerLocalActivePlayerInGameMenuViewController;
 
-        public MultiSongControl([Inject(Id = "ExitCode")] KeyCode exitCode, MultiplayerLocalActivePlayerInGameMenuViewController multiplayerLocalActivePlayerInGameMenuViewController)
+        public MultiSongControl(Config.SongControlOptions songControlOptions, MultiplayerLocalActivePlayerInGameMenuViewController multiplayerLocalActivePlayerInGameMenuViewController)
         {
-            _exitCode = exitCode;
+            _exitCode = songControlOptions.ExitKeyCode;
+            _pauseKeyCode = songControlOptions.PauseToggleKeyCode;
             _multiplayerLocalActivePlayerInGameMenuViewController = multiplayerLocalActivePlayerInGameMenuViewController;
         }
 
@@ -19,6 +21,11 @@ namespace SiraUtil.Tools
             if (Input.GetKeyDown(_exitCode))
             {
                 _multiplayerLocalActivePlayerInGameMenuViewController.GiveUpButtonPressed();
+                return;
+            }
+            if (Input.GetKeyDown(_pauseKeyCode))
+            {
+                _multiplayerLocalActivePlayerInGameMenuViewController.ShowMenu();
                 return;
             }
         }
