@@ -18,7 +18,7 @@ namespace SiraUtil.Installers
             {
                 Container.BindInstance(_config.SongControl.ExitKeyCode).WithId("ExitCode");
                 Container.BindInstance(_config.SongControl.PauseToggleKeyCode).WithId("PauseToggleCode");
-                Container.BindInterfacesTo<MultiSongControl>().AsSingle().NonLazy();
+                Container.BindInterfacesTo<MultiSongControl>().AsSingle();
             }
         }
     }

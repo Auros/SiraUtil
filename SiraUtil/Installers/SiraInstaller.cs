@@ -36,7 +36,7 @@ namespace SiraUtil.Installers
             Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
             if (_config.Localization.Enabled)
             {
-                Container.BindInterfacesAndSelfTo<Localizer>().AsSingle().NonLazy();
+                Container.BindInterfacesAndSelfTo<Localizer>().AsSingle();
             }
             Container.Bind<Submission.Data>().AsSingle();
 

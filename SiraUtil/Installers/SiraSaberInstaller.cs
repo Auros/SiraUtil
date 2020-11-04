@@ -8,7 +8,7 @@ namespace SiraUtil.Installers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<SaberProvider>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<SaberProvider>().AsSingle();
             Container.BindFactory<SiraSaber, SiraSaber.Factory>().FromFactory<SiraSaber.SaberFactory>();
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using Zenject;
 using IPA.Logging;
 using System.Reflection;
@@ -30,7 +29,10 @@ namespace SiraUtil.Services
 
         internal void AddLogger(Assembly assembly, Logger logger, bool defaultToDebugMode = false)
         {
-            _loggerAssemblies.TryAdd(assembly, new LoggerContext(logger, defaultToDebugMode));
+            if (!_loggerAssemblies.ContainsKey(assembly))
+            {
+                _loggerAssemblies.Add(assembly, new LoggerContext(logger, defaultToDebugMode));
+            }
         }
 
         internal LoggerContext LoggerFromAssembly(Assembly assembly)
