@@ -30,6 +30,10 @@ namespace SiraUtil.Zenject.HarmonyPatches
                 ____contractNames.AddRange(sceneContext.ContractNames);
                 ____decoratorContexts.AddRange(Decorators(ref sceneContext));
             }
+            if (__instance is SceneDecoratorContext sceneDecoratorContext)
+            {
+                ____decoratorContexts.Add(sceneDecoratorContext);
+            }
 
             var sourceNames =
                 ____contractNames.Concat(
@@ -40,10 +44,7 @@ namespace SiraUtil.Zenject.HarmonyPatches
                 ____scriptableObjectInstallers.Select(e => e.GetType().FullName).Concat(
                 ____decoratorContexts.Select(f => f.gameObject.scene.name)))))));
 
-            for (int i = 0; i < sourceNames.Count(); i++)
-            {
-                SiraEvents.SendInstallEvent(sourceNames.ElementAt(i), __instance, __instance.Container, ____decoratorContexts, LastGamemodeSetupName, LastTransitionSetupName, LastMidSceneName);
-            }
+            SiraEvents.SendInstallEvent(sourceNames.ToArray(), __instance, __instance.Container, ____decoratorContexts, LastGamemodeSetupName, LastTransitionSetupName, LastMidSceneName);
         }
     }
 }

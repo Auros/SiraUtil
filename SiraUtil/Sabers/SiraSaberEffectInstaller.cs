@@ -7,7 +7,7 @@ namespace SiraUtil.Sabers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<SiraSaberEffectManager>().AsSingle();
+            //Container.BindInterfacesAndSelfTo<SiraSaberEffectManager>().AsSingle();
         }
     }
 }

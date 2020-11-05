@@ -19,7 +19,7 @@ namespace SiraUtil.Services
         private readonly List<Saber> _managedSabers = new List<Saber>();
         private readonly SiraSaberClashChecker _siraSaberClashChecker;
 
-        public SiraSaberEffectManager(IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SaberBurnMarkArea saberBurnMarkArea,
+        public SiraSaberEffectManager([InjectOptional] IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SaberBurnMarkArea saberBurnMarkArea,
                                       SaberBurnMarkSparkles saberBurnMarkSparkles, ObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
         {
             _gamePause = gamePause;
@@ -67,8 +67,11 @@ namespace SiraUtil.Services
                 ChangeColor(_temporaryColorQueue.Dequeue());
             }
 
-            _gamePause.didPauseEvent += DidPause;
-            _gamePause.didResumeEvent += DidResume;
+            if (_gamePause != null)
+            {
+                _gamePause.didPauseEvent += DidPause;
+                _gamePause.didResumeEvent += DidResume;
+            }
         }
 
         /// <summary>
@@ -117,8 +120,11 @@ namespace SiraUtil.Services
 
         public void Dispose()
         {
-            _gamePause.didPauseEvent -= DidPause;
-            _gamePause.didResumeEvent -= DidResume;
+            if (_gamePause != null)
+            {
+                _gamePause.didPauseEvent -= DidPause;
+                _gamePause.didResumeEvent -= DidResume;
+            }
         }
     }
 }

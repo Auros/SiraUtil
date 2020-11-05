@@ -42,7 +42,7 @@ namespace SiraUtil.Services
 
         private void SiraEvents_ContextInstalling(object sender, SiraEvents.SceneContextInstalledArgs e)
         {
-            if (e.Name == nameof(GameplayCoreInstaller))
+            if (e.Names.Contains(nameof(GameplayCoreInstaller)))
             {
                 _container = e.Container;
                 _gameCoreInstalling = true;

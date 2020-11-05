@@ -55,7 +55,7 @@ namespace SiraUtil.Zenject
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
-            ib.On(nameof(PCAppInit));
+            ib.On(typeof(PCAppInit).FullName);
             return ib;
         }
 
@@ -79,7 +79,7 @@ namespace SiraUtil.Zenject
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
-            ib.On(nameof(GameplayCoreInstaller));
+            ib.On(typeof(GameCoreSceneSetup).FullName);
             return ib;
         }
 
@@ -87,11 +87,12 @@ namespace SiraUtil.Zenject
         /// Installs your installer as the game scene is setting up.
         /// </summary>
         /// <typeparam name="T">The type of your installer.</typeparam>
-        public InstallBuilder OnGameSetup<T>() where T : IInstaller
+        /// <param name="onCoreInstallation">Whether or not the installer is installed along with the gameplay installer (core elements).</param>
+        public InstallBuilder OnGame<T>(bool onGameSetup = true) where T : IInstaller
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
-            ib.On(nameof(GameCoreSceneSetup));
+            ib.On(onGameSetup ? typeof(GameCoreSceneSetup).FullName : typeof(GameplayCoreInstaller).FullName);
             return ib;
         }
 
@@ -112,7 +113,7 @@ namespace SiraUtil.Zenject
         /// <typeparam name="T">The type of the destination.</typeparam>
         public InstallBuilder On<T>()
         {
-            return OnGeneric(nameof(T));
+            return OnGeneric(typeof(T).FullName);
         }
 
         /// <summary>

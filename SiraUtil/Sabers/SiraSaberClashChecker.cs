@@ -1,9 +1,9 @@
 using Zenject;
 using UnityEngine;
 using System.Linq;
+using IPA.Utilities;
 using SiraUtil.Interfaces;
 using System.Collections.Generic;
-using IPA.Utilities;
 
 namespace SiraUtil.Sabers
 {
@@ -33,7 +33,7 @@ namespace SiraUtil.Sabers
         {
             if (!MultiSaberMode)
             {
-                base.AreSabersClashing(out clashingPoint);
+                return base.AreSabersClashing(out clashingPoint);
             }
             _sabers.RemoveWhere(x => x == null);
             if (_leftSaber.movementData.lastAddedData.time < 0.1f)

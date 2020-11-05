@@ -1,5 +1,6 @@
 using Zenject;
 using SiraUtil.Tools;
+using SiraUtil.Services;
 
 namespace SiraUtil.Zenject
 {
@@ -18,6 +19,7 @@ namespace SiraUtil.Zenject
             {
                 Container.BindInterfacesTo<SongControl>().AsSingle();
             }
+            Container.BindInterfacesAndSelfTo<SiraSaberEffectManager>().AsSingle();
         }
     }
 }

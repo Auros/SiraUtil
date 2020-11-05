@@ -1,9 +1,11 @@
+using System;
 using Zenject;
-using ModestTree;
 using IPA.Loader;
+using ModestTree;
 using System.Linq;
 using SiraUtil.Events;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using IPA.Utilities;
 
@@ -45,13 +47,19 @@ namespace SiraUtil.Zenject
             }
         }
 
+        private string ZenSource(InstallBuilder builder)
+        {
+            var zenjector = _allZenjectors.FirstOrDefault(x => x.Value.Builders.Contains(builder));
+            return zenjector.Key;
+        }
+
         #region Events
 
         private void SiraEvents_PreInstall(object sender, SiraEvents.SceneContextInstalledArgs e)
         {
             if (!ProjectContextWentOff)
             {
-                if (e.Name == "AppCore") // AppCore is the first reported context.
+                if (e.Names.Contains("AppCore")) // AppCore is the first reported context.
                 {
                     ProjectContextWentOff = true;
                 }
@@ -61,83 +69,72 @@ namespace SiraUtil.Zenject
                 }
             }
             var context = sender as Context;
-
-            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => x.Destination == e.Name && !x.Circuits.Contains(e.Name) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
-
-            builders.ForEach(x => x.Validate());
-
-            if (context is SceneContext sceneContext && e.Decorators != null)
+            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => e.Names.Contains(x.Destination) && e.Names.ToList().Any(y => !x.Circuits.Contains(y)) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
+            var allInjectables = e.Decorators.SelectMany(x => Accessors.Injectables(ref x)).ToList();
+            if (context is GameObjectContext gameObjectContext)
             {
-                var allInjectables = e.Decorators.SelectMany(x => x.GetField<List<MonoBehaviour>, SceneDecoratorContext>("_injectableMonoBehaviours"));
+                var monoList = new List<MonoBehaviour>();
+                gameObjectContext.InvokeMethod<object, GameObjectContext>("GetInjectableMonoBehaviours", monoList);
+                allInjectables.AddRange(monoList);
+            }
+            foreach (var builder in builders)
+            {
+                Plugin.Log.Sira($"Installing: {builder.Type.Name} ({ZenSource(builder)})");
 
-                for (int b = 0; b < e.Decorators.Count(); b++)
+                builder.Validate();
+                foreach (var mutator in builder.Mutators)
                 {
-                    var decorator = e.Decorators[b];
-                    // Mutate any requested properties
-                    for (int i = 0; i < builders.Count(); i++)
+                    if (!allInjectables.Any(x => x.GetType() == mutator.Item1))
                     {
-                        foreach (var mutator in builders[i].Mutators)
-                        {
-                            if (!allInjectables.Any(x => x.GetType() == mutator.Item1))
-                            {
-                                Assert.CreateException($"Could not find an object to mutate in a decorator context. {Utilities.ASSERTHIT}", mutator.Item1);
-                            }
-                            var injectables = Accessors.Injectables(ref decorator);
-                            var behaviour = injectables.FirstOrDefault(x => x.GetType() == mutator.Item1);
-                            if (behaviour != null)
-                            {
-                                mutator.Item2.Invoke(new MutationContext(e.Container, decorator), behaviour);
-                            }
-                        }
+                        Assert.CreateException($"Could not find an object to mutate in a decorator context. {Utilities.ASSERTHIT}", mutator.Item1);
+                    }
+                    var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == mutator.Item1);
+                    if (behaviour != null)
+                    {
+                        var activeDecorator = e.Decorators.FirstOrDefault(x => Accessors.Injectables(ref x).Contains(behaviour));
+                        mutator.Item2.Invoke(new MutationContext(e.Container, activeDecorator, allInjectables), behaviour);
                     }
                 }
-
-                // Expose injectables from decorators if requested. @Caeden
-                for (int i = 0; i < builders.Count(); i++)
+                foreach (var exposable in builder.Exposers)
                 {
-                    foreach (var exposableType in builders[i].Exposers)
+                    var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == exposable);
+                    if (behaviour != null)
                     {
-                        var behaviour = allInjectables.FirstOrDefault(x => x.GetType() == exposableType);
-                        Assert.IsNotNull(behaviour, $"Could not find an object to expose in a decorator context. {Utilities.ASSERTHIT}", exposableType);
                         if (!e.Container.HasBinding(behaviour.GetType()))
                         {
-                            e.Container.Bind(exposableType).FromInstance(behaviour).AsSingle();
+                            e.Container.Bind(exposable).FromInstance(behaviour).AsSingle();
                         }
                     }
                 }
+
+                if (builder.Parameters != null)
+                {
+                    var bases = context.NormalInstallers.ToList();
+                    // Configurable Mono Installers requires the Unity Inspector
+                    Assert.That(!builder.Type.DerivesFrom<MonoInstallerBase>(), $"MonoInstallers cannot have parameters due to Zenject limitations. {Utilities.ASSERTHIT}");
+                    bases.Add(e.Container.Instantiate(builder.Type, builder.Parameters) as InstallerBase);
+                    context.NormalInstallers = bases;
+
+                    continue;
+                }
+
+                if (builder.Type.IsSubclassOf(typeof(MonoInstallerBase)))
+                {
+                    var monoInstallers = context.Installers.ToList();
+                    monoInstallers.Add(context.gameObject.AddComponent(builder.Type) as MonoInstaller);
+                    context.Installers = monoInstallers;
+
+                    continue;
+                }
+
+                if (builder.Type.IsSubclassOf(typeof(InstallerBase)) && (builder.Parameters == null || builder.Parameters.Length == 0))
+                {
+                    context.AddNormalInstallerType(builder.Type);
+                }
             }
-            
-            // Handle Parameters (Manually Installed)
-            var parameterBased = builders.Where(x => x.Parameters != null && x.Parameters.Length > 0);
-            var bases = context.NormalInstallers.ToList();
-            for (int i = 0; i < parameterBased.Count(); i++)
-            {
-                var paramBuilder = parameterBased.ElementAt(i);
-
-                // Configurable Mono Installers requires the Unity Inspector
-                Assert.That(!paramBuilder.Type.DerivesFrom<MonoInstallerBase>(), $"MonoInstallers cannot have parameters due to Zenject limitations. {Utilities.ASSERTHIT}");
-
-                bases.Add(e.Container.Instantiate(paramBuilder.Type, paramBuilder.Parameters) as InstallerBase);
-            }
-            context.NormalInstallers = bases;
-
-            // Create Mono Installers
-            var monoInstallers = context.Installers.ToList();
-            var monos = builders.Where(x => x.Type.IsSubclassOf(typeof(MonoInstallerBase)));
-            for (int i = 0; i < monos.Count(); i++)
-            {
-                monoInstallers.Add(context.gameObject.AddComponent(monos.ElementAt(i).Type) as MonoInstaller);
-            }
-            context.Installers = monoInstallers;
-
-            // Add Normal Install Types
-            builders.Where(x => x.Type.IsSubclassOf(typeof(InstallerBase)) && (x.Parameters == null || x.Parameters.Length == 0))
-                .ToList().ForEach(x =>
-                    context.AddNormalInstallerType(x.Type)
-            );
         }
 
-        #endregion
+#endregion
 
         ~ZenjectManager()
         {

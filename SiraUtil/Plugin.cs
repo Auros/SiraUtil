@@ -54,32 +54,12 @@ namespace SiraUtil
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
             zenjector.OnMenu<SiraMenuInstaller>();
-            zenjector.OnGameSetup<SiraSaberInstaller>();
+            zenjector.OnGame<SiraSaberInstaller>();
 
-            zenjector.OnGameSetup<SiraSaberEffectInstaller>()
-                .Mutate<SaberBurnMarkArea>((ctx, obj) =>
-                {
-                    var burnArea = obj as SaberBurnMarkArea;
-                    // Override (or modify) the component BEFORE it's installed
-                    var siraBurnArea = burnArea.gameObject.AddComponent<SiraSaberBurnMarkArea>();
-                    ctx.Container.QueueForInject(siraBurnArea);
-                    ctx.Container.Bind<SaberBurnMarkArea>().To<SiraSaberBurnMarkArea>().FromInstance(siraBurnArea).AsCached();
-                })
-                .Mutate<SaberBurnMarkSparkles>((ctx, obj) =>
-                {
-                    var burnSparkles = obj as SaberBurnMarkSparkles;
-                    var siraBurnSparkles = burnSparkles.gameObject.AddComponent<SiraSaberBurnMarkSparkles>();
-                    ctx.Container.QueueForInject(siraBurnSparkles);
-                    ctx.Container.Bind<SaberBurnMarkSparkles>().To<SiraSaberBurnMarkSparkles>().FromInstance(siraBurnSparkles).AsCached();
-                })
-                .Mutate<ObstacleSaberSparkleEffectManager>((ctx, obj) =>
-                {
-                    var obstacleSparkles = obj as ObstacleSaberSparkleEffectManager;
-                    var siraObstacleSparkles = obstacleSparkles.gameObject.AddComponent<SiraObstacleSaberSparkleEffectManager>();
-                    Object.Destroy(obstacleSparkles);
-                    ctx.Container.QueueForInject(siraObstacleSparkles);
-                    ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
-                })
+            zenjector.OnGame<SiraSaberEffectInstaller>()
+                .Mutate<SaberBurnMarkArea>(InstallSaberArea)
+                .Mutate<SaberBurnMarkSparkles>(InstallSaberSparkles)
+                .Mutate<ObstacleSaberSparkleEffectManager>(InstallObstacleEffectManager)
                 .Expose<SaberClashEffect>()
                 .ShortCircuitForMultiplayer();
 
@@ -91,11 +71,18 @@ namespace SiraUtil
                     var siraCompletionResults = completionResults.Upgrade<PrepareLevelCompletionResults, Submission.SiraPrepareLevelCompletionResults>();
                     binding.SetField("_ifNotBound", true);
                     ctx.Container.QueueForInject(siraCompletionResults);
+                    ctx.Container.Unbind(typeof(PrepareLevelCompletionResults));
                     ctx.Container.Bind<PrepareLevelCompletionResults>().To<Submission.SiraPrepareLevelCompletionResults>().FromInstance(siraCompletionResults).AsCached();
                 }).OnlyForStandard();
 
-            zenjector.OnGame<SiraGameInstaller>().ShortCircuitForMultiplayer();
-            zenjector.OnGame<SiraMultiGameInstaller>().OnlyForMultiplayer();
+            zenjector.OnGame<SiraGameInstaller>(true).ShortCircuitForMultiplayer();
+
+            // multi specific for toni
+            zenjector.OnGame<SiraMultiGameInstaller>(false)
+                .Mutate<SaberBurnMarkArea>(InstallSaberArea)
+                .Mutate<SaberBurnMarkSparkles>(InstallSaberSparkles)
+                .Mutate<ObstacleSaberSparkleEffectManager>(InstallObstacleEffectManager)
+                .Expose<SaberClashEffect>().OnlyForMultiplayer();
         }
 
         [OnEnable]
@@ -125,6 +112,32 @@ namespace SiraUtil
         {
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
             Harmony.UnpatchAll("dev.auros.sirautil");
+        }
+
+        private void InstallSaberArea(MutationContext ctx, MonoBehaviour obj)
+        {
+            var burnArea = obj as SaberBurnMarkArea;
+            // Override (or modify) the component BEFORE it's installed
+            var siraBurnArea = burnArea.gameObject.AddComponent<SiraSaberBurnMarkArea>();
+            ctx.Container.QueueForInject(siraBurnArea);
+            ctx.Container.Bind<SaberBurnMarkArea>().To<SiraSaberBurnMarkArea>().FromInstance(siraBurnArea).AsCached();
+        }
+
+        private void InstallSaberSparkles(MutationContext ctx, MonoBehaviour obj)
+        {
+            var burnSparkles = obj as SaberBurnMarkSparkles;
+            var siraBurnSparkles = burnSparkles.gameObject.AddComponent<SiraSaberBurnMarkSparkles>();
+            ctx.Container.QueueForInject(siraBurnSparkles);
+            ctx.Container.Bind<SaberBurnMarkSparkles>().To<SiraSaberBurnMarkSparkles>().FromInstance(siraBurnSparkles).AsCached();
+        }
+
+        private void InstallObstacleEffectManager(MutationContext ctx, MonoBehaviour obj)
+        {
+            var obstacleSparkles = obj as ObstacleSaberSparkleEffectManager;
+            var siraObstacleSparkles = obstacleSparkles.gameObject.AddComponent<SiraObstacleSaberSparkleEffectManager>();
+            Object.Destroy(obstacleSparkles);
+            ctx.Container.QueueForInject(siraObstacleSparkles);
+            ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
         }
     }
 }
