@@ -11,6 +11,9 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Services
 {
+    /// <summary>
+    /// A service for disabling and enabling score submission.
+    /// </summary>
     public sealed class Submission : IDisposable
     {
         private readonly Data _data;
@@ -21,6 +24,9 @@ namespace SiraUtil.Services
             _data = data;
         }
 
+        /// <summary>
+        /// The dispose method.
+        /// </summary>
         public void Dispose()
         {
             var disabled = _tickets.Count > 0;
@@ -76,10 +82,17 @@ namespace SiraUtil.Services
             Remove(_tickets.FirstOrDefault(x => x.Source == source && x.Assembly == Assembly.GetCallingAssembly()));
         }
 
+        /// <summary>
+        /// A ticket which contains details for a score submission disable.
+        /// </summary>
         public sealed class Ticket
         {
             private readonly HashSet<string> _reasons = new HashSet<string>();
             internal Assembly Assembly { get; }
+
+            /// <summary>
+            /// The source that disabled score submission.
+            /// </summary>
             public string Source { get; }
 
             internal Ticket(string source, Assembly assembly)
@@ -88,6 +101,10 @@ namespace SiraUtil.Services
                 Assembly = assembly;
             }
 
+            /// <summary>
+            /// Adds a reason to this.
+            /// </summary>
+            /// <param name="reason"></param>
             public void AddReason(string reason)
             {
                 if (!string.IsNullOrWhiteSpace(reason))
@@ -96,11 +113,19 @@ namespace SiraUtil.Services
                 }
             }
 
+            /// <summary>
+            /// All the reasons as to why this ticket disabled score submission.
+            /// </summary>
+            /// <returns>The reasons.</returns>
             public string[] Reasons()
             {
                 return _reasons.ToArray();
             }
 
+            /// <summary>
+            /// Copies a ticket.
+            /// </summary>
+            /// <returns></returns>
             public Ticket Copy()
             {
                 var ticket = new Ticket(Source, Assembly);

@@ -10,6 +10,12 @@ namespace SiraUtil.Converters
     /// </summary>
     public class Vector3Converter : ValueConverter<Vector3>
     {
+        /// <summary>
+        /// Converts a config value map into a <see cref="Vector3"/>.
+        /// </summary>
+        /// <param name="value">The config value.</param>
+        /// <param name="parent">The parent.</param>
+        /// <returns></returns>
         public override Vector3 FromValue(Value value, object parent)
         {
             if (value is Map m)
@@ -35,6 +41,12 @@ namespace SiraUtil.Converters
             throw new ArgumentException("Value cannot be parsed into a Vector", nameof(value));
         }
 
+        /// <summary>
+        /// Converts a <see cref="Vector3"/> into a config value map.
+        /// </summary>
+        /// <param name="obj">The vector to convert.</param>
+        /// <param name="parent">The parent.</param>
+        /// <returns></returns>
         public override Value ToValue(Vector3 obj, object parent)
         {
             var map = Value.Map();

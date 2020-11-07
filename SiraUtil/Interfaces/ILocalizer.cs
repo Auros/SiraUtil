@@ -2,6 +2,9 @@ using Polyglot;
 
 namespace SiraUtil.Interfaces
 {
+    /// <summary>
+    /// An interface to provide a link between a mod and the SiraLocalizer mod (custom localizations in game).
+    /// </summary>
     public interface ILocalizer
     {
         /// <summary>
@@ -18,7 +21,7 @@ namespace SiraUtil.Interfaces
         /// Adds a localization sheet from an assembly path.
         /// </summary>
         /// <param name="assemblyPath">The assembly path to the localization asset file.</param>
-        /// <param name="id">The ID of the localization data.</param>
+        /// <param name="type">The format of the localization data.</param>
         /// <param name="shadow">Only show a language set if another localization asset is using it.</param>
         /// <returns>The LocalizationAsset of the sheet.</returns>
         LocalizationAsset AddLocalizationSheetFromAssembly(string assemblyPath, GoogleDriveDownloadFormat type, bool shadow = false);

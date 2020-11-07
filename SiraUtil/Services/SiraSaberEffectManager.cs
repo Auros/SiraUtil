@@ -19,7 +19,7 @@ namespace SiraUtil.Services
         private readonly List<Saber> _managedSabers = new List<Saber>();
         private readonly SiraSaberClashChecker _siraSaberClashChecker;
 
-        public SiraSaberEffectManager([InjectOptional] IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SaberBurnMarkArea saberBurnMarkArea,
+        internal SiraSaberEffectManager([InjectOptional] IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SaberBurnMarkArea saberBurnMarkArea,
                                       SaberBurnMarkSparkles saberBurnMarkSparkles, ObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
         {
             _gamePause = gamePause;
@@ -55,6 +55,9 @@ namespace SiraUtil.Services
             _managedSabers.ForEach(x => { if (x != null) { x.gameObject.SetActive(false); } });
         }
 
+        /// <summary>
+        /// The initialization method.
+        /// </summary>
         public void Initialize()
         {
             _safeReady = true;
@@ -118,6 +121,9 @@ namespace SiraUtil.Services
             }
         }
 
+        /// <summary>
+        /// The dispose method.
+        /// </summary>
         public void Dispose()
         {
             if (_gamePause != null)

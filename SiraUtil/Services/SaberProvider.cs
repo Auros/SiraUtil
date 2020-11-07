@@ -32,7 +32,7 @@ namespace SiraUtil.Services
         /// </summary>
         public event Action ControllerReady;
 
-        public SaberProvider(DiContainer container, SceneContext sceneContext, [InjectOptional] IDifficultyBeatmap beatmap)
+        internal SaberProvider(DiContainer container, SceneContext sceneContext, [InjectOptional] IDifficultyBeatmap beatmap)
         {
             _container = container;
 
@@ -128,11 +128,17 @@ namespace SiraUtil.Services
             }
         }
 
+        /// <summary>
+        /// THe dispose method.
+        /// </summary>
         public void Dispose()
         {
             SiraEvents.ContextInstalling -= SiraEvents_ContextInstalling;
         }
 
+        /// <summary>
+        /// The tick method.
+        /// </summary>
         public void Tick()
         {
             if (_queuedNormalActions.Count() > 0)

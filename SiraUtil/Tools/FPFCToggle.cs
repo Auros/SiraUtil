@@ -8,8 +8,14 @@ using UnityEngine.SceneManagement;
 
 namespace SiraUtil.Tools
 {
+    /// <summary>
+    /// The FPFC manager.
+    /// </summary>
     public class FPFCToggle : MonoBehaviour
     {
+        /// <summary>
+        /// The current state of the FPFC Toggler.
+        /// </summary>
         public bool Enabled { get; private set; } = false;
 
         private bool _start;
@@ -25,7 +31,7 @@ namespace SiraUtil.Tools
         private FirstPersonFlyingController _firstPersonFlyingController;
 
         [Inject]
-        public void Construct(IVRPlatformHelper helper, Config.FPFCToggleOptions options)
+        internal void Construct(IVRPlatformHelper helper, Config.FPFCToggleOptions options)
         {
             _helper = helper;
             _options = options;
@@ -34,6 +40,9 @@ namespace SiraUtil.Tools
             Enabled = _start;
         }
 
+        /// <summary>
+        /// The start method.
+        /// </summary>
         protected void Start()
         {
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
@@ -54,11 +63,17 @@ namespace SiraUtil.Tools
             }
         }
 
+        /// <summary>
+        /// The destroy method.
+        /// </summary>
         protected void OnDestroy()
         {
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
         }
 
+        /// <summary>
+        /// The update method.
+        /// </summary>
         protected void Update()
         {
             if (Input.GetKeyDown(_options.ToggleKeyCode))
@@ -76,6 +91,10 @@ namespace SiraUtil.Tools
             }
         }
 
+        /// <summary>
+        /// Toggles FPFC
+        /// </summary>
+        /// <param name="state">The state to toggle it to (true or false, on or off).</param>
         public void Toggle(bool state)
         {
             if (_start)
@@ -131,6 +150,9 @@ namespace SiraUtil.Tools
             }
         }
 
+        /// <summary>
+        /// Refreshes the FPFC Variables.
+        /// </summary>
         public void Refresh()
         {
             _firstPersonFlyingController = Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>().FirstOrDefault();

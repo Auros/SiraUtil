@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace SiraUtil
 {
+    /// <summary>
+    /// A collection of accesors used in SiraUtil.
+    /// </summary>
     public static class Accessors
     {
         /// <summary>

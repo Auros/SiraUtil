@@ -1,8 +1,8 @@
 using Zenject;
 
-namespace SiraUtil.Sabers
+namespace SiraUtil.Installers
 {
-    public class SiraSaberEffectInstaller : Installer
+    internal class SiraSaberEffectInstaller : Installer
     {
         public override void InstallBindings()
         {

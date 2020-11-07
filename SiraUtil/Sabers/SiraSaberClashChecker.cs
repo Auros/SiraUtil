@@ -7,20 +7,34 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
 {
+    /// <summary>
+    /// An upgraded version of the SaberClashChecker which has support for more than two sabers.
+    /// </summary>
     public class SiraSaberClashChecker : SaberClashChecker, ISaberRegistrar
     {
         private readonly HashSet<Saber> _sabers = new HashSet<Saber>();
+
+        /// <summary>
+        /// Whether or not more than two sabers are being activated.
+        /// </summary>
         public bool MultiSaberMode { get; set; } = false;
 
         private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor GlowParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_glowParticleSystem");
         private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor SparkleParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_sparkleParticleSystem");
 
+        /// <summary>
+        /// The Zenject container used to gather lazy references.
+        /// </summary>
         [Inject]
         protected DiContainer _container;
 
         private Saber _lastSaberA;
         private Saber _lastSaberB;
 
+        /// <summary>
+        /// The initialization method.
+        /// </summary>
+        /// <param name="saberManager">The saber manager used to gather saber references.</param>
         public void Initialize(SaberManager saberManager)
         {
             _sabers.Clear();
@@ -28,7 +42,12 @@ namespace SiraUtil.Sabers
             _sabers.Add(_leftSaber);
             _sabers.Add(_rightSaber);
         }
-        
+
+        /// <summary>
+        /// Checks if any of the registered sabers are clashing.
+        /// </summary>
+        /// <param name="clashingPoint">The point that the sabers are clashing at.</param>
+        /// <returns>Are any sabers clashing?</returns>
         public override bool AreSabersClashing(out Vector3 clashingPoint)
         {
             if (!MultiSaberMode)
@@ -96,14 +115,26 @@ namespace SiraUtil.Sabers
             return _sabersAreClashing;
         }
 
+        /// <summary>
+        /// Changes the color of a registered saber.
+        /// </summary>
+        /// <param name="_"></param>
         public void ChangeColor(Saber _) { MultiSaberMode = true; }
 
+        /// <summary>
+        /// Registers a saber into the clash checker.
+        /// </summary>
+        /// <param name="saber">The saber to register.</param>
         public void RegisterSaber(Saber saber)
         {
             _sabers.RemoveWhere(x => x == null);
             _sabers.Add(saber);
         }
 
+        /// <summary>
+        /// Unregisters a saber in the clash checker.
+        /// </summary>
+        /// <param name="saber">The saber to unregister.</param>
         public void UnregisterSaber(Saber saber)
         {
             _sabers.RemoveWhere(x => x == null);

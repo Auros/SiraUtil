@@ -1,33 +1,32 @@
 using System;
 using System.Linq;
 using UnityEngine;
-using System.Reflection;
 using SiraUtil.Interfaces;
 using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
 {
+    /// <summary>
+    /// An upgraded obstacle manager which supports more than two sabers.
+    /// </summary>
     public class SiraObstacleSaberSparkleEffectManager : ObstacleSaberSparkleEffectManager, ISaberRegistrar
     {
         private readonly List<ObstacleSparkleDatum> _obstacleSparkleData = new List<ObstacleSparkleDatum>();
 
-        public SiraObstacleSaberSparkleEffectManager()
-        {
-            ObstacleSaberSparkleEffectManager original = GetComponent<ObstacleSaberSparkleEffectManager>();
-            foreach (FieldInfo info in original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
-            {
-                info.SetValue(this, info.GetValue(original));
-            }
-            Destroy(original);
-        }
-
         private bool _initted;
 
+        /// <summary>
+        /// The start method.
+        /// </summary>
         public override void Start()
         {
             Run();
         }
 
+        /// <summary>
+        /// The initialization method.
+        /// </summary>
+        /// <param name="saberManager">The saber manager used to gather saber references.</param>
         public void Initialize(SaberManager saberManager)
         {
             Run();
@@ -57,6 +56,9 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// The Unity Update method.
+        /// </summary>
         public override void Update()
         {
             for (int i = 0; i < _obstacleSparkleData.Count; i++)
@@ -95,6 +97,9 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// The disable method.
+        /// </summary>
         public override void OnDisable()
         {
             if (_hapticFeedbackController != null)
@@ -109,19 +114,26 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// Gets a burn mark position for a specific saber type.
+        /// </summary>
+        /// <param name="saberType"></param>
+        /// <returns></returns>
         public override Vector3 BurnMarkPosForSaberType(SaberType saberType)
         {
             if (_obstacleSparkleData.Count() >= 2)
             {
-                if (_obstacleSparkleData[0].saber != null && saberType == _obstacleSparkleData[0].saber.saberType)
-                {
-                    return _obstacleSparkleData[0].burnMarkPosition;
-                }
-                return _obstacleSparkleData[1].burnMarkPosition;
+                return _obstacleSparkleData[0].saber != null && saberType == _obstacleSparkleData[0].saber.saberType
+                    ? _obstacleSparkleData[0].burnMarkPosition
+                    : _obstacleSparkleData[1].burnMarkPosition;
             }
             return Vector3.zero;
         }
 
+        /// <summary>
+        /// Registers a saber into the Sira obstacle effect manager.
+        /// </summary>
+        /// <param name="saber"></param>
         public void RegisterSaber(Saber saber)
         {
             var osd = new ObstacleSparkleDatum
@@ -134,6 +146,10 @@ namespace SiraUtil.Sabers
             _obstacleSparkleData.Add(osd);
         }
 
+        /// <summary>
+        /// Unregisters a saber in the Sira obstacle effect manager.
+        /// </summary>
+        /// <param name="saber"></param>
         public void UnregisterSaber(Saber saber)
         {
             ObstacleSparkleDatum osd = _obstacleSparkleData.FirstOrDefault(o => o.saber == saber);
@@ -143,6 +159,10 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// Force a registered saber to change its color.
+        /// </summary>
+        /// <param name="_"></param>
         public void ChangeColor(Saber _) { }
 
         private class ObstacleSparkleDatum

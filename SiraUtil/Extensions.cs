@@ -13,11 +13,15 @@ using UnityEngine.EventSystems;
 
 namespace SiraUtil
 {
+    /// <summary>
+    /// A set of useful extension methods.
+    /// </summary>
     public static class Extensions
     {
         /// <summary>
         /// Registers a logger as a SiraLogger, which can be then requested by Dependency Injection
         /// </summary>
+        /// <param name="container">The container to install the logger into.</param>
         /// <param name="logger">The main logger to be used.</param>
         /// <param name="elevatedDebugMode">If this is true, any calls to .Debug will be redirected to .Info instead.</param>
         public static void BindLoggerAsSiraLogger(this DiContainer container, IPA.Logging.Logger logger, bool elevatedDebugMode = false)
@@ -66,6 +70,7 @@ namespace SiraUtil
         /// <summary>
         /// Creates a new component on a new GameObject
         /// </summary>
+        /// <param name="binder">The preceding binder.</param>
         /// <param name="name">The name of the GameObject.</param>
         /// <returns></returns>
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder binder, string name = "GameObject")
@@ -76,6 +81,7 @@ namespace SiraUtil
         /// <summary>
         /// Creates a new component on a new GameObject
         /// </summary>
+        /// <param name="binder">The preceding binder base.</param>
         /// <param name="name">The name of the GameObject.</param>
         /// <returns></returns>
         public static ConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FactoryFromBinderBase binder, string name = "GameObject")
@@ -195,6 +201,7 @@ namespace SiraUtil
         /// <summary>
         /// Change the color of a saber.
         /// </summary>
+        /// <param name="_">The saber.</param>
         /// <param name="color">The color to change the saber to.</param>
         /// <param name="smc">The model controller of the saber.</param>
         /// <param name="tintColor">The tint color of the new color.</param>

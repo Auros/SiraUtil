@@ -1,15 +1,18 @@
 using System;
 using Polyglot;
 using UnityEngine;
+using IPA.Config.Stores;
 using SiraUtil.Converters;
 using Version = SemVer.Version;
 using System.Collections.Generic;
 using IPA.Config.Stores.Converters;
 using IPA.Config.Stores.Attributes;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace SiraUtil
 {
-    public class Config
+    internal class Config
     {
         [NonNullable, UseConverter(typeof(VersionConverter))]
         public virtual Version Version { get; set; }

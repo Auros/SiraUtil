@@ -7,7 +7,15 @@ namespace SiraUtil.Interfaces
     /// </summary>
     public interface IColorable
     {
+        /// <summary>
+        /// The current color value of an object.
+        /// </summary>
         Color Color { get; }
+
+        /// <summary>
+        /// Sets the color of an object.
+        /// </summary>
+        /// <param name="color">The color to set to.</param>
         void SetColor(Color color);
     }
 }

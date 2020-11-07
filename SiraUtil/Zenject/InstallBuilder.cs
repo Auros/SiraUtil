@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
+    /// <summary>
+    /// A builder for constructing <seealso cref="Zenjector"/> bindings.
+    /// </summary>
     public class InstallBuilder
     {
         internal Type Type { get; private set; }

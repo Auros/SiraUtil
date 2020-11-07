@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SiraUtil.Tools
 {
-    public class SongControl : IInitializable, IDisposable, ITickable
+    internal class SongControl : IInitializable, IDisposable, ITickable
     {
         private bool _isPaused = false;
         private readonly PauseController _pauseController;
@@ -13,7 +13,7 @@ namespace SiraUtil.Tools
         private readonly KeyCode _restartCode;
         private readonly KeyCode _pauseToggleCode;
 
-        public SongControl(Config.SongControlOptions songControlOptions, PauseController pauseController)
+        internal SongControl(Config.SongControlOptions songControlOptions, PauseController pauseController)
         {
             _isPaused = false;
             _pauseController = pauseController;

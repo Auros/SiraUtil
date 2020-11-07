@@ -1,32 +1,31 @@
 using UnityEngine;
 using System.Linq;
-using System.Reflection;
 using SiraUtil.Interfaces;
 using System.Collections.Generic;
 
 namespace SiraUtil.Sabers
 {
+    /// <summary>
+    /// An upgraded version of the SaberBurnMarkSparkles class which has support for more than two sabers.
+    /// </summary>
     public class SiraSaberBurnMarkSparkles : SaberBurnMarkSparkles, ISaberRegistrar
     {
         private readonly List<SaberBurnDatum> _saberBurnData = new List<SaberBurnDatum>();
 
-        public SiraSaberBurnMarkSparkles()
-        {
-            SaberBurnMarkSparkles original = GetComponent<SaberBurnMarkSparkles>();
-            foreach (FieldInfo info in original.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
-            {
-                info.SetValue(this, info.GetValue(original));
-            }
-            Destroy(original);
-        }
-
         private bool _initted;
 
+        /// <summary>
+        /// The start method.
+        /// </summary>
         public override void Start()
         {
             Run();
         }
 
+        /// <summary>
+        /// The initialization method.
+        /// </summary>
+        /// <param name="saberManager">The saber manager used to gather saber references.</param>
         public void Initialize(SaberManager saberManager)
         {
             Run();
@@ -78,6 +77,9 @@ namespace SiraUtil.Sabers
             _saberBurnData[1].color = color;
         }
 
+        /// <summary>
+        /// The late update method.
+        /// </summary>
         public override void LateUpdate()
         {
             for (int i = 0; i < _saberBurnData.Count; i++)
@@ -121,6 +123,9 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// The destroy method.
+        /// </summary>
         public override void OnDestroy()
         {
             for (int i = 0; i < _saberBurnData.Count; i++)
@@ -132,6 +137,10 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// Registers a saber into the Sira saber burn mark area manager.
+        /// </summary>
+        /// <param name="saber">The saber to register.</param>
         public void RegisterSaber(Saber saber)
         {
             var newSaberDatum = new SaberBurnDatum
@@ -153,6 +162,10 @@ namespace SiraUtil.Sabers
             _saberBurnData.Add(newSaberDatum);
         }
 
+        /// <summary>
+        /// Unregisters a saber in the Sira saber burn mark area manager.
+        /// </summary>
+        /// <param name="saber">The saber to unregister.</param>
         public void UnregisterSaber(Saber saber)
         {
             SaberBurnDatum saberBurnDatum = _saberBurnData.Where(sbd => sbd.saber == saber).FirstOrDefault();
@@ -166,16 +179,10 @@ namespace SiraUtil.Sabers
             }
         }
 
-        private class SaberBurnDatum
-        {
-            public Saber saber;
-            public Color color;
-            public Vector3 prevBurnMarkPos;
-            public bool prevBurnMarkPosValid;
-            public ParticleSystem burnMarkParticleSystem;
-            public ParticleSystem.EmissionModule burnMarkEmissionModule;
-        }
-
+        /// <summary>
+        /// Forces a registered saber to change its color.
+        /// </summary>
+        /// <param name="saber">The saber being forced to change its color.</param>
         public void ChangeColor(Saber saber)
         {
             SaberBurnDatum saberBurnDatum = _saberBurnData.FirstOrDefault(sbd => sbd.saber == saber);
@@ -189,6 +196,16 @@ namespace SiraUtil.Sabers
                 mainModule.startColor = color;
                 saberBurnDatum.color = color;
             }
+        }
+
+        private class SaberBurnDatum
+        {
+            public Saber saber;
+            public Color color;
+            public Vector3 prevBurnMarkPos;
+            public bool prevBurnMarkPosValid;
+            public ParticleSystem burnMarkParticleSystem;
+            public ParticleSystem.EmissionModule burnMarkEmissionModule;
         }
     }
 }

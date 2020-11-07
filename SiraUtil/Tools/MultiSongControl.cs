@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace SiraUtil.Tools
 {
-    public class MultiSongControl : ITickable
+    internal class MultiSongControl : ITickable
     {
         private readonly KeyCode _exitCode;
         private readonly KeyCode _pauseKeyCode;
         private readonly MultiplayerLocalActivePlayerInGameMenuViewController _multiplayerLocalActivePlayerInGameMenuViewController;
 
-        public MultiSongControl(Config.SongControlOptions songControlOptions, MultiplayerLocalActivePlayerInGameMenuViewController multiplayerLocalActivePlayerInGameMenuViewController)
+        internal MultiSongControl(Config.SongControlOptions songControlOptions, MultiplayerLocalActivePlayerInGameMenuViewController multiplayerLocalActivePlayerInGameMenuViewController)
         {
             _exitCode = songControlOptions.ExitKeyCode;
             _pauseKeyCode = songControlOptions.PauseToggleKeyCode;

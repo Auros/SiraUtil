@@ -41,6 +41,7 @@
     </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\SiraUtil.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="$(DefineConstants.Contains('CIBuild')) OR '$(NCrunch)' == '1'">
     <DisableCopyToPlugins>True</DisableCopyToPlugins>
@@ -203,7 +204,7 @@
     <Compile Include="Sabers\SiraSaberBurnMarkArea.cs" />
     <Compile Include="Sabers\SiraSaberBurnMarkSparkles.cs" />
     <Compile Include="Sabers\SiraSaberClashChecker.cs" />
-    <Compile Include="Sabers\SiraSaberEffectInstaller.cs" />
+    <Compile Include="Installers\SiraSaberEffectInstaller.cs" />
     <Compile Include="Services\SiraLogManager.cs" />
     <Compile Include="Services\SiraSaberEffectManager.cs" />
     <Compile Include="Installers\SiraSaberInstaller.cs" />

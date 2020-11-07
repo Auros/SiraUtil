@@ -12,8 +12,14 @@ using System.Collections.Generic;
 
 namespace SiraUtil
 {
+    /// <summary>
+    /// A collection of utilities used in SiraUtil.
+    /// </summary>
     public static class Utilities
     {
+        /// <summary>
+        /// Nice Assert Hit, Ding Dong.
+        /// </summary>
         public const string ASSERTHIT = "(Nice Assert Hit, Ding Dong)";
 
         /// <summary>
@@ -114,8 +120,7 @@ namespace SiraUtil
         /// </summary>
         /// <param name="asm">The assembly that contains the resource.</param>
         /// <param name="ResourceName">The path to the resource in the assembly.</param>
-        /// <param name="ResourceName">The path to the resource in the assembly.</param>
-        /// <returns></returns>
+        /// <returns>The raw byte data of the resource.</returns>
         public static byte[] GetResource(Assembly asm, string ResourceName)
         {
             Stream stream = asm.GetManifestResourceStream(ResourceName);

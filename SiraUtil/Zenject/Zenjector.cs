@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
+    /// <summary>
+    /// An extensible system for creating Zenject hooks in a mod with a focus on customizability.
+    /// </summary>
     public class Zenjector
     {
         /// <summary>
@@ -90,7 +93,7 @@ namespace SiraUtil.Zenject
         /// Installs your installer as the game scene is setting up.
         /// </summary>
         /// <typeparam name="T">The type of your installer.</typeparam>
-        /// <param name="onCoreInstallation">Whether or not the installer is installed along with the gameplay installer (core elements) Set this to true if you consistently need to depend on gameplay core objects such as the AudioTimeSyncController in both singleplayer and multiplayer.</param>
+        /// <param name="onGameSetup">Whether or not the installer is installed along during the game core setup. If your objects depend on beatmap elements like the <see cref="AudioTimeSyncController"/> or <see cref="BeatmapObjectManager"/>, set this to false as they don't exist in setup in multiplayer.</param>
         public InstallBuilder OnGame<T>(bool onGameSetup = true) where T : IInstaller
         {
             var ib = new InstallBuilder(typeof(T));

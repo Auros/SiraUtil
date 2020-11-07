@@ -5,11 +5,17 @@ using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
 {
+    /// <summary>
+    /// A context provider for mutating Zenject object.
+    /// </summary>
     public class MutationContext
     {
         private readonly SceneDecoratorContext _decoratorContext;
         private readonly List<MonoBehaviour> _monoBehaviourList;
 
+        /// <summary>
+        /// The container used in the active mutation.
+        /// </summary>
         public DiContainer Container { get; }
 
         internal MutationContext(DiContainer container, SceneDecoratorContext decoratorContext, List<MonoBehaviour> monoBehaviourList)
@@ -26,6 +32,10 @@ namespace SiraUtil.Zenject
             }
         }
 
+        /// <summary>
+        /// Adds an injectable to the injectable pool.
+        /// </summary>
+        /// <param name="behaviour">The pool of injectables.</param>
         public void AddInjectable(MonoBehaviour behaviour)
         {
             if (_decoratorContext != null)
@@ -39,6 +49,11 @@ namespace SiraUtil.Zenject
             }
         }
 
+        /// <summary>
+        /// Get an injected object.
+        /// </summary>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <returns>The first result in the injectable list.</returns>
         public T GetInjected<T>() where T : MonoBehaviour
         {
             return (T)_monoBehaviourList.FirstOrDefault(x => x.GetType() == typeof(T));

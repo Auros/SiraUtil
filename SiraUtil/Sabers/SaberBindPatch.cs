@@ -1,3 +1,4 @@
+using System;
 using Zenject;
 using HarmonyLib;
 using ModestTree;
@@ -8,7 +9,6 @@ using SiraUtil.Services;
 using SiraUtil.Interfaces;
 using System.Reflection.Emit;
 using System.Collections.Generic;
-using System;
 
 namespace SiraUtil.Sabers
 {
@@ -75,7 +75,7 @@ namespace SiraUtil.Sabers
     }
 
     [HarmonyPatch(typeof(GameplayCoreInstaller), "InstallBindings")]
-    public class GameplayCoreClashCheckerSwap
+    internal class GameplayCoreClashCheckerSwap
     {
         private static readonly MethodInfo _rootMethod = typeof(DiContainer).GetMethod("Bind", Array.Empty<Type>());
         private static readonly MethodInfo _clashAttacher = SymbolExtensions.GetMethodInfo(() => ClashAttacher(null));

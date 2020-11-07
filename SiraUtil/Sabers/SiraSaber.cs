@@ -10,8 +10,14 @@ namespace SiraUtil.Sabers
     /// </summary>
     public class SiraSaber : MonoBehaviour
     {
+        /// <summary>
+        /// The next saber type to generate. Zenject factories don't easily support multiple parameters so set this to dictate what the next saber type will be (it can be changed, but model providers that use the saber type to dictate the model won't appear properly).
+        /// </summary>
         public static SaberType nextType = SaberType.SaberB;
 
+        /// <summary>
+        /// The active saber being controlled by this SiraSaber.
+        /// </summary>
         public Saber Saber => _saber;
         private Saber _saber;
         private NoteCutter _noteCutter;
@@ -22,7 +28,7 @@ namespace SiraUtil.Sabers
         private SiraSaberEffectManager _siraSaberEffectManager;
 
         [Inject]
-        public void Construct(NoteCutter noteCutter, ColorManager colorManager, SaberProvider saberProvider, SiraSaberEffectManager siraSaberEffectManager)
+        internal void Construct(NoteCutter noteCutter, ColorManager colorManager, SaberProvider saberProvider, SiraSaberEffectManager siraSaberEffectManager)
         {
             _noteCutter = noteCutter;
             _colorManager = colorManager;
@@ -52,6 +58,9 @@ namespace SiraUtil.Sabers
             _siraSaberEffectManager.SaberCreated(_saber);
         }
 
+        /// <summary>
+        /// The update method.
+        /// </summary>
         public void Update()
         {
             if (_saber != null && _saber.gameObject.activeInHierarchy)
@@ -84,6 +93,9 @@ namespace SiraUtil.Sabers
             }
         }
 
+        /// <summary>
+        /// The destroy method.
+        /// </summary>
         public void OnDestroy()
         {
             //_saberProvider.ControllerReady -= ModelsReady;
@@ -161,6 +173,10 @@ namespace SiraUtil.Sabers
         }
 
         #region Zenject
+
+        /// <summary>
+        /// The placeholder factory used in Zenject. Request this in the container to receive the factory.
+        /// </summary>
         public class Factory : PlaceholderFactory<SiraSaber>
         {
 
@@ -173,7 +189,7 @@ namespace SiraUtil.Sabers
         {
             private readonly DiContainer _container;
 
-            public SaberFactory(DiContainer container)
+            internal SaberFactory(DiContainer container)
             {
                 _container = container;
             }

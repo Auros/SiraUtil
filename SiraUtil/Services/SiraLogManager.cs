@@ -1,4 +1,3 @@
-using Zenject;
 using IPA.Logging;
 using System.Reflection;
 using System.Collections.Generic;
@@ -20,12 +19,6 @@ namespace SiraUtil.Services
         }
 
         private readonly Dictionary<Assembly, LoggerContext> _loggerAssemblies = new Dictionary<Assembly, LoggerContext>();
-        private readonly DiContainer _container;
-
-        internal SiraLogManager(DiContainer container)
-        {
-            _container = container;
-        }
 
         internal void AddLogger(Assembly assembly, Logger logger, bool defaultToDebugMode = false)
         {

@@ -3,10 +3,17 @@ using UnityEngine;
 
 namespace SiraUtil.Objects
 {
+    /// <summary>
+    /// A container to wrap a prefab into.
+    /// </summary>
     public class SiraPrefabContainer : MonoBehaviour
     {
         [SerializeField]
         private GameObject _prefab;
+
+        /// <summary>
+        /// The prefab in this container.
+        /// </summary>
         public GameObject Prefab
         {
             get => _prefab;
@@ -18,6 +25,10 @@ namespace SiraUtil.Objects
             }
         }
 
+
+        /// <summary>
+        /// The start method.
+        /// </summary>
         public void Start()
         {
             if (transform.childCount > 0)
@@ -26,6 +37,9 @@ namespace SiraUtil.Objects
             }
         }
 
+        /// <summary>
+        /// The Zenject pool used to create more prefabs.
+        /// </summary>
         public class Pool : MonoMemoryPool<SiraPrefabContainer>
         {
 
