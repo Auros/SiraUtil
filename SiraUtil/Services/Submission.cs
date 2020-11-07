@@ -15,29 +15,33 @@ namespace SiraUtil.Services
     {
         private readonly Data _data;
         private readonly List<Ticket> _tickets = new List<Ticket>();
-        private readonly GameplayCoreSceneSetupData _gameplayCoreSceneSetupData;
 
-        internal Submission(Data data, GameplayCoreSceneSetupData gameplayCoreSceneSetupData)
+        internal Submission(Data data)
         {
             _data = data;
-            _gameplayCoreSceneSetupData = gameplayCoreSceneSetupData;
         }
 
         public void Dispose()
         {
             var disabled = _tickets.Count > 0;
-            if (disabled)
-            {
-                //_gameplayCoreSceneSetupData.SetField("practiceSettings", new SiraPracticeSettings(_gameplayCoreSceneSetupData.practiceSettings));
-            }
             _data.Set(disabled, _tickets.ToArray());
         }
 
+        /// <summary>
+        /// Get all the currently active tickets.
+        /// </summary>
+        /// <returns>All the currently active tickets.</returns>
         public Ticket[] Tickets()
         {
             return _tickets.Select(x => x.Copy()).ToArray();
         }
 
+        /// <summary>
+        /// Disables score submission for the currently played level.
+        /// </summary>
+        /// <param name="source">The name of the entity that is disabling score submission.</param>
+        /// <param name="subsource">A secondary source that is disabling score submission. Use this to be more specific about why submission is being disabled (ex. specific modifier)</param>
+        /// <returns>A ticket which can be used to disable the disabling of score submission.</returns>
         public Ticket DisableScoreSubmission(string source, string subsource = null)
         {
             var ticket = _tickets.FirstOrDefault(x => x.Source == source);
@@ -54,11 +58,19 @@ namespace SiraUtil.Services
             return ticket;
         }
 
+        /// <summary>
+        /// Reenables score submission for a ticket.
+        /// </summary>
+        /// <param name="ticket"></param>
         public void Remove(Ticket ticket)
         {
             _tickets.Remove(ticket);
         }
 
+        /// <summary>
+        /// Reenables score submission from a source.
+        /// </summary>
+        /// <param name="source"></param>
         public void Remove(string source)
         {
             Remove(_tickets.FirstOrDefault(x => x.Source == source && x.Assembly == Assembly.GetCallingAssembly()));

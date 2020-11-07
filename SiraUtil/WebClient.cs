@@ -32,21 +32,38 @@ namespace SiraUtil
             IsSuccessStatusCode = resp.IsSuccessStatusCode;
         }
 
+        /// <summary>
+        /// Converts the response to a byte array.
+        /// </summary>
+        /// <returns></returns>
         public byte[] ContentToBytes()
         {
             return _content;
         }
 
+        /// <summary>
+        /// Converts the response to a string.
+        /// </summary>
+        /// <returns></returns>
         public string ContentToString()
         {
             return Encoding.UTF8.GetString(_content);
         }
 
+        /// <summary>
+        /// Deserialize the content to a typed object.
+        /// </summary>
+        /// <typeparam name="T">The type of the object to deserialize the content into.</typeparam>
+        /// <returns>The deserialized object.</returns>
         public T ContentToJson<T>()
         {
             return JsonConvert.DeserializeObject<T>(ContentToString());
         }
 
+        /// <summary>
+        /// Deserializes the content into a <see cref="JObject"/>
+        /// </summary>
+        /// <returns>The deserialized object as a <see cref="JObject"/></returns>
         public JObject ConvertToJObject()
         {
             return JObject.Parse(ContentToString());

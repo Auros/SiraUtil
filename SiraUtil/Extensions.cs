@@ -51,22 +51,44 @@ namespace SiraUtil
             return upgradedMonoBehaviour;
         }
 
+        /// <summary>
+        /// Gets the localized key of a string from Polyglot, if not found then returns specified alternative.
+        /// </summary>
+        /// <param name="key">The key of the string in Polyglot.</param>
+        /// <param name="or">The string to be used if the key could not be found.</param>
+        /// <returns></returns>
         public static string LocalizationGetOr(this string key, string or)
         {
             var localized = Localization.Get(key);
             return string.IsNullOrWhiteSpace(localized) || key == localized ? or : localized;
         }
 
+        /// <summary>
+        /// Creates a new component on a new GameObject
+        /// </summary>
+        /// <param name="name">The name of the GameObject.</param>
+        /// <returns></returns>
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder binder, string name = "GameObject")
         {
             return binder.FromNewComponentOn(new GameObject(name));
         }
 
+        /// <summary>
+        /// Creates a new component on a new GameObject
+        /// </summary>
+        /// <param name="name">The name of the GameObject.</param>
+        /// <returns></returns>
         public static ConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FactoryFromBinderBase binder, string name = "GameObject")
         {
             return binder.FromNewComponentOn(new GameObject(name));
         }
 
+        /// <summary>
+        /// Binds a <see cref="ViewController"/> into the Container. This creates the view controller, repairs its dependencies, and adds it to the container.
+        /// </summary>
+        /// <typeparam name="T">The type of the ViewController.</typeparam>
+        /// <param name="Container">The Container to install this ViewController into.</param>
+        /// <param name="active">Whether or not to enable it after its binded.</param>
         public static void BindViewController<T>(this DiContainer Container, bool active = false) where T : ViewController
         {
             T vc = new GameObject(typeof(T).Name, typeof(VRGraphicRaycaster), typeof(CurvedCanvasSettings), typeof(CanvasGroup), typeof(T)).GetComponent<T>();
@@ -82,6 +104,11 @@ namespace SiraUtil
             Container.BindInstance(vc).AsSingle();
         }
 
+        /// <summary>
+        /// Binds a <see cref="FlowCoordinator"/> into the Container. This creates the flow coordinator, repairs its dependencies, and adds it to the container.
+        /// </summary>
+        /// <typeparam name="T">The type of the FlowCoordinator.</typeparam>
+        /// <param name="Container">The Container to install this FlowCoordinator into.</param>
         public static void BindFlowCoordinator<T>(this DiContainer Container) where T : FlowCoordinator
         {
             var inputSystem = Container.Resolve<BaseInputModule>();
@@ -165,6 +192,15 @@ namespace SiraUtil
             }
         }
 
+        /// <summary>
+        /// Change the color of a saber.
+        /// </summary>
+        /// <param name="color">The color to change the saber to.</param>
+        /// <param name="smc">The model controller of the saber.</param>
+        /// <param name="tintColor">The tint color of the new color.</param>
+        /// <param name="setSaberGlowColors">The glow color groups of the saber.</param>
+        /// <param name="setSaberFakeGlowColors">The fake glow color groups of the saber.</param>
+        /// <param name="light">The light of the saber.</param>
         public static void ChangeColor(this Saber _, Color color, SaberModelController smc, Color tintColor, SetSaberGlowColor[] setSaberGlowColors, SetSaberFakeGlowColor[] setSaberFakeGlowColors, TubeBloomPrePassLight light)
         {
             Accessors.TrailColor(ref Accessors.SaberTrail(ref smc)) = (color * tintColor).linear;

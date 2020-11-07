@@ -1,7 +1,8 @@
-using SemVer;
+using System;
 using Polyglot;
 using UnityEngine;
 using SiraUtil.Converters;
+using Version = SemVer.Version;
 using System.Collections.Generic;
 using IPA.Config.Stores.Converters;
 using IPA.Config.Stores.Attributes;
@@ -19,8 +20,8 @@ namespace SiraUtil
         [NonNullable]
         public virtual SongControlOptions SongControl { get; set; } = new SongControlOptions();
 
-        [NonNullable]
-        public virtual LocalizationOptions Localization { get; set; } = new LocalizationOptions();
+        [Obsolete("SiraUtil no longer handles the loading of localization sheets. You can now optionally request an ILocalizer with an ID of SIRA.Localizer in a container to get the localizer component from SiraLocalizer (separate mod).")]
+        public virtual LocalizationOptions Localization { get; set; } = null;
 
         public class SongControlOptions
         {
@@ -49,7 +50,7 @@ namespace SiraUtil
 
         public class LocalizationOptions
         {
-            public virtual bool Enabled { get; set; } = true;
+            public virtual bool Enabled { get; set; } = false;
 
             [NonNullable, UseConverter(typeof(DictionaryConverter<LocalizationSource>))]
             public virtual Dictionary<string, LocalizationSource> Sources { get; set; } = new Dictionary<string, LocalizationSource>();

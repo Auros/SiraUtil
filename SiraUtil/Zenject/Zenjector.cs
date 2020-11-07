@@ -5,6 +5,9 @@ namespace SiraUtil.Zenject
 {
     public class Zenjector
     {
+        /// <summary>
+        /// The name of the Zenjector
+        /// </summary>
         public string Name { get; }
         internal bool Enabled { get; private set; } = true;
         internal bool AutoControl { get; private set; } = true;
@@ -87,7 +90,7 @@ namespace SiraUtil.Zenject
         /// Installs your installer as the game scene is setting up.
         /// </summary>
         /// <typeparam name="T">The type of your installer.</typeparam>
-        /// <param name="onCoreInstallation">Whether or not the installer is installed along with the gameplay installer (core elements).</param>
+        /// <param name="onCoreInstallation">Whether or not the installer is installed along with the gameplay installer (core elements) Set this to true if you consistently need to depend on gameplay core objects such as the AudioTimeSyncController in both singleplayer and multiplayer.</param>
         public InstallBuilder OnGame<T>(bool onGameSetup = true) where T : IInstaller
         {
             var ib = new InstallBuilder(typeof(T));

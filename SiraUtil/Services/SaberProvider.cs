@@ -72,7 +72,7 @@ namespace SiraUtil.Services
         }
 
         /// <summary>
-        /// Get an instance of the current saber model. This CAN be null! Only use this when you know the model is present. You can subscribe to <see cref="ControllerReady"/> and then call <see cref="IsSafe(bool)"/> to ensure that you get the model. SiraSaber's handle this automatically.
+        /// Get an instance of the current saber model. This CAN be null! Only use this when you know the model is present. Should use <see cref="GetModel(Action{SaberModelController})"/> or <see cref="GetModel{T}(Action{T})"/> to hook into the callback so you know when the saber model is ready.
         /// </summary>
         /// <returns>The current saber model.</returns>
         public SaberModelController GetModel()
@@ -81,11 +81,20 @@ namespace SiraUtil.Services
             return smc;
         }
 
+        /// <summary>
+        /// Get the current saber model.
+        /// </summary>
+        /// <param name="callback">The callback sent when the model is ready.</param>
         public void GetModel(Action<SaberModelController> callback)
         {
             GetModel<SaberModelController>(callback);
         }
 
+        /// <summary>
+        /// Get the current saber model.
+        /// </summary>
+        /// <typeparam name="T">The type of the <seealso cref="SaberModelController"/>of the model.</typeparam>
+        /// <param name="callback">The callback sent when the model is ready.</param>
         public void GetModel<T>(Action<T> callback) where T : SaberModelController
         {
             if (_gameCoreInstalling)

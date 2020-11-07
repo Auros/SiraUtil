@@ -75,7 +75,7 @@ namespace SiraUtil.Zenject
         /// </summary>
         public InstallBuilder ShortCircuitForStandard()
         {
-            return ShortCircuitFor(nameof(StandardLevelScenesTransitionSetupDataSO));
+            return ShortCircuitFor(typeof(StandardLevelScenesTransitionSetupDataSO).FullName);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace SiraUtil.Zenject
         /// </summary>
         public InstallBuilder ShortCircuitForCampaign()
         {
-            return ShortCircuitFor(nameof(MissionLevelScenesTransitionSetupDataSO));
+            return ShortCircuitFor(typeof(MissionLevelScenesTransitionSetupDataSO).FullName);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace SiraUtil.Zenject
         /// </summary>
         public InstallBuilder ShortCircuitForMultiplayer()
         {
-            return ShortCircuitFor(nameof(MultiplayerLevelScenesTransitionSetupDataSO));
+            return ShortCircuitFor(typeof(MultiplayerLevelScenesTransitionSetupDataSO).FullName);
         }
 
         /// <summary>
@@ -109,36 +109,6 @@ namespace SiraUtil.Zenject
         {
             Circuits.Add(shortCircuiter);
             return this;
-        }
-
-        [Obsolete("Use ShortCircuitFor<T>() instead.")]
-        public InstallBuilder ShortCircuitOn<T>()
-        {
-            return ShortCircuitFor(typeof(T).Name);
-        }
-
-        [Obsolete("Use ShortCircuitForStandard() instead.")]
-        public InstallBuilder ShortCircuitOnStandard()
-        {
-            return ShortCircuitFor(nameof(StandardLevelScenesTransitionSetupDataSO));
-        }
-
-        [Obsolete("Use ShortCircuitForCampaign() instead.")]
-        public InstallBuilder ShortCircuitOnCampaign()
-        {
-            return ShortCircuitFor(nameof(MissionLevelScenesTransitionSetupDataSO));
-        }
-
-        [Obsolete("Use ShortCircuitForTutorial() instead.")]
-        public InstallBuilder ShortCircuitOnTutorial()
-        {
-            return ShortCircuitFor("Tutorial");
-        }
-
-        [Obsolete("Use ShortCircuitForMultiplayer() instead.")]
-        public InstallBuilder ShortCircuitOnMultiplayer()
-        {
-            return ShortCircuitFor(nameof(MultiplayerLevelScenesTransitionSetupDataSO));
         }
 
         /// <summary>

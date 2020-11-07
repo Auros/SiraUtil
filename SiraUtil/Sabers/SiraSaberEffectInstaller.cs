@@ -1,5 +1,4 @@
 using Zenject;
-using SiraUtil.Services;
 
 namespace SiraUtil.Sabers
 {
@@ -7,7 +6,7 @@ namespace SiraUtil.Sabers
     {
         public override void InstallBindings()
         {
-            //Container.BindInterfacesAndSelfTo<SiraSaberEffectManager>().AsSingle();
+            // Dummy Class
         }
     }
 }

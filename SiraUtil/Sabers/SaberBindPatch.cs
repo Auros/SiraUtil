@@ -8,6 +8,7 @@ using SiraUtil.Services;
 using SiraUtil.Interfaces;
 using System.Reflection.Emit;
 using System.Collections.Generic;
+using System;
 
 namespace SiraUtil.Sabers
 {
@@ -76,24 +77,19 @@ namespace SiraUtil.Sabers
     [HarmonyPatch(typeof(GameplayCoreInstaller), "InstallBindings")]
     public class GameplayCoreClashCheckerSwap
     {
+        private static readonly MethodInfo _rootMethod = typeof(DiContainer).GetMethod("Bind", Array.Empty<Type>());
         private static readonly MethodInfo _clashAttacher = SymbolExtensions.GetMethodInfo(() => ClashAttacher(null));
+        private static readonly MethodInfo _originalMethod = _rootMethod.MakeGenericMethod(new Type[] { typeof(SaberClashChecker) });
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             var codes = instructions.ToList();
-            int runIns = 0;
-            for (int i = codes.Count - 1; i > 15; i--)
+            for (int i = 0; i < codes.Count; i++)
             {
-                if (codes[i].opcode == OpCodes.Pop && codes[i - 1].opcode == OpCodes.Callvirt &&
-                    codes[i - 2].opcode == OpCodes.Callvirt && codes[i - 3].opcode == OpCodes.Call &&
-                    codes[i - 4].opcode == OpCodes.Ldarg_0)
+                if (codes[i].Calls(_originalMethod))
                 {
-                    runIns++;
-                    if (runIns == 2)
-                    {
-                        codes.Insert(i - 1, new CodeInstruction(OpCodes.Callvirt, _clashAttacher));
-                        break;
-                    }
+                    codes.Insert(i + 1, new CodeInstruction(OpCodes.Callvirt, _clashAttacher));
+                    break;
                 }
             }
             return codes.AsEnumerable();

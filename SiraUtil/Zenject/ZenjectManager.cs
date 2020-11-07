@@ -1,13 +1,11 @@
-using System;
 using Zenject;
 using IPA.Loader;
 using ModestTree;
+using UnityEngine;
 using System.Linq;
+using IPA.Utilities;
 using SiraUtil.Events;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEngine;
-using IPA.Utilities;
 
 namespace SiraUtil.Zenject
 {
@@ -69,7 +67,8 @@ namespace SiraUtil.Zenject
                 }
             }
             var context = sender as Context;
-            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => e.Names.Contains(x.Destination) && e.Names.ToList().Any(y => !x.Circuits.Contains(y)) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
+            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => e.Names.Contains(x.Destination) && e.Names.ToList()
+                            .Any(y => !x.Circuits.Contains(y)) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
             var allInjectables = e.Decorators.SelectMany(x => Accessors.Injectables(ref x)).ToList();
             if (context is GameObjectContext gameObjectContext)
             {

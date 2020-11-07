@@ -70,25 +70,5 @@ namespace SiraUtil.Tools
             _pauseController.didPauseEvent -= OnPause;
             _pauseController.didResumeEvent -= OnResume;
         }
-
-        public void Exit()
-        {
-            
-        }
-
-        public void Play()
-        {
-            
-        }
-
-        public void Pause()
-        {
-            
-        }
-
-        public void Restart()
-        {
-            
-        }
     }
 }

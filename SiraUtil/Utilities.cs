@@ -1,6 +1,4 @@
-using HMUI;
 using System;
-using Zenject;
 using System.IO;
 using HarmonyLib;
 using UnityEngine;
@@ -18,23 +16,19 @@ namespace SiraUtil
     {
         public const string ASSERTHIT = "(Nice Assert Hit, Ding Dong)";
 
+        /// <summary>
+        /// A simple Task which awaits for 100ms. Mainly used to make UI feel more "natural" and for testing purposes.
+        /// </summary>
         public static Task PauseChamp => AwaitSleep(100);
 
+        /// <summary>
+        /// Returns a task which awaits for a time in milliseconds.
+        /// </summary>
+        /// <param name="ms">The time in milliseconds to await for.</param>
+        /// <returns></returns>
         public static Task AwaitSleep(int ms)
         {
             return Task.Run(() => Thread.Sleep(ms));
-        }
-
-        [Obsolete("This will be removed very soon. Please don't let Zenject instantiate the view controller. Create the View Controller manually (for example, through BSML).")]
-        public static void SetupViewController(InjectContext context, object source)
-        {
-            if (source is ViewController viewController)
-            {
-                viewController.rectTransform.anchorMin = new Vector2(0f, 0f);
-                viewController.rectTransform.anchorMax = new Vector2(1f, 1f);
-                viewController.rectTransform.sizeDelta = new Vector2(0f, 0f);
-                viewController.rectTransform.anchoredPosition = new Vector2(0f, 0f);
-            }
         }
 
         internal static IEnumerator ChangeColorCoroutine(Saber saber, Color color, float time = 0.05f)
@@ -77,6 +71,12 @@ namespace SiraUtil
             return true;
         }
 
+        /// <summary>
+        /// Gets the Embedded Asset at a specific path in an Assembly.
+        /// </summary>
+        /// <param name="assembly">The Assembly that contains the resource.</param>
+        /// <param name="resource">The path to the resource in the assembly.</param>
+        /// <returns></returns>
         public static string GetResourceContent(Assembly assembly, string resource)
         {
             using (Stream stream = assembly.GetManifestResourceStream(resource))
@@ -88,6 +88,9 @@ namespace SiraUtil
             }
         }
 
+        /// <summary>
+        /// Gets an assembly from a path.
+        /// </summary>
         public static void AssemblyFromPath(string inputPath, out Assembly assembly, out string path)
         {
             string[] parameters = inputPath.Split(':');
@@ -106,6 +109,13 @@ namespace SiraUtil
             }
         }
 
+        /// <summary>
+        /// Gets the raw resource from an Assembly.
+        /// </summary>
+        /// <param name="asm">The assembly that contains the resource.</param>
+        /// <param name="ResourceName">The path to the resource in the assembly.</param>
+        /// <param name="ResourceName">The path to the resource in the assembly.</param>
+        /// <returns></returns>
         public static byte[] GetResource(Assembly asm, string ResourceName)
         {
             Stream stream = asm.GetManifestResourceStream(ResourceName);

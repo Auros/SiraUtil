@@ -7,6 +7,9 @@ namespace SiraUtil
 {
     public static class Accessors
     {
+        /// <summary>
+        /// Gets a container from a MonoInstaller
+        /// </summary>
         public static PropertyAccessor<MonoInstallerBase, DiContainer>.Getter GetDiContainer = PropertyAccessor<MonoInstallerBase, DiContainer>.GetGetter("Container");
 
         internal static FieldAccessor<SaberTrail, Color>.Accessor TrailColor = FieldAccessor<SaberTrail, Color>.GetAccessor("_color");
