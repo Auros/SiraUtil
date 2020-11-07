@@ -54,8 +54,40 @@ jobs:
       uses: nikeee/docfx-action@v1.0.0
       with:
         args: docs/docfx.json
-    - name: Upload Docs
-      uses: maxheld83/ghpages@master
-      env:
-        BUILD_DIR: _site
-        GH_PAT: ${{ secrets.GH_PAT }}
+    - name: Publish master site to GitHub pages
+      shell: pwsh
+      working-directory: ./docs
+      run: |
+        Move-Item "$env:ORIGIN_SITE/.git" _site
+        Move-Item "$env:ORIGIN_SITE/$env:TAGS_DIR" _site
+        Move-Item "$env:ORIGIN_SITE/$env:BRANCH_DIR" _site
+        cd _site
+        $ErrorActionPreference = "SilentlyContinue"
+        git add -A 2>&1
+        $srcMessage = (git show -s --format=%B $env:GITHUB_SHA) -join "`n"
+        git commit -q -a -m "Generated Docs -- $srcMessage"
+        git push -q origin gh-pages 
+      if: github.ref == 'refs/heads/master'
+    - name: Publish branch site to GitHub pages
+      shell: pwsh
+      working-directory: ./docs
+      run: |
+        $ErrorActionPreference = "Continue"
+        $branchName = (git rev-parse --abbrev-ref=loose $env:GITHUB_REF) -join ""
+        $srcMessage = (git show -s --format=%B $env:GITHUB_SHA) -join "`n"
+        cd $env:ORIGIN_SITE
+        if (-Not (Test-Path $env:BRANCH_DIR)) {
+          New-Item -ItemType directory -Path $env:BRANCH_DIR
+        }
+        $branchPath = "$env:BRANCH_DIR/$branchName"
+        if (Test-Path $branchPath) {
+          # force remove it
+          Get-ChildItem -Path $branchPath -Recurse | Remove-Item -Force -Recurse
+          Remove-Item $branchPath -Force
+        }
+        # move generated into place
+        Move-Item ../_site $branchPath
+        git add -A 2>&1
+        git commit -q -a -m "Generated Docs ($branchName) -- $srcMessage"
+        git push -q origin gh-pages 
+      if: github.ref != 'refs/heads/master'
