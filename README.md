@@ -170,13 +170,13 @@
  * [Counters Plus 2.0 by Caeden](https://github.com/Caeden117/CountersPlus/tree/rewrite)
   
 ### Notice
-When creating bindings for view controllers, you'll need to do a small amount of setup first. Call `.OnInstantiated(SiraUtil.Utilities.SetupViewController)` to ensure your view controller is formatted properly.
+When creating bindings for view controllers and flow coordinators, you'll have to use an extension method provided by SiraUtil.
 
 ```csharp
 public override void InstallBindings()
 {
-    Container.Bind<MyViewController>().FromComponentOnNewGameObject().AsSingle().OnInstantiated(SiraUtil.Utilities.SetupViewController);
-    Container.Bind<MyFlowCoordinator>().FromComponentOnNewGameObject().AsSingle();
+    Container.BindViewController<MyViewController>();
+    Container.BindFLowCoordinator<MyFlowCoordinator>();
 }
 ```
 
