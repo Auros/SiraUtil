@@ -103,7 +103,7 @@ namespace SiraUtil
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
         {
-            Plugin.Log.Info($"{oldScene.name} -> {newScene.name}");
+            //Plugin.Log.Info($"{oldScene.name} -> {newScene.name}");
             if (newScene.name == "MenuViewControllers" && !ZenjectManager.ProjectContextWentOff)
             {
                 SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
