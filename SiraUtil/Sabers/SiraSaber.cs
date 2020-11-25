@@ -63,7 +63,7 @@ namespace SiraUtil.Sabers
         /// </summary>
         public void Update()
         {
-            if (_saber != null && _saber.gameObject.activeInHierarchy)
+            if (_saber != null && _saber.gameObject.activeInHierarchy && !_saber.disableCutting)
             {
                 var topTrans = Accessors.SaberBladeTopTransform(ref _saber);
                 var botTrans = Accessors.SaberBladeBottomTransform(ref _saber);

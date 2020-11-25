@@ -91,7 +91,7 @@ namespace SiraUtil.Zenject
                     if (behaviour != null)
                     {
                         var activeDecorator = e.Decorators.FirstOrDefault(x => Accessors.Injectables(ref x).Contains(behaviour));
-                        mutator.Item2.Invoke(new MutationContext(e.Container, activeDecorator, allInjectables), behaviour);
+                        mutator.Item2.actionObj.Invoke(new MutationContext(e.Container, activeDecorator, allInjectables), behaviour);
                     }
                 }
                 foreach (var exposable in builder.Exposers)
