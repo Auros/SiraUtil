@@ -16,7 +16,8 @@ namespace SiraUtil.Zenject
         internal object[] Parameters { get; private set; }
         internal List<string> Circuits { get; } = new List<string>();
         internal HashSet<Type> Exposers { get; private set; } = new HashSet<Type>();
-        internal HashSet<Tuple<Type, Action<MutationContext, MonoBehaviour>>> Mutators { get; private set; } = new HashSet<Tuple<Type, Action<MutationContext, MonoBehaviour>>>();
+        internal HashSet<Tuple<Type, DelegateWrapper>> Mutators { get; private set; } = new HashSet<Tuple<Type, DelegateWrapper>>();
+        internal HashSet<Tuple<Type, Action<Context, DiContainer>>> Headers { get; private set; } = new HashSet<Tuple<Type, Action<Context, DiContainer>>>();
 
         internal InstallBuilder() { }
         internal InstallBuilder(Type type)
@@ -148,7 +149,7 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
-        /// Mutate a <see cref="MonoBehaviour"/> in a <see cref="SceneDecoratorContext"/> before it gets injected.
+        /// Mutate a <see cref="MonoBehaviour"/> in a <see cref="Context"/> before it gets injected.
         /// </summary>
         /// <typeparam name="T">The type of the <see cref="MonoBehaviour"/>.</typeparam>
         /// <param name="action">The callback to handle mutations in.</param>
@@ -159,7 +160,23 @@ namespace SiraUtil.Zenject
             {
                 return this;
             }
-            Mutators.Add(new Tuple<Type, Action<MutationContext, MonoBehaviour>>(typeof(T), action));
+            Mutators.Add(new Tuple<Type, DelegateWrapper>(typeof(T), new DelegateWrapper().Wrap(action)));
+            return this;
+        }
+
+        /// <summary>
+        /// Mutate a <see cref="MonoBehaviour"/> in a <see cref="Context"/> before it gets injected.
+        /// </summary>
+        /// <typeparam name="T">The type of the <see cref="MonoBehaviour"/>.</typeparam>
+        /// <param name="action">The callback to handle mutations in.</param>
+        /// <returns></returns>
+        public InstallBuilder Mutate<T>(Action<MutationContext, T> action) where T : MonoBehaviour
+        {
+            if (action == null)
+            {
+                return this;
+            }
+            Mutators.Add(new Tuple<Type, DelegateWrapper>(typeof(T), new DelegateWrapper().Wrap(action)));
             return this;
         }
 
@@ -170,6 +187,20 @@ namespace SiraUtil.Zenject
             if (string.IsNullOrEmpty(Destination))
             {
                 throw new ArgumentNullException($"{nameof(Type)}:{nameof(Destination)}", "Installer registration needs a destination.");
+            }
+        }
+
+        internal class DelegateWrapper
+        {
+            public Action<MutationContext, object> actionObj;
+
+            public DelegateWrapper Wrap<T, U>(Action<T, U> callback) where T : MutationContext
+            {
+                actionObj = delegate (MutationContext context, object obj)
+                {
+                    callback((T)context, (U)obj);
+                };
+                return this;
             }
         }
     }

@@ -70,9 +70,8 @@ namespace SiraUtil
                 .ShortCircuitForMultiplayer();
 
             zenjector.OnGame<SiraGameLevelInstaller>()
-                .Mutate<PrepareLevelCompletionResults>((ctx, obj) =>
+                .Mutate<PrepareLevelCompletionResults>((ctx, completionResults) =>
                 {
-                    var completionResults = obj as PrepareLevelCompletionResults;
                     var binding = completionResults.GetComponent<ZenjectBinding>();
                     var siraCompletionResults = completionResults.Upgrade<PrepareLevelCompletionResults, Submission.SiraPrepareLevelCompletionResults>();
                     binding.SetField("_ifNotBound", true);
@@ -99,11 +98,12 @@ namespace SiraUtil
         {
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
+            //UnityRequiredAttributeUndecorator.Patch(Harmony);
         }
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
         {
-            //Plugin.Log.Info($"{oldScene.name} -> {newScene.name}");
+            Plugin.Log.Info($"{oldScene.name} -> {newScene.name}");
             if (newScene.name == "MenuViewControllers" && !ZenjectManager.ProjectContextWentOff)
             {
                 SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
@@ -123,29 +123,26 @@ namespace SiraUtil
         public void OnDisable()
         {
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+            //UnityRequiredAttributeUndecorator.Unpatch(Harmony);
             Harmony.UnpatchAll("dev.auros.sirautil");
         }
 
-        private void InstallSaberArea(MutationContext ctx, MonoBehaviour obj)
+        private void InstallSaberArea(MutationContext ctx, SaberBurnMarkArea burnArea)
         {
-            var burnArea = obj as SaberBurnMarkArea;
-            // Override (or modify) the component BEFORE it's installed
             var siraBurnArea = burnArea.Upgrade<SaberBurnMarkArea, SiraSaberBurnMarkArea>();
             ctx.Container.QueueForInject(siraBurnArea);
             ctx.Container.Bind<SaberBurnMarkArea>().To<SiraSaberBurnMarkArea>().FromInstance(siraBurnArea).AsCached();
         }
 
-        private void InstallSaberSparkles(MutationContext ctx, MonoBehaviour obj)
+        private void InstallSaberSparkles(MutationContext ctx, SaberBurnMarkSparkles burnSparkles)
         {
-            var burnSparkles = obj as SaberBurnMarkSparkles;
             var siraBurnSparkles = burnSparkles.Upgrade<SaberBurnMarkSparkles, SiraSaberBurnMarkSparkles>();
             ctx.Container.QueueForInject(siraBurnSparkles);
             ctx.Container.Bind<SaberBurnMarkSparkles>().To<SiraSaberBurnMarkSparkles>().FromInstance(siraBurnSparkles).AsCached();
         }
 
-        private void InstallObstacleEffectManager(MutationContext ctx, MonoBehaviour obj)
+        private void InstallObstacleEffectManager(MutationContext ctx, ObstacleSaberSparkleEffectManager obstacleSparkles)
         {
-            var obstacleSparkles = obj as ObstacleSaberSparkleEffectManager;
             var siraObstacleSparkles = obstacleSparkles.Upgrade<ObstacleSaberSparkleEffectManager, SiraObstacleSaberSparkleEffectManager>();
             Object.Destroy(obstacleSparkles);
             ctx.Container.QueueForInject(siraObstacleSparkles);

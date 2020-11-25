@@ -56,6 +56,19 @@ namespace SiraUtil
         }
 
         /// <summary>
+        /// Copies the value of a component to another component
+        /// </summary>
+        /// <param name="source">The original component.</param>
+        /// <param name="destination">The component to copy to.</param>
+        public static void CopyTo(this Behaviour source, Behaviour destination)
+        {
+            foreach (FieldInfo info in source.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+            {
+                info.SetValue(source, info.GetValue(destination));
+            }
+        }
+
+        /// <summary>
         /// Gets the localized key of a string from Polyglot, if not found then returns specified alternative.
         /// </summary>
         /// <param name="key">The key of the string in Polyglot.</param>
@@ -87,6 +100,36 @@ namespace SiraUtil
         public static ConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FactoryFromBinderBase binder, string name = "GameObject")
         {
             return binder.FromNewComponentOn(new GameObject(name));
+        }
+
+        /// <summary>
+        /// Binds a view controller to the container.
+        /// </summary>
+        /// <param name="binder">The binder.</param>
+        /// <param name="onInstantiated">The callback when the view controller is instantiated.</param>
+        /// <returns></returns>
+        public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentAsViewController(this FromBinder binder, Action<InjectContext, object> onInstantiated = null)
+        {
+            var go = new GameObject("ViewController");
+            var raycaster = go.AddComponent<VRGraphicRaycaster>();
+            var componentBinding = binder.FromNewComponentOn(go);
+            go.AddComponent<CurvedCanvasSettings>();
+
+            componentBinding.OnInstantiated((ctx, obj) =>
+            {
+                if (obj is ViewController vc)
+                {
+                    go.name = vc.GetType().Name;
+                    var cache = ctx.Container.Resolve<PhysicsRaycasterWithCache>();
+                    raycaster.SetField("_physicsRaycaster", cache);
+                    vc.rectTransform.anchorMin = new Vector2(0f, 0f);
+                    vc.rectTransform.anchorMax = new Vector2(1f, 1f);
+                    vc.rectTransform.sizeDelta = new Vector2(0f, 0f);
+                    vc.rectTransform.anchoredPosition = new Vector2(0f, 0f);
+                }
+                onInstantiated?.Invoke(ctx, obj);
+            });
+            return componentBinding;
         }
 
         /// <summary>

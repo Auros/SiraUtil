@@ -13,6 +13,7 @@ namespace SiraUtil.Services
     {
         private bool _safeReady = false;
         private readonly IGamePause _gamePause;
+        private readonly SaberManager _saberManager;
         private readonly Queue<Saber> _temporaryQueue = new Queue<Saber>();
         private readonly Queue<Saber> _temporaryColorQueue = new Queue<Saber>();
         private readonly List<ISaberRegistrar> _saberManagers = new List<ISaberRegistrar>();
@@ -23,6 +24,7 @@ namespace SiraUtil.Services
                                       SaberBurnMarkSparkles saberBurnMarkSparkles, ObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
         {
             _gamePause = gamePause;
+            _saberManager = saberManager;
             saberClashChecker.Init(saberManager);
             _saberManagers.Add(saberClashChecker as SiraSaberClashChecker);
             _saberManagers.Add(saberBurnMarkArea as SiraSaberBurnMarkArea);
@@ -47,12 +49,27 @@ namespace SiraUtil.Services
 
         private void DidResume()
         {
-            _managedSabers.ForEach(x => { if (x != null) { x.gameObject.SetActive(true); } ChangeColor(x); });
+            for (int i = 0; i < _managedSabers.Count; i++)
+            {
+                var saber = _managedSabers[i];
+                if (saber != null && saber.gameObject != null)
+                {
+                    saber.gameObject.SetActive(true);
+                    //ChangeColor(saber);
+                }
+            }
         }
 
         private void DidPause()
         {
-            _managedSabers.ForEach(x => { if (x != null) { x.gameObject.SetActive(false); } });
+            foreach (var saber in _managedSabers)
+            {
+                if (saber != null && saber.gameObject != null)
+                {
+                    saber.gameObject.SetActive(false);
+                    ChangeColor(saber);
+                }
+            }
         }
 
         /// <summary>
@@ -92,7 +109,11 @@ namespace SiraUtil.Services
                 _saberManagers.ForEach(isr => isr.RegisterSaber(saber));
                 _managedSabers.Add(saber);
             }
-            _siraSaberClashChecker.MultiSaberMode = true;
+            if (!_siraSaberClashChecker.MultiSaberMode)
+            {
+                _siraSaberClashChecker.MultiSaberMode = true;
+                RepatchDefault(_saberManager.leftSaber, _saberManager.rightSaber, _saberManager);
+            }
         }
 
         /// <summary>
