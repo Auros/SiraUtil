@@ -78,9 +78,22 @@ namespace SiraUtil.Zenject
             }
             foreach (var builder in builders)
             {
-                Plugin.Log.Sira($"Installing: {builder.Type.Name} ({ZenSource(builder)})");
-
+                if (builder.Type != null)
+                {
+                    Plugin.Log.Sira($"Installing: {builder.Type.Name} ({ZenSource(builder)})");
+                }
                 builder.Validate();
+                if (builder.WhenInstall != null)
+                {
+                    if (!builder.WhenInstall.Invoke())
+                    {
+                        continue;
+                    } 
+                }
+                if (builder.Contextless != null)
+                {
+                    builder.Contextless?.Invoke(context.Container);
+                }
                 foreach (var mutator in builder.Mutators)
                 {
                     if (!allInjectables.Any(x => x.GetType() == mutator.Item1))
@@ -105,7 +118,19 @@ namespace SiraUtil.Zenject
                         }
                     }
                 }
-
+                if (builder.Resolved != null && context is SceneContext sceneContext)
+                {
+                    void OnInstall()
+                    {
+                        sceneContext.PostResolve -= OnInstall;
+                        builder.Resolved.Invoke(sceneContext, sceneContext.Container);
+                    }
+                    sceneContext.PostResolve += OnInstall;
+                } 
+                if (builder.Type == null)
+                {
+                    continue;
+                }
                 if (builder.Parameters != null)
                 {
                     var bases = context.NormalInstallers.ToList();
@@ -116,7 +141,6 @@ namespace SiraUtil.Zenject
 
                     continue;
                 }
-
                 if (builder.Type.IsSubclassOf(typeof(MonoInstallerBase)))
                 {
                     var monoInstallers = context.Installers.ToList();
@@ -125,7 +149,6 @@ namespace SiraUtil.Zenject
 
                     continue;
                 }
-
                 if (builder.Type.IsSubclassOf(typeof(InstallerBase)) && (builder.Parameters == null || builder.Parameters.Length == 0))
                 {
                     context.AddNormalInstallerType(builder.Type);

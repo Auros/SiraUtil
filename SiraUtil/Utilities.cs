@@ -9,6 +9,7 @@ using SiraUtil.Interfaces;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace SiraUtil
 {

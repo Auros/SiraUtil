@@ -121,13 +121,11 @@ namespace SiraUtil.Sabers
         /// <returns></returns>
         public override Vector3 BurnMarkPosForSaberType(SaberType saberType)
         {
-            if (_obstacleSparkleData.Count() >= 2)
-            {
-                return _obstacleSparkleData[0].saber != null && saberType == _obstacleSparkleData[0].saber.saberType
+            return _obstacleSparkleData.Count() >= 2
+                ? _obstacleSparkleData[0].saber != null && saberType == _obstacleSparkleData[0].saber.saberType
                     ? _obstacleSparkleData[0].burnMarkPosition
-                    : _obstacleSparkleData[1].burnMarkPosition;
-            }
-            return Vector3.zero;
+                    : _obstacleSparkleData[1].burnMarkPosition
+                : Vector3.zero;
         }
 
         /// <summary>

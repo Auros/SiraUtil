@@ -194,7 +194,10 @@
     <Compile Include="Interfaces\IModelProvider.cs" />
     <Compile Include="Interfaces\IPrefabProvider.cs" />
     <Compile Include="Objects\BeatmapObjectRedecorator.cs" />
+    <Compile Include="Objects\ObjectState.cs" />
+    <Compile Include="Objects\ObjectStateContainer.cs" />
     <Compile Include="Objects\SiraPrefabContainer.cs" />
+    <Compile Include="Services\CanvasContainer.cs" />
     <Compile Include="Services\SaberProvider.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="Interfaces\IColorable.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="Services\Submission.cs" />
     <Compile Include="Tools\FPFCToggle.cs" />
     <Compile Include="Tools\MultiSongControl.cs" />
+    <Compile Include="SiraClient.cs" />
     <Compile Include="Tools\SiraLog.cs" />
     <Compile Include="Tools\SongControl.cs" />
     <Compile Include="Utilities.cs" />

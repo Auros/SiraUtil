@@ -17,13 +17,24 @@ namespace SiraUtil.Installers
 
         public override void InstallBindings()
         {
-            Container.Bind<SiraLogManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CanvasContainer>().AsSingle();
+            if (!Container.HasBinding<SiraLogManager>())
+            {
+                Container.Bind<SiraLogManager>().AsSingle().IfNotBound();
+            }
             Container.Bind<SiraLog>().AsTransient().OnInstantiated<SiraLog>((ctx, siraLogger) =>
             {
                 var logManager = ctx.Container.Resolve<SiraLogManager>();
                 var logger = logManager.LoggerFromAssembly(ctx.ObjectType.Assembly);
                 siraLogger.DebugMode = logger.debugMode;
                 siraLogger.Setup(logger.logger, ctx.ObjectType.Name);
+            });
+            Container.Bind<SiraClient>().AsTransient().OnInstantiated<SiraClient>((ctx, siraClient) =>
+            {
+                var webClient = ctx.Container.Resolve<WebClient>();
+                var assembly = ctx.ObjectType.Assembly;
+                siraClient.RootAssembly = assembly;
+                siraClient.Client = webClient;
             });
 
             Container.BindInstance(_config).AsSingle();

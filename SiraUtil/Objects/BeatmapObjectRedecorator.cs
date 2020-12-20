@@ -36,10 +36,14 @@ namespace SiraUtil.Objects
             var bomb = InstallModelProviderSystem(Container, ____bombNotePrefab);
             if (normal != null)
             {
+                normal.gameObject.SetActive(false);
+                ____normalBasicNotePrefab.gameObject.SetActive(false);
                 ____normalBasicNotePrefab = normal;
             }
             if (bomb != null)
             {
+                bomb.gameObject.SetActive(false);
+                ____bombNotePrefab.gameObject.SetActive(false);
                 ____bombNotePrefab = bomb;
             }
         }
