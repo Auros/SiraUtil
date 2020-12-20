@@ -59,7 +59,11 @@ namespace SiraUtil
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
-            zenjector.OnMenu<SiraMenuInstaller>();
+            zenjector.On<MenuInstaller>().Pseudo(Container =>
+            {
+                Container.BindInterfacesTo<Submission.Display>().AsSingle();
+                Container.Resolve<CanvasContainer>().CurvedCanvasTemplate = Container.Resolve<MainMenuViewController>().GetComponent<Canvas>();
+            });
             zenjector.OnGame<SiraSaberInstaller>();
 
             zenjector.OnGame<SiraSaberEffectInstaller>()
@@ -98,7 +102,6 @@ namespace SiraUtil
         {
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
-            //UnityRequiredAttributeUndecorator.Patch(Harmony);
         }
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
@@ -123,7 +126,6 @@ namespace SiraUtil
         public void OnDisable()
         {
             SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
-            //UnityRequiredAttributeUndecorator.Unpatch(Harmony);
             Harmony.UnpatchAll("dev.auros.sirautil");
         }
 
@@ -144,7 +146,7 @@ namespace SiraUtil
         private void InstallObstacleEffectManager(MutationContext ctx, ObstacleSaberSparkleEffectManager obstacleSparkles)
         {
             var siraObstacleSparkles = obstacleSparkles.Upgrade<ObstacleSaberSparkleEffectManager, SiraObstacleSaberSparkleEffectManager>();
-            Object.Destroy(obstacleSparkles);
+            //Object.Destroy(obstacleSparkles);
             ctx.Container.QueueForInject(siraObstacleSparkles);
             ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
         }

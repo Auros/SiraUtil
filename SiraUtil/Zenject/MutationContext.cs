@@ -18,6 +18,11 @@ namespace SiraUtil.Zenject
         /// </summary>
         public DiContainer Container { get; }
 
+        /// <summary>
+        /// The [potential] decorator context for this mutation.
+        /// </summary>
+        public SceneDecoratorContext Decorator => _decoratorContext;
+
         internal MutationContext(DiContainer container, SceneDecoratorContext decoratorContext, List<MonoBehaviour> monoBehaviourList)
         {
             Container = container;

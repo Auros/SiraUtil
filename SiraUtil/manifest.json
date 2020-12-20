@@ -3,7 +3,7 @@
   "id": "SiraUtil",
   "name": "SiraUtil",
   "author": "Auros",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Utility library/mod for Beat Saber modders.",
   "gameVersion": "1.13.0",
   "dependsOn": {

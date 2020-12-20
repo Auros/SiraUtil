@@ -25,7 +25,6 @@ namespace SiraUtil.Objects
             }
         }
 
-
         /// <summary>
         /// The start method.
         /// </summary>

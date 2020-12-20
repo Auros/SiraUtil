@@ -6,9 +6,11 @@ using System.Text;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using System.Collections.Generic;
 
 namespace SiraUtil
 {
@@ -97,12 +99,13 @@ namespace SiraUtil
     /// </summary>
     public class WebClient : IInitializable, IDisposable
     {
-        private HttpClient _client;
-        private readonly Config _config;
+        internal HttpClient client;
+        internal readonly Config config;
+        internal readonly Dictionary<Assembly, WebClient> clients = new Dictionary<Assembly, WebClient>();
 
         internal WebClient(Config config)
         {
-            _config = config;
+            this.config = config;
         }
 
         /// <summary>
@@ -110,8 +113,8 @@ namespace SiraUtil
         /// </summary>
         public void Initialize()
         {
-            _client = new HttpClient();
-            _client.DefaultRequestHeaders.UserAgent.TryParseAdd($"SiraUtil/{_config.Version}");
+            client = new HttpClient();
+            client.DefaultRequestHeaders.UserAgent.TryParseAdd($"SiraUtil/{config.Version}");
         }
 
         /// <summary>
@@ -119,9 +122,13 @@ namespace SiraUtil
         /// </summary>
         public void Dispose()
         {
-            if (_client != null)
+            if (client != null)
             {
-                _client.Dispose();
+                client.Dispose();
+            }
+            foreach (var cli in clients)
+            {
+                cli.Value.Dispose();
             }
         }
 
@@ -181,7 +188,7 @@ namespace SiraUtil
             {
                 req.Content = new StringContent(JsonConvert.SerializeObject(postData), Encoding.UTF8, "application/json");
             }
-            var resp = await _client.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
+            var resp = await client.SendAsync(req, HttpCompletionOption.ResponseHeadersRead, token).ConfigureAwait(false);
             if (token.IsCancellationRequested)
             {
                 throw new TaskCanceledException();

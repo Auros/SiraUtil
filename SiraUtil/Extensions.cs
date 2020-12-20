@@ -26,7 +26,15 @@ namespace SiraUtil
         /// <param name="elevatedDebugMode">If this is true, any calls to .Debug will be redirected to .Info instead.</param>
         public static void BindLoggerAsSiraLogger(this DiContainer container, IPA.Logging.Logger logger, bool elevatedDebugMode = false)
         {
-            var siraLogManager = container.Resolve<SiraLogManager>();
+            var siraLogManager = container.TryResolve<SiraLogManager>();
+            if (siraLogManager == null)
+            {
+                if (!container.HasBinding<SiraLogManager>())
+                {
+                    container.Bind<SiraLogManager>().AsSingle().IfNotBound();
+                }
+                siraLogManager = container.Resolve<SiraLogManager>();
+            }
             siraLogManager.AddLogger(Assembly.GetCallingAssembly(), logger, elevatedDebugMode);
         }
 
@@ -40,15 +48,28 @@ namespace SiraUtil
         /// <returns>The upgraded component.</returns>
         public static U Upgrade<T, U>(this T monoBehaviour) where U : T where T : MonoBehaviour 
         {
+            return (U)Upgrade(monoBehaviour, typeof(U));
+        }
+
+        /// <summary>
+        /// Upgrade a component to a type that inherits it.
+        /// </summary>
+        /// <param name="monoBehaviour">The original component.</param>
+        /// <param name="upgradingType">The type to upgrade it to.</param>
+        /// <returns></returns>
+        public static Component Upgrade(this Component monoBehaviour, Type upgradingType)
+        {
+            var originalType = monoBehaviour.GetType();
+
             var gameObject = monoBehaviour.gameObject;
-            var upgradedDummyComponent = Activator.CreateInstance(typeof(U));
-            foreach (FieldInfo info in typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+            var upgradedDummyComponent = Activator.CreateInstance(upgradingType);
+            foreach (FieldInfo info in originalType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
             {
                 info.SetValue(upgradedDummyComponent, info.GetValue(monoBehaviour));
             }
             UnityEngine.Object.DestroyImmediate(monoBehaviour);
-            var upgradedMonoBehaviour = gameObject.AddComponent<U>();
-            foreach (FieldInfo info in typeof(U).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
+            var upgradedMonoBehaviour = gameObject.AddComponent(upgradingType);
+            foreach (FieldInfo info in upgradingType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
             {
                 info.SetValue(upgradedMonoBehaviour, info.GetValue(upgradedDummyComponent));
             }
@@ -66,6 +87,48 @@ namespace SiraUtil
             {
                 info.SetValue(source, info.GetValue(destination));
             }
+        }
+
+        // Copied and adapted from https://answers.unity.com/questions/530178/how-to-get-a-component-from-an-object-and-add-it-t.html
+        private static T Clone<T>(this Component component, T original) where T : Component
+        {
+            Type type = component.GetType();
+            if (type != original.GetType())
+            {
+                throw new ArgumentException($"Component cloning type mismatch. {type.Name} is not the same type as {original.GetType()}");
+            }
+
+            BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Default | BindingFlags.DeclaredOnly;
+            PropertyInfo[] pinfos = type.GetProperties(flags);
+            foreach (var pinfo in pinfos)
+            {
+                if (pinfo.CanWrite)
+                {
+                    try
+                    {
+                        pinfo.SetValue(component, pinfo.GetValue(original, null), null);
+                    }
+                    catch { } // In case of NotImplementedException being thrown. For some reason specifying that exception didn't seem to catch it, so I didn't catch anything specific.
+                }
+            }
+            FieldInfo[] finfos = type.GetFields(flags);
+            foreach (var finfo in finfos)
+            {
+                finfo.SetValue(component, finfo.GetValue(original));
+            }
+            return component as T;
+        }
+
+        /// <summary>
+        /// Clones a component onto a gameobject.
+        /// </summary>
+        /// <typeparam name="T">The type of the component to clone.</typeparam>
+        /// <param name="go">The gameobject to clone to.</param>
+        /// <param name="toAdd">The component to clone.</param>
+        /// <returns>The cloned component.</returns>
+        public static T Clone<T>(this GameObject go, T toAdd) where T : Component
+        {
+            return go.AddComponent<T>().Clone(toAdd);
         }
 
         /// <summary>
@@ -111,17 +174,25 @@ namespace SiraUtil
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentAsViewController(this FromBinder binder, Action<InjectContext, object> onInstantiated = null)
         {
             var go = new GameObject("ViewController");
-            var raycaster = go.AddComponent<VRGraphicRaycaster>();
+            go.gameObject.SetActive(false);
+            var raycaster = go.AddComponent<CanvasContainer.DummyRaycaster>();
             var componentBinding = binder.FromNewComponentOn(go);
-            go.AddComponent<CurvedCanvasSettings>();
+            raycaster.enabled = false;
 
             componentBinding.OnInstantiated((ctx, obj) =>
             {
                 if (obj is ViewController vc)
                 {
-                    go.name = vc.GetType().Name;
+                    var cc = ctx.Container.Resolve<CanvasContainer>();
+                    Clone(vc.gameObject, cc.CurvedCanvasTemplate);
+
+                    var newRaycaster = go.AddComponent<VRGraphicRaycaster>();
+                    UnityEngine.Object.Destroy(raycaster);
+
                     var cache = ctx.Container.Resolve<PhysicsRaycasterWithCache>();
-                    raycaster.SetField("_physicsRaycaster", cache);
+                    newRaycaster.SetField("_physicsRaycaster", cache);
+
+                    go.name = vc.GetType().Name;
                     vc.rectTransform.anchorMin = new Vector2(0f, 0f);
                     vc.rectTransform.anchorMax = new Vector2(1f, 1f);
                     vc.rectTransform.sizeDelta = new Vector2(0f, 0f);
@@ -314,6 +385,10 @@ namespace SiraUtil
         internal static void Sira(this IPA.Logging.Logger logger, string message)
         {
             if (Environment.GetCommandLineArgs().Contains("--siralog"))
+            {
+                logger.Info(message);
+            }
+            else
             {
                 logger.Debug(message);
             }
