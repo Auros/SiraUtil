@@ -9,7 +9,10 @@ namespace SiraUtil.Objects
     /// </summary>
     public struct ObjectStateContainer
     {
-        private readonly ObjectState[] objects;
+        /// <summary>
+        /// The objects in this container.
+        /// </summary>
+        public readonly ObjectState[] objects;
 
         /// <summary>
         /// Initializes a new object state container.

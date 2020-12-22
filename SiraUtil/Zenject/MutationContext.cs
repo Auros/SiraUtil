@@ -2,6 +2,7 @@ using Zenject;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 namespace SiraUtil.Zenject
 {
@@ -62,6 +63,17 @@ namespace SiraUtil.Zenject
         public T GetInjected<T>() where T : MonoBehaviour
         {
             return (T)_monoBehaviourList.FirstOrDefault(x => x.GetType() == typeof(T));
+        }
+
+        /// <summary>
+        /// Get an injected object.
+        /// </summary>
+        /// <typeparam name="T">The type of the object.</typeparam>
+        /// <param name="func">The function to search it via.</param>
+        /// <returns>The injected object.</returns>
+        public T GetInjected<T>(Func<T, bool> func)
+        {
+            return _monoBehaviourList.Where(u => u.GetType().IsAssignableFrom(typeof(T))).Cast<T>().FirstOrDefault(func);
         }
     }
 }
