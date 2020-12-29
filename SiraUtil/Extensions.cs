@@ -68,11 +68,14 @@ namespace SiraUtil
                 info.SetValue(upgradedDummyComponent, info.GetValue(monoBehaviour));
             }
             UnityEngine.Object.DestroyImmediate(monoBehaviour);
+            bool goState = gameObject.activeSelf;
+            gameObject.SetActive(false);
             var upgradedMonoBehaviour = gameObject.AddComponent(upgradingType);
             foreach (FieldInfo info in upgradingType.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic))
             {
                 info.SetValue(upgradedMonoBehaviour, info.GetValue(upgradedDummyComponent));
             }
+            gameObject.SetActive(goState);
             return upgradedMonoBehaviour;
         }
 

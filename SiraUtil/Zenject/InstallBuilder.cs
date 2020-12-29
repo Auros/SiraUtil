@@ -3,6 +3,7 @@ using Zenject;
 using ModestTree;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace SiraUtil.Zenject
 {
@@ -19,7 +20,9 @@ namespace SiraUtil.Zenject
         internal Action<DiContainer> Contextless { get; private set; } = null;
         internal HashSet<Type> Exposers { get; private set; } = new HashSet<Type>();
         internal Action<SceneContext, DiContainer> Resolved { get; private set; } = null;
+        internal Action<Context, DiContainer> SceneContextless { get; private set; } = null;
         internal HashSet<Tuple<Type, DelegateWrapper>> Mutators { get; private set; } = new HashSet<Tuple<Type, DelegateWrapper>>();
+        internal HashSet<Func<Scene, Context, DiContainer, bool>> OnFuncs { get; private set; } = new HashSet<Func<Scene, Context, DiContainer, bool>>();
         internal HashSet<Tuple<Type, Action<Context, DiContainer>>> Headers { get; private set; } = new HashSet<Tuple<Type, Action<Context, DiContainer>>>();
 
         internal InstallBuilder() { }
@@ -37,6 +40,17 @@ namespace SiraUtil.Zenject
             Parameters = parameters;
             return this;
         }
+
+        /// <summary>
+        /// Install the installer at a destination via function.
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public InstallBuilder On(Func<Scene, Context, DiContainer, bool> func)
+        {
+            OnFuncs.Add(func);
+            return this;
+        } 
 
         /// <summary>
         /// Installs the installer at a destination.
@@ -191,6 +205,17 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
+        /// Install bindings with a pseudo action which acts like an installer 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public InstallBuilder Pseudo(Action<Context, DiContainer> action)
+        {
+            SceneContextless = action;
+            return this;
+        }
+
+        /// <summary>
         /// Mainly for prototyping.
         /// </summary>
         /// <param name="onInit">An action that's invoked when the context has finished installing.</param>
@@ -213,7 +238,7 @@ namespace SiraUtil.Zenject
 
         internal void Validate()
         {
-            if (Contextless == null)
+            if (Contextless == null && SceneContextless == null)
             {
                 Assert.IsNotNull(Type, $"Contextful Zenject Registrations must have a type. {Utilities.ASSERTHIT}");
                 Assert.That(Type.DerivesFrom<IInstaller>(), $"Type must implement IInstaller {Utilities.ASSERTHIT}");

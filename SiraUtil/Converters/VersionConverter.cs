@@ -19,7 +19,7 @@ namespace SiraUtil.Converters
         {
             return value is Text t
                 ? new Version(t.Value)
-                :         throw new System.ArgumentException("Value cnanot be parsed into a Semver Version", nameof(value));
+                :         throw new System.ArgumentException("Value cannot be parsed into a Semver Version", nameof(value));
         }
 
         /// <summary>

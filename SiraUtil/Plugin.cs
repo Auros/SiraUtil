@@ -23,8 +23,8 @@ namespace SiraUtil
     [Plugin(RuntimeOptions.DynamicInit)]
     public class Plugin
     {
+        internal Harmony Harmony { get; set; }
         internal static IPALogger Log { get; set; }
-        internal static Harmony Harmony { get; set; }
 
         private readonly ZenjectManager _zenjectManager;
 
@@ -49,13 +49,13 @@ namespace SiraUtil
                 {
                     return prev;
                 }
-                var zen = new Zenjector(meta.Id);
+                var zen = new Zenjector(meta.Id, meta);
                 _zenjectManager.Add(zen);
                 return zen;
             });
 
             // Setup Own Zenject Stuff
-            var zenjector = new Zenjector("SiraUtil");
+            var zenjector = new Zenjector("SiraUtil", metadata);
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);

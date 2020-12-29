@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using IPA.Utilities;
 using SiraUtil.Events;
+using System.Reflection;
 using System.Collections.Generic;
 
 namespace SiraUtil.Zenject
@@ -13,6 +14,7 @@ namespace SiraUtil.Zenject
     {
         internal static bool ProjectContextWentOff { get; set; } = false;
         private readonly IDictionary<string, Zenjector> _allZenjectors = new Dictionary<string, Zenjector>();
+        private readonly IDictionary<Assembly, Zenjector> _allRegisteredAssemblies = new Dictionary<Assembly, Zenjector>();
 
         public ZenjectManager()
         {
@@ -42,7 +44,13 @@ namespace SiraUtil.Zenject
             if (!_allZenjectors.ContainsKey(zenjector.Name))
             {
                 _allZenjectors.Add(zenjector.Name, zenjector);
+                _allRegisteredAssemblies.Add(zenjector.Assembly, zenjector);
             }
+        }
+
+        internal Zenjector GetZenjector(Assembly assembly)
+        {
+            return _allRegisteredAssemblies[assembly];
         }
 
         private string ZenSource(InstallBuilder builder)
@@ -55,6 +63,11 @@ namespace SiraUtil.Zenject
 
         private void SiraEvents_PreInstall(object sender, SiraEvents.SceneContextInstalledArgs e)
         {
+            if (e.Names.Contains("AppCore"))
+            {
+                e.Container.BindInstance(this).AsSingle();
+            }
+
             if (!ProjectContextWentOff)
             {
                 if (e.Names.Contains("AppCore")) // AppCore is the first reported context.
@@ -67,9 +80,12 @@ namespace SiraUtil.Zenject
                 }
             }
             var context = sender as Context;
-            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(x => e.Names.Contains(x.Destination) && e.Names.ToList()
+
+            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(v => v.OnFuncs.All(g => g.Invoke(context.gameObject.scene, context, e.Container))).Where(x => e.Names.Contains(x.Destination) && e.Names.ToList()
                             .Any(y => !x.Circuits.Contains(y)) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
+
             var allInjectables = e.Decorators.SelectMany(x => Accessors.Injectables(ref x)).ToList();
+            
             if (context is GameObjectContext gameObjectContext)
             {
                 var monoList = new List<MonoBehaviour>();
@@ -90,10 +106,16 @@ namespace SiraUtil.Zenject
                         continue;
                     } 
                 }
-                if (builder.Contextless != null)
+                builder.Contextless?.Invoke(context.Container);
+                builder.SceneContextless?.Invoke(context, context.Container);
+                /*if (builder.Contextless != null)
                 {
                     builder.Contextless?.Invoke(context.Container);
                 }
+                if (builder.SceneContextless != null)
+                {
+                    builder.SceneContextless?.Invoke(context, context.Container);
+                }*/
                 foreach (var mutator in builder.Mutators)
                 {
                     if (!allInjectables.Any(x => x.GetType() == mutator.Item1))

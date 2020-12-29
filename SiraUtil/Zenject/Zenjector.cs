@@ -1,5 +1,11 @@
 using Zenject;
+using IPA.Loader;
+using System.Linq;
+using System.Reflection;
+using SiraUtil.Attributes;
 using System.Collections.Generic;
+using System;
+using UnityEngine.SceneManagement;
 
 namespace SiraUtil.Zenject
 {
@@ -12,13 +18,19 @@ namespace SiraUtil.Zenject
         /// The name of the Zenjector
         /// </summary>
         public string Name { get; }
+        internal bool IsSlog { get; }
+        internal Assembly Assembly => Metadata.Assembly;
         internal bool Enabled { get; private set; } = true;
         internal bool AutoControl { get; private set; } = true;
         internal IList<InstallBuilder> Builders { get; } = new List<InstallBuilder>();
+        private PluginMetadata Metadata { get; }
 
-        internal Zenjector(string name)
+
+        internal Zenjector(string name, PluginMetadata metadata)
         {
             Name = name;
+            Metadata = metadata;
+            IsSlog = Metadata.PluginType.CustomAttributes.Any(ca => ca.AttributeType.FullName == typeof(SlogAttribute).FullName);
         }
 
         /// <summary>
@@ -129,6 +141,18 @@ namespace SiraUtil.Zenject
         public InstallBuilder On(string destination)
         {
             return OnGeneric(destination);
+        }
+
+        /// <summary>
+        /// Install the installer at a destination via function.
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public InstallBuilder On(Func<Scene, Context, DiContainer, bool> func)
+        {
+            var ib = new InstallBuilder();
+            Builders.Add(ib);
+            return ib.On(func);
         }
 
         private InstallBuilder OnGeneric(string destination = null)

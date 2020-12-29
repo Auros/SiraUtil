@@ -8,6 +8,11 @@ namespace SiraUtil.Objects
     public struct ObjectState
     {
         /// <summary>
+        /// The activity of the object at a point in time.
+        /// </summary>
+        public readonly bool Active;
+
+        /// <summary>
         /// The position and rotation of the object at a point in time.
         /// </summary>
         public readonly Pose pose;
@@ -34,6 +39,7 @@ namespace SiraUtil.Objects
         public ObjectState(Transform transform)
         {
             pose = new Pose(transform.localPosition, transform.localRotation);
+            Active = transform.gameObject.activeInHierarchy;
             scale = transform.localScale;
             this.transform = transform;
             parent = transform.parent;
@@ -49,6 +55,7 @@ namespace SiraUtil.Objects
             {
                 transform.SetParent(parent);
                 transform.localScale = scale;
+                transform.gameObject.SetActive(Active);
                 transform.localPosition = pose.position;
                 transform.localRotation = pose.rotation;
             }
