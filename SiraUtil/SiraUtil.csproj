@@ -197,6 +197,8 @@
     <Compile Include="Converters\VersionConverter.cs" />
     <Compile Include="Events\SiraEvents.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Interfaces\ICallback.cs" />
+    <Compile Include="Interfaces\IDismissable.cs" />
     <Compile Include="Interfaces\ILocalizer.cs" />
     <Compile Include="Interfaces\IModelProvider.cs" />
     <Compile Include="Interfaces\IPrefabProvider.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="Tools\SongControl.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="WebClient.cs" />
+    <Compile Include="Zenject\Containerized.cs" />
     <Compile Include="Zenject\HarmonyPatches\GamemodeDecorator.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameplaySubmissionDecorator.cs" />
     <Compile Include="Zenject\HarmonyPatches\SiraContextDecorator.cs" />
@@ -241,6 +244,7 @@
     <Compile Include="Installers\SiraInstaller.cs" />
     <Compile Include="Installers\SiraMenuInstaller.cs" />
     <Compile Include="Installers\SiraMultiGameInstaller.cs" />
+    <Compile Include="Zenject\UBinder.cs" />
     <Compile Include="Zenject\ZenjectManager.cs" />
     <Compile Include="Zenject\Zenjector.cs" />
   </ItemGroup>

@@ -79,10 +79,22 @@ namespace SiraUtil.Zenject
                     return;
                 }
             }
-            var context = sender as Context;
 
-            var builders = _allZenjectors.Values.Where(x => x.Enabled).SelectMany(x => x.Builders).Where(v => v.OnFuncs.All(g => g.Invoke(context.gameObject.scene, context, e.Container))).Where(x => e.Names.Contains(x.Destination) && e.Names.ToList()
-                            .Any(y => !x.Circuits.Contains(y)) && !x.Circuits.Contains(e.ModeInfo.Transition) && !x.Circuits.Contains(e.ModeInfo.Gamemode) && !x.Circuits.Contains(e.ModeInfo.MidScene)).ToList();
+            var context = sender as Context;
+            var builders = _allZenjectors.Values
+                .Where(x => x.Enabled)
+                .SelectMany(x => x.Builders)
+                .Where(v => v.OnFuncs
+                    .All(g => g.Invoke(context.gameObject.scene, context, e.Container)))
+                .Where(x => e.Names
+                    .Contains(x.Destination) && e.Names
+                    .ToList()
+                    .Any(y => !x.Circuits
+                        .Contains(y)) && !x.Circuits
+                        .Contains(e.ModeInfo.Transition) && !x.Circuits
+                        .Contains(e.ModeInfo.Gamemode) && !x.Circuits
+                        .Contains(e.ModeInfo.MidScene))
+                .ToList();
 
             var allInjectables = e.Decorators.SelectMany(x => Accessors.Injectables(ref x)).ToList();
             
@@ -108,14 +120,6 @@ namespace SiraUtil.Zenject
                 }
                 builder.Contextless?.Invoke(context.Container);
                 builder.SceneContextless?.Invoke(context, context.Container);
-                /*if (builder.Contextless != null)
-                {
-                    builder.Contextless?.Invoke(context.Container);
-                }
-                if (builder.SceneContextless != null)
-                {
-                    builder.SceneContextless?.Invoke(context, context.Container);
-                }*/
                 foreach (var mutator in builder.Mutators)
                 {
                     if (!allInjectables.Any(x => x.GetType() == mutator.Item1))
