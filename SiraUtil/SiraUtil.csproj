@@ -56,6 +56,11 @@
       <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="BGNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BGNet.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="GameplayCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\GameplayCore.dll</HintPath>
@@ -203,6 +208,7 @@
     <Compile Include="Interfaces\IRegistrar.cs" />
     <Compile Include="Interfaces\IToggleable.cs" />
     <Compile Include="Objects\BeatmapObjectRedecorator.cs" />
+    <Compile Include="Objects\MultiplayerConnectedPlayerRedecorator.cs" />
     <Compile Include="Objects\ObjectState.cs" />
     <Compile Include="Objects\ObjectStateContainer.cs" />
     <Compile Include="Objects\SiraPrefabContainer.cs" />
