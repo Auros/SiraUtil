@@ -146,7 +146,6 @@ namespace SiraUtil
         private void InstallObstacleEffectManager(MutationContext ctx, ObstacleSaberSparkleEffectManager obstacleSparkles)
         {
             var siraObstacleSparkles = obstacleSparkles.Upgrade<ObstacleSaberSparkleEffectManager, SiraObstacleSaberSparkleEffectManager>();
-            //Object.Destroy(obstacleSparkles);
             ctx.Container.QueueForInject(siraObstacleSparkles);
             ctx.Container.Bind<ObstacleSaberSparkleEffectManager>().To<SiraObstacleSaberSparkleEffectManager>().FromInstance(siraObstacleSparkles).AsCached();
         }

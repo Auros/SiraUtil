@@ -24,7 +24,6 @@ namespace SiraUtil.Events
             public DiContainer Container { get; }
             public List<SceneDecoratorContext> Decorators { get; }
 
-
             public SceneContextInstalledArgs(string[] names, DiContainer container, ModeInfo modeInfo, List<SceneDecoratorContext> decorators)
             {
                 Names = names;
