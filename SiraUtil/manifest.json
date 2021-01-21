@@ -3,11 +3,11 @@
   "id": "SiraUtil",
   "name": "SiraUtil",
   "author": "Auros",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Utility library/mod for Beat Saber modders.",
-  "gameVersion": "1.13.0",
+  "gameVersion": "1.13.2",
   "dependsOn": {
     "BSIPA": "^4.0.0"
   },
-  "loadBefore": [ "Ini Parser", "RuntimeUnityEditor.Core" ]
+  "loadBefore": [ "CameraPlus", "Ini Parser", "RuntimeUnityEditor.Core" ]
 }
