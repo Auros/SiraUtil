@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HarmonyLib;
 using Zenject;
+using HarmonyLib;
 
 namespace SiraUtil.Objects
 {
@@ -14,14 +9,12 @@ namespace SiraUtil.Objects
         private static MultiplayerConnectedPlayerGameNoteController _staticMultiplayerGameNotePrefab;
         private static MultiplayerConnectedPlayerBombNoteController _staticMultiplayerBombNotePrefab;
 
-        internal static void Prefix(ref MultiplayerConnectedPlayerInstaller __instance, ref MultiplayerConnectedPlayerGameNoteController ____multiplayerGameNoteControllerPrefab,
-            ref MultiplayerConnectedPlayerBombNoteController ____multiplayerBombNoteControllerPrefab, ref IConnectedPlayer ____connectedPlayer)
+        internal static void Prefix(ref MultiplayerConnectedPlayerInstaller __instance,
+            ref MultiplayerConnectedPlayerGameNoteController ____multiplayerGameNoteControllerPrefab,
+            ref MultiplayerConnectedPlayerBombNoteController ____multiplayerBombNoteControllerPrefab)
         {
             var mib = __instance as MonoInstallerBase;
             DiContainer Container = Accessors.GetDiContainer(ref mib);
-
-            Container.BindInstance(____connectedPlayer).WithId("sirautil.connectedplayer");
-            Container.QueueForInject(____connectedPlayer);
 
             _staticMultiplayerGameNotePrefab = ____multiplayerGameNoteControllerPrefab;
             _staticMultiplayerBombNotePrefab = ____multiplayerBombNoteControllerPrefab;
