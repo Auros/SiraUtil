@@ -59,11 +59,7 @@ namespace SiraUtil
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
-            zenjector.On<MenuInstaller>().Pseudo(Container =>
-            {
-                Container.BindInterfacesTo<Submission.Display>().AsSingle();
-                Container.Resolve<CanvasContainer>().CurvedCanvasTemplate = Container.Resolve<MainMenuViewController>().GetComponent<Canvas>();
-            });
+            zenjector.OnMenu<SiraMenuInstaller>();
             zenjector.OnGame<SiraSaberInstaller>();
 
             zenjector.OnGame<SiraSaberEffectInstaller>()

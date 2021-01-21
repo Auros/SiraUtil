@@ -166,45 +166,43 @@ namespace SiraUtil.Services
         internal class Display : IInitializable, IDisposable
         {
             private readonly Data _data;
+            private readonly SiraSubmissionView _siraSubmissionView;
             private readonly ResultsViewController _resultsViewController;
+            private readonly SoloFreePlayFlowCoordinator _soloFreePlayFlowCoordinator;
             private const string LOCAL_KEY = "SIRA_SCORESUBMISSION";
-            private CurvedTextMeshPro _curvedText;
 
-            internal Display(Data data, ResultsViewController resultsViewController)
+            internal Display(Data data, SiraSubmissionView siraSubmissionView, ResultsViewController resultsViewController, SoloFreePlayFlowCoordinator soloFreePlayFlowCoordinator)
             {
                 _data = data;
+                _siraSubmissionView = siraSubmissionView;
                 _resultsViewController = resultsViewController;
+                _soloFreePlayFlowCoordinator = soloFreePlayFlowCoordinator;
             }
 
             public void Initialize()
             {
                 var bottomContainer = _resultsViewController.GetField<Button, ResultsViewController>("_continueButton").transform.parent;
-                var textGameObject = new GameObject("SiraUtilSubmissionDisplay");
-                _curvedText = textGameObject.AddComponent<CurvedTextMeshPro>();
-                textGameObject.transform.SetParent(bottomContainer);
-                (textGameObject.transform as RectTransform).sizeDelta = new Vector2(40f, 100f);
-                textGameObject.transform.localPosition = new Vector2(0f, -51f);
-                textGameObject.transform.localScale = Vector3.one;
-                _curvedText.alignment = TextAlignmentOptions.Top;
-                _curvedText.lineSpacing = -45f;
-                _curvedText.fontSize = 3.5f;
-                _curvedText.gameObject.SetActive(false);
                 _resultsViewController.didActivateEvent += ResultsViewController_DidActivate;
                 _resultsViewController.didDeactivateEvent += ResultsViewController_DidDeactivate;
-            }
-
-            private void ResultsViewController_DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling)
-            {
-                _data.disabled = false;
-                _curvedText.gameObject.SetActive(false);
             }
 
             private void ResultsViewController_DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
             {
                 if (_data.disabled)
                 {
-                    _curvedText.gameObject.SetActive(true);
-                    _curvedText.text = $"<size=115%><color=#f00e0e>{LOCAL_KEY.LocalizationGetOr("Score Submission Disabled By")}</color></size>\n{_data.Read()}";
+                    _soloFreePlayFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", _siraSubmissionView, ViewController.AnimationType.In);
+                    _siraSubmissionView.Enabled(true);
+                    _siraSubmissionView.SetText($"<size=115%><color=#f00e0e>{LOCAL_KEY.LocalizationGetOr("Score Submission Disabled By")}</color></size>\n{_data.Read()}");
+                }
+            }
+
+            private void ResultsViewController_DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling)
+            {
+                _data.disabled = false;
+                _siraSubmissionView.Enabled(false);
+                if (_siraSubmissionView.isInViewControllerHierarchy)
+                {
+                    _soloFreePlayFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", null, ViewController.AnimationType.Out);
                 }
             }
 
@@ -249,6 +247,47 @@ namespace SiraUtil.Services
             internal SiraPracticeSettings(PracticeSettings normalPracticeSettings)
             {
                 this.normalPracticeSettings = normalPracticeSettings;
+            }
+        }
+
+        internal class SiraSubmissionView : ViewController
+        {
+            private CurvedTextMeshPro _curvedText;
+
+            protected override void DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+            {
+                base.DidActivate(firstActivation, addedToHierarchy, screenSystemEnabling);
+                if (firstActivation)
+                {
+                    var textGameObject = gameObject;
+                    _curvedText = textGameObject.AddComponent<CurvedTextMeshPro>();
+                    textGameObject.transform.SetParent(transform);
+                    (textGameObject.transform as RectTransform).sizeDelta = new Vector2(40f, 100f);
+                    (textGameObject.transform as RectTransform).anchorMin = new Vector2(0f, 0f);
+                    (textGameObject.transform as RectTransform).anchorMax = new Vector2(0f, 0f);
+                    textGameObject.transform.localPosition = new Vector2(0f, -51f);
+                    textGameObject.transform.localScale = Vector3.one;
+                    _curvedText.alignment = TextAlignmentOptions.Center;
+                    _curvedText.lineSpacing = -45f;
+                    _curvedText.fontSize = 3.5f;
+                    _curvedText.gameObject.SetActive(false);
+                }
+            }
+
+            public void SetText(string text)
+            {
+                if (_curvedText != null)
+                {
+                    _curvedText.text = text;
+                }
+            }
+
+            public void Enabled(bool value)
+            {
+                if (_curvedText != null)
+                {
+                    _curvedText.gameObject.SetActive(value);
+                }
             }
         }
     }
