@@ -74,6 +74,7 @@ namespace SiraUtil
             zenjector.OnGame<SiraGameLevelInstaller>()
                 .Mutate<PrepareLevelCompletionResults>((ctx, completionResults) =>
                 {
+                    ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
                     var binding = completionResults.GetComponent<ZenjectBinding>();
                     var siraCompletionResults = completionResults.Upgrade<PrepareLevelCompletionResults, Submission.SiraPrepareLevelCompletionResults>();
                     binding.SetField("_ifNotBound", true);
@@ -81,6 +82,18 @@ namespace SiraUtil
                     ctx.Container.Unbind(typeof(PrepareLevelCompletionResults));
                     ctx.Container.Bind<PrepareLevelCompletionResults>().To<Submission.SiraPrepareLevelCompletionResults>().FromInstance(siraCompletionResults).AsCached();
                 }).OnlyForStandard();
+
+            zenjector.OnGame<SiraGameLevelInstaller>()
+                .Mutate<MissionLevelFinishedController>((ctx, controller) =>
+                {
+                    ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+                    var siraController = controller.Upgrade<MissionLevelFinishedController, Submission.SiraMissionLevelFinishedController>();
+                    ctx.Container.QueueForInject(siraController);
+                    ctx.AddInjectable(siraController);
+
+                    ctx.Container.Resolve<Submission>().DisableScoreSubmission("Test");
+
+                }).OnlyForCampaigns();
 
             zenjector.OnGame<SiraGameInstaller>(true).ShortCircuitForMultiplayer();
 

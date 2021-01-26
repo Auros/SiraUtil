@@ -168,20 +168,21 @@ namespace SiraUtil.Services
             private readonly Data _data;
             private readonly SiraSubmissionView _siraSubmissionView;
             private readonly ResultsViewController _resultsViewController;
+            private readonly CampaignFlowCoordinator _campaignFlowCoordinator;
             private readonly SoloFreePlayFlowCoordinator _soloFreePlayFlowCoordinator;
             private const string LOCAL_KEY = "SIRA_SCORESUBMISSION";
 
-            internal Display(Data data, SiraSubmissionView siraSubmissionView, ResultsViewController resultsViewController, SoloFreePlayFlowCoordinator soloFreePlayFlowCoordinator)
+            internal Display(Data data, SiraSubmissionView siraSubmissionView, ResultsViewController resultsViewController, CampaignFlowCoordinator campaignFlowCoordinator, SoloFreePlayFlowCoordinator soloFreePlayFlowCoordinator)
             {
                 _data = data;
                 _siraSubmissionView = siraSubmissionView;
                 _resultsViewController = resultsViewController;
+                _campaignFlowCoordinator = campaignFlowCoordinator;
                 _soloFreePlayFlowCoordinator = soloFreePlayFlowCoordinator;
             }
 
             public void Initialize()
             {
-                var bottomContainer = _resultsViewController.GetField<Button, ResultsViewController>("_continueButton").transform.parent;
                 _resultsViewController.didActivateEvent += ResultsViewController_DidActivate;
                 _resultsViewController.didDeactivateEvent += ResultsViewController_DidDeactivate;
             }
@@ -190,7 +191,8 @@ namespace SiraUtil.Services
             {
                 if (_data.disabled)
                 {
-                    _soloFreePlayFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", _siraSubmissionView, ViewController.AnimationType.In);
+                    FlowCoordinator flowCoordinator = _soloFreePlayFlowCoordinator.IsFlowCoordinatorInHierarchy(_soloFreePlayFlowCoordinator) ? _soloFreePlayFlowCoordinator as FlowCoordinator : _campaignFlowCoordinator;
+                    flowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", _siraSubmissionView, ViewController.AnimationType.In);
                     _siraSubmissionView.Enabled(true);
                     _siraSubmissionView.SetText($"<size=115%><color=#f00e0e>{LOCAL_KEY.LocalizationGetOr("Score Submission Disabled By")}</color></size>\n{_data.Read()}");
                 }
@@ -202,7 +204,57 @@ namespace SiraUtil.Services
                 _siraSubmissionView.Enabled(false);
                 if (_siraSubmissionView.isInViewControllerHierarchy)
                 {
-                    _soloFreePlayFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", null, ViewController.AnimationType.Out);
+                    FlowCoordinator flowCoordinator = _soloFreePlayFlowCoordinator.IsFlowCoordinatorInHierarchy(_soloFreePlayFlowCoordinator) ? _soloFreePlayFlowCoordinator as FlowCoordinator : _campaignFlowCoordinator;
+                    flowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", null, ViewController.AnimationType.Out);
+                }
+            }
+
+            public void Dispose()
+            {
+                _resultsViewController.didActivateEvent -= ResultsViewController_DidActivate;
+                _resultsViewController.didDeactivateEvent -= ResultsViewController_DidDeactivate;
+            }
+        }
+
+        internal class MissionDisplay : IInitializable, IDisposable
+        {
+            private readonly Data _data;
+            private readonly SiraSubmissionView _siraSubmissionView;
+            private readonly CampaignFlowCoordinator _campaignFlowCoordinator;
+            private readonly MissionResultsViewController _resultsViewController;
+            private const string LOCAL_KEY = "SIRA_SCORESUBMISSION";
+
+            internal MissionDisplay(Data data, SiraSubmissionView siraSubmissionView, CampaignFlowCoordinator campaignFlowCoordinator, MissionResultsViewController resultsViewController)
+            {
+                _data = data;
+                _siraSubmissionView = siraSubmissionView;
+                _resultsViewController = resultsViewController;
+                _campaignFlowCoordinator = campaignFlowCoordinator;
+            }
+
+            public void Initialize()
+            {
+                _resultsViewController.didActivateEvent += ResultsViewController_DidActivate;
+                _resultsViewController.didDeactivateEvent += ResultsViewController_DidDeactivate;
+            }
+
+            private void ResultsViewController_DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
+            {
+                if (_data.disabled)
+                {
+                    _campaignFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", _siraSubmissionView, ViewController.AnimationType.In);
+                    _siraSubmissionView.Enabled(true);
+                    _siraSubmissionView.SetText($"<size=115%><color=#f00e0e>{LOCAL_KEY.LocalizationGetOr("Score Submission Disabled By")}</color></size>\n{_data.Read()}");
+                }
+            }
+
+            private void ResultsViewController_DidDeactivate(bool removedFromHierarchy, bool screenSystemDisabling)
+            {
+                _data.disabled = false;
+                _siraSubmissionView.Enabled(false);
+                if (_siraSubmissionView.isInViewControllerHierarchy)
+                {
+                    _campaignFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", null, ViewController.AnimationType.Out);
                 }
             }
 
@@ -237,6 +289,29 @@ namespace SiraUtil.Services
                     }
                 }
                 return results;
+            }
+        }
+
+        internal class SiraMissionLevelFinishedController : MissionLevelFinishedController
+        {
+            private Submission _submission;
+
+            [Inject]
+            public void Construct(Submission submission)
+            {
+                _submission = submission;
+            }
+
+            public override void StartLevelFinished()
+            {
+                if (_submission._tickets.Count() == 0)
+                {
+                    base.StartLevelFinished();
+                    return;
+                }
+                var levelResults = _prepareLevelCompletionResults.FillLevelCompletionResults(LevelCompletionResults.LevelEndStateType.None, LevelCompletionResults.LevelEndAction.None);
+                var missionResults = _missionObjectiveCheckersManager.GetResults();
+                _missionLevelSceneSetupData.Finish(new MissionCompletionResults(levelResults, missionResults));
             }
         }
 
