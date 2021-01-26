@@ -27,6 +27,7 @@ namespace SiraUtil
         internal static IPALogger Log { get; set; }
 
         private readonly ZenjectManager _zenjectManager;
+        private readonly PluginMetadata _pluginMetadata;
 
         /// <summary>
         /// The initialization/entry point of SiraUtil.
@@ -35,6 +36,7 @@ namespace SiraUtil
         public Plugin(IPA.Config.Config conf, IPALogger logger, PluginMetadata metadata)
         {
             Log = logger;
+            _pluginMetadata = metadata;
             Config config = conf.Generated<Config>();
             Harmony = new Harmony("dev.auros.sirautil");
 
@@ -96,8 +98,8 @@ namespace SiraUtil
         [OnEnable]
         public void OnEnable()
         {
+            Harmony.PatchAll(_pluginMetadata.Assembly);
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-            Harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
@@ -121,8 +123,8 @@ namespace SiraUtil
         [OnDisable]
         public void OnDisable()
         {
-            SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
             Harmony.UnpatchAll("dev.auros.sirautil");
+            SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
         }
 
         private void InstallSaberArea(MutationContext ctx, SaberBurnMarkArea burnArea)
