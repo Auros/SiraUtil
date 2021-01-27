@@ -74,7 +74,10 @@ namespace SiraUtil
             zenjector.OnGame<SiraGameLevelInstaller>()
                 .Mutate<PrepareLevelCompletionResults>((ctx, completionResults) =>
                 {
-                    ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+                    if (!ctx.Container.HasBinding<Submission>())
+                    {
+                        ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+                    }
                     var binding = completionResults.GetComponent<ZenjectBinding>();
                     var siraCompletionResults = completionResults.Upgrade<PrepareLevelCompletionResults, Submission.SiraPrepareLevelCompletionResults>();
                     binding.SetField("_ifNotBound", true);
@@ -86,7 +89,10 @@ namespace SiraUtil
             zenjector.OnGame<SiraGameLevelInstaller>()
                 .Mutate<MissionLevelFinishedController>((ctx, controller) =>
                 {
-                    ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+                    if (!ctx.Container.HasBinding<Submission>())
+                    {
+                        ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+                    }
                     var siraController = controller.Upgrade<MissionLevelFinishedController, Submission.SiraMissionLevelFinishedController>();
                     ctx.Container.QueueForInject(siraController);
                     ctx.AddInjectable(siraController);

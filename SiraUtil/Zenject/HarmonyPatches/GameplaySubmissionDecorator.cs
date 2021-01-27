@@ -1,17 +1,22 @@
+using Zenject;
 using HarmonyLib;
 using IPA.Utilities;
 using SiraUtil.Services;
 
 namespace SiraUtil.Zenject.HarmonyPatches
 {
-    /*[HarmonyPatch(typeof(GameplayCoreInstaller), nameof(GameplayCoreInstaller.InstallBindings))]
+    [HarmonyPatch(typeof(GameplayCoreInstaller), nameof(GameplayCoreInstaller.InstallBindings))]
     internal class GameplaySubmissionDecorator
     {
         internal static void Prefix(GameplayCoreInstaller __instance)
         {
             var mib = __instance as MonoInstallerBase;
             var Container = Accessors.GetDiContainer(ref mib);
-            Container.BindInterfacesAndSelfTo<Submission>().AsSingle().IfNotBound();
+
+            if (!Container.HasBinding<Submission>())
+            {
+                Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+            }
         } 
     }
 
@@ -22,9 +27,13 @@ namespace SiraUtil.Zenject.HarmonyPatches
         {
             var mib = __instance as MonoInstallerBase;
             var Container = Accessors.GetDiContainer(ref mib);
-            Container.BindInterfacesAndSelfTo<Submission>().AsSingle().IfNotBound();
+
+            if (!Container.HasBinding<Submission>())
+            {
+                Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+            }
         }
-    }*/
+    }
 
     [HarmonyPatch(typeof(SinglePlayerLevelSelectionFlowCoordinator), "HandleStandardLevelDidFinish")]
     internal class ConvertPractice
