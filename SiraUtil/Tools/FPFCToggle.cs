@@ -26,6 +26,7 @@ namespace SiraUtil.Tools
         private VRInputModule _vrInputModule;
         private VRController _leftController;
         private VRController _rightController;
+        private VRLaserPointer _vrLaserPointer;
         private Config.FPFCToggleOptions _options;
         private Transform _originalOriginLocation;
         private FirstPersonFlyingController _firstPersonFlyingController;
@@ -57,9 +58,14 @@ namespace SiraUtil.Tools
                 await Utilities.PauseChamp;
                 Toggle(!Enabled);
 
+                if (_vrLaserPointer == null)
+                {
+                    Refresh();
+                }
                 _camera.transform.localPosition = Vector3.zero;
                 _leftController.transform.localPosition = Vector3.zero;
                 _rightController.transform.localPosition = Vector3.zero;
+                _vrLaserPointer.gameObject.SetActive(newScene.name != "GameCore");
             }
         }
 
@@ -158,6 +164,7 @@ namespace SiraUtil.Tools
             _firstPersonFlyingController = Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>().FirstOrDefault();
             _vrInputModule = _firstPersonFlyingController.GetField<VRInputModule, FirstPersonFlyingController>("_vrInputModule");
             _camera = _firstPersonFlyingController.GetField<Camera, FirstPersonFlyingController>("_camera");
+            _vrLaserPointer = _firstPersonFlyingController.GetComponentInChildren<VRLaserPointer>();
             _vrInputModule.transform.SetParent(transform);
             if (_originalOriginLocation == null)
             {

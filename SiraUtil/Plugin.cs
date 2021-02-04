@@ -9,7 +9,6 @@ using SiraUtil.Sabers;
 using SiraUtil.Zenject;
 using SiraUtil.Services;
 using IPA.Config.Stores;
-using System.Reflection;
 using System.Collections;
 using SiraUtil.Installers;
 using UnityEngine.SceneManagement;
@@ -61,8 +60,8 @@ namespace SiraUtil
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
+            zenjector.OnGame<SiraSaberInstaller>(false).ShortCircuitForTutorial();
             zenjector.OnMenu<SiraMenuInstaller>();
-            zenjector.OnGame<SiraSaberInstaller>();
 
             zenjector.OnGame<SiraSaberEffectInstaller>()
                 .Mutate<SaberBurnMarkArea>(InstallSaberArea)
@@ -70,6 +69,7 @@ namespace SiraUtil
                 .Mutate<ObstacleSaberSparkleEffectManager>(InstallObstacleEffectManager)
                 .Expose<SaberClashEffect>()
                 .ShortCircuitForMultiplayer();
+
 
             zenjector.OnGame<SiraGameLevelInstaller>()
                 .Mutate<PrepareLevelCompletionResults>((ctx, completionResults) =>
@@ -96,9 +96,6 @@ namespace SiraUtil
                     var siraController = controller.Upgrade<MissionLevelFinishedController, Submission.SiraMissionLevelFinishedController>();
                     ctx.Container.QueueForInject(siraController);
                     ctx.AddInjectable(siraController);
-
-                    ctx.Container.Resolve<Submission>().DisableScoreSubmission("Test");
-
                 }).OnlyForCampaigns();
 
             zenjector.OnGame<SiraGameInstaller>(true).ShortCircuitForMultiplayer();

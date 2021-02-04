@@ -302,6 +302,19 @@ namespace SiraUtil.Services
                 _submission = submission;
             }
 
+            public override void Start()
+            {
+                _gameplayManager.levelFinishedEvent += StartLevelFinished;
+            }
+
+            public override void OnDestroy()
+            {
+                if (_gameplayManager != null)
+                {
+                    _gameplayManager.levelFinishedEvent -= StartLevelFinished;
+                }
+            }
+
             public override void StartLevelFinished()
             {
                 if (_submission._tickets.Count() == 0)
@@ -309,7 +322,7 @@ namespace SiraUtil.Services
                     base.StartLevelFinished();
                     return;
                 }
-                var levelResults = _prepareLevelCompletionResults.FillLevelCompletionResults(LevelCompletionResults.LevelEndStateType.None, LevelCompletionResults.LevelEndAction.None);
+                var levelResults = _prepareLevelCompletionResults.FillLevelCompletionResults(LevelCompletionResults.LevelEndStateType.Failed, LevelCompletionResults.LevelEndAction.None);
                 var missionResults = _missionObjectiveCheckersManager.GetResults();
                 _missionLevelSceneSetupData.Finish(new MissionCompletionResults(levelResults, missionResults));
             }

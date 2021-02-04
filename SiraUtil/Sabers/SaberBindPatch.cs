@@ -2,8 +2,8 @@ using System;
 using Zenject;
 using HarmonyLib;
 using ModestTree;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 using System.Reflection;
 using SiraUtil.Services;
 using SiraUtil.Interfaces;
@@ -19,6 +19,10 @@ namespace SiraUtil.Sabers
         {
             var providers = ____container.Resolve<List<IModelProvider>>().Where(x => x.Type.DerivesFrom(typeof(SaberModelController)) && x.Priority >= 0);
             var provider = GetProvider(____container);
+            if (provider == null)
+            {
+                return true;
+            }
             if (providers.Count() == 0)
             {
                 if (!provider.IsSafe())
@@ -69,7 +73,7 @@ namespace SiraUtil.Sabers
 
         private static SaberProvider GetProvider(DiContainer container)
         {
-            var provider = container.Resolve<SaberProvider>();
+            var provider = container.TryResolve<SaberProvider>();
             return provider;
         }
     }

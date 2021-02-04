@@ -19,6 +19,7 @@ namespace SiraUtil.Services
         private readonly List<ISaberRegistrar> _saberManagers = new List<ISaberRegistrar>();
         private readonly List<Saber> _managedSabers = new List<Saber>();
         private readonly SiraSaberClashChecker _siraSaberClashChecker;
+        private readonly SiraObstacleSaberSparkleEffectManager _siraObstacleSaberSparkleEffectManager;
 
         internal SiraSaberEffectManager([InjectOptional] IGamePause gamePause, SaberManager saberManager, SaberClashChecker saberClashChecker, SaberBurnMarkArea saberBurnMarkArea,
                                       SaberBurnMarkSparkles saberBurnMarkSparkles, ObstacleSaberSparkleEffectManager obstacleSaberSparkleEffectManager)
@@ -32,6 +33,7 @@ namespace SiraUtil.Services
             _saberManagers.Add(obstacleSaberSparkleEffectManager as SiraObstacleSaberSparkleEffectManager);
 
             _siraSaberClashChecker = saberClashChecker as SiraSaberClashChecker;
+            _siraObstacleSaberSparkleEffectManager = obstacleSaberSparkleEffectManager as SiraObstacleSaberSparkleEffectManager;
         }
 
         /// <summary>
@@ -55,7 +57,6 @@ namespace SiraUtil.Services
                 if (saber != null && saber.gameObject != null)
                 {
                     saber.gameObject.SetActive(true);
-                    //ChangeColor(saber);
                 }
             }
         }
@@ -78,6 +79,7 @@ namespace SiraUtil.Services
         public void Initialize()
         {
             _safeReady = true;
+            _siraObstacleSaberSparkleEffectManager.Recalculate();
             while (_temporaryQueue.Count != 0)
             {
                 SaberCreated(_temporaryQueue.Dequeue());
@@ -86,7 +88,6 @@ namespace SiraUtil.Services
             {
                 ChangeColor(_temporaryColorQueue.Dequeue());
             }
-
             if (_gamePause != null)
             {
                 _gamePause.didPauseEvent += DidPause;
@@ -124,6 +125,7 @@ namespace SiraUtil.Services
         {
             _managedSabers.Remove(saber);
             _saberManagers.ForEach(isr => isr.UnregisterSaber(saber));
+            _siraObstacleSaberSparkleEffectManager.Recalculate();
         }
 
         /// <summary>

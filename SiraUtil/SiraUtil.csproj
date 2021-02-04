@@ -56,9 +56,19 @@
       <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="BeatmapCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BeatmapCore.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="BGNet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <Private>False</Private>
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BGNet.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Colors, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Colors.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="GameplayCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -204,6 +214,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Interfaces\ICallback.cs" />
     <Compile Include="Interfaces\IDismissable.cs" />
+    <Compile Include="Interfaces\ILevelFinisher.cs" />
     <Compile Include="Interfaces\ILocalizer.cs" />
     <Compile Include="Interfaces\IModelProvider.cs" />
     <Compile Include="Interfaces\IPrefabProvider.cs" />
@@ -215,7 +226,9 @@
     <Compile Include="Objects\ObjectState.cs" />
     <Compile Include="Objects\ObjectStateContainer.cs" />
     <Compile Include="Objects\SiraPrefabContainer.cs" />
+    <Compile Include="Sabers\ObstacleManagerPatch.cs" />
     <Compile Include="Services\CanvasContainer.cs" />
+    <Compile Include="Services\FinishEventDispatcher.cs" />
     <Compile Include="Services\SaberProvider.cs" />
     <Compile Include="Localizer.cs" />
     <Compile Include="Interfaces\IColorable.cs" />
@@ -241,6 +254,7 @@
     <Compile Include="Zenject\Containerized.cs" />
     <Compile Include="Zenject\HarmonyPatches\GamemodeDecorator.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameplaySubmissionDecorator.cs" />
+    <Compile Include="Zenject\HarmonyPatches\MenuTransitionHelperReHelper.cs" />
     <Compile Include="Zenject\HarmonyPatches\SiraContextDecorator.cs" />
     <Compile Include="Zenject\HarmonyPatches\Unasserter.cs" />
     <Compile Include="Zenject\InstallBuilder.cs" />
