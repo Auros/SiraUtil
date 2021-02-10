@@ -9,7 +9,6 @@ using SiraUtil.Sabers;
 using SiraUtil.Zenject;
 using SiraUtil.Services;
 using IPA.Config.Stores;
-using System.Reflection;
 using System.Collections;
 using SiraUtil.Installers;
 using UnityEngine.SceneManagement;
@@ -27,6 +26,7 @@ namespace SiraUtil
         internal static IPALogger Log { get; set; }
 
         private readonly ZenjectManager _zenjectManager;
+        private readonly PluginMetadata _pluginMetadata;
 
         /// <summary>
         /// The initialization/entry point of SiraUtil.
@@ -35,6 +35,7 @@ namespace SiraUtil
         public Plugin(IPA.Config.Config conf, IPALogger logger, PluginMetadata metadata)
         {
             Log = logger;
+            _pluginMetadata = metadata;
             Config config = conf.Generated<Config>();
             Harmony = new Harmony("dev.auros.sirautil");
 
@@ -59,8 +60,8 @@ namespace SiraUtil
             _zenjectManager.Add(zenjector);
 
             zenjector.OnApp<SiraInstaller>().WithParameters(config);
+            zenjector.OnGame<SiraSaberInstaller>(false).ShortCircuitForTutorial();
             zenjector.OnMenu<SiraMenuInstaller>();
-            zenjector.OnGame<SiraSaberInstaller>();
 
             zenjector.OnGame<SiraSaberEffectInstaller>()
                 .Mutate<SaberBurnMarkArea>(InstallSaberArea)
@@ -69,9 +70,14 @@ namespace SiraUtil
                 .Expose<SaberClashEffect>()
                 .ShortCircuitForMultiplayer();
 
+
             zenjector.OnGame<SiraGameLevelInstaller>()
                 .Mutate<PrepareLevelCompletionResults>((ctx, completionResults) =>
                 {
+                    if (!ctx.Container.HasBinding<Submission>())
+                    {
+                        ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+                    }
                     var binding = completionResults.GetComponent<ZenjectBinding>();
                     var siraCompletionResults = completionResults.Upgrade<PrepareLevelCompletionResults, Submission.SiraPrepareLevelCompletionResults>();
                     binding.SetField("_ifNotBound", true);
@@ -79,6 +85,18 @@ namespace SiraUtil
                     ctx.Container.Unbind(typeof(PrepareLevelCompletionResults));
                     ctx.Container.Bind<PrepareLevelCompletionResults>().To<Submission.SiraPrepareLevelCompletionResults>().FromInstance(siraCompletionResults).AsCached();
                 }).OnlyForStandard();
+
+            zenjector.OnGame<SiraGameLevelInstaller>()
+                .Mutate<MissionLevelFinishedController>((ctx, controller) =>
+                {
+                    if (!ctx.Container.HasBinding<Submission>())
+                    {
+                        ctx.Container.BindInterfacesAndSelfTo<Submission>().AsSingle();
+                    }
+                    var siraController = controller.Upgrade<MissionLevelFinishedController, Submission.SiraMissionLevelFinishedController>();
+                    ctx.Container.QueueForInject(siraController);
+                    ctx.AddInjectable(siraController);
+                }).OnlyForCampaigns();
 
             zenjector.OnGame<SiraGameInstaller>(true).ShortCircuitForMultiplayer();
 
@@ -96,8 +114,8 @@ namespace SiraUtil
         [OnEnable]
         public void OnEnable()
         {
+            Harmony.PatchAll(_pluginMetadata.Assembly);
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-            Harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
@@ -121,8 +139,8 @@ namespace SiraUtil
         [OnDisable]
         public void OnDisable()
         {
-            SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
             Harmony.UnpatchAll("dev.auros.sirautil");
+            SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
         }
 
         private void InstallSaberArea(MutationContext ctx, SaberBurnMarkArea burnArea)

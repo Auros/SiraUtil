@@ -2,6 +2,7 @@ using Zenject;
 using UnityEngine;
 using SiraUtil.Services;
 using System.Collections;
+using System;
 
 namespace SiraUtil.Sabers
 {
@@ -26,6 +27,11 @@ namespace SiraUtil.Sabers
         private SaberTypeObject _saberTypeObject;
         private IEnumerator _changeColorCoroutine = null;
         private SiraSaberEffectManager _siraSaberEffectManager;
+
+        /// <summary>
+        /// Called when the model of the saber is setup.
+        /// </summary>
+        public event Action<SiraSaber, SaberModelController> ModelDidInit;
 
         [Inject]
         internal void Construct(NoteCutter noteCutter, ColorManager colorManager, SaberProvider saberProvider, SiraSaberEffectManager siraSaberEffectManager)
@@ -53,7 +59,11 @@ namespace SiraUtil.Sabers
             Accessors.SaberBladeTopPosition(ref _saber) = top.transform.position;
             Accessors.SaberBladeBottomPosition(ref _saber) = bottom.transform.position;
 
-            _saberProvider.GetModel(smc => smc.Init(transform, _saber));
+            _saberProvider.GetModel(smc =>
+            {
+                smc.Init(transform, _saber);
+                ModelDidInit?.Invoke(this, smc);
+            });
 
             _siraSaberEffectManager.SaberCreated(_saber);
         }

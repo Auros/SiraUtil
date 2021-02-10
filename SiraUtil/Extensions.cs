@@ -154,6 +154,10 @@ namespace SiraUtil
         /// <returns></returns>
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder binder, string name = "GameObject")
         {
+            if (name == nameof(GameObject))
+            {
+                name = binder.BindInfo.ToTypes.FirstOrDefault()?.Name ?? nameof(GameObject);
+            }
             return binder.FromNewComponentOn(new GameObject(name));
         }
 
@@ -165,6 +169,10 @@ namespace SiraUtil
         /// <returns></returns>
         public static ConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FactoryFromBinderBase binder, string name = "GameObject")
         {
+            if (name == nameof(GameObject))
+            {
+                name = binder.BindInfo.ToTypes.FirstOrDefault()?.Name ?? nameof(GameObject);
+            }
             return binder.FromNewComponentOn(new GameObject(name));
         }
 
@@ -212,6 +220,7 @@ namespace SiraUtil
         /// <typeparam name="T">The type of the ViewController.</typeparam>
         /// <param name="Container">The Container to install this ViewController into.</param>
         /// <param name="active">Whether or not to enable it after its binded.</param>
+        [Obsolete("Please use Container.Bind<YourViewControllerType>().FromNewComponentAsViewController().AsSingle()")]
         public static void BindViewController<T>(this DiContainer Container, bool active = false) where T : ViewController
         {
             T vc = new GameObject(typeof(T).Name, typeof(VRGraphicRaycaster), typeof(CurvedCanvasSettings), typeof(CanvasGroup), typeof(T)).GetComponent<T>();
@@ -232,6 +241,7 @@ namespace SiraUtil
         /// </summary>
         /// <typeparam name="T">The type of the FlowCoordinator.</typeparam>
         /// <param name="Container">The Container to install this FlowCoordinator into.</param>
+        [Obsolete("Please use Container.Bind<YourFlowCoordinatorType>().FromNewComponentOnNewGameObject().AsSingle()")]
         public static void BindFlowCoordinator<T>(this DiContainer Container) where T : FlowCoordinator
         {
             var inputSystem = Container.Resolve<BaseInputModule>();

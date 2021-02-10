@@ -46,6 +46,7 @@ namespace SiraUtil.Installers
                 Container.Bind<FPFCToggle>().FromNewComponentOnNewGameObject(nameof(FPFCToggle)).AsSingle().NonLazy();
             }
             Container.Bind(typeof(IInitializable), typeof(IDisposable), typeof(WebClient)).To<WebClient>().AsSingle();
+            Container.BindInterfacesTo<FinishEventDispatcher>().AsSingle();
             Container.BindInterfacesAndSelfTo<Localizer>().AsSingle();
             Container.Bind<Submission.Data>().AsSingle();
 
