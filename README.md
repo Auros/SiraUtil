@@ -168,6 +168,9 @@
  * [Eris' FPS Counter](https://github.com/ErisApps/FPS-Counter)
  * [Eris' SongRequestManager](https://github.com/ErisApps/SongRequestManager)
  * [Counters Plus 2.0 by Caeden](https://github.com/Caeden117/CountersPlus/tree/rewrite)
+ * [Saber Factory V2 by Toni Macaroni](https://github.com/ToniMacaroni/SaberFactoryV2)
+ * [Tricksaber by Toni Macaroni](https://github.com/ToniMacaroni/TrickSaber)
+ * [Custom Pillows by Toni Macaroni](https://github.com/ToniMacaroni/CustomPillows)
   
 ### Notice
 When creating bindings for view controllers and flow coordinators, you'll have to use an extension method provided by SiraUtil.
