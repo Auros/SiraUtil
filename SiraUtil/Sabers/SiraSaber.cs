@@ -80,8 +80,11 @@ namespace SiraUtil.Sabers
 
                 var topPos = Accessors.SaberBladeTopPosition(ref _saber) = topTrans.position;
                 var botPos = Accessors.SaberBladeBottomPosition(ref _saber) = botTrans.position;
-                
-                int i = 0;
+
+                _saber.movementData.AddNewData(topPos, botPos, TimeHelper.time);
+                _noteCutter.Cut(_saber);
+
+                /*int i = 0;
                 var swingRatingCounters = Accessors.SwingRatingCounters(ref _saber);
                 var unusedSwingRatingCounters = Accessors.UnusedSwingRatingCounters(ref _saber);
                 while (i < swingRatingCounters.Count)
@@ -99,7 +102,7 @@ namespace SiraUtil.Sabers
                     }
                 }
                 Accessors.MovementData(ref _saber).AddNewData(topPos, botPos, TimeHelper.time);
-                _noteCutter.Cut(_saber);
+                _noteCutter.Cut(_saber);*/
             }
         }
 

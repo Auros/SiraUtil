@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using HarmonyLib;
 using SiraUtil.Events;
-using System.Collections.Generic;
 
 namespace SiraUtil.Zenject.HarmonyPatches
 {
@@ -27,9 +27,14 @@ namespace SiraUtil.Zenject.HarmonyPatches
         [HarmonyPatch(typeof(MenuTransitionsHelper), nameof(MenuTransitionsHelper.HandleMultiplayerLevelDidFinish))]
         internal class StartMultiplayer
         {
-            public static void Postfix(MultiplayerLevelScenesTransitionSetupDataSO multiplayerLevelScenesTransitionSetupData, LevelCompletionResults levelCompletionResults, Dictionary<string, LevelCompletionResults> otherPlayersCompletionResults)
+            public static void Postfix(MultiplayerLevelScenesTransitionSetupDataSO multiplayerLevelScenesTransitionSetupData, MultiplayerResultsData multiplayerResultsData)
             {
-                SiraEvents.SendMultiplayerEvent(multiplayerLevelScenesTransitionSetupData, levelCompletionResults, otherPlayersCompletionResults);
+                var dict = new Dictionary<string, LevelCompletionResults>();
+                foreach (var player in multiplayerResultsData.otherPlayersData)
+                {
+                    dict.Add(player.connectedPlayer.userId, player.levelCompletionResults);
+                }
+                SiraEvents.SendMultiplayerEvent(multiplayerLevelScenesTransitionSetupData, multiplayerResultsData.localPlayerResultData.levelCompletionResults, dict);
             }
         }
 
