@@ -41,8 +41,8 @@ namespace SiraUtil
         internal static FieldAccessor<Saber, Transform>.Accessor SaberBladeTopTransform = FieldAccessor<Saber, Transform>.GetAccessor("_saberBladeTopTransform");
         internal static FieldAccessor<Saber, Transform>.Accessor SaberBladeBottomTransform = FieldAccessor<Saber, Transform>.GetAccessor("_saberBladeBottomTransform");
         internal static FieldAccessor<Saber, Transform>.Accessor SaberHandleTransform = FieldAccessor<Saber, Transform>.GetAccessor("_handleTransform");
-        internal static FieldAccessor<Saber, List<SaberSwingRatingCounter>>.Accessor SwingRatingCounters = FieldAccessor<Saber, List<SaberSwingRatingCounter>>.GetAccessor("_swingRatingCounters");
-        internal static FieldAccessor<Saber, List<SaberSwingRatingCounter>>.Accessor UnusedSwingRatingCounters = FieldAccessor<Saber, List<SaberSwingRatingCounter>>.GetAccessor("_unusedSwingRatingCounters");
+        //internal static FieldAccessor<Saber, List<SaberSwingRatingCounter>>.Accessor SwingRatingCounters = FieldAccessor<Saber, List<SaberSwingRatingCounter>>.GetAccessor("_swingRatingCounters");
+        //internal static FieldAccessor<Saber, List<SaberSwingRatingCounter>>.Accessor UnusedSwingRatingCounters = FieldAccessor<Saber, List<SaberSwingRatingCounter>>.GetAccessor("_unusedSwingRatingCounters");
         internal static FieldAccessor<Saber, SaberMovementData>.Accessor MovementData = FieldAccessor<Saber, SaberMovementData>.GetAccessor("_movementData");
         internal static FieldAccessor<Saber, Vector3>.Accessor SaberBladeTopPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeTopPos");
         internal static FieldAccessor<Saber, Vector3>.Accessor SaberBladeBottomPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeBottomPos");
