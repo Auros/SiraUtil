@@ -1,6 +1,7 @@
 using Zenject;
 using SiraUtil.Tools;
 using SiraUtil.Services;
+using System;
 
 namespace SiraUtil.Zenject
 {
@@ -20,6 +21,9 @@ namespace SiraUtil.Zenject
                 Container.BindInterfacesTo<SongControl>().AsSingle();
             }
             Container.BindInterfacesAndSelfTo<SiraSaberEffectManager>().AsSingle();
+
+            if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1 && AprilFools.maxInSession >= AprilFools.sessionTrack)
+            Container.BindInterfacesTo<AprilFools>().AsSingle();
         }
     }
 }

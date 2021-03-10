@@ -146,6 +146,11 @@
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <Private>False</Private>
+      <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
@@ -227,6 +232,7 @@
     <Compile Include="Objects\ObjectStateContainer.cs" />
     <Compile Include="Objects\SiraPrefabContainer.cs" />
     <Compile Include="Sabers\ObstacleManagerPatch.cs" />
+    <Compile Include="Services\AprilFools.cs" />
     <Compile Include="Services\CanvasContainer.cs" />
     <Compile Include="Services\FinishEventDispatcher.cs" />
     <Compile Include="Services\SaberProvider.cs" />
@@ -315,7 +321,9 @@
       <Version>5.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="reaxt.ogg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
