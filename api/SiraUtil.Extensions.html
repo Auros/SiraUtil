@@ -1,0 +1,1214 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Extensions
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Extensions
+   ">
+    <meta name="generator" content="docfx 2.56.6.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="SiraUtil.Extensions">
+  
+  
+  <h1 id="SiraUtil_Extensions" data-uid="SiraUtil.Extensions" class="text-break">Class Extensions
+  </h1>
+  <div class="markdown level0 summary"><p>A set of useful extension methods.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Extensions</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="SiraUtil.html">SiraUtil</a></h6>
+  <h6><strong>Assembly</strong>: SiraUtil.dll</h6>
+  <h5 id="SiraUtil_Extensions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Extensions</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_BindFlowCoordinator__1_Zenject_DiContainer_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.BindFlowCoordinator%60%601(Zenject.DiContainer)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L244">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_BindFlowCoordinator_" data-uid="SiraUtil.Extensions.BindFlowCoordinator*"></a>
+  <h4 id="SiraUtil_Extensions_BindFlowCoordinator__1_Zenject_DiContainer_" data-uid="SiraUtil.Extensions.BindFlowCoordinator``1(Zenject.DiContainer)">BindFlowCoordinator&lt;T&gt;(DiContainer)</h4>
+  <div class="markdown level1 summary"><p>Binds a <span class="xref">HMUI.FlowCoordinator</span> into the Container. This creates the flow coordinator, repairs its dependencies, and adds it to the container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use Container.Bind&lt;YourFlowCoordinatorType&gt;().FromNewComponentOnNewGameObject().AsSingle()&quot;)]
+public static void BindFlowCoordinator&lt;T&gt;(this DiContainer Container)
+    where T : FlowCoordinator</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.DiContainer</span></td>
+        <td><span class="parametername">Container</span></td>
+        <td><p>The Container to install this FlowCoordinator into.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the FlowCoordinator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_BindLoggerAsSiraLogger_Zenject_DiContainer_IPA_Logging_Logger_System_Boolean_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.BindLoggerAsSiraLogger(Zenject.DiContainer%2CIPA.Logging.Logger%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L27">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_BindLoggerAsSiraLogger_" data-uid="SiraUtil.Extensions.BindLoggerAsSiraLogger*"></a>
+  <h4 id="SiraUtil_Extensions_BindLoggerAsSiraLogger_Zenject_DiContainer_IPA_Logging_Logger_System_Boolean_" data-uid="SiraUtil.Extensions.BindLoggerAsSiraLogger(Zenject.DiContainer,IPA.Logging.Logger,System.Boolean)">BindLoggerAsSiraLogger(DiContainer, Logger, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Registers a logger as a SiraLogger, which can be then requested by Dependency Injection</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void BindLoggerAsSiraLogger(this DiContainer container, Logger logger, bool elevatedDebugMode = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.DiContainer</span></td>
+        <td><span class="parametername">container</span></td>
+        <td><p>The container to install the logger into.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">IPA.Logging.Logger</span></td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>The main logger to be used.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">elevatedDebugMode</span></td>
+        <td><p>If this is true, any calls to .Debug will be redirected to .Info instead.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_BindViewController__1_Zenject_DiContainer_System_Boolean_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.BindViewController%60%601(Zenject.DiContainer%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L223">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_BindViewController_" data-uid="SiraUtil.Extensions.BindViewController*"></a>
+  <h4 id="SiraUtil_Extensions_BindViewController__1_Zenject_DiContainer_System_Boolean_" data-uid="SiraUtil.Extensions.BindViewController``1(Zenject.DiContainer,System.Boolean)">BindViewController&lt;T&gt;(DiContainer, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Binds a <span class="xref">HMUI.ViewController</span> into the Container. This creates the view controller, repairs its dependencies, and adds it to the container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Obsolete(&quot;Please use Container.Bind&lt;YourViewControllerType&gt;().FromNewComponentAsViewController().AsSingle()&quot;)]
+public static void BindViewController&lt;T&gt;(this DiContainer Container, bool active = false)
+    where T : ViewController</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.DiContainer</span></td>
+        <td><span class="parametername">Container</span></td>
+        <td><p>The Container to install this ViewController into.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">active</span></td>
+        <td><p>Whether or not to enable it after its binded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the ViewController.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_ChangeColor_Saber_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.ChangeColor(Saber%2CUnityEngine.Color)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L320">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_ChangeColor_" data-uid="SiraUtil.Extensions.ChangeColor*"></a>
+  <h4 id="SiraUtil_Extensions_ChangeColor_Saber_UnityEngine_Color_" data-uid="SiraUtil.Extensions.ChangeColor(Saber,UnityEngine.Color)">ChangeColor(Saber, Color)</h4>
+  <div class="markdown level1 summary"><p>Changes the color of a saber.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ChangeColor(this Saber saber, Color color)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">saber</span></td>
+        <td><p>The saber to change the color of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnityEngine.Color</span></td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color to change the saber to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_ChangeColor_Saber_UnityEngine_Color_SaberModelController_UnityEngine_Color_SetSaberGlowColor___SetSaberFakeGlowColor___TubeBloomPrePassLight_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.ChangeColor(Saber%2CUnityEngine.Color%2CSaberModelController%2CUnityEngine.Color%2CSetSaberGlowColor%5B%5D%2CSetSaberFakeGlowColor%5B%5D%2CTubeBloomPrePassLight)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L338">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_ChangeColor_" data-uid="SiraUtil.Extensions.ChangeColor*"></a>
+  <h4 id="SiraUtil_Extensions_ChangeColor_Saber_UnityEngine_Color_SaberModelController_UnityEngine_Color_SetSaberGlowColor___SetSaberFakeGlowColor___TubeBloomPrePassLight_" data-uid="SiraUtil.Extensions.ChangeColor(Saber,UnityEngine.Color,SaberModelController,UnityEngine.Color,SetSaberGlowColor[],SetSaberFakeGlowColor[],TubeBloomPrePassLight)">ChangeColor(Saber, Color, SaberModelController, Color, SetSaberGlowColor[], SetSaberFakeGlowColor[], TubeBloomPrePassLight)</h4>
+  <div class="markdown level1 summary"><p>Change the color of a saber.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ChangeColor(this Saber _, Color color, SaberModelController smc, Color tintColor, SetSaberGlowColor[] setSaberGlowColors, SetSaberFakeGlowColor[] setSaberFakeGlowColors, TubeBloomPrePassLight light)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">_</span></td>
+        <td><p>The saber.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnityEngine.Color</span></td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color to change the saber to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SaberModelController</span></td>
+        <td><span class="parametername">smc</span></td>
+        <td><p>The model controller of the saber.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnityEngine.Color</span></td>
+        <td><span class="parametername">tintColor</span></td>
+        <td><p>The tint color of the new color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SetSaberGlowColor</span>[]</td>
+        <td><span class="parametername">setSaberGlowColors</span></td>
+        <td><p>The glow color groups of the saber.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SetSaberFakeGlowColor</span>[]</td>
+        <td><span class="parametername">setSaberFakeGlowColors</span></td>
+        <td><p>The fake glow color groups of the saber.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TubeBloomPrePassLight</span></td>
+        <td><span class="parametername">light</span></td>
+        <td><p>The light of the saber.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_ChangeColorInstant_Saber_UnityEngine_Color_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.ChangeColorInstant(Saber%2CUnityEngine.Color)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L307">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_ChangeColorInstant_" data-uid="SiraUtil.Extensions.ChangeColorInstant*"></a>
+  <h4 id="SiraUtil_Extensions_ChangeColorInstant_Saber_UnityEngine_Color_" data-uid="SiraUtil.Extensions.ChangeColorInstant(Saber,UnityEngine.Color)">ChangeColorInstant(Saber, Color)</h4>
+  <div class="markdown level1 summary"><p>Changes the color of a saber instantly.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ChangeColorInstant(this Saber saber, Color color)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">saber</span></td>
+        <td><p>The saber to change the color of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnityEngine.Color</span></td>
+        <td><span class="parametername">color</span></td>
+        <td><p>The color to change the saber to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_ChangeType_Saber_SaberType_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.ChangeType(Saber%2CSaberType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L373">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_ChangeType_" data-uid="SiraUtil.Extensions.ChangeType*"></a>
+  <h4 id="SiraUtil_Extensions_ChangeType_Saber_SaberType_" data-uid="SiraUtil.Extensions.ChangeType(Saber,SaberType)">ChangeType(Saber, SaberType)</h4>
+  <div class="markdown level1 summary"><p>Changes the type of the saber. This does NOT change the color of the saber.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ChangeType(this Saber saber, SaberType type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">saber</span></td>
+        <td><p>The saber to change the type of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SaberType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type to change the saber to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_ChangeType_SaberTypeObject_SaberType_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.ChangeType(SaberTypeObject%2CSaberType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L383">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_ChangeType_" data-uid="SiraUtil.Extensions.ChangeType*"></a>
+  <h4 id="SiraUtil_Extensions_ChangeType_SaberTypeObject_SaberType_" data-uid="SiraUtil.Extensions.ChangeType(SaberTypeObject,SaberType)">ChangeType(SaberTypeObject, SaberType)</h4>
+  <div class="markdown level1 summary"><p>Changes the type of a saber type object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ChangeType(this SaberTypeObject sto, SaberType type)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">SaberTypeObject</span></td>
+        <td><span class="parametername">sto</span></td>
+        <td><p>The SaberTypeObject.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SaberType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The Saber Type</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_Clone__1_UnityEngine_GameObject___0_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.Clone%60%601(UnityEngine.GameObject%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L132">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_Clone_" data-uid="SiraUtil.Extensions.Clone*"></a>
+  <h4 id="SiraUtil_Extensions_Clone__1_UnityEngine_GameObject___0_" data-uid="SiraUtil.Extensions.Clone``1(UnityEngine.GameObject,``0)">Clone&lt;T&gt;(GameObject, T)</h4>
+  <div class="markdown level1 summary"><p>Clones a component onto a gameobject.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static T Clone&lt;T&gt;(this GameObject go, T toAdd)
+    where T : Component</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.GameObject</span></td>
+        <td><span class="parametername">go</span></td>
+        <td><p>The gameobject to clone to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">toAdd</span></td>
+        <td><p>The component to clone.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The cloned component.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the component to clone.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_CopyTo_UnityEngine_Behaviour_UnityEngine_Behaviour_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.CopyTo(UnityEngine.Behaviour%2CUnityEngine.Behaviour)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L87">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_CopyTo_" data-uid="SiraUtil.Extensions.CopyTo*"></a>
+  <h4 id="SiraUtil_Extensions_CopyTo_UnityEngine_Behaviour_UnityEngine_Behaviour_" data-uid="SiraUtil.Extensions.CopyTo(UnityEngine.Behaviour,UnityEngine.Behaviour)">CopyTo(Behaviour, Behaviour)</h4>
+  <div class="markdown level1 summary"><p>Copies the value of a component to another component</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CopyTo(this Behaviour source, Behaviour destination)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Behaviour</span></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The original component.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">UnityEngine.Behaviour</span></td>
+        <td><span class="parametername">destination</span></td>
+        <td><p>The component to copy to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_FromNewComponentAsViewController_Zenject_FromBinder_System_Action_Zenject_InjectContext_System_Object__.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.FromNewComponentAsViewController(Zenject.FromBinder%2CSystem.Action%7BZenject.InjectContext%2CSystem.Object%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L185">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_FromNewComponentAsViewController_" data-uid="SiraUtil.Extensions.FromNewComponentAsViewController*"></a>
+  <h4 id="SiraUtil_Extensions_FromNewComponentAsViewController_Zenject_FromBinder_System_Action_Zenject_InjectContext_System_Object__" data-uid="SiraUtil.Extensions.FromNewComponentAsViewController(Zenject.FromBinder,System.Action{Zenject.InjectContext,System.Object})">FromNewComponentAsViewController(FromBinder, Action&lt;InjectContext, Object&gt;)</h4>
+  <div class="markdown level1 summary"><p>Binds a view controller to the container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentAsViewController(this FromBinder binder, Action&lt;InjectContext, object&gt; onInstantiated = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.FromBinder</span></td>
+        <td><span class="parametername">binder</span></td>
+        <td><p>The binder.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">Zenject.InjectContext</span>, <span class="xref">System.Object</span>&gt;</td>
+        <td><span class="parametername">onInstantiated</span></td>
+        <td><p>The callback when the view controller is instantiated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_FromNewComponentOnNewGameObject_Zenject_FactoryFromBinderBase_System_String_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FactoryFromBinderBase%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L170">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_FromNewComponentOnNewGameObject_" data-uid="SiraUtil.Extensions.FromNewComponentOnNewGameObject*"></a>
+  <h4 id="SiraUtil_Extensions_FromNewComponentOnNewGameObject_Zenject_FactoryFromBinderBase_System_String_" data-uid="SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FactoryFromBinderBase,System.String)">FromNewComponentOnNewGameObject(FactoryFromBinderBase, String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new component on a new GameObject</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FactoryFromBinderBase binder, string name = &quot;GameObject&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.FactoryFromBinderBase</span></td>
+        <td><span class="parametername">binder</span></td>
+        <td><p>The preceding binder base.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the GameObject.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.ConditionCopyNonLazyBinder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_FromNewComponentOnNewGameObject_Zenject_FromBinder_System_String_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FromBinder%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L155">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_FromNewComponentOnNewGameObject_" data-uid="SiraUtil.Extensions.FromNewComponentOnNewGameObject*"></a>
+  <h4 id="SiraUtil_Extensions_FromNewComponentOnNewGameObject_Zenject_FromBinder_System_String_" data-uid="SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FromBinder,System.String)">FromNewComponentOnNewGameObject(FromBinder, String)</h4>
+  <div class="markdown level1 summary"><p>Creates a new component on a new GameObject</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder binder, string name = &quot;GameObject&quot;)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.FromBinder</span></td>
+        <td><span class="parametername">binder</span></td>
+        <td><p>The preceding binder.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the GameObject.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_GetColor_Saber_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.GetColor(Saber)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L282">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_GetColor_" data-uid="SiraUtil.Extensions.GetColor*"></a>
+  <h4 id="SiraUtil_Extensions_GetColor_Saber_" data-uid="SiraUtil.Extensions.GetColor(Saber)">GetColor(Saber)</h4>
+  <div class="markdown level1 summary"><p>Gets the color of a saber.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Color GetColor(this Saber saber)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">saber</span></td>
+        <td><p>The saber to get the color of.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Color</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_GetEventHandlers__2___0_System_String_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.GetEventHandlers%60%602(%60%600%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L413">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_GetEventHandlers_" data-uid="SiraUtil.Extensions.GetEventHandlers*"></a>
+  <h4 id="SiraUtil_Extensions_GetEventHandlers__2___0_System_String_" data-uid="SiraUtil.Extensions.GetEventHandlers``2(``0,System.String)">GetEventHandlers&lt;TTarget, TDel&gt;(TTarget, String)</h4>
+  <div class="markdown level1 summary"><p>Gets the event of an object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TDel GetEventHandlers&lt;TTarget, TDel&gt;(this TTarget target, string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TTarget</span></td>
+        <td><span class="parametername">target</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">name</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TDel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TTarget</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TDel</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_LocalizationGetOr_System_String_System_String_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.LocalizationGetOr(System.String%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L143">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_LocalizationGetOr_" data-uid="SiraUtil.Extensions.LocalizationGetOr*"></a>
+  <h4 id="SiraUtil_Extensions_LocalizationGetOr_System_String_System_String_" data-uid="SiraUtil.Extensions.LocalizationGetOr(System.String,System.String)">LocalizationGetOr(String, String)</h4>
+  <div class="markdown level1 summary"><p>Gets the localized key of a string from Polyglot, if not found then returns specified alternative.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string LocalizationGetOr(this string key, string or)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the string in Polyglot.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">or</span></td>
+        <td><p>The string to be used if the key could not be found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_NullCheck_IPA_Logging_Logger_System_Object_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.NullCheck(IPA.Logging.Logger%2CSystem.Object)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L393">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_NullCheck_" data-uid="SiraUtil.Extensions.NullCheck*"></a>
+  <h4 id="SiraUtil_Extensions_NullCheck_IPA_Logging_Logger_System_Object_" data-uid="SiraUtil.Extensions.NullCheck(IPA.Logging.Logger,System.Object)">NullCheck(Logger, Object)</h4>
+  <div class="markdown level1 summary"><p>Will log the nullity of an object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void NullCheck(this Logger logger, object toCheck)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IPA.Logging.Logger</span></td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>The logger to log to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Object</span></td>
+        <td><span class="parametername">toCheck</span></td>
+        <td><p>The object to check nullability.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_SetType_Saber_SaberType_ColorManager_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.SetType(Saber%2CSaberType%2CColorManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L362">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_SetType_" data-uid="SiraUtil.Extensions.SetType*"></a>
+  <h4 id="SiraUtil_Extensions_SetType_Saber_SaberType_ColorManager_" data-uid="SiraUtil.Extensions.SetType(Saber,SaberType,ColorManager)">SetType(Saber, SaberType, ColorManager)</h4>
+  <div class="markdown level1 summary"><p>Sets the type of a saber. This will change its color and the type of note it can hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void SetType(this Saber saber, SaberType type, ColorManager colorManager)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">saber</span></td>
+        <td><p>The saber to change the type of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">SaberType</span></td>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type to change the saber to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">ColorManager</span></td>
+        <td><span class="parametername">colorManager</span></td>
+        <td><p>The color manager used to change the color of the saber.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_Upgrade_UnityEngine_Component_System_Type_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.Upgrade(UnityEngine.Component%2CSystem.Type)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L60">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_Upgrade_" data-uid="SiraUtil.Extensions.Upgrade*"></a>
+  <h4 id="SiraUtil_Extensions_Upgrade_UnityEngine_Component_System_Type_" data-uid="SiraUtil.Extensions.Upgrade(UnityEngine.Component,System.Type)">Upgrade(Component, Type)</h4>
+  <div class="markdown level1 summary"><p>Upgrade a component to a type that inherits it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Component Upgrade(this Component monoBehaviour, Type upgradingType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Component</span></td>
+        <td><span class="parametername">monoBehaviour</span></td>
+        <td><p>The original component.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Type</span></td>
+        <td><span class="parametername">upgradingType</span></td>
+        <td><p>The type to upgrade it to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Component</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions_Upgrade__2___0_.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions.Upgrade%60%602(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L49">View Source</a>
+  </span>
+  <a id="SiraUtil_Extensions_Upgrade_" data-uid="SiraUtil.Extensions.Upgrade*"></a>
+  <h4 id="SiraUtil_Extensions_Upgrade__2___0_" data-uid="SiraUtil.Extensions.Upgrade``2(``0)">Upgrade&lt;T, U&gt;(T)</h4>
+  <div class="markdown level1 summary"><p>Upgrade a component to a type that inherits it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static U Upgrade&lt;T, U&gt;(this T monoBehaviour)
+    where T : MonoBehaviour where U : T</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">monoBehaviour</span></td>
+        <td><p>The original component.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">U</span></td>
+        <td><p>The upgraded component.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the component.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">U</span></td>
+        <td><p>The type of the upgraded component.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="SiraUtil_Extensions_Upgrade__2___0__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>By putting an object into here you are permanently destroying it. Any and all references to this object need to be repaired.</p>
+</div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Extensions.md&amp;value=---%0Auid%3A%20SiraUtil.Extensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Extensions.cs/#L19" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

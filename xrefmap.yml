@@ -1,0 +1,3134 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: SiraUtil
+  name: SiraUtil
+  href: api/SiraUtil.html
+  commentId: N:SiraUtil
+  fullName: SiraUtil
+  nameWithType: SiraUtil
+- uid: SiraUtil.Accessors
+  name: Accessors
+  href: api/SiraUtil.Accessors.html
+  commentId: T:SiraUtil.Accessors
+  fullName: SiraUtil.Accessors
+  nameWithType: Accessors
+- uid: SiraUtil.Accessors.GetDiContainer
+  name: GetDiContainer
+  href: api/SiraUtil.Accessors.html#SiraUtil_Accessors_GetDiContainer
+  commentId: F:SiraUtil.Accessors.GetDiContainer
+  fullName: SiraUtil.Accessors.GetDiContainer
+  nameWithType: Accessors.GetDiContainer
+- uid: SiraUtil.Attributes
+  name: SiraUtil.Attributes
+  href: api/SiraUtil.Attributes.html
+  commentId: N:SiraUtil.Attributes
+  fullName: SiraUtil.Attributes
+  nameWithType: SiraUtil.Attributes
+- uid: SiraUtil.Attributes.SlogAttribute
+  name: SlogAttribute
+  href: api/SiraUtil.Attributes.SlogAttribute.html
+  commentId: T:SiraUtil.Attributes.SlogAttribute
+  fullName: SiraUtil.Attributes.SlogAttribute
+  nameWithType: SlogAttribute
+- uid: SiraUtil.Attributes.SlogAttribute.#ctor
+  name: SlogAttribute()
+  href: api/SiraUtil.Attributes.SlogAttribute.html#SiraUtil_Attributes_SlogAttribute__ctor
+  commentId: M:SiraUtil.Attributes.SlogAttribute.#ctor
+  fullName: SiraUtil.Attributes.SlogAttribute.SlogAttribute()
+  nameWithType: SlogAttribute.SlogAttribute()
+- uid: SiraUtil.Attributes.SlogAttribute.#ctor*
+  name: SlogAttribute
+  href: api/SiraUtil.Attributes.SlogAttribute.html#SiraUtil_Attributes_SlogAttribute__ctor_
+  commentId: Overload:SiraUtil.Attributes.SlogAttribute.#ctor
+  isSpec: "True"
+  fullName: SiraUtil.Attributes.SlogAttribute.SlogAttribute
+  nameWithType: SlogAttribute.SlogAttribute
+- uid: SiraUtil.Converters
+  name: SiraUtil.Converters
+  href: api/SiraUtil.Converters.html
+  commentId: N:SiraUtil.Converters
+  fullName: SiraUtil.Converters
+  nameWithType: SiraUtil.Converters
+- uid: SiraUtil.Converters.FileInfoConverter
+  name: FileInfoConverter
+  href: api/SiraUtil.Converters.FileInfoConverter.html
+  commentId: T:SiraUtil.Converters.FileInfoConverter
+  fullName: SiraUtil.Converters.FileInfoConverter
+  nameWithType: FileInfoConverter
+- uid: SiraUtil.Converters.FileInfoConverter.FromValue(IPA.Config.Data.Value,System.Object)
+  name: FromValue(Value, Object)
+  href: api/SiraUtil.Converters.FileInfoConverter.html#SiraUtil_Converters_FileInfoConverter_FromValue_IPA_Config_Data_Value_System_Object_
+  commentId: M:SiraUtil.Converters.FileInfoConverter.FromValue(IPA.Config.Data.Value,System.Object)
+  fullName: SiraUtil.Converters.FileInfoConverter.FromValue(IPA.Config.Data.Value, System.Object)
+  nameWithType: FileInfoConverter.FromValue(Value, Object)
+- uid: SiraUtil.Converters.FileInfoConverter.FromValue*
+  name: FromValue
+  href: api/SiraUtil.Converters.FileInfoConverter.html#SiraUtil_Converters_FileInfoConverter_FromValue_
+  commentId: Overload:SiraUtil.Converters.FileInfoConverter.FromValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.FileInfoConverter.FromValue
+  nameWithType: FileInfoConverter.FromValue
+- uid: SiraUtil.Converters.FileInfoConverter.ToValue(System.IO.FileInfo,System.Object)
+  name: ToValue(FileInfo, Object)
+  href: api/SiraUtil.Converters.FileInfoConverter.html#SiraUtil_Converters_FileInfoConverter_ToValue_System_IO_FileInfo_System_Object_
+  commentId: M:SiraUtil.Converters.FileInfoConverter.ToValue(System.IO.FileInfo,System.Object)
+  fullName: SiraUtil.Converters.FileInfoConverter.ToValue(System.IO.FileInfo, System.Object)
+  nameWithType: FileInfoConverter.ToValue(FileInfo, Object)
+- uid: SiraUtil.Converters.FileInfoConverter.ToValue*
+  name: ToValue
+  href: api/SiraUtil.Converters.FileInfoConverter.html#SiraUtil_Converters_FileInfoConverter_ToValue_
+  commentId: Overload:SiraUtil.Converters.FileInfoConverter.ToValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.FileInfoConverter.ToValue
+  nameWithType: FileInfoConverter.ToValue
+- uid: SiraUtil.Converters.Vector2Converter
+  name: Vector2Converter
+  href: api/SiraUtil.Converters.Vector2Converter.html
+  commentId: T:SiraUtil.Converters.Vector2Converter
+  fullName: SiraUtil.Converters.Vector2Converter
+  nameWithType: Vector2Converter
+- uid: SiraUtil.Converters.Vector2Converter.FromValue(IPA.Config.Data.Value,System.Object)
+  name: FromValue(Value, Object)
+  href: api/SiraUtil.Converters.Vector2Converter.html#SiraUtil_Converters_Vector2Converter_FromValue_IPA_Config_Data_Value_System_Object_
+  commentId: M:SiraUtil.Converters.Vector2Converter.FromValue(IPA.Config.Data.Value,System.Object)
+  fullName: SiraUtil.Converters.Vector2Converter.FromValue(IPA.Config.Data.Value, System.Object)
+  nameWithType: Vector2Converter.FromValue(Value, Object)
+- uid: SiraUtil.Converters.Vector2Converter.FromValue*
+  name: FromValue
+  href: api/SiraUtil.Converters.Vector2Converter.html#SiraUtil_Converters_Vector2Converter_FromValue_
+  commentId: Overload:SiraUtil.Converters.Vector2Converter.FromValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.Vector2Converter.FromValue
+  nameWithType: Vector2Converter.FromValue
+- uid: SiraUtil.Converters.Vector2Converter.ToValue(UnityEngine.Vector2,System.Object)
+  name: ToValue(Vector2, Object)
+  href: api/SiraUtil.Converters.Vector2Converter.html#SiraUtil_Converters_Vector2Converter_ToValue_UnityEngine_Vector2_System_Object_
+  commentId: M:SiraUtil.Converters.Vector2Converter.ToValue(UnityEngine.Vector2,System.Object)
+  fullName: SiraUtil.Converters.Vector2Converter.ToValue(UnityEngine.Vector2, System.Object)
+  nameWithType: Vector2Converter.ToValue(Vector2, Object)
+- uid: SiraUtil.Converters.Vector2Converter.ToValue*
+  name: ToValue
+  href: api/SiraUtil.Converters.Vector2Converter.html#SiraUtil_Converters_Vector2Converter_ToValue_
+  commentId: Overload:SiraUtil.Converters.Vector2Converter.ToValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.Vector2Converter.ToValue
+  nameWithType: Vector2Converter.ToValue
+- uid: SiraUtil.Converters.Vector3Converter
+  name: Vector3Converter
+  href: api/SiraUtil.Converters.Vector3Converter.html
+  commentId: T:SiraUtil.Converters.Vector3Converter
+  fullName: SiraUtil.Converters.Vector3Converter
+  nameWithType: Vector3Converter
+- uid: SiraUtil.Converters.Vector3Converter.FromValue(IPA.Config.Data.Value,System.Object)
+  name: FromValue(Value, Object)
+  href: api/SiraUtil.Converters.Vector3Converter.html#SiraUtil_Converters_Vector3Converter_FromValue_IPA_Config_Data_Value_System_Object_
+  commentId: M:SiraUtil.Converters.Vector3Converter.FromValue(IPA.Config.Data.Value,System.Object)
+  fullName: SiraUtil.Converters.Vector3Converter.FromValue(IPA.Config.Data.Value, System.Object)
+  nameWithType: Vector3Converter.FromValue(Value, Object)
+- uid: SiraUtil.Converters.Vector3Converter.FromValue*
+  name: FromValue
+  href: api/SiraUtil.Converters.Vector3Converter.html#SiraUtil_Converters_Vector3Converter_FromValue_
+  commentId: Overload:SiraUtil.Converters.Vector3Converter.FromValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.Vector3Converter.FromValue
+  nameWithType: Vector3Converter.FromValue
+- uid: SiraUtil.Converters.Vector3Converter.ToValue(UnityEngine.Vector3,System.Object)
+  name: ToValue(Vector3, Object)
+  href: api/SiraUtil.Converters.Vector3Converter.html#SiraUtil_Converters_Vector3Converter_ToValue_UnityEngine_Vector3_System_Object_
+  commentId: M:SiraUtil.Converters.Vector3Converter.ToValue(UnityEngine.Vector3,System.Object)
+  fullName: SiraUtil.Converters.Vector3Converter.ToValue(UnityEngine.Vector3, System.Object)
+  nameWithType: Vector3Converter.ToValue(Vector3, Object)
+- uid: SiraUtil.Converters.Vector3Converter.ToValue*
+  name: ToValue
+  href: api/SiraUtil.Converters.Vector3Converter.html#SiraUtil_Converters_Vector3Converter_ToValue_
+  commentId: Overload:SiraUtil.Converters.Vector3Converter.ToValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.Vector3Converter.ToValue
+  nameWithType: Vector3Converter.ToValue
+- uid: SiraUtil.Converters.VersionConverter
+  name: VersionConverter
+  href: api/SiraUtil.Converters.VersionConverter.html
+  commentId: T:SiraUtil.Converters.VersionConverter
+  fullName: SiraUtil.Converters.VersionConverter
+  nameWithType: VersionConverter
+- uid: SiraUtil.Converters.VersionConverter.FromValue(IPA.Config.Data.Value,System.Object)
+  name: FromValue(Value, Object)
+  href: api/SiraUtil.Converters.VersionConverter.html#SiraUtil_Converters_VersionConverter_FromValue_IPA_Config_Data_Value_System_Object_
+  commentId: M:SiraUtil.Converters.VersionConverter.FromValue(IPA.Config.Data.Value,System.Object)
+  fullName: SiraUtil.Converters.VersionConverter.FromValue(IPA.Config.Data.Value, System.Object)
+  nameWithType: VersionConverter.FromValue(Value, Object)
+- uid: SiraUtil.Converters.VersionConverter.FromValue*
+  name: FromValue
+  href: api/SiraUtil.Converters.VersionConverter.html#SiraUtil_Converters_VersionConverter_FromValue_
+  commentId: Overload:SiraUtil.Converters.VersionConverter.FromValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.VersionConverter.FromValue
+  nameWithType: VersionConverter.FromValue
+- uid: SiraUtil.Converters.VersionConverter.ToValue(SemVer.Version,System.Object)
+  name: ToValue(Version, Object)
+  href: api/SiraUtil.Converters.VersionConverter.html#SiraUtil_Converters_VersionConverter_ToValue_SemVer_Version_System_Object_
+  commentId: M:SiraUtil.Converters.VersionConverter.ToValue(SemVer.Version,System.Object)
+  fullName: SiraUtil.Converters.VersionConverter.ToValue(SemVer.Version, System.Object)
+  nameWithType: VersionConverter.ToValue(Version, Object)
+- uid: SiraUtil.Converters.VersionConverter.ToValue*
+  name: ToValue
+  href: api/SiraUtil.Converters.VersionConverter.html#SiraUtil_Converters_VersionConverter_ToValue_
+  commentId: Overload:SiraUtil.Converters.VersionConverter.ToValue
+  isSpec: "True"
+  fullName: SiraUtil.Converters.VersionConverter.ToValue
+  nameWithType: VersionConverter.ToValue
+- uid: SiraUtil.Events
+  name: SiraUtil.Events
+  href: api/SiraUtil.Events.html
+  commentId: N:SiraUtil.Events
+  fullName: SiraUtil.Events
+  nameWithType: SiraUtil.Events
+- uid: SiraUtil.Events.SiraEvents
+  name: SiraEvents
+  href: api/SiraUtil.Events.SiraEvents.html
+  commentId: T:SiraUtil.Events.SiraEvents
+  fullName: SiraUtil.Events.SiraEvents
+  nameWithType: SiraEvents
+- uid: SiraUtil.Extensions
+  name: Extensions
+  href: api/SiraUtil.Extensions.html
+  commentId: T:SiraUtil.Extensions
+  fullName: SiraUtil.Extensions
+  nameWithType: Extensions
+- uid: SiraUtil.Extensions.BindFlowCoordinator*
+  name: BindFlowCoordinator
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_BindFlowCoordinator_
+  commentId: Overload:SiraUtil.Extensions.BindFlowCoordinator
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.BindFlowCoordinator
+  nameWithType: Extensions.BindFlowCoordinator
+- uid: SiraUtil.Extensions.BindFlowCoordinator``1(Zenject.DiContainer)
+  name: BindFlowCoordinator<T>(DiContainer)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_BindFlowCoordinator__1_Zenject_DiContainer_
+  commentId: M:SiraUtil.Extensions.BindFlowCoordinator``1(Zenject.DiContainer)
+  name.vb: BindFlowCoordinator(Of T)(DiContainer)
+  fullName: SiraUtil.Extensions.BindFlowCoordinator<T>(Zenject.DiContainer)
+  fullName.vb: SiraUtil.Extensions.BindFlowCoordinator(Of T)(Zenject.DiContainer)
+  nameWithType: Extensions.BindFlowCoordinator<T>(DiContainer)
+  nameWithType.vb: Extensions.BindFlowCoordinator(Of T)(DiContainer)
+- uid: SiraUtil.Extensions.BindLoggerAsSiraLogger(Zenject.DiContainer,IPA.Logging.Logger,System.Boolean)
+  name: BindLoggerAsSiraLogger(DiContainer, Logger, Boolean)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_BindLoggerAsSiraLogger_Zenject_DiContainer_IPA_Logging_Logger_System_Boolean_
+  commentId: M:SiraUtil.Extensions.BindLoggerAsSiraLogger(Zenject.DiContainer,IPA.Logging.Logger,System.Boolean)
+  fullName: SiraUtil.Extensions.BindLoggerAsSiraLogger(Zenject.DiContainer, IPA.Logging.Logger, System.Boolean)
+  nameWithType: Extensions.BindLoggerAsSiraLogger(DiContainer, Logger, Boolean)
+- uid: SiraUtil.Extensions.BindLoggerAsSiraLogger*
+  name: BindLoggerAsSiraLogger
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_BindLoggerAsSiraLogger_
+  commentId: Overload:SiraUtil.Extensions.BindLoggerAsSiraLogger
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.BindLoggerAsSiraLogger
+  nameWithType: Extensions.BindLoggerAsSiraLogger
+- uid: SiraUtil.Extensions.BindViewController*
+  name: BindViewController
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_BindViewController_
+  commentId: Overload:SiraUtil.Extensions.BindViewController
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.BindViewController
+  nameWithType: Extensions.BindViewController
+- uid: SiraUtil.Extensions.BindViewController``1(Zenject.DiContainer,System.Boolean)
+  name: BindViewController<T>(DiContainer, Boolean)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_BindViewController__1_Zenject_DiContainer_System_Boolean_
+  commentId: M:SiraUtil.Extensions.BindViewController``1(Zenject.DiContainer,System.Boolean)
+  name.vb: BindViewController(Of T)(DiContainer, Boolean)
+  fullName: SiraUtil.Extensions.BindViewController<T>(Zenject.DiContainer, System.Boolean)
+  fullName.vb: SiraUtil.Extensions.BindViewController(Of T)(Zenject.DiContainer, System.Boolean)
+  nameWithType: Extensions.BindViewController<T>(DiContainer, Boolean)
+  nameWithType.vb: Extensions.BindViewController(Of T)(DiContainer, Boolean)
+- uid: SiraUtil.Extensions.ChangeColor(Saber,UnityEngine.Color)
+  name: ChangeColor(Saber, Color)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeColor_Saber_UnityEngine_Color_
+  commentId: M:SiraUtil.Extensions.ChangeColor(Saber,UnityEngine.Color)
+  fullName: SiraUtil.Extensions.ChangeColor(Saber, UnityEngine.Color)
+  nameWithType: Extensions.ChangeColor(Saber, Color)
+- uid: SiraUtil.Extensions.ChangeColor(Saber,UnityEngine.Color,SaberModelController,UnityEngine.Color,SetSaberGlowColor[],SetSaberFakeGlowColor[],TubeBloomPrePassLight)
+  name: ChangeColor(Saber, Color, SaberModelController, Color, SetSaberGlowColor[], SetSaberFakeGlowColor[], TubeBloomPrePassLight)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeColor_Saber_UnityEngine_Color_SaberModelController_UnityEngine_Color_SetSaberGlowColor___SetSaberFakeGlowColor___TubeBloomPrePassLight_
+  commentId: M:SiraUtil.Extensions.ChangeColor(Saber,UnityEngine.Color,SaberModelController,UnityEngine.Color,SetSaberGlowColor[],SetSaberFakeGlowColor[],TubeBloomPrePassLight)
+  name.vb: ChangeColor(Saber, Color, SaberModelController, Color, SetSaberGlowColor(), SetSaberFakeGlowColor(), TubeBloomPrePassLight)
+  fullName: SiraUtil.Extensions.ChangeColor(Saber, UnityEngine.Color, SaberModelController, UnityEngine.Color, SetSaberGlowColor[], SetSaberFakeGlowColor[], TubeBloomPrePassLight)
+  fullName.vb: SiraUtil.Extensions.ChangeColor(Saber, UnityEngine.Color, SaberModelController, UnityEngine.Color, SetSaberGlowColor(), SetSaberFakeGlowColor(), TubeBloomPrePassLight)
+  nameWithType: Extensions.ChangeColor(Saber, Color, SaberModelController, Color, SetSaberGlowColor[], SetSaberFakeGlowColor[], TubeBloomPrePassLight)
+  nameWithType.vb: Extensions.ChangeColor(Saber, Color, SaberModelController, Color, SetSaberGlowColor(), SetSaberFakeGlowColor(), TubeBloomPrePassLight)
+- uid: SiraUtil.Extensions.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeColor_
+  commentId: Overload:SiraUtil.Extensions.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.ChangeColor
+  nameWithType: Extensions.ChangeColor
+- uid: SiraUtil.Extensions.ChangeColorInstant(Saber,UnityEngine.Color)
+  name: ChangeColorInstant(Saber, Color)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeColorInstant_Saber_UnityEngine_Color_
+  commentId: M:SiraUtil.Extensions.ChangeColorInstant(Saber,UnityEngine.Color)
+  fullName: SiraUtil.Extensions.ChangeColorInstant(Saber, UnityEngine.Color)
+  nameWithType: Extensions.ChangeColorInstant(Saber, Color)
+- uid: SiraUtil.Extensions.ChangeColorInstant*
+  name: ChangeColorInstant
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeColorInstant_
+  commentId: Overload:SiraUtil.Extensions.ChangeColorInstant
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.ChangeColorInstant
+  nameWithType: Extensions.ChangeColorInstant
+- uid: SiraUtil.Extensions.ChangeType(Saber,SaberType)
+  name: ChangeType(Saber, SaberType)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeType_Saber_SaberType_
+  commentId: M:SiraUtil.Extensions.ChangeType(Saber,SaberType)
+  fullName: SiraUtil.Extensions.ChangeType(Saber, SaberType)
+  nameWithType: Extensions.ChangeType(Saber, SaberType)
+- uid: SiraUtil.Extensions.ChangeType(SaberTypeObject,SaberType)
+  name: ChangeType(SaberTypeObject, SaberType)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeType_SaberTypeObject_SaberType_
+  commentId: M:SiraUtil.Extensions.ChangeType(SaberTypeObject,SaberType)
+  fullName: SiraUtil.Extensions.ChangeType(SaberTypeObject, SaberType)
+  nameWithType: Extensions.ChangeType(SaberTypeObject, SaberType)
+- uid: SiraUtil.Extensions.ChangeType*
+  name: ChangeType
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_ChangeType_
+  commentId: Overload:SiraUtil.Extensions.ChangeType
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.ChangeType
+  nameWithType: Extensions.ChangeType
+- uid: SiraUtil.Extensions.Clone*
+  name: Clone
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_Clone_
+  commentId: Overload:SiraUtil.Extensions.Clone
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.Clone
+  nameWithType: Extensions.Clone
+- uid: SiraUtil.Extensions.Clone``1(UnityEngine.GameObject,``0)
+  name: Clone<T>(GameObject, T)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_Clone__1_UnityEngine_GameObject___0_
+  commentId: M:SiraUtil.Extensions.Clone``1(UnityEngine.GameObject,``0)
+  name.vb: Clone(Of T)(GameObject, T)
+  fullName: SiraUtil.Extensions.Clone<T>(UnityEngine.GameObject, T)
+  fullName.vb: SiraUtil.Extensions.Clone(Of T)(UnityEngine.GameObject, T)
+  nameWithType: Extensions.Clone<T>(GameObject, T)
+  nameWithType.vb: Extensions.Clone(Of T)(GameObject, T)
+- uid: SiraUtil.Extensions.CopyTo(UnityEngine.Behaviour,UnityEngine.Behaviour)
+  name: CopyTo(Behaviour, Behaviour)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_CopyTo_UnityEngine_Behaviour_UnityEngine_Behaviour_
+  commentId: M:SiraUtil.Extensions.CopyTo(UnityEngine.Behaviour,UnityEngine.Behaviour)
+  fullName: SiraUtil.Extensions.CopyTo(UnityEngine.Behaviour, UnityEngine.Behaviour)
+  nameWithType: Extensions.CopyTo(Behaviour, Behaviour)
+- uid: SiraUtil.Extensions.CopyTo*
+  name: CopyTo
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_CopyTo_
+  commentId: Overload:SiraUtil.Extensions.CopyTo
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.CopyTo
+  nameWithType: Extensions.CopyTo
+- uid: SiraUtil.Extensions.FromNewComponentAsViewController(Zenject.FromBinder,System.Action{Zenject.InjectContext,System.Object})
+  name: FromNewComponentAsViewController(FromBinder, Action<InjectContext, Object>)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_FromNewComponentAsViewController_Zenject_FromBinder_System_Action_Zenject_InjectContext_System_Object__
+  commentId: M:SiraUtil.Extensions.FromNewComponentAsViewController(Zenject.FromBinder,System.Action{Zenject.InjectContext,System.Object})
+  name.vb: FromNewComponentAsViewController(FromBinder, Action(Of InjectContext, Object))
+  fullName: SiraUtil.Extensions.FromNewComponentAsViewController(Zenject.FromBinder, System.Action<Zenject.InjectContext, System.Object>)
+  fullName.vb: SiraUtil.Extensions.FromNewComponentAsViewController(Zenject.FromBinder, System.Action(Of Zenject.InjectContext, System.Object))
+  nameWithType: Extensions.FromNewComponentAsViewController(FromBinder, Action<InjectContext, Object>)
+  nameWithType.vb: Extensions.FromNewComponentAsViewController(FromBinder, Action(Of InjectContext, Object))
+- uid: SiraUtil.Extensions.FromNewComponentAsViewController*
+  name: FromNewComponentAsViewController
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_FromNewComponentAsViewController_
+  commentId: Overload:SiraUtil.Extensions.FromNewComponentAsViewController
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.FromNewComponentAsViewController
+  nameWithType: Extensions.FromNewComponentAsViewController
+- uid: SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FactoryFromBinderBase,System.String)
+  name: FromNewComponentOnNewGameObject(FactoryFromBinderBase, String)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_FromNewComponentOnNewGameObject_Zenject_FactoryFromBinderBase_System_String_
+  commentId: M:SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FactoryFromBinderBase,System.String)
+  fullName: SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FactoryFromBinderBase, System.String)
+  nameWithType: Extensions.FromNewComponentOnNewGameObject(FactoryFromBinderBase, String)
+- uid: SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FromBinder,System.String)
+  name: FromNewComponentOnNewGameObject(FromBinder, String)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_FromNewComponentOnNewGameObject_Zenject_FromBinder_System_String_
+  commentId: M:SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FromBinder,System.String)
+  fullName: SiraUtil.Extensions.FromNewComponentOnNewGameObject(Zenject.FromBinder, System.String)
+  nameWithType: Extensions.FromNewComponentOnNewGameObject(FromBinder, String)
+- uid: SiraUtil.Extensions.FromNewComponentOnNewGameObject*
+  name: FromNewComponentOnNewGameObject
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_FromNewComponentOnNewGameObject_
+  commentId: Overload:SiraUtil.Extensions.FromNewComponentOnNewGameObject
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.FromNewComponentOnNewGameObject
+  nameWithType: Extensions.FromNewComponentOnNewGameObject
+- uid: SiraUtil.Extensions.GetColor(Saber)
+  name: GetColor(Saber)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_GetColor_Saber_
+  commentId: M:SiraUtil.Extensions.GetColor(Saber)
+  fullName: SiraUtil.Extensions.GetColor(Saber)
+  nameWithType: Extensions.GetColor(Saber)
+- uid: SiraUtil.Extensions.GetColor*
+  name: GetColor
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_GetColor_
+  commentId: Overload:SiraUtil.Extensions.GetColor
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.GetColor
+  nameWithType: Extensions.GetColor
+- uid: SiraUtil.Extensions.GetEventHandlers*
+  name: GetEventHandlers
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_GetEventHandlers_
+  commentId: Overload:SiraUtil.Extensions.GetEventHandlers
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.GetEventHandlers
+  nameWithType: Extensions.GetEventHandlers
+- uid: SiraUtil.Extensions.GetEventHandlers``2(``0,System.String)
+  name: GetEventHandlers<TTarget, TDel>(TTarget, String)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_GetEventHandlers__2___0_System_String_
+  commentId: M:SiraUtil.Extensions.GetEventHandlers``2(``0,System.String)
+  name.vb: GetEventHandlers(Of TTarget, TDel)(TTarget, String)
+  fullName: SiraUtil.Extensions.GetEventHandlers<TTarget, TDel>(TTarget, System.String)
+  fullName.vb: SiraUtil.Extensions.GetEventHandlers(Of TTarget, TDel)(TTarget, System.String)
+  nameWithType: Extensions.GetEventHandlers<TTarget, TDel>(TTarget, String)
+  nameWithType.vb: Extensions.GetEventHandlers(Of TTarget, TDel)(TTarget, String)
+- uid: SiraUtil.Extensions.LocalizationGetOr(System.String,System.String)
+  name: LocalizationGetOr(String, String)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_LocalizationGetOr_System_String_System_String_
+  commentId: M:SiraUtil.Extensions.LocalizationGetOr(System.String,System.String)
+  fullName: SiraUtil.Extensions.LocalizationGetOr(System.String, System.String)
+  nameWithType: Extensions.LocalizationGetOr(String, String)
+- uid: SiraUtil.Extensions.LocalizationGetOr*
+  name: LocalizationGetOr
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_LocalizationGetOr_
+  commentId: Overload:SiraUtil.Extensions.LocalizationGetOr
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.LocalizationGetOr
+  nameWithType: Extensions.LocalizationGetOr
+- uid: SiraUtil.Extensions.NullCheck(IPA.Logging.Logger,System.Object)
+  name: NullCheck(Logger, Object)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_NullCheck_IPA_Logging_Logger_System_Object_
+  commentId: M:SiraUtil.Extensions.NullCheck(IPA.Logging.Logger,System.Object)
+  fullName: SiraUtil.Extensions.NullCheck(IPA.Logging.Logger, System.Object)
+  nameWithType: Extensions.NullCheck(Logger, Object)
+- uid: SiraUtil.Extensions.NullCheck*
+  name: NullCheck
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_NullCheck_
+  commentId: Overload:SiraUtil.Extensions.NullCheck
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.NullCheck
+  nameWithType: Extensions.NullCheck
+- uid: SiraUtil.Extensions.SetType(Saber,SaberType,ColorManager)
+  name: SetType(Saber, SaberType, ColorManager)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_SetType_Saber_SaberType_ColorManager_
+  commentId: M:SiraUtil.Extensions.SetType(Saber,SaberType,ColorManager)
+  fullName: SiraUtil.Extensions.SetType(Saber, SaberType, ColorManager)
+  nameWithType: Extensions.SetType(Saber, SaberType, ColorManager)
+- uid: SiraUtil.Extensions.SetType*
+  name: SetType
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_SetType_
+  commentId: Overload:SiraUtil.Extensions.SetType
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.SetType
+  nameWithType: Extensions.SetType
+- uid: SiraUtil.Extensions.Upgrade(UnityEngine.Component,System.Type)
+  name: Upgrade(Component, Type)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_Upgrade_UnityEngine_Component_System_Type_
+  commentId: M:SiraUtil.Extensions.Upgrade(UnityEngine.Component,System.Type)
+  fullName: SiraUtil.Extensions.Upgrade(UnityEngine.Component, System.Type)
+  nameWithType: Extensions.Upgrade(Component, Type)
+- uid: SiraUtil.Extensions.Upgrade*
+  name: Upgrade
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_Upgrade_
+  commentId: Overload:SiraUtil.Extensions.Upgrade
+  isSpec: "True"
+  fullName: SiraUtil.Extensions.Upgrade
+  nameWithType: Extensions.Upgrade
+- uid: SiraUtil.Extensions.Upgrade``2(``0)
+  name: Upgrade<T, U>(T)
+  href: api/SiraUtil.Extensions.html#SiraUtil_Extensions_Upgrade__2___0_
+  commentId: M:SiraUtil.Extensions.Upgrade``2(``0)
+  name.vb: Upgrade(Of T, U)(T)
+  fullName: SiraUtil.Extensions.Upgrade<T, U>(T)
+  fullName.vb: SiraUtil.Extensions.Upgrade(Of T, U)(T)
+  nameWithType: Extensions.Upgrade<T, U>(T)
+  nameWithType.vb: Extensions.Upgrade(Of T, U)(T)
+- uid: SiraUtil.Interfaces
+  name: SiraUtil.Interfaces
+  href: api/SiraUtil.Interfaces.html
+  commentId: N:SiraUtil.Interfaces
+  fullName: SiraUtil.Interfaces
+  nameWithType: SiraUtil.Interfaces
+- uid: SiraUtil.Interfaces.ICallback`1
+  name: ICallback<T>
+  href: api/SiraUtil.Interfaces.ICallback-1.html
+  commentId: T:SiraUtil.Interfaces.ICallback`1
+  name.vb: ICallback(Of T)
+  fullName: SiraUtil.Interfaces.ICallback<T>
+  fullName.vb: SiraUtil.Interfaces.ICallback(Of T)
+  nameWithType: ICallback<T>
+  nameWithType.vb: ICallback(Of T)
+- uid: SiraUtil.Interfaces.ICallback`1.Callback
+  name: Callback
+  href: api/SiraUtil.Interfaces.ICallback-1.html#SiraUtil_Interfaces_ICallback_1_Callback
+  commentId: E:SiraUtil.Interfaces.ICallback`1.Callback
+  fullName: SiraUtil.Interfaces.ICallback<T>.Callback
+  fullName.vb: SiraUtil.Interfaces.ICallback(Of T).Callback
+  nameWithType: ICallback<T>.Callback
+  nameWithType.vb: ICallback(Of T).Callback
+- uid: SiraUtil.Interfaces.IColorable
+  name: IColorable
+  href: api/SiraUtil.Interfaces.IColorable.html
+  commentId: T:SiraUtil.Interfaces.IColorable
+  fullName: SiraUtil.Interfaces.IColorable
+  nameWithType: IColorable
+- uid: SiraUtil.Interfaces.IColorable.Color
+  name: Color
+  href: api/SiraUtil.Interfaces.IColorable.html#SiraUtil_Interfaces_IColorable_Color
+  commentId: P:SiraUtil.Interfaces.IColorable.Color
+  fullName: SiraUtil.Interfaces.IColorable.Color
+  nameWithType: IColorable.Color
+- uid: SiraUtil.Interfaces.IColorable.Color*
+  name: Color
+  href: api/SiraUtil.Interfaces.IColorable.html#SiraUtil_Interfaces_IColorable_Color_
+  commentId: Overload:SiraUtil.Interfaces.IColorable.Color
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IColorable.Color
+  nameWithType: IColorable.Color
+- uid: SiraUtil.Interfaces.IColorable.SetColor(UnityEngine.Color)
+  name: SetColor(Color)
+  href: api/SiraUtil.Interfaces.IColorable.html#SiraUtil_Interfaces_IColorable_SetColor_UnityEngine_Color_
+  commentId: M:SiraUtil.Interfaces.IColorable.SetColor(UnityEngine.Color)
+  fullName: SiraUtil.Interfaces.IColorable.SetColor(UnityEngine.Color)
+  nameWithType: IColorable.SetColor(Color)
+- uid: SiraUtil.Interfaces.IColorable.SetColor*
+  name: SetColor
+  href: api/SiraUtil.Interfaces.IColorable.html#SiraUtil_Interfaces_IColorable_SetColor_
+  commentId: Overload:SiraUtil.Interfaces.IColorable.SetColor
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IColorable.SetColor
+  nameWithType: IColorable.SetColor
+- uid: SiraUtil.Interfaces.IDismissable
+  name: IDismissable
+  href: api/SiraUtil.Interfaces.IDismissable.html
+  commentId: T:SiraUtil.Interfaces.IDismissable
+  fullName: SiraUtil.Interfaces.IDismissable
+  nameWithType: IDismissable
+- uid: SiraUtil.Interfaces.IDismissable.Dismiss
+  name: Dismiss()
+  href: api/SiraUtil.Interfaces.IDismissable.html#SiraUtil_Interfaces_IDismissable_Dismiss
+  commentId: M:SiraUtil.Interfaces.IDismissable.Dismiss
+  fullName: SiraUtil.Interfaces.IDismissable.Dismiss()
+  nameWithType: IDismissable.Dismiss()
+- uid: SiraUtil.Interfaces.IDismissable.Dismiss*
+  name: Dismiss
+  href: api/SiraUtil.Interfaces.IDismissable.html#SiraUtil_Interfaces_IDismissable_Dismiss_
+  commentId: Overload:SiraUtil.Interfaces.IDismissable.Dismiss
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IDismissable.Dismiss
+  nameWithType: IDismissable.Dismiss
+- uid: SiraUtil.Interfaces.ILevelFinisher
+  name: ILevelFinisher
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html
+  commentId: T:SiraUtil.Interfaces.ILevelFinisher
+  fullName: SiraUtil.Interfaces.ILevelFinisher
+  nameWithType: ILevelFinisher
+- uid: SiraUtil.Interfaces.ILevelFinisher.LocalPlayerDidDisconnectFromMultiplayer
+  name: LocalPlayerDidDisconnectFromMultiplayer
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_LocalPlayerDidDisconnectFromMultiplayer
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.LocalPlayerDidDisconnectFromMultiplayer
+  fullName: SiraUtil.Interfaces.ILevelFinisher.LocalPlayerDidDisconnectFromMultiplayer
+  nameWithType: ILevelFinisher.LocalPlayerDidDisconnectFromMultiplayer
+- uid: SiraUtil.Interfaces.ILevelFinisher.MissionLevelDidFinish
+  name: MissionLevelDidFinish
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_MissionLevelDidFinish
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.MissionLevelDidFinish
+  fullName: SiraUtil.Interfaces.ILevelFinisher.MissionLevelDidFinish
+  nameWithType: ILevelFinisher.MissionLevelDidFinish
+- uid: SiraUtil.Interfaces.ILevelFinisher.MissionLevelFinished
+  name: MissionLevelFinished
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_MissionLevelFinished
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.MissionLevelFinished
+  fullName: SiraUtil.Interfaces.ILevelFinisher.MissionLevelFinished
+  nameWithType: ILevelFinisher.MissionLevelFinished
+- uid: SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelDidFinish
+  name: MultiplayerLevelDidFinish
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_MultiplayerLevelDidFinish
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelDidFinish
+  fullName: SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelDidFinish
+  nameWithType: ILevelFinisher.MultiplayerLevelDidFinish
+- uid: SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelDisconnected
+  name: MultiplayerLevelDisconnected
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_MultiplayerLevelDisconnected
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelDisconnected
+  fullName: SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelDisconnected
+  nameWithType: ILevelFinisher.MultiplayerLevelDisconnected
+- uid: SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelFinished
+  name: MultiplayerLevelFinished
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_MultiplayerLevelFinished
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelFinished
+  fullName: SiraUtil.Interfaces.ILevelFinisher.MultiplayerLevelFinished
+  nameWithType: ILevelFinisher.MultiplayerLevelFinished
+- uid: SiraUtil.Interfaces.ILevelFinisher.StandardLevelDidFinish
+  name: StandardLevelDidFinish
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_StandardLevelDidFinish
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.StandardLevelDidFinish
+  fullName: SiraUtil.Interfaces.ILevelFinisher.StandardLevelDidFinish
+  nameWithType: ILevelFinisher.StandardLevelDidFinish
+- uid: SiraUtil.Interfaces.ILevelFinisher.StandardLevelFinished
+  name: StandardLevelFinished
+  href: api/SiraUtil.Interfaces.ILevelFinisher.html#SiraUtil_Interfaces_ILevelFinisher_StandardLevelFinished
+  commentId: E:SiraUtil.Interfaces.ILevelFinisher.StandardLevelFinished
+  fullName: SiraUtil.Interfaces.ILevelFinisher.StandardLevelFinished
+  nameWithType: ILevelFinisher.StandardLevelFinished
+- uid: SiraUtil.Interfaces.ILocalizer
+  name: ILocalizer
+  href: api/SiraUtil.Interfaces.ILocalizer.html
+  commentId: T:SiraUtil.Interfaces.ILocalizer
+  fullName: SiraUtil.Interfaces.ILocalizer
+  nameWithType: ILocalizer
+- uid: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet(Polyglot.LocalizationAsset,System.Boolean)
+  name: AddLocalizationSheet(LocalizationAsset, Boolean)
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_AddLocalizationSheet_Polyglot_LocalizationAsset_System_Boolean_
+  commentId: M:SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet(Polyglot.LocalizationAsset,System.Boolean)
+  fullName: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet(Polyglot.LocalizationAsset, System.Boolean)
+  nameWithType: ILocalizer.AddLocalizationSheet(LocalizationAsset, Boolean)
+- uid: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet(System.String,Polyglot.GoogleDriveDownloadFormat,System.String,System.Boolean)
+  name: AddLocalizationSheet(String, GoogleDriveDownloadFormat, String, Boolean)
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_AddLocalizationSheet_System_String_Polyglot_GoogleDriveDownloadFormat_System_String_System_Boolean_
+  commentId: M:SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet(System.String,Polyglot.GoogleDriveDownloadFormat,System.String,System.Boolean)
+  fullName: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet(System.String, Polyglot.GoogleDriveDownloadFormat, System.String, System.Boolean)
+  nameWithType: ILocalizer.AddLocalizationSheet(String, GoogleDriveDownloadFormat, String, Boolean)
+- uid: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet*
+  name: AddLocalizationSheet
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_AddLocalizationSheet_
+  commentId: Overload:SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheet
+  nameWithType: ILocalizer.AddLocalizationSheet
+- uid: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheetFromAssembly(System.String,Polyglot.GoogleDriveDownloadFormat,System.Boolean)
+  name: AddLocalizationSheetFromAssembly(String, GoogleDriveDownloadFormat, Boolean)
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_AddLocalizationSheetFromAssembly_System_String_Polyglot_GoogleDriveDownloadFormat_System_Boolean_
+  commentId: M:SiraUtil.Interfaces.ILocalizer.AddLocalizationSheetFromAssembly(System.String,Polyglot.GoogleDriveDownloadFormat,System.Boolean)
+  fullName: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheetFromAssembly(System.String, Polyglot.GoogleDriveDownloadFormat, System.Boolean)
+  nameWithType: ILocalizer.AddLocalizationSheetFromAssembly(String, GoogleDriveDownloadFormat, Boolean)
+- uid: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheetFromAssembly*
+  name: AddLocalizationSheetFromAssembly
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_AddLocalizationSheetFromAssembly_
+  commentId: Overload:SiraUtil.Interfaces.ILocalizer.AddLocalizationSheetFromAssembly
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ILocalizer.AddLocalizationSheetFromAssembly
+  nameWithType: ILocalizer.AddLocalizationSheetFromAssembly
+- uid: SiraUtil.Interfaces.ILocalizer.RecalculateLanguages
+  name: RecalculateLanguages()
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_RecalculateLanguages
+  commentId: M:SiraUtil.Interfaces.ILocalizer.RecalculateLanguages
+  fullName: SiraUtil.Interfaces.ILocalizer.RecalculateLanguages()
+  nameWithType: ILocalizer.RecalculateLanguages()
+- uid: SiraUtil.Interfaces.ILocalizer.RecalculateLanguages*
+  name: RecalculateLanguages
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_RecalculateLanguages_
+  commentId: Overload:SiraUtil.Interfaces.ILocalizer.RecalculateLanguages
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ILocalizer.RecalculateLanguages
+  nameWithType: ILocalizer.RecalculateLanguages
+- uid: SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet(Polyglot.LocalizationAsset)
+  name: RemoveLocalizationSheet(LocalizationAsset)
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_RemoveLocalizationSheet_Polyglot_LocalizationAsset_
+  commentId: M:SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet(Polyglot.LocalizationAsset)
+  fullName: SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet(Polyglot.LocalizationAsset)
+  nameWithType: ILocalizer.RemoveLocalizationSheet(LocalizationAsset)
+- uid: SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet(System.String)
+  name: RemoveLocalizationSheet(String)
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_RemoveLocalizationSheet_System_String_
+  commentId: M:SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet(System.String)
+  fullName: SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet(System.String)
+  nameWithType: ILocalizer.RemoveLocalizationSheet(String)
+- uid: SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet*
+  name: RemoveLocalizationSheet
+  href: api/SiraUtil.Interfaces.ILocalizer.html#SiraUtil_Interfaces_ILocalizer_RemoveLocalizationSheet_
+  commentId: Overload:SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ILocalizer.RemoveLocalizationSheet
+  nameWithType: ILocalizer.RemoveLocalizationSheet
+- uid: SiraUtil.Interfaces.IModelProvider
+  name: IModelProvider
+  href: api/SiraUtil.Interfaces.IModelProvider.html
+  commentId: T:SiraUtil.Interfaces.IModelProvider
+  fullName: SiraUtil.Interfaces.IModelProvider
+  nameWithType: IModelProvider
+- uid: SiraUtil.Interfaces.IModelProvider.Priority
+  name: Priority
+  href: api/SiraUtil.Interfaces.IModelProvider.html#SiraUtil_Interfaces_IModelProvider_Priority
+  commentId: P:SiraUtil.Interfaces.IModelProvider.Priority
+  fullName: SiraUtil.Interfaces.IModelProvider.Priority
+  nameWithType: IModelProvider.Priority
+- uid: SiraUtil.Interfaces.IModelProvider.Priority*
+  name: Priority
+  href: api/SiraUtil.Interfaces.IModelProvider.html#SiraUtil_Interfaces_IModelProvider_Priority_
+  commentId: Overload:SiraUtil.Interfaces.IModelProvider.Priority
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IModelProvider.Priority
+  nameWithType: IModelProvider.Priority
+- uid: SiraUtil.Interfaces.IModelProvider.Type
+  name: Type
+  href: api/SiraUtil.Interfaces.IModelProvider.html#SiraUtil_Interfaces_IModelProvider_Type
+  commentId: P:SiraUtil.Interfaces.IModelProvider.Type
+  fullName: SiraUtil.Interfaces.IModelProvider.Type
+  nameWithType: IModelProvider.Type
+- uid: SiraUtil.Interfaces.IModelProvider.Type*
+  name: Type
+  href: api/SiraUtil.Interfaces.IModelProvider.html#SiraUtil_Interfaces_IModelProvider_Type_
+  commentId: Overload:SiraUtil.Interfaces.IModelProvider.Type
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IModelProvider.Type
+  nameWithType: IModelProvider.Type
+- uid: SiraUtil.Interfaces.IPrefabProvider`1
+  name: IPrefabProvider<T>
+  href: api/SiraUtil.Interfaces.IPrefabProvider-1.html
+  commentId: T:SiraUtil.Interfaces.IPrefabProvider`1
+  name.vb: IPrefabProvider(Of T)
+  fullName: SiraUtil.Interfaces.IPrefabProvider<T>
+  fullName.vb: SiraUtil.Interfaces.IPrefabProvider(Of T)
+  nameWithType: IPrefabProvider<T>
+  nameWithType.vb: IPrefabProvider(Of T)
+- uid: SiraUtil.Interfaces.IPrefabProvider`1.Chain
+  name: Chain
+  href: api/SiraUtil.Interfaces.IPrefabProvider-1.html#SiraUtil_Interfaces_IPrefabProvider_1_Chain
+  commentId: P:SiraUtil.Interfaces.IPrefabProvider`1.Chain
+  fullName: SiraUtil.Interfaces.IPrefabProvider<T>.Chain
+  fullName.vb: SiraUtil.Interfaces.IPrefabProvider(Of T).Chain
+  nameWithType: IPrefabProvider<T>.Chain
+  nameWithType.vb: IPrefabProvider(Of T).Chain
+- uid: SiraUtil.Interfaces.IPrefabProvider`1.Chain*
+  name: Chain
+  href: api/SiraUtil.Interfaces.IPrefabProvider-1.html#SiraUtil_Interfaces_IPrefabProvider_1_Chain_
+  commentId: Overload:SiraUtil.Interfaces.IPrefabProvider`1.Chain
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IPrefabProvider<T>.Chain
+  fullName.vb: SiraUtil.Interfaces.IPrefabProvider(Of T).Chain
+  nameWithType: IPrefabProvider<T>.Chain
+  nameWithType.vb: IPrefabProvider(Of T).Chain
+- uid: SiraUtil.Interfaces.IPrefabProvider`1.Modify(`0)
+  name: Modify(T)
+  href: api/SiraUtil.Interfaces.IPrefabProvider-1.html#SiraUtil_Interfaces_IPrefabProvider_1_Modify__0_
+  commentId: M:SiraUtil.Interfaces.IPrefabProvider`1.Modify(`0)
+  fullName: SiraUtil.Interfaces.IPrefabProvider<T>.Modify(T)
+  fullName.vb: SiraUtil.Interfaces.IPrefabProvider(Of T).Modify(T)
+  nameWithType: IPrefabProvider<T>.Modify(T)
+  nameWithType.vb: IPrefabProvider(Of T).Modify(T)
+- uid: SiraUtil.Interfaces.IPrefabProvider`1.Modify*
+  name: Modify
+  href: api/SiraUtil.Interfaces.IPrefabProvider-1.html#SiraUtil_Interfaces_IPrefabProvider_1_Modify_
+  commentId: Overload:SiraUtil.Interfaces.IPrefabProvider`1.Modify
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IPrefabProvider<T>.Modify
+  fullName.vb: SiraUtil.Interfaces.IPrefabProvider(Of T).Modify
+  nameWithType: IPrefabProvider<T>.Modify
+  nameWithType.vb: IPrefabProvider(Of T).Modify
+- uid: SiraUtil.Interfaces.IRegistrar`1
+  name: IRegistrar<T>
+  href: api/SiraUtil.Interfaces.IRegistrar-1.html
+  commentId: T:SiraUtil.Interfaces.IRegistrar`1
+  name.vb: IRegistrar(Of T)
+  fullName: SiraUtil.Interfaces.IRegistrar<T>
+  fullName.vb: SiraUtil.Interfaces.IRegistrar(Of T)
+  nameWithType: IRegistrar<T>
+  nameWithType.vb: IRegistrar(Of T)
+- uid: SiraUtil.Interfaces.IRegistrar`1.Add(`0)
+  name: Add(T)
+  href: api/SiraUtil.Interfaces.IRegistrar-1.html#SiraUtil_Interfaces_IRegistrar_1_Add__0_
+  commentId: M:SiraUtil.Interfaces.IRegistrar`1.Add(`0)
+  fullName: SiraUtil.Interfaces.IRegistrar<T>.Add(T)
+  fullName.vb: SiraUtil.Interfaces.IRegistrar(Of T).Add(T)
+  nameWithType: IRegistrar<T>.Add(T)
+  nameWithType.vb: IRegistrar(Of T).Add(T)
+- uid: SiraUtil.Interfaces.IRegistrar`1.Add*
+  name: Add
+  href: api/SiraUtil.Interfaces.IRegistrar-1.html#SiraUtil_Interfaces_IRegistrar_1_Add_
+  commentId: Overload:SiraUtil.Interfaces.IRegistrar`1.Add
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IRegistrar<T>.Add
+  fullName.vb: SiraUtil.Interfaces.IRegistrar(Of T).Add
+  nameWithType: IRegistrar<T>.Add
+  nameWithType.vb: IRegistrar(Of T).Add
+- uid: SiraUtil.Interfaces.IRegistrar`1.Remove(`0)
+  name: Remove(T)
+  href: api/SiraUtil.Interfaces.IRegistrar-1.html#SiraUtil_Interfaces_IRegistrar_1_Remove__0_
+  commentId: M:SiraUtil.Interfaces.IRegistrar`1.Remove(`0)
+  fullName: SiraUtil.Interfaces.IRegistrar<T>.Remove(T)
+  fullName.vb: SiraUtil.Interfaces.IRegistrar(Of T).Remove(T)
+  nameWithType: IRegistrar<T>.Remove(T)
+  nameWithType.vb: IRegistrar(Of T).Remove(T)
+- uid: SiraUtil.Interfaces.IRegistrar`1.Remove*
+  name: Remove
+  href: api/SiraUtil.Interfaces.IRegistrar-1.html#SiraUtil_Interfaces_IRegistrar_1_Remove_
+  commentId: Overload:SiraUtil.Interfaces.IRegistrar`1.Remove
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IRegistrar<T>.Remove
+  fullName.vb: SiraUtil.Interfaces.IRegistrar(Of T).Remove
+  nameWithType: IRegistrar<T>.Remove
+  nameWithType.vb: IRegistrar(Of T).Remove
+- uid: SiraUtil.Interfaces.ISaberRegistrar
+  name: ISaberRegistrar
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html
+  commentId: T:SiraUtil.Interfaces.ISaberRegistrar
+  fullName: SiraUtil.Interfaces.ISaberRegistrar
+  nameWithType: ISaberRegistrar
+- uid: SiraUtil.Interfaces.ISaberRegistrar.ChangeColor(Saber)
+  name: ChangeColor(Saber)
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_ChangeColor_Saber_
+  commentId: M:SiraUtil.Interfaces.ISaberRegistrar.ChangeColor(Saber)
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.ChangeColor(Saber)
+  nameWithType: ISaberRegistrar.ChangeColor(Saber)
+- uid: SiraUtil.Interfaces.ISaberRegistrar.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_ChangeColor_
+  commentId: Overload:SiraUtil.Interfaces.ISaberRegistrar.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.ChangeColor
+  nameWithType: ISaberRegistrar.ChangeColor
+- uid: SiraUtil.Interfaces.ISaberRegistrar.Initialize(SaberManager)
+  name: Initialize(SaberManager)
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_Initialize_SaberManager_
+  commentId: M:SiraUtil.Interfaces.ISaberRegistrar.Initialize(SaberManager)
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.Initialize(SaberManager)
+  nameWithType: ISaberRegistrar.Initialize(SaberManager)
+- uid: SiraUtil.Interfaces.ISaberRegistrar.Initialize*
+  name: Initialize
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_Initialize_
+  commentId: Overload:SiraUtil.Interfaces.ISaberRegistrar.Initialize
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.Initialize
+  nameWithType: ISaberRegistrar.Initialize
+- uid: SiraUtil.Interfaces.ISaberRegistrar.RegisterSaber(Saber)
+  name: RegisterSaber(Saber)
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_RegisterSaber_Saber_
+  commentId: M:SiraUtil.Interfaces.ISaberRegistrar.RegisterSaber(Saber)
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.RegisterSaber(Saber)
+  nameWithType: ISaberRegistrar.RegisterSaber(Saber)
+- uid: SiraUtil.Interfaces.ISaberRegistrar.RegisterSaber*
+  name: RegisterSaber
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_RegisterSaber_
+  commentId: Overload:SiraUtil.Interfaces.ISaberRegistrar.RegisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.RegisterSaber
+  nameWithType: ISaberRegistrar.RegisterSaber
+- uid: SiraUtil.Interfaces.ISaberRegistrar.UnregisterSaber(Saber)
+  name: UnregisterSaber(Saber)
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_UnregisterSaber_Saber_
+  commentId: M:SiraUtil.Interfaces.ISaberRegistrar.UnregisterSaber(Saber)
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.UnregisterSaber(Saber)
+  nameWithType: ISaberRegistrar.UnregisterSaber(Saber)
+- uid: SiraUtil.Interfaces.ISaberRegistrar.UnregisterSaber*
+  name: UnregisterSaber
+  href: api/SiraUtil.Interfaces.ISaberRegistrar.html#SiraUtil_Interfaces_ISaberRegistrar_UnregisterSaber_
+  commentId: Overload:SiraUtil.Interfaces.ISaberRegistrar.UnregisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.ISaberRegistrar.UnregisterSaber
+  nameWithType: ISaberRegistrar.UnregisterSaber
+- uid: SiraUtil.Interfaces.IToggleable
+  name: IToggleable
+  href: api/SiraUtil.Interfaces.IToggleable.html
+  commentId: T:SiraUtil.Interfaces.IToggleable
+  fullName: SiraUtil.Interfaces.IToggleable
+  nameWithType: IToggleable
+- uid: SiraUtil.Interfaces.IToggleable.Status
+  name: Status
+  href: api/SiraUtil.Interfaces.IToggleable.html#SiraUtil_Interfaces_IToggleable_Status
+  commentId: P:SiraUtil.Interfaces.IToggleable.Status
+  fullName: SiraUtil.Interfaces.IToggleable.Status
+  nameWithType: IToggleable.Status
+- uid: SiraUtil.Interfaces.IToggleable.Status*
+  name: Status
+  href: api/SiraUtil.Interfaces.IToggleable.html#SiraUtil_Interfaces_IToggleable_Status_
+  commentId: Overload:SiraUtil.Interfaces.IToggleable.Status
+  isSpec: "True"
+  fullName: SiraUtil.Interfaces.IToggleable.Status
+  nameWithType: IToggleable.Status
+- uid: SiraUtil.Localizer
+  name: Localizer
+  href: api/SiraUtil.Localizer.html
+  commentId: T:SiraUtil.Localizer
+  fullName: SiraUtil.Localizer
+  nameWithType: Localizer
+- uid: SiraUtil.Localizer.AddLocalizationSheet(Polyglot.LocalizationAsset)
+  name: AddLocalizationSheet(LocalizationAsset)
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_AddLocalizationSheet_Polyglot_LocalizationAsset_
+  commentId: M:SiraUtil.Localizer.AddLocalizationSheet(Polyglot.LocalizationAsset)
+  fullName: SiraUtil.Localizer.AddLocalizationSheet(Polyglot.LocalizationAsset)
+  nameWithType: Localizer.AddLocalizationSheet(LocalizationAsset)
+- uid: SiraUtil.Localizer.AddLocalizationSheet(System.String,Polyglot.GoogleDriveDownloadFormat,System.String,System.Boolean)
+  name: AddLocalizationSheet(String, GoogleDriveDownloadFormat, String, Boolean)
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_AddLocalizationSheet_System_String_Polyglot_GoogleDriveDownloadFormat_System_String_System_Boolean_
+  commentId: M:SiraUtil.Localizer.AddLocalizationSheet(System.String,Polyglot.GoogleDriveDownloadFormat,System.String,System.Boolean)
+  fullName: SiraUtil.Localizer.AddLocalizationSheet(System.String, Polyglot.GoogleDriveDownloadFormat, System.String, System.Boolean)
+  nameWithType: Localizer.AddLocalizationSheet(String, GoogleDriveDownloadFormat, String, Boolean)
+- uid: SiraUtil.Localizer.AddLocalizationSheet*
+  name: AddLocalizationSheet
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_AddLocalizationSheet_
+  commentId: Overload:SiraUtil.Localizer.AddLocalizationSheet
+  isSpec: "True"
+  fullName: SiraUtil.Localizer.AddLocalizationSheet
+  nameWithType: Localizer.AddLocalizationSheet
+- uid: SiraUtil.Localizer.AddLocalizationSheetFromAssembly(System.String,Polyglot.GoogleDriveDownloadFormat,System.Boolean)
+  name: AddLocalizationSheetFromAssembly(String, GoogleDriveDownloadFormat, Boolean)
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_AddLocalizationSheetFromAssembly_System_String_Polyglot_GoogleDriveDownloadFormat_System_Boolean_
+  commentId: M:SiraUtil.Localizer.AddLocalizationSheetFromAssembly(System.String,Polyglot.GoogleDriveDownloadFormat,System.Boolean)
+  fullName: SiraUtil.Localizer.AddLocalizationSheetFromAssembly(System.String, Polyglot.GoogleDriveDownloadFormat, System.Boolean)
+  nameWithType: Localizer.AddLocalizationSheetFromAssembly(String, GoogleDriveDownloadFormat, Boolean)
+- uid: SiraUtil.Localizer.AddLocalizationSheetFromAssembly*
+  name: AddLocalizationSheetFromAssembly
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_AddLocalizationSheetFromAssembly_
+  commentId: Overload:SiraUtil.Localizer.AddLocalizationSheetFromAssembly
+  isSpec: "True"
+  fullName: SiraUtil.Localizer.AddLocalizationSheetFromAssembly
+  nameWithType: Localizer.AddLocalizationSheetFromAssembly
+- uid: SiraUtil.Localizer.RemoveLocalizationSheet(Polyglot.LocalizationAsset)
+  name: RemoveLocalizationSheet(LocalizationAsset)
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_RemoveLocalizationSheet_Polyglot_LocalizationAsset_
+  commentId: M:SiraUtil.Localizer.RemoveLocalizationSheet(Polyglot.LocalizationAsset)
+  fullName: SiraUtil.Localizer.RemoveLocalizationSheet(Polyglot.LocalizationAsset)
+  nameWithType: Localizer.RemoveLocalizationSheet(LocalizationAsset)
+- uid: SiraUtil.Localizer.RemoveLocalizationSheet(System.String)
+  name: RemoveLocalizationSheet(String)
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_RemoveLocalizationSheet_System_String_
+  commentId: M:SiraUtil.Localizer.RemoveLocalizationSheet(System.String)
+  fullName: SiraUtil.Localizer.RemoveLocalizationSheet(System.String)
+  nameWithType: Localizer.RemoveLocalizationSheet(String)
+- uid: SiraUtil.Localizer.RemoveLocalizationSheet*
+  name: RemoveLocalizationSheet
+  href: api/SiraUtil.Localizer.html#SiraUtil_Localizer_RemoveLocalizationSheet_
+  commentId: Overload:SiraUtil.Localizer.RemoveLocalizationSheet
+  isSpec: "True"
+  fullName: SiraUtil.Localizer.RemoveLocalizationSheet
+  nameWithType: Localizer.RemoveLocalizationSheet
+- uid: SiraUtil.Objects
+  name: SiraUtil.Objects
+  href: api/SiraUtil.Objects.html
+  commentId: N:SiraUtil.Objects
+  fullName: SiraUtil.Objects
+  nameWithType: SiraUtil.Objects
+- uid: SiraUtil.Objects.ObjectState
+  name: ObjectState
+  href: api/SiraUtil.Objects.ObjectState.html
+  commentId: T:SiraUtil.Objects.ObjectState
+  fullName: SiraUtil.Objects.ObjectState
+  nameWithType: ObjectState
+- uid: SiraUtil.Objects.ObjectState.#ctor(UnityEngine.Transform)
+  name: ObjectState(Transform)
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState__ctor_UnityEngine_Transform_
+  commentId: M:SiraUtil.Objects.ObjectState.#ctor(UnityEngine.Transform)
+  fullName: SiraUtil.Objects.ObjectState.ObjectState(UnityEngine.Transform)
+  nameWithType: ObjectState.ObjectState(Transform)
+- uid: SiraUtil.Objects.ObjectState.#ctor*
+  name: ObjectState
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState__ctor_
+  commentId: Overload:SiraUtil.Objects.ObjectState.#ctor
+  isSpec: "True"
+  fullName: SiraUtil.Objects.ObjectState.ObjectState
+  nameWithType: ObjectState.ObjectState
+- uid: SiraUtil.Objects.ObjectState.Active
+  name: Active
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState_Active
+  commentId: F:SiraUtil.Objects.ObjectState.Active
+  fullName: SiraUtil.Objects.ObjectState.Active
+  nameWithType: ObjectState.Active
+- uid: SiraUtil.Objects.ObjectState.pose
+  name: pose
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState_pose
+  commentId: F:SiraUtil.Objects.ObjectState.pose
+  fullName: SiraUtil.Objects.ObjectState.pose
+  nameWithType: ObjectState.pose
+- uid: SiraUtil.Objects.ObjectState.Revert
+  name: Revert()
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState_Revert
+  commentId: M:SiraUtil.Objects.ObjectState.Revert
+  fullName: SiraUtil.Objects.ObjectState.Revert()
+  nameWithType: ObjectState.Revert()
+- uid: SiraUtil.Objects.ObjectState.Revert*
+  name: Revert
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState_Revert_
+  commentId: Overload:SiraUtil.Objects.ObjectState.Revert
+  isSpec: "True"
+  fullName: SiraUtil.Objects.ObjectState.Revert
+  nameWithType: ObjectState.Revert
+- uid: SiraUtil.Objects.ObjectState.scale
+  name: scale
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState_scale
+  commentId: F:SiraUtil.Objects.ObjectState.scale
+  fullName: SiraUtil.Objects.ObjectState.scale
+  nameWithType: ObjectState.scale
+- uid: SiraUtil.Objects.ObjectState.transform
+  name: transform
+  href: api/SiraUtil.Objects.ObjectState.html#SiraUtil_Objects_ObjectState_transform
+  commentId: F:SiraUtil.Objects.ObjectState.transform
+  fullName: SiraUtil.Objects.ObjectState.transform
+  nameWithType: ObjectState.transform
+- uid: SiraUtil.Objects.ObjectStateContainer
+  name: ObjectStateContainer
+  href: api/SiraUtil.Objects.ObjectStateContainer.html
+  commentId: T:SiraUtil.Objects.ObjectStateContainer
+  fullName: SiraUtil.Objects.ObjectStateContainer
+  nameWithType: ObjectStateContainer
+- uid: SiraUtil.Objects.ObjectStateContainer.#ctor(UnityEngine.GameObject)
+  name: ObjectStateContainer(GameObject)
+  href: api/SiraUtil.Objects.ObjectStateContainer.html#SiraUtil_Objects_ObjectStateContainer__ctor_UnityEngine_GameObject_
+  commentId: M:SiraUtil.Objects.ObjectStateContainer.#ctor(UnityEngine.GameObject)
+  fullName: SiraUtil.Objects.ObjectStateContainer.ObjectStateContainer(UnityEngine.GameObject)
+  nameWithType: ObjectStateContainer.ObjectStateContainer(GameObject)
+- uid: SiraUtil.Objects.ObjectStateContainer.#ctor*
+  name: ObjectStateContainer
+  href: api/SiraUtil.Objects.ObjectStateContainer.html#SiraUtil_Objects_ObjectStateContainer__ctor_
+  commentId: Overload:SiraUtil.Objects.ObjectStateContainer.#ctor
+  isSpec: "True"
+  fullName: SiraUtil.Objects.ObjectStateContainer.ObjectStateContainer
+  nameWithType: ObjectStateContainer.ObjectStateContainer
+- uid: SiraUtil.Objects.ObjectStateContainer.objects
+  name: objects
+  href: api/SiraUtil.Objects.ObjectStateContainer.html#SiraUtil_Objects_ObjectStateContainer_objects
+  commentId: F:SiraUtil.Objects.ObjectStateContainer.objects
+  fullName: SiraUtil.Objects.ObjectStateContainer.objects
+  nameWithType: ObjectStateContainer.objects
+- uid: SiraUtil.Objects.ObjectStateContainer.Revert
+  name: Revert()
+  href: api/SiraUtil.Objects.ObjectStateContainer.html#SiraUtil_Objects_ObjectStateContainer_Revert
+  commentId: M:SiraUtil.Objects.ObjectStateContainer.Revert
+  fullName: SiraUtil.Objects.ObjectStateContainer.Revert()
+  nameWithType: ObjectStateContainer.Revert()
+- uid: SiraUtil.Objects.ObjectStateContainer.Revert*
+  name: Revert
+  href: api/SiraUtil.Objects.ObjectStateContainer.html#SiraUtil_Objects_ObjectStateContainer_Revert_
+  commentId: Overload:SiraUtil.Objects.ObjectStateContainer.Revert
+  isSpec: "True"
+  fullName: SiraUtil.Objects.ObjectStateContainer.Revert
+  nameWithType: ObjectStateContainer.Revert
+- uid: SiraUtil.Objects.SiraPrefabContainer
+  name: SiraPrefabContainer
+  href: api/SiraUtil.Objects.SiraPrefabContainer.html
+  commentId: T:SiraUtil.Objects.SiraPrefabContainer
+  fullName: SiraUtil.Objects.SiraPrefabContainer
+  nameWithType: SiraPrefabContainer
+- uid: SiraUtil.Objects.SiraPrefabContainer.Pool
+  name: SiraPrefabContainer.Pool
+  href: api/SiraUtil.Objects.SiraPrefabContainer.Pool.html
+  commentId: T:SiraUtil.Objects.SiraPrefabContainer.Pool
+  fullName: SiraUtil.Objects.SiraPrefabContainer.Pool
+  nameWithType: SiraPrefabContainer.Pool
+- uid: SiraUtil.Objects.SiraPrefabContainer.Prefab
+  name: Prefab
+  href: api/SiraUtil.Objects.SiraPrefabContainer.html#SiraUtil_Objects_SiraPrefabContainer_Prefab
+  commentId: P:SiraUtil.Objects.SiraPrefabContainer.Prefab
+  fullName: SiraUtil.Objects.SiraPrefabContainer.Prefab
+  nameWithType: SiraPrefabContainer.Prefab
+- uid: SiraUtil.Objects.SiraPrefabContainer.Prefab*
+  name: Prefab
+  href: api/SiraUtil.Objects.SiraPrefabContainer.html#SiraUtil_Objects_SiraPrefabContainer_Prefab_
+  commentId: Overload:SiraUtil.Objects.SiraPrefabContainer.Prefab
+  isSpec: "True"
+  fullName: SiraUtil.Objects.SiraPrefabContainer.Prefab
+  nameWithType: SiraPrefabContainer.Prefab
+- uid: SiraUtil.Objects.SiraPrefabContainer.Start
+  name: Start()
+  href: api/SiraUtil.Objects.SiraPrefabContainer.html#SiraUtil_Objects_SiraPrefabContainer_Start
+  commentId: M:SiraUtil.Objects.SiraPrefabContainer.Start
+  fullName: SiraUtil.Objects.SiraPrefabContainer.Start()
+  nameWithType: SiraPrefabContainer.Start()
+- uid: SiraUtil.Objects.SiraPrefabContainer.Start*
+  name: Start
+  href: api/SiraUtil.Objects.SiraPrefabContainer.html#SiraUtil_Objects_SiraPrefabContainer_Start_
+  commentId: Overload:SiraUtil.Objects.SiraPrefabContainer.Start
+  isSpec: "True"
+  fullName: SiraUtil.Objects.SiraPrefabContainer.Start
+  nameWithType: SiraPrefabContainer.Start
+- uid: SiraUtil.Plugin
+  name: Plugin
+  href: api/SiraUtil.Plugin.html
+  commentId: T:SiraUtil.Plugin
+  fullName: SiraUtil.Plugin
+  nameWithType: Plugin
+- uid: SiraUtil.Plugin.#ctor(IPA.Config.Config,IPA.Logging.Logger,IPA.Loader.PluginMetadata)
+  name: Plugin(Config, Logger, PluginMetadata)
+  href: api/SiraUtil.Plugin.html#SiraUtil_Plugin__ctor_IPA_Config_Config_IPA_Logging_Logger_IPA_Loader_PluginMetadata_
+  commentId: M:SiraUtil.Plugin.#ctor(IPA.Config.Config,IPA.Logging.Logger,IPA.Loader.PluginMetadata)
+  fullName: SiraUtil.Plugin.Plugin(IPA.Config.Config, IPA.Logging.Logger, IPA.Loader.PluginMetadata)
+  nameWithType: Plugin.Plugin(Config, Logger, PluginMetadata)
+- uid: SiraUtil.Plugin.#ctor*
+  name: Plugin
+  href: api/SiraUtil.Plugin.html#SiraUtil_Plugin__ctor_
+  commentId: Overload:SiraUtil.Plugin.#ctor
+  isSpec: "True"
+  fullName: SiraUtil.Plugin.Plugin
+  nameWithType: Plugin.Plugin
+- uid: SiraUtil.Plugin.OnDisable
+  name: OnDisable()
+  href: api/SiraUtil.Plugin.html#SiraUtil_Plugin_OnDisable
+  commentId: M:SiraUtil.Plugin.OnDisable
+  fullName: SiraUtil.Plugin.OnDisable()
+  nameWithType: Plugin.OnDisable()
+- uid: SiraUtil.Plugin.OnDisable*
+  name: OnDisable
+  href: api/SiraUtil.Plugin.html#SiraUtil_Plugin_OnDisable_
+  commentId: Overload:SiraUtil.Plugin.OnDisable
+  isSpec: "True"
+  fullName: SiraUtil.Plugin.OnDisable
+  nameWithType: Plugin.OnDisable
+- uid: SiraUtil.Plugin.OnEnable
+  name: OnEnable()
+  href: api/SiraUtil.Plugin.html#SiraUtil_Plugin_OnEnable
+  commentId: M:SiraUtil.Plugin.OnEnable
+  fullName: SiraUtil.Plugin.OnEnable()
+  nameWithType: Plugin.OnEnable()
+- uid: SiraUtil.Plugin.OnEnable*
+  name: OnEnable
+  href: api/SiraUtil.Plugin.html#SiraUtil_Plugin_OnEnable_
+  commentId: Overload:SiraUtil.Plugin.OnEnable
+  isSpec: "True"
+  fullName: SiraUtil.Plugin.OnEnable
+  nameWithType: Plugin.OnEnable
+- uid: SiraUtil.Sabers
+  name: SiraUtil.Sabers
+  href: api/SiraUtil.Sabers.html
+  commentId: N:SiraUtil.Sabers
+  fullName: SiraUtil.Sabers
+  nameWithType: SiraUtil.Sabers
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager
+  name: SiraObstacleSaberSparkleEffectManager
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html
+  commentId: T:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager
+  nameWithType: SiraObstacleSaberSparkleEffectManager
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType(SaberType)
+  name: BurnMarkPosForSaberType(SaberType)
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_BurnMarkPosForSaberType_SaberType_
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType(SaberType)
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType(SaberType)
+  nameWithType: SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType(SaberType)
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType*
+  name: BurnMarkPosForSaberType
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_BurnMarkPosForSaberType_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType
+  nameWithType: SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor(Saber)
+  name: ChangeColor(Saber)
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_ChangeColor_Saber_
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor(Saber)
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor(Saber)
+  nameWithType: SiraObstacleSaberSparkleEffectManager.ChangeColor(Saber)
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_ChangeColor_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor
+  nameWithType: SiraObstacleSaberSparkleEffectManager.ChangeColor
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize(SaberManager)
+  name: Initialize(SaberManager)
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Initialize_SaberManager_
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize(SaberManager)
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize(SaberManager)
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Initialize(SaberManager)
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize*
+  name: Initialize
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Initialize_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Initialize
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate
+  name: Recalculate()
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Recalculate
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate()
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Recalculate()
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate*
+  name: Recalculate
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Recalculate_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Recalculate
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber(Saber)
+  name: RegisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_RegisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber(Saber)
+  nameWithType: SiraObstacleSaberSparkleEffectManager.RegisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber*
+  name: RegisterSaber
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_RegisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber
+  nameWithType: SiraObstacleSaberSparkleEffectManager.RegisterSaber
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start
+  name: Start()
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Start
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start()
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Start()
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start*
+  name: Start
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Start_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Start
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber(Saber)
+  name: UnregisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_UnregisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber(Saber)
+  nameWithType: SiraObstacleSaberSparkleEffectManager.UnregisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber*
+  name: UnregisterSaber
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_UnregisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber
+  nameWithType: SiraObstacleSaberSparkleEffectManager.UnregisterSaber
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update
+  name: Update()
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Update
+  commentId: M:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update()
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Update()
+- uid: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update*
+  name: Update
+  href: api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html#SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Update_
+  commentId: Overload:SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update
+  nameWithType: SiraObstacleSaberSparkleEffectManager.Update
+- uid: SiraUtil.Sabers.SiraSaber
+  name: SiraSaber
+  href: api/SiraUtil.Sabers.SiraSaber.html
+  commentId: T:SiraUtil.Sabers.SiraSaber
+  fullName: SiraUtil.Sabers.SiraSaber
+  nameWithType: SiraSaber
+- uid: SiraUtil.Sabers.SiraSaber.ChangeColor(UnityEngine.Color)
+  name: ChangeColor(Color)
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_ChangeColor_UnityEngine_Color_
+  commentId: M:SiraUtil.Sabers.SiraSaber.ChangeColor(UnityEngine.Color)
+  fullName: SiraUtil.Sabers.SiraSaber.ChangeColor(UnityEngine.Color)
+  nameWithType: SiraSaber.ChangeColor(Color)
+- uid: SiraUtil.Sabers.SiraSaber.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_ChangeColor_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.ChangeColor
+  nameWithType: SiraSaber.ChangeColor
+- uid: SiraUtil.Sabers.SiraSaber.ChangeType(SaberType)
+  name: ChangeType(SaberType)
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_ChangeType_SaberType_
+  commentId: M:SiraUtil.Sabers.SiraSaber.ChangeType(SaberType)
+  fullName: SiraUtil.Sabers.SiraSaber.ChangeType(SaberType)
+  nameWithType: SiraSaber.ChangeType(SaberType)
+- uid: SiraUtil.Sabers.SiraSaber.ChangeType*
+  name: ChangeType
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_ChangeType_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.ChangeType
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.ChangeType
+  nameWithType: SiraSaber.ChangeType
+- uid: SiraUtil.Sabers.SiraSaber.Factory
+  name: SiraSaber.Factory
+  href: api/SiraUtil.Sabers.SiraSaber.Factory.html
+  commentId: T:SiraUtil.Sabers.SiraSaber.Factory
+  fullName: SiraUtil.Sabers.SiraSaber.Factory
+  nameWithType: SiraSaber.Factory
+- uid: SiraUtil.Sabers.SiraSaber.ModelDidInit
+  name: ModelDidInit
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_ModelDidInit
+  commentId: E:SiraUtil.Sabers.SiraSaber.ModelDidInit
+  fullName: SiraUtil.Sabers.SiraSaber.ModelDidInit
+  nameWithType: SiraSaber.ModelDidInit
+- uid: SiraUtil.Sabers.SiraSaber.nextType
+  name: nextType
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_nextType
+  commentId: F:SiraUtil.Sabers.SiraSaber.nextType
+  fullName: SiraUtil.Sabers.SiraSaber.nextType
+  nameWithType: SiraSaber.nextType
+- uid: SiraUtil.Sabers.SiraSaber.OnDestroy
+  name: OnDestroy()
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_OnDestroy
+  commentId: M:SiraUtil.Sabers.SiraSaber.OnDestroy
+  fullName: SiraUtil.Sabers.SiraSaber.OnDestroy()
+  nameWithType: SiraSaber.OnDestroy()
+- uid: SiraUtil.Sabers.SiraSaber.OnDestroy*
+  name: OnDestroy
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_OnDestroy_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.OnDestroy
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.OnDestroy
+  nameWithType: SiraSaber.OnDestroy
+- uid: SiraUtil.Sabers.SiraSaber.Saber
+  name: Saber
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_Saber
+  commentId: P:SiraUtil.Sabers.SiraSaber.Saber
+  fullName: SiraUtil.Sabers.SiraSaber.Saber
+  nameWithType: SiraSaber.Saber
+- uid: SiraUtil.Sabers.SiraSaber.Saber*
+  name: Saber
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_Saber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.Saber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.Saber
+  nameWithType: SiraSaber.Saber
+- uid: SiraUtil.Sabers.SiraSaber.SaberFactory
+  name: SiraSaber.SaberFactory
+  href: api/SiraUtil.Sabers.SiraSaber.SaberFactory.html
+  commentId: T:SiraUtil.Sabers.SiraSaber.SaberFactory
+  fullName: SiraUtil.Sabers.SiraSaber.SaberFactory
+  nameWithType: SiraSaber.SaberFactory
+- uid: SiraUtil.Sabers.SiraSaber.SaberFactory.Create
+  name: Create()
+  href: api/SiraUtil.Sabers.SiraSaber.SaberFactory.html#SiraUtil_Sabers_SiraSaber_SaberFactory_Create
+  commentId: M:SiraUtil.Sabers.SiraSaber.SaberFactory.Create
+  fullName: SiraUtil.Sabers.SiraSaber.SaberFactory.Create()
+  nameWithType: SiraSaber.SaberFactory.Create()
+- uid: SiraUtil.Sabers.SiraSaber.SaberFactory.Create*
+  name: Create
+  href: api/SiraUtil.Sabers.SiraSaber.SaberFactory.html#SiraUtil_Sabers_SiraSaber_SaberFactory_Create_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.SaberFactory.Create
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.SaberFactory.Create
+  nameWithType: SiraSaber.SaberFactory.Create
+- uid: SiraUtil.Sabers.SiraSaber.SetSaber(Saber)
+  name: SetSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_SetSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaber.SetSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraSaber.SetSaber(Saber)
+  nameWithType: SiraSaber.SetSaber(Saber)
+- uid: SiraUtil.Sabers.SiraSaber.SetSaber*
+  name: SetSaber
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_SetSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.SetSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.SetSaber
+  nameWithType: SiraSaber.SetSaber
+- uid: SiraUtil.Sabers.SiraSaber.SetType(SaberType)
+  name: SetType(SaberType)
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_SetType_SaberType_
+  commentId: M:SiraUtil.Sabers.SiraSaber.SetType(SaberType)
+  fullName: SiraUtil.Sabers.SiraSaber.SetType(SaberType)
+  nameWithType: SiraSaber.SetType(SaberType)
+- uid: SiraUtil.Sabers.SiraSaber.SetType*
+  name: SetType
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_SetType_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.SetType
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.SetType
+  nameWithType: SiraSaber.SetType
+- uid: SiraUtil.Sabers.SiraSaber.SwapType(System.Boolean)
+  name: SwapType(Boolean)
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_SwapType_System_Boolean_
+  commentId: M:SiraUtil.Sabers.SiraSaber.SwapType(System.Boolean)
+  fullName: SiraUtil.Sabers.SiraSaber.SwapType(System.Boolean)
+  nameWithType: SiraSaber.SwapType(Boolean)
+- uid: SiraUtil.Sabers.SiraSaber.SwapType*
+  name: SwapType
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_SwapType_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.SwapType
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.SwapType
+  nameWithType: SiraSaber.SwapType
+- uid: SiraUtil.Sabers.SiraSaber.Update
+  name: Update()
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_Update
+  commentId: M:SiraUtil.Sabers.SiraSaber.Update
+  fullName: SiraUtil.Sabers.SiraSaber.Update()
+  nameWithType: SiraSaber.Update()
+- uid: SiraUtil.Sabers.SiraSaber.Update*
+  name: Update
+  href: api/SiraUtil.Sabers.SiraSaber.html#SiraUtil_Sabers_SiraSaber_Update_
+  commentId: Overload:SiraUtil.Sabers.SiraSaber.Update
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaber.Update
+  nameWithType: SiraSaber.Update
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea
+  name: SiraSaberBurnMarkArea
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html
+  commentId: T:SiraUtil.Sabers.SiraSaberBurnMarkArea
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea
+  nameWithType: SiraSaberBurnMarkArea
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.ChangeColor(Saber)
+  name: ChangeColor(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_ChangeColor_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.ChangeColor(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.ChangeColor(Saber)
+  nameWithType: SiraSaberBurnMarkArea.ChangeColor(Saber)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_ChangeColor_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.ChangeColor
+  nameWithType: SiraSaberBurnMarkArea.ChangeColor
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.Initialize(SaberManager)
+  name: Initialize(SaberManager)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_Initialize_SaberManager_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.Initialize(SaberManager)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.Initialize(SaberManager)
+  nameWithType: SiraSaberBurnMarkArea.Initialize(SaberManager)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.Initialize*
+  name: Initialize
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_Initialize_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.Initialize
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.Initialize
+  nameWithType: SiraSaberBurnMarkArea.Initialize
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.LateUpdate
+  name: LateUpdate()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_LateUpdate
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.LateUpdate
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.LateUpdate()
+  nameWithType: SiraSaberBurnMarkArea.LateUpdate()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.LateUpdate*
+  name: LateUpdate
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_LateUpdate_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.LateUpdate
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.LateUpdate
+  nameWithType: SiraSaberBurnMarkArea.LateUpdate
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDestroy
+  name: OnDestroy()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_OnDestroy
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDestroy
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDestroy()
+  nameWithType: SiraSaberBurnMarkArea.OnDestroy()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDestroy*
+  name: OnDestroy
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_OnDestroy_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDestroy
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDestroy
+  nameWithType: SiraSaberBurnMarkArea.OnDestroy
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDisable
+  name: OnDisable()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_OnDisable
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDisable
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDisable()
+  nameWithType: SiraSaberBurnMarkArea.OnDisable()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDisable*
+  name: OnDisable
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_OnDisable_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDisable
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnDisable
+  nameWithType: SiraSaberBurnMarkArea.OnDisable
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnEnable
+  name: OnEnable()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_OnEnable
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.OnEnable
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnEnable()
+  nameWithType: SiraSaberBurnMarkArea.OnEnable()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnEnable*
+  name: OnEnable
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_OnEnable_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.OnEnable
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.OnEnable
+  nameWithType: SiraSaberBurnMarkArea.OnEnable
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.RegisterSaber(Saber)
+  name: RegisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_RegisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.RegisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.RegisterSaber(Saber)
+  nameWithType: SiraSaberBurnMarkArea.RegisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.RegisterSaber*
+  name: RegisterSaber
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_RegisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.RegisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.RegisterSaber
+  nameWithType: SiraSaberBurnMarkArea.RegisterSaber
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.Start
+  name: Start()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_Start
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.Start
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.Start()
+  nameWithType: SiraSaberBurnMarkArea.Start()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.Start*
+  name: Start
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_Start_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.Start
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.Start
+  nameWithType: SiraSaberBurnMarkArea.Start
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.UnregisterSaber(Saber)
+  name: UnregisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_UnregisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkArea.UnregisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.UnregisterSaber(Saber)
+  nameWithType: SiraSaberBurnMarkArea.UnregisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkArea.UnregisterSaber*
+  name: UnregisterSaber
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html#SiraUtil_Sabers_SiraSaberBurnMarkArea_UnregisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkArea.UnregisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkArea.UnregisterSaber
+  nameWithType: SiraSaberBurnMarkArea.UnregisterSaber
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles
+  name: SiraSaberBurnMarkSparkles
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html
+  commentId: T:SiraUtil.Sabers.SiraSaberBurnMarkSparkles
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles
+  nameWithType: SiraSaberBurnMarkSparkles
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.ChangeColor(Saber)
+  name: ChangeColor(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_ChangeColor_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.ChangeColor(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.ChangeColor(Saber)
+  nameWithType: SiraSaberBurnMarkSparkles.ChangeColor(Saber)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_ChangeColor_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.ChangeColor
+  nameWithType: SiraSaberBurnMarkSparkles.ChangeColor
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Initialize(SaberManager)
+  name: Initialize(SaberManager)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_Initialize_SaberManager_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Initialize(SaberManager)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Initialize(SaberManager)
+  nameWithType: SiraSaberBurnMarkSparkles.Initialize(SaberManager)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Initialize*
+  name: Initialize
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_Initialize_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Initialize
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Initialize
+  nameWithType: SiraSaberBurnMarkSparkles.Initialize
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.LateUpdate
+  name: LateUpdate()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_LateUpdate
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.LateUpdate
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.LateUpdate()
+  nameWithType: SiraSaberBurnMarkSparkles.LateUpdate()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.LateUpdate*
+  name: LateUpdate
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_LateUpdate_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.LateUpdate
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.LateUpdate
+  nameWithType: SiraSaberBurnMarkSparkles.LateUpdate
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.OnDestroy
+  name: OnDestroy()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_OnDestroy
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.OnDestroy
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.OnDestroy()
+  nameWithType: SiraSaberBurnMarkSparkles.OnDestroy()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.OnDestroy*
+  name: OnDestroy
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_OnDestroy_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.OnDestroy
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.OnDestroy
+  nameWithType: SiraSaberBurnMarkSparkles.OnDestroy
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.RegisterSaber(Saber)
+  name: RegisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_RegisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.RegisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.RegisterSaber(Saber)
+  nameWithType: SiraSaberBurnMarkSparkles.RegisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.RegisterSaber*
+  name: RegisterSaber
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_RegisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.RegisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.RegisterSaber
+  nameWithType: SiraSaberBurnMarkSparkles.RegisterSaber
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Start
+  name: Start()
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_Start
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Start
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Start()
+  nameWithType: SiraSaberBurnMarkSparkles.Start()
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Start*
+  name: Start
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_Start_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Start
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.Start
+  nameWithType: SiraSaberBurnMarkSparkles.Start
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.UnregisterSaber(Saber)
+  name: UnregisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_UnregisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.UnregisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.UnregisterSaber(Saber)
+  nameWithType: SiraSaberBurnMarkSparkles.UnregisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.UnregisterSaber*
+  name: UnregisterSaber
+  href: api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html#SiraUtil_Sabers_SiraSaberBurnMarkSparkles_UnregisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberBurnMarkSparkles.UnregisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberBurnMarkSparkles.UnregisterSaber
+  nameWithType: SiraSaberBurnMarkSparkles.UnregisterSaber
+- uid: SiraUtil.Sabers.SiraSaberClashChecker
+  name: SiraSaberClashChecker
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html
+  commentId: T:SiraUtil.Sabers.SiraSaberClashChecker
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker
+  nameWithType: SiraSaberClashChecker
+- uid: SiraUtil.Sabers.SiraSaberClashChecker._container
+  name: _container
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker__container
+  commentId: F:SiraUtil.Sabers.SiraSaberClashChecker._container
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker._container
+  nameWithType: SiraSaberClashChecker._container
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.AreSabersClashing(UnityEngine.Vector3@)
+  name: AreSabersClashing(out Vector3)
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_AreSabersClashing_UnityEngine_Vector3__
+  commentId: M:SiraUtil.Sabers.SiraSaberClashChecker.AreSabersClashing(UnityEngine.Vector3@)
+  name.vb: AreSabersClashing(ByRef Vector3)
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.AreSabersClashing(out UnityEngine.Vector3)
+  fullName.vb: SiraUtil.Sabers.SiraSaberClashChecker.AreSabersClashing(ByRef UnityEngine.Vector3)
+  nameWithType: SiraSaberClashChecker.AreSabersClashing(out Vector3)
+  nameWithType.vb: SiraSaberClashChecker.AreSabersClashing(ByRef Vector3)
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.AreSabersClashing*
+  name: AreSabersClashing
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_AreSabersClashing_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberClashChecker.AreSabersClashing
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.AreSabersClashing
+  nameWithType: SiraSaberClashChecker.AreSabersClashing
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.ChangeColor(Saber)
+  name: ChangeColor(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_ChangeColor_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberClashChecker.ChangeColor(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.ChangeColor(Saber)
+  nameWithType: SiraSaberClashChecker.ChangeColor(Saber)
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_ChangeColor_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberClashChecker.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.ChangeColor
+  nameWithType: SiraSaberClashChecker.ChangeColor
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.Initialize(SaberManager)
+  name: Initialize(SaberManager)
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_Initialize_SaberManager_
+  commentId: M:SiraUtil.Sabers.SiraSaberClashChecker.Initialize(SaberManager)
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.Initialize(SaberManager)
+  nameWithType: SiraSaberClashChecker.Initialize(SaberManager)
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.Initialize*
+  name: Initialize
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_Initialize_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberClashChecker.Initialize
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.Initialize
+  nameWithType: SiraSaberClashChecker.Initialize
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.MultiSaberMode
+  name: MultiSaberMode
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_MultiSaberMode
+  commentId: P:SiraUtil.Sabers.SiraSaberClashChecker.MultiSaberMode
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.MultiSaberMode
+  nameWithType: SiraSaberClashChecker.MultiSaberMode
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.MultiSaberMode*
+  name: MultiSaberMode
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_MultiSaberMode_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberClashChecker.MultiSaberMode
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.MultiSaberMode
+  nameWithType: SiraSaberClashChecker.MultiSaberMode
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.RegisterSaber(Saber)
+  name: RegisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_RegisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberClashChecker.RegisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.RegisterSaber(Saber)
+  nameWithType: SiraSaberClashChecker.RegisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.RegisterSaber*
+  name: RegisterSaber
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_RegisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberClashChecker.RegisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.RegisterSaber
+  nameWithType: SiraSaberClashChecker.RegisterSaber
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.UnregisterSaber(Saber)
+  name: UnregisterSaber(Saber)
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_UnregisterSaber_Saber_
+  commentId: M:SiraUtil.Sabers.SiraSaberClashChecker.UnregisterSaber(Saber)
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.UnregisterSaber(Saber)
+  nameWithType: SiraSaberClashChecker.UnregisterSaber(Saber)
+- uid: SiraUtil.Sabers.SiraSaberClashChecker.UnregisterSaber*
+  name: UnregisterSaber
+  href: api/SiraUtil.Sabers.SiraSaberClashChecker.html#SiraUtil_Sabers_SiraSaberClashChecker_UnregisterSaber_
+  commentId: Overload:SiraUtil.Sabers.SiraSaberClashChecker.UnregisterSaber
+  isSpec: "True"
+  fullName: SiraUtil.Sabers.SiraSaberClashChecker.UnregisterSaber
+  nameWithType: SiraSaberClashChecker.UnregisterSaber
+- uid: SiraUtil.Services
+  name: SiraUtil.Services
+  href: api/SiraUtil.Services.html
+  commentId: N:SiraUtil.Services
+  fullName: SiraUtil.Services
+  nameWithType: SiraUtil.Services
+- uid: SiraUtil.Services.SaberProvider
+  name: SaberProvider
+  href: api/SiraUtil.Services.SaberProvider.html
+  commentId: T:SiraUtil.Services.SaberProvider
+  fullName: SiraUtil.Services.SaberProvider
+  nameWithType: SaberProvider
+- uid: SiraUtil.Services.SaberProvider.ControllerReady
+  name: ControllerReady
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_ControllerReady
+  commentId: E:SiraUtil.Services.SaberProvider.ControllerReady
+  fullName: SiraUtil.Services.SaberProvider.ControllerReady
+  nameWithType: SaberProvider.ControllerReady
+- uid: SiraUtil.Services.SaberProvider.Dispose
+  name: Dispose()
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_Dispose
+  commentId: M:SiraUtil.Services.SaberProvider.Dispose
+  fullName: SiraUtil.Services.SaberProvider.Dispose()
+  nameWithType: SaberProvider.Dispose()
+- uid: SiraUtil.Services.SaberProvider.Dispose*
+  name: Dispose
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_Dispose_
+  commentId: Overload:SiraUtil.Services.SaberProvider.Dispose
+  isSpec: "True"
+  fullName: SiraUtil.Services.SaberProvider.Dispose
+  nameWithType: SaberProvider.Dispose
+- uid: SiraUtil.Services.SaberProvider.GetModel
+  name: GetModel()
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_GetModel
+  commentId: M:SiraUtil.Services.SaberProvider.GetModel
+  fullName: SiraUtil.Services.SaberProvider.GetModel()
+  nameWithType: SaberProvider.GetModel()
+- uid: SiraUtil.Services.SaberProvider.GetModel(System.Action{SaberModelController})
+  name: GetModel(Action<SaberModelController>)
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_GetModel_System_Action_SaberModelController__
+  commentId: M:SiraUtil.Services.SaberProvider.GetModel(System.Action{SaberModelController})
+  name.vb: GetModel(Action(Of SaberModelController))
+  fullName: SiraUtil.Services.SaberProvider.GetModel(System.Action<SaberModelController>)
+  fullName.vb: SiraUtil.Services.SaberProvider.GetModel(System.Action(Of SaberModelController))
+  nameWithType: SaberProvider.GetModel(Action<SaberModelController>)
+  nameWithType.vb: SaberProvider.GetModel(Action(Of SaberModelController))
+- uid: SiraUtil.Services.SaberProvider.GetModel*
+  name: GetModel
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_GetModel_
+  commentId: Overload:SiraUtil.Services.SaberProvider.GetModel
+  isSpec: "True"
+  fullName: SiraUtil.Services.SaberProvider.GetModel
+  nameWithType: SaberProvider.GetModel
+- uid: SiraUtil.Services.SaberProvider.GetModel``1(System.Action{``0})
+  name: GetModel<T>(Action<T>)
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_GetModel__1_System_Action___0__
+  commentId: M:SiraUtil.Services.SaberProvider.GetModel``1(System.Action{``0})
+  name.vb: GetModel(Of T)(Action(Of T))
+  fullName: SiraUtil.Services.SaberProvider.GetModel<T>(System.Action<T>)
+  fullName.vb: SiraUtil.Services.SaberProvider.GetModel(Of T)(System.Action(Of T))
+  nameWithType: SaberProvider.GetModel<T>(Action<T>)
+  nameWithType.vb: SaberProvider.GetModel(Of T)(Action(Of T))
+- uid: SiraUtil.Services.SaberProvider.IsSafe(System.Boolean)
+  name: IsSafe(Boolean)
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_IsSafe_System_Boolean_
+  commentId: M:SiraUtil.Services.SaberProvider.IsSafe(System.Boolean)
+  fullName: SiraUtil.Services.SaberProvider.IsSafe(System.Boolean)
+  nameWithType: SaberProvider.IsSafe(Boolean)
+- uid: SiraUtil.Services.SaberProvider.IsSafe*
+  name: IsSafe
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_IsSafe_
+  commentId: Overload:SiraUtil.Services.SaberProvider.IsSafe
+  isSpec: "True"
+  fullName: SiraUtil.Services.SaberProvider.IsSafe
+  nameWithType: SaberProvider.IsSafe
+- uid: SiraUtil.Services.SaberProvider.Tick
+  name: Tick()
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_Tick
+  commentId: M:SiraUtil.Services.SaberProvider.Tick
+  fullName: SiraUtil.Services.SaberProvider.Tick()
+  nameWithType: SaberProvider.Tick()
+- uid: SiraUtil.Services.SaberProvider.Tick*
+  name: Tick
+  href: api/SiraUtil.Services.SaberProvider.html#SiraUtil_Services_SaberProvider_Tick_
+  commentId: Overload:SiraUtil.Services.SaberProvider.Tick
+  isSpec: "True"
+  fullName: SiraUtil.Services.SaberProvider.Tick
+  nameWithType: SaberProvider.Tick
+- uid: SiraUtil.Services.SiraSaberEffectManager
+  name: SiraSaberEffectManager
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html
+  commentId: T:SiraUtil.Services.SiraSaberEffectManager
+  fullName: SiraUtil.Services.SiraSaberEffectManager
+  nameWithType: SiraSaberEffectManager
+- uid: SiraUtil.Services.SiraSaberEffectManager.ChangeColor(Saber)
+  name: ChangeColor(Saber)
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_ChangeColor_Saber_
+  commentId: M:SiraUtil.Services.SiraSaberEffectManager.ChangeColor(Saber)
+  fullName: SiraUtil.Services.SiraSaberEffectManager.ChangeColor(Saber)
+  nameWithType: SiraSaberEffectManager.ChangeColor(Saber)
+- uid: SiraUtil.Services.SiraSaberEffectManager.ChangeColor*
+  name: ChangeColor
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_ChangeColor_
+  commentId: Overload:SiraUtil.Services.SiraSaberEffectManager.ChangeColor
+  isSpec: "True"
+  fullName: SiraUtil.Services.SiraSaberEffectManager.ChangeColor
+  nameWithType: SiraSaberEffectManager.ChangeColor
+- uid: SiraUtil.Services.SiraSaberEffectManager.Dispose
+  name: Dispose()
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_Dispose
+  commentId: M:SiraUtil.Services.SiraSaberEffectManager.Dispose
+  fullName: SiraUtil.Services.SiraSaberEffectManager.Dispose()
+  nameWithType: SiraSaberEffectManager.Dispose()
+- uid: SiraUtil.Services.SiraSaberEffectManager.Dispose*
+  name: Dispose
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_Dispose_
+  commentId: Overload:SiraUtil.Services.SiraSaberEffectManager.Dispose
+  isSpec: "True"
+  fullName: SiraUtil.Services.SiraSaberEffectManager.Dispose
+  nameWithType: SiraSaberEffectManager.Dispose
+- uid: SiraUtil.Services.SiraSaberEffectManager.Initialize
+  name: Initialize()
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_Initialize
+  commentId: M:SiraUtil.Services.SiraSaberEffectManager.Initialize
+  fullName: SiraUtil.Services.SiraSaberEffectManager.Initialize()
+  nameWithType: SiraSaberEffectManager.Initialize()
+- uid: SiraUtil.Services.SiraSaberEffectManager.Initialize*
+  name: Initialize
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_Initialize_
+  commentId: Overload:SiraUtil.Services.SiraSaberEffectManager.Initialize
+  isSpec: "True"
+  fullName: SiraUtil.Services.SiraSaberEffectManager.Initialize
+  nameWithType: SiraSaberEffectManager.Initialize
+- uid: SiraUtil.Services.SiraSaberEffectManager.RepatchDefault(Saber,Saber,SaberManager)
+  name: RepatchDefault(Saber, Saber, SaberManager)
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_RepatchDefault_Saber_Saber_SaberManager_
+  commentId: M:SiraUtil.Services.SiraSaberEffectManager.RepatchDefault(Saber,Saber,SaberManager)
+  fullName: SiraUtil.Services.SiraSaberEffectManager.RepatchDefault(Saber, Saber, SaberManager)
+  nameWithType: SiraSaberEffectManager.RepatchDefault(Saber, Saber, SaberManager)
+- uid: SiraUtil.Services.SiraSaberEffectManager.RepatchDefault*
+  name: RepatchDefault
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_RepatchDefault_
+  commentId: Overload:SiraUtil.Services.SiraSaberEffectManager.RepatchDefault
+  isSpec: "True"
+  fullName: SiraUtil.Services.SiraSaberEffectManager.RepatchDefault
+  nameWithType: SiraSaberEffectManager.RepatchDefault
+- uid: SiraUtil.Services.SiraSaberEffectManager.SaberCreated(Saber)
+  name: SaberCreated(Saber)
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_SaberCreated_Saber_
+  commentId: M:SiraUtil.Services.SiraSaberEffectManager.SaberCreated(Saber)
+  fullName: SiraUtil.Services.SiraSaberEffectManager.SaberCreated(Saber)
+  nameWithType: SiraSaberEffectManager.SaberCreated(Saber)
+- uid: SiraUtil.Services.SiraSaberEffectManager.SaberCreated*
+  name: SaberCreated
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_SaberCreated_
+  commentId: Overload:SiraUtil.Services.SiraSaberEffectManager.SaberCreated
+  isSpec: "True"
+  fullName: SiraUtil.Services.SiraSaberEffectManager.SaberCreated
+  nameWithType: SiraSaberEffectManager.SaberCreated
+- uid: SiraUtil.Services.SiraSaberEffectManager.SaberDestroyed(Saber)
+  name: SaberDestroyed(Saber)
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_SaberDestroyed_Saber_
+  commentId: M:SiraUtil.Services.SiraSaberEffectManager.SaberDestroyed(Saber)
+  fullName: SiraUtil.Services.SiraSaberEffectManager.SaberDestroyed(Saber)
+  nameWithType: SiraSaberEffectManager.SaberDestroyed(Saber)
+- uid: SiraUtil.Services.SiraSaberEffectManager.SaberDestroyed*
+  name: SaberDestroyed
+  href: api/SiraUtil.Services.SiraSaberEffectManager.html#SiraUtil_Services_SiraSaberEffectManager_SaberDestroyed_
+  commentId: Overload:SiraUtil.Services.SiraSaberEffectManager.SaberDestroyed
+  isSpec: "True"
+  fullName: SiraUtil.Services.SiraSaberEffectManager.SaberDestroyed
+  nameWithType: SiraSaberEffectManager.SaberDestroyed
+- uid: SiraUtil.Services.Submission
+  name: Submission
+  href: api/SiraUtil.Services.Submission.html
+  commentId: T:SiraUtil.Services.Submission
+  fullName: SiraUtil.Services.Submission
+  nameWithType: Submission
+- uid: SiraUtil.Services.Submission.DisableScoreSubmission(System.String,System.String)
+  name: DisableScoreSubmission(String, String)
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_DisableScoreSubmission_System_String_System_String_
+  commentId: M:SiraUtil.Services.Submission.DisableScoreSubmission(System.String,System.String)
+  fullName: SiraUtil.Services.Submission.DisableScoreSubmission(System.String, System.String)
+  nameWithType: Submission.DisableScoreSubmission(String, String)
+- uid: SiraUtil.Services.Submission.DisableScoreSubmission*
+  name: DisableScoreSubmission
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_DisableScoreSubmission_
+  commentId: Overload:SiraUtil.Services.Submission.DisableScoreSubmission
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.DisableScoreSubmission
+  nameWithType: Submission.DisableScoreSubmission
+- uid: SiraUtil.Services.Submission.Dispose
+  name: Dispose()
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_Dispose
+  commentId: M:SiraUtil.Services.Submission.Dispose
+  fullName: SiraUtil.Services.Submission.Dispose()
+  nameWithType: Submission.Dispose()
+- uid: SiraUtil.Services.Submission.Dispose*
+  name: Dispose
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_Dispose_
+  commentId: Overload:SiraUtil.Services.Submission.Dispose
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.Dispose
+  nameWithType: Submission.Dispose
+- uid: SiraUtil.Services.Submission.Remove(SiraUtil.Services.Submission.Ticket)
+  name: Remove(Submission.Ticket)
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_Remove_SiraUtil_Services_Submission_Ticket_
+  commentId: M:SiraUtil.Services.Submission.Remove(SiraUtil.Services.Submission.Ticket)
+  fullName: SiraUtil.Services.Submission.Remove(SiraUtil.Services.Submission.Ticket)
+  nameWithType: Submission.Remove(Submission.Ticket)
+- uid: SiraUtil.Services.Submission.Remove(System.String)
+  name: Remove(String)
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_Remove_System_String_
+  commentId: M:SiraUtil.Services.Submission.Remove(System.String)
+  fullName: SiraUtil.Services.Submission.Remove(System.String)
+  nameWithType: Submission.Remove(String)
+- uid: SiraUtil.Services.Submission.Remove*
+  name: Remove
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_Remove_
+  commentId: Overload:SiraUtil.Services.Submission.Remove
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.Remove
+  nameWithType: Submission.Remove
+- uid: SiraUtil.Services.Submission.Ticket
+  name: Submission.Ticket
+  href: api/SiraUtil.Services.Submission.Ticket.html
+  commentId: T:SiraUtil.Services.Submission.Ticket
+  fullName: SiraUtil.Services.Submission.Ticket
+  nameWithType: Submission.Ticket
+- uid: SiraUtil.Services.Submission.Ticket.AddReason(System.String)
+  name: AddReason(String)
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_AddReason_System_String_
+  commentId: M:SiraUtil.Services.Submission.Ticket.AddReason(System.String)
+  fullName: SiraUtil.Services.Submission.Ticket.AddReason(System.String)
+  nameWithType: Submission.Ticket.AddReason(String)
+- uid: SiraUtil.Services.Submission.Ticket.AddReason*
+  name: AddReason
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_AddReason_
+  commentId: Overload:SiraUtil.Services.Submission.Ticket.AddReason
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.Ticket.AddReason
+  nameWithType: Submission.Ticket.AddReason
+- uid: SiraUtil.Services.Submission.Ticket.Copy
+  name: Copy()
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_Copy
+  commentId: M:SiraUtil.Services.Submission.Ticket.Copy
+  fullName: SiraUtil.Services.Submission.Ticket.Copy()
+  nameWithType: Submission.Ticket.Copy()
+- uid: SiraUtil.Services.Submission.Ticket.Copy*
+  name: Copy
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_Copy_
+  commentId: Overload:SiraUtil.Services.Submission.Ticket.Copy
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.Ticket.Copy
+  nameWithType: Submission.Ticket.Copy
+- uid: SiraUtil.Services.Submission.Ticket.Reasons
+  name: Reasons()
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_Reasons
+  commentId: M:SiraUtil.Services.Submission.Ticket.Reasons
+  fullName: SiraUtil.Services.Submission.Ticket.Reasons()
+  nameWithType: Submission.Ticket.Reasons()
+- uid: SiraUtil.Services.Submission.Ticket.Reasons*
+  name: Reasons
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_Reasons_
+  commentId: Overload:SiraUtil.Services.Submission.Ticket.Reasons
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.Ticket.Reasons
+  nameWithType: Submission.Ticket.Reasons
+- uid: SiraUtil.Services.Submission.Ticket.Source
+  name: Source
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_Source
+  commentId: P:SiraUtil.Services.Submission.Ticket.Source
+  fullName: SiraUtil.Services.Submission.Ticket.Source
+  nameWithType: Submission.Ticket.Source
+- uid: SiraUtil.Services.Submission.Ticket.Source*
+  name: Source
+  href: api/SiraUtil.Services.Submission.Ticket.html#SiraUtil_Services_Submission_Ticket_Source_
+  commentId: Overload:SiraUtil.Services.Submission.Ticket.Source
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.Ticket.Source
+  nameWithType: Submission.Ticket.Source
+- uid: SiraUtil.Services.Submission.Tickets
+  name: Tickets()
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_Tickets
+  commentId: M:SiraUtil.Services.Submission.Tickets
+  fullName: SiraUtil.Services.Submission.Tickets()
+  nameWithType: Submission.Tickets()
+- uid: SiraUtil.Services.Submission.Tickets*
+  name: Tickets
+  href: api/SiraUtil.Services.Submission.html#SiraUtil_Services_Submission_Tickets_
+  commentId: Overload:SiraUtil.Services.Submission.Tickets
+  isSpec: "True"
+  fullName: SiraUtil.Services.Submission.Tickets
+  nameWithType: Submission.Tickets
+- uid: SiraUtil.SiraClient
+  name: SiraClient
+  href: api/SiraUtil.SiraClient.html
+  commentId: T:SiraUtil.SiraClient
+  fullName: SiraUtil.SiraClient
+  nameWithType: SiraClient
+- uid: SiraUtil.SiraClient.DownloadImage(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  name: DownloadImage(String, CancellationToken, AuthenticationHeaderValue)
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_DownloadImage_System_String_System_Threading_CancellationToken_System_Net_Http_Headers_AuthenticationHeaderValue_
+  commentId: M:SiraUtil.SiraClient.DownloadImage(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  fullName: SiraUtil.SiraClient.DownloadImage(System.String, System.Threading.CancellationToken, System.Net.Http.Headers.AuthenticationHeaderValue)
+  nameWithType: SiraClient.DownloadImage(String, CancellationToken, AuthenticationHeaderValue)
+- uid: SiraUtil.SiraClient.DownloadImage*
+  name: DownloadImage
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_DownloadImage_
+  commentId: Overload:SiraUtil.SiraClient.DownloadImage
+  isSpec: "True"
+  fullName: SiraUtil.SiraClient.DownloadImage
+  nameWithType: SiraClient.DownloadImage
+- uid: SiraUtil.SiraClient.GetAsync(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  name: GetAsync(String, CancellationToken, AuthenticationHeaderValue)
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_GetAsync_System_String_System_Threading_CancellationToken_System_Net_Http_Headers_AuthenticationHeaderValue_
+  commentId: M:SiraUtil.SiraClient.GetAsync(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  fullName: SiraUtil.SiraClient.GetAsync(System.String, System.Threading.CancellationToken, System.Net.Http.Headers.AuthenticationHeaderValue)
+  nameWithType: SiraClient.GetAsync(String, CancellationToken, AuthenticationHeaderValue)
+- uid: SiraUtil.SiraClient.GetAsync*
+  name: GetAsync
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_GetAsync_
+  commentId: Overload:SiraUtil.SiraClient.GetAsync
+  isSpec: "True"
+  fullName: SiraUtil.SiraClient.GetAsync
+  nameWithType: SiraClient.GetAsync
+- uid: SiraUtil.SiraClient.PostAsync(System.String,System.Object,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  name: PostAsync(String, Object, CancellationToken, AuthenticationHeaderValue)
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_PostAsync_System_String_System_Object_System_Threading_CancellationToken_System_Net_Http_Headers_AuthenticationHeaderValue_
+  commentId: M:SiraUtil.SiraClient.PostAsync(System.String,System.Object,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  fullName: SiraUtil.SiraClient.PostAsync(System.String, System.Object, System.Threading.CancellationToken, System.Net.Http.Headers.AuthenticationHeaderValue)
+  nameWithType: SiraClient.PostAsync(String, Object, CancellationToken, AuthenticationHeaderValue)
+- uid: SiraUtil.SiraClient.PostAsync*
+  name: PostAsync
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_PostAsync_
+  commentId: Overload:SiraUtil.SiraClient.PostAsync
+  isSpec: "True"
+  fullName: SiraUtil.SiraClient.PostAsync
+  nameWithType: SiraClient.PostAsync
+- uid: SiraUtil.SiraClient.SendAsync(System.Net.Http.HttpMethod,System.String,System.Threading.CancellationToken,System.Object,System.Net.Http.Headers.AuthenticationHeaderValue,System.IProgress{System.Double})
+  name: SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress<Double>)
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_SendAsync_System_Net_Http_HttpMethod_System_String_System_Threading_CancellationToken_System_Object_System_Net_Http_Headers_AuthenticationHeaderValue_System_IProgress_System_Double__
+  commentId: M:SiraUtil.SiraClient.SendAsync(System.Net.Http.HttpMethod,System.String,System.Threading.CancellationToken,System.Object,System.Net.Http.Headers.AuthenticationHeaderValue,System.IProgress{System.Double})
+  name.vb: SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress(Of Double))
+  fullName: SiraUtil.SiraClient.SendAsync(System.Net.Http.HttpMethod, System.String, System.Threading.CancellationToken, System.Object, System.Net.Http.Headers.AuthenticationHeaderValue, System.IProgress<System.Double>)
+  fullName.vb: SiraUtil.SiraClient.SendAsync(System.Net.Http.HttpMethod, System.String, System.Threading.CancellationToken, System.Object, System.Net.Http.Headers.AuthenticationHeaderValue, System.IProgress(Of System.Double))
+  nameWithType: SiraClient.SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress<Double>)
+  nameWithType.vb: SiraClient.SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress(Of Double))
+- uid: SiraUtil.SiraClient.SendAsync*
+  name: SendAsync
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_SendAsync_
+  commentId: Overload:SiraUtil.SiraClient.SendAsync
+  isSpec: "True"
+  fullName: SiraUtil.SiraClient.SendAsync
+  nameWithType: SiraClient.SendAsync
+- uid: SiraUtil.SiraClient.SetHeader(System.String,System.String)
+  name: SetHeader(String, String)
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_SetHeader_System_String_System_String_
+  commentId: M:SiraUtil.SiraClient.SetHeader(System.String,System.String)
+  fullName: SiraUtil.SiraClient.SetHeader(System.String, System.String)
+  nameWithType: SiraClient.SetHeader(String, String)
+- uid: SiraUtil.SiraClient.SetHeader*
+  name: SetHeader
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_SetHeader_
+  commentId: Overload:SiraUtil.SiraClient.SetHeader
+  isSpec: "True"
+  fullName: SiraUtil.SiraClient.SetHeader
+  nameWithType: SiraClient.SetHeader
+- uid: SiraUtil.SiraClient.SetUserAgent(System.String,SemVer.Version)
+  name: SetUserAgent(String, Version)
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_SetUserAgent_System_String_SemVer_Version_
+  commentId: M:SiraUtil.SiraClient.SetUserAgent(System.String,SemVer.Version)
+  fullName: SiraUtil.SiraClient.SetUserAgent(System.String, SemVer.Version)
+  nameWithType: SiraClient.SetUserAgent(String, Version)
+- uid: SiraUtil.SiraClient.SetUserAgent(System.String,System.Version)
+  name: SetUserAgent(String, Version)
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_SetUserAgent_System_String_System_Version_
+  commentId: M:SiraUtil.SiraClient.SetUserAgent(System.String,System.Version)
+  fullName: SiraUtil.SiraClient.SetUserAgent(System.String, System.Version)
+  nameWithType: SiraClient.SetUserAgent(String, Version)
+- uid: SiraUtil.SiraClient.SetUserAgent*
+  name: SetUserAgent
+  href: api/SiraUtil.SiraClient.html#SiraUtil_SiraClient_SetUserAgent_
+  commentId: Overload:SiraUtil.SiraClient.SetUserAgent
+  isSpec: "True"
+  fullName: SiraUtil.SiraClient.SetUserAgent
+  nameWithType: SiraClient.SetUserAgent
+- uid: SiraUtil.Tools
+  name: SiraUtil.Tools
+  href: api/SiraUtil.Tools.html
+  commentId: N:SiraUtil.Tools
+  fullName: SiraUtil.Tools
+  nameWithType: SiraUtil.Tools
+- uid: SiraUtil.Tools.FPFCToggle
+  name: FPFCToggle
+  href: api/SiraUtil.Tools.FPFCToggle.html
+  commentId: T:SiraUtil.Tools.FPFCToggle
+  fullName: SiraUtil.Tools.FPFCToggle
+  nameWithType: FPFCToggle
+- uid: SiraUtil.Tools.FPFCToggle.Enabled
+  name: Enabled
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Enabled
+  commentId: P:SiraUtil.Tools.FPFCToggle.Enabled
+  fullName: SiraUtil.Tools.FPFCToggle.Enabled
+  nameWithType: FPFCToggle.Enabled
+- uid: SiraUtil.Tools.FPFCToggle.Enabled*
+  name: Enabled
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Enabled_
+  commentId: Overload:SiraUtil.Tools.FPFCToggle.Enabled
+  isSpec: "True"
+  fullName: SiraUtil.Tools.FPFCToggle.Enabled
+  nameWithType: FPFCToggle.Enabled
+- uid: SiraUtil.Tools.FPFCToggle.OnDestroy
+  name: OnDestroy()
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_OnDestroy
+  commentId: M:SiraUtil.Tools.FPFCToggle.OnDestroy
+  fullName: SiraUtil.Tools.FPFCToggle.OnDestroy()
+  nameWithType: FPFCToggle.OnDestroy()
+- uid: SiraUtil.Tools.FPFCToggle.OnDestroy*
+  name: OnDestroy
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_OnDestroy_
+  commentId: Overload:SiraUtil.Tools.FPFCToggle.OnDestroy
+  isSpec: "True"
+  fullName: SiraUtil.Tools.FPFCToggle.OnDestroy
+  nameWithType: FPFCToggle.OnDestroy
+- uid: SiraUtil.Tools.FPFCToggle.Refresh
+  name: Refresh()
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Refresh
+  commentId: M:SiraUtil.Tools.FPFCToggle.Refresh
+  fullName: SiraUtil.Tools.FPFCToggle.Refresh()
+  nameWithType: FPFCToggle.Refresh()
+- uid: SiraUtil.Tools.FPFCToggle.Refresh*
+  name: Refresh
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Refresh_
+  commentId: Overload:SiraUtil.Tools.FPFCToggle.Refresh
+  isSpec: "True"
+  fullName: SiraUtil.Tools.FPFCToggle.Refresh
+  nameWithType: FPFCToggle.Refresh
+- uid: SiraUtil.Tools.FPFCToggle.Start
+  name: Start()
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Start
+  commentId: M:SiraUtil.Tools.FPFCToggle.Start
+  fullName: SiraUtil.Tools.FPFCToggle.Start()
+  nameWithType: FPFCToggle.Start()
+- uid: SiraUtil.Tools.FPFCToggle.Start*
+  name: Start
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Start_
+  commentId: Overload:SiraUtil.Tools.FPFCToggle.Start
+  isSpec: "True"
+  fullName: SiraUtil.Tools.FPFCToggle.Start
+  nameWithType: FPFCToggle.Start
+- uid: SiraUtil.Tools.FPFCToggle.Toggle(System.Boolean)
+  name: Toggle(Boolean)
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Toggle_System_Boolean_
+  commentId: M:SiraUtil.Tools.FPFCToggle.Toggle(System.Boolean)
+  fullName: SiraUtil.Tools.FPFCToggle.Toggle(System.Boolean)
+  nameWithType: FPFCToggle.Toggle(Boolean)
+- uid: SiraUtil.Tools.FPFCToggle.Toggle*
+  name: Toggle
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Toggle_
+  commentId: Overload:SiraUtil.Tools.FPFCToggle.Toggle
+  isSpec: "True"
+  fullName: SiraUtil.Tools.FPFCToggle.Toggle
+  nameWithType: FPFCToggle.Toggle
+- uid: SiraUtil.Tools.FPFCToggle.Update
+  name: Update()
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Update
+  commentId: M:SiraUtil.Tools.FPFCToggle.Update
+  fullName: SiraUtil.Tools.FPFCToggle.Update()
+  nameWithType: FPFCToggle.Update()
+- uid: SiraUtil.Tools.FPFCToggle.Update*
+  name: Update
+  href: api/SiraUtil.Tools.FPFCToggle.html#SiraUtil_Tools_FPFCToggle_Update_
+  commentId: Overload:SiraUtil.Tools.FPFCToggle.Update
+  isSpec: "True"
+  fullName: SiraUtil.Tools.FPFCToggle.Update
+  nameWithType: FPFCToggle.Update
+- uid: SiraUtil.Tools.SiraLog
+  name: SiraLog
+  href: api/SiraUtil.Tools.SiraLog.html
+  commentId: T:SiraUtil.Tools.SiraLog
+  fullName: SiraUtil.Tools.SiraLog
+  nameWithType: SiraLog
+- uid: SiraUtil.Tools.SiraLog.Debug(System.Object)
+  name: Debug(Object)
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Debug_System_Object_
+  commentId: M:SiraUtil.Tools.SiraLog.Debug(System.Object)
+  fullName: SiraUtil.Tools.SiraLog.Debug(System.Object)
+  nameWithType: SiraLog.Debug(Object)
+- uid: SiraUtil.Tools.SiraLog.Debug*
+  name: Debug
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Debug_
+  commentId: Overload:SiraUtil.Tools.SiraLog.Debug
+  isSpec: "True"
+  fullName: SiraUtil.Tools.SiraLog.Debug
+  nameWithType: SiraLog.Debug
+- uid: SiraUtil.Tools.SiraLog.DebugMode
+  name: DebugMode
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_DebugMode
+  commentId: P:SiraUtil.Tools.SiraLog.DebugMode
+  fullName: SiraUtil.Tools.SiraLog.DebugMode
+  nameWithType: SiraLog.DebugMode
+- uid: SiraUtil.Tools.SiraLog.DebugMode*
+  name: DebugMode
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_DebugMode_
+  commentId: Overload:SiraUtil.Tools.SiraLog.DebugMode
+  isSpec: "True"
+  fullName: SiraUtil.Tools.SiraLog.DebugMode
+  nameWithType: SiraLog.DebugMode
+- uid: SiraUtil.Tools.SiraLog.Error(System.Object)
+  name: Error(Object)
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Error_System_Object_
+  commentId: M:SiraUtil.Tools.SiraLog.Error(System.Object)
+  fullName: SiraUtil.Tools.SiraLog.Error(System.Object)
+  nameWithType: SiraLog.Error(Object)
+- uid: SiraUtil.Tools.SiraLog.Error*
+  name: Error
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Error_
+  commentId: Overload:SiraUtil.Tools.SiraLog.Error
+  isSpec: "True"
+  fullName: SiraUtil.Tools.SiraLog.Error
+  nameWithType: SiraLog.Error
+- uid: SiraUtil.Tools.SiraLog.Info(System.Object)
+  name: Info(Object)
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Info_System_Object_
+  commentId: M:SiraUtil.Tools.SiraLog.Info(System.Object)
+  fullName: SiraUtil.Tools.SiraLog.Info(System.Object)
+  nameWithType: SiraLog.Info(Object)
+- uid: SiraUtil.Tools.SiraLog.Info*
+  name: Info
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Info_
+  commentId: Overload:SiraUtil.Tools.SiraLog.Info
+  isSpec: "True"
+  fullName: SiraUtil.Tools.SiraLog.Info
+  nameWithType: SiraLog.Info
+- uid: SiraUtil.Tools.SiraLog.Logger
+  name: Logger
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Logger
+  commentId: P:SiraUtil.Tools.SiraLog.Logger
+  fullName: SiraUtil.Tools.SiraLog.Logger
+  nameWithType: SiraLog.Logger
+- uid: SiraUtil.Tools.SiraLog.Logger*
+  name: Logger
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Logger_
+  commentId: Overload:SiraUtil.Tools.SiraLog.Logger
+  isSpec: "True"
+  fullName: SiraUtil.Tools.SiraLog.Logger
+  nameWithType: SiraLog.Logger
+- uid: SiraUtil.Tools.SiraLog.Null(System.Object)
+  name: Null(Object)
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Null_System_Object_
+  commentId: M:SiraUtil.Tools.SiraLog.Null(System.Object)
+  fullName: SiraUtil.Tools.SiraLog.Null(System.Object)
+  nameWithType: SiraLog.Null(Object)
+- uid: SiraUtil.Tools.SiraLog.Null*
+  name: "Null"
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Null_
+  commentId: Overload:SiraUtil.Tools.SiraLog.Null
+  isSpec: "True"
+  fullName: SiraUtil.Tools.SiraLog.Null
+  nameWithType: SiraLog.Null
+- uid: SiraUtil.Tools.SiraLog.Warning(System.Object)
+  name: Warning(Object)
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Warning_System_Object_
+  commentId: M:SiraUtil.Tools.SiraLog.Warning(System.Object)
+  fullName: SiraUtil.Tools.SiraLog.Warning(System.Object)
+  nameWithType: SiraLog.Warning(Object)
+- uid: SiraUtil.Tools.SiraLog.Warning*
+  name: Warning
+  href: api/SiraUtil.Tools.SiraLog.html#SiraUtil_Tools_SiraLog_Warning_
+  commentId: Overload:SiraUtil.Tools.SiraLog.Warning
+  isSpec: "True"
+  fullName: SiraUtil.Tools.SiraLog.Warning
+  nameWithType: SiraLog.Warning
+- uid: SiraUtil.Utilities
+  name: Utilities
+  href: api/SiraUtil.Utilities.html
+  commentId: T:SiraUtil.Utilities
+  fullName: SiraUtil.Utilities
+  nameWithType: Utilities
+- uid: SiraUtil.Utilities.AssemblyFromPath(System.String,System.Reflection.Assembly@,System.String@)
+  name: AssemblyFromPath(String, out Assembly, out String)
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_AssemblyFromPath_System_String_System_Reflection_Assembly__System_String__
+  commentId: M:SiraUtil.Utilities.AssemblyFromPath(System.String,System.Reflection.Assembly@,System.String@)
+  name.vb: AssemblyFromPath(String, ByRef Assembly, ByRef String)
+  fullName: SiraUtil.Utilities.AssemblyFromPath(System.String, out System.Reflection.Assembly, out System.String)
+  fullName.vb: SiraUtil.Utilities.AssemblyFromPath(System.String, ByRef System.Reflection.Assembly, ByRef System.String)
+  nameWithType: Utilities.AssemblyFromPath(String, out Assembly, out String)
+  nameWithType.vb: Utilities.AssemblyFromPath(String, ByRef Assembly, ByRef String)
+- uid: SiraUtil.Utilities.AssemblyFromPath*
+  name: AssemblyFromPath
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_AssemblyFromPath_
+  commentId: Overload:SiraUtil.Utilities.AssemblyFromPath
+  isSpec: "True"
+  fullName: SiraUtil.Utilities.AssemblyFromPath
+  nameWithType: Utilities.AssemblyFromPath
+- uid: SiraUtil.Utilities.ASSERTHIT
+  name: ASSERTHIT
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_ASSERTHIT
+  commentId: F:SiraUtil.Utilities.ASSERTHIT
+  fullName: SiraUtil.Utilities.ASSERTHIT
+  nameWithType: Utilities.ASSERTHIT
+- uid: SiraUtil.Utilities.AwaitSleep(System.Int32)
+  name: AwaitSleep(Int32)
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_AwaitSleep_System_Int32_
+  commentId: M:SiraUtil.Utilities.AwaitSleep(System.Int32)
+  fullName: SiraUtil.Utilities.AwaitSleep(System.Int32)
+  nameWithType: Utilities.AwaitSleep(Int32)
+- uid: SiraUtil.Utilities.AwaitSleep*
+  name: AwaitSleep
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_AwaitSleep_
+  commentId: Overload:SiraUtil.Utilities.AwaitSleep
+  isSpec: "True"
+  fullName: SiraUtil.Utilities.AwaitSleep
+  nameWithType: Utilities.AwaitSleep
+- uid: SiraUtil.Utilities.GetResource(System.Reflection.Assembly,System.String)
+  name: GetResource(Assembly, String)
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_GetResource_System_Reflection_Assembly_System_String_
+  commentId: M:SiraUtil.Utilities.GetResource(System.Reflection.Assembly,System.String)
+  fullName: SiraUtil.Utilities.GetResource(System.Reflection.Assembly, System.String)
+  nameWithType: Utilities.GetResource(Assembly, String)
+- uid: SiraUtil.Utilities.GetResource*
+  name: GetResource
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_GetResource_
+  commentId: Overload:SiraUtil.Utilities.GetResource
+  isSpec: "True"
+  fullName: SiraUtil.Utilities.GetResource
+  nameWithType: Utilities.GetResource
+- uid: SiraUtil.Utilities.GetResourceContent(System.Reflection.Assembly,System.String)
+  name: GetResourceContent(Assembly, String)
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_GetResourceContent_System_Reflection_Assembly_System_String_
+  commentId: M:SiraUtil.Utilities.GetResourceContent(System.Reflection.Assembly,System.String)
+  fullName: SiraUtil.Utilities.GetResourceContent(System.Reflection.Assembly, System.String)
+  nameWithType: Utilities.GetResourceContent(Assembly, String)
+- uid: SiraUtil.Utilities.GetResourceContent*
+  name: GetResourceContent
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_GetResourceContent_
+  commentId: Overload:SiraUtil.Utilities.GetResourceContent
+  isSpec: "True"
+  fullName: SiraUtil.Utilities.GetResourceContent
+  nameWithType: Utilities.GetResourceContent
+- uid: SiraUtil.Utilities.OpCodeSequence(System.Collections.Generic.List{HarmonyLib.CodeInstruction},System.Collections.Generic.List{System.Reflection.Emit.OpCode},System.Int32)
+  name: OpCodeSequence(List<CodeInstruction>, List<OpCode>, Int32)
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_OpCodeSequence_System_Collections_Generic_List_HarmonyLib_CodeInstruction__System_Collections_Generic_List_System_Reflection_Emit_OpCode__System_Int32_
+  commentId: M:SiraUtil.Utilities.OpCodeSequence(System.Collections.Generic.List{HarmonyLib.CodeInstruction},System.Collections.Generic.List{System.Reflection.Emit.OpCode},System.Int32)
+  name.vb: OpCodeSequence(List(Of CodeInstruction), List(Of OpCode), Int32)
+  fullName: SiraUtil.Utilities.OpCodeSequence(System.Collections.Generic.List<HarmonyLib.CodeInstruction>, System.Collections.Generic.List<System.Reflection.Emit.OpCode>, System.Int32)
+  fullName.vb: SiraUtil.Utilities.OpCodeSequence(System.Collections.Generic.List(Of HarmonyLib.CodeInstruction), System.Collections.Generic.List(Of System.Reflection.Emit.OpCode), System.Int32)
+  nameWithType: Utilities.OpCodeSequence(List<CodeInstruction>, List<OpCode>, Int32)
+  nameWithType.vb: Utilities.OpCodeSequence(List(Of CodeInstruction), List(Of OpCode), Int32)
+- uid: SiraUtil.Utilities.OpCodeSequence*
+  name: OpCodeSequence
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_OpCodeSequence_
+  commentId: Overload:SiraUtil.Utilities.OpCodeSequence
+  isSpec: "True"
+  fullName: SiraUtil.Utilities.OpCodeSequence
+  nameWithType: Utilities.OpCodeSequence
+- uid: SiraUtil.Utilities.PauseChamp
+  name: PauseChamp
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_PauseChamp
+  commentId: P:SiraUtil.Utilities.PauseChamp
+  fullName: SiraUtil.Utilities.PauseChamp
+  nameWithType: Utilities.PauseChamp
+- uid: SiraUtil.Utilities.PauseChamp*
+  name: PauseChamp
+  href: api/SiraUtil.Utilities.html#SiraUtil_Utilities_PauseChamp_
+  commentId: Overload:SiraUtil.Utilities.PauseChamp
+  isSpec: "True"
+  fullName: SiraUtil.Utilities.PauseChamp
+  nameWithType: Utilities.PauseChamp
+- uid: SiraUtil.WebClient
+  name: WebClient
+  href: api/SiraUtil.WebClient.html
+  commentId: T:SiraUtil.WebClient
+  fullName: SiraUtil.WebClient
+  nameWithType: WebClient
+- uid: SiraUtil.WebClient.Dispose
+  name: Dispose()
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_Dispose
+  commentId: M:SiraUtil.WebClient.Dispose
+  fullName: SiraUtil.WebClient.Dispose()
+  nameWithType: WebClient.Dispose()
+- uid: SiraUtil.WebClient.Dispose*
+  name: Dispose
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_Dispose_
+  commentId: Overload:SiraUtil.WebClient.Dispose
+  isSpec: "True"
+  fullName: SiraUtil.WebClient.Dispose
+  nameWithType: WebClient.Dispose
+- uid: SiraUtil.WebClient.DownloadImage(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  name: DownloadImage(String, CancellationToken, AuthenticationHeaderValue)
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_DownloadImage_System_String_System_Threading_CancellationToken_System_Net_Http_Headers_AuthenticationHeaderValue_
+  commentId: M:SiraUtil.WebClient.DownloadImage(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  fullName: SiraUtil.WebClient.DownloadImage(System.String, System.Threading.CancellationToken, System.Net.Http.Headers.AuthenticationHeaderValue)
+  nameWithType: WebClient.DownloadImage(String, CancellationToken, AuthenticationHeaderValue)
+- uid: SiraUtil.WebClient.DownloadImage*
+  name: DownloadImage
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_DownloadImage_
+  commentId: Overload:SiraUtil.WebClient.DownloadImage
+  isSpec: "True"
+  fullName: SiraUtil.WebClient.DownloadImage
+  nameWithType: WebClient.DownloadImage
+- uid: SiraUtil.WebClient.GetAsync(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  name: GetAsync(String, CancellationToken, AuthenticationHeaderValue)
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_GetAsync_System_String_System_Threading_CancellationToken_System_Net_Http_Headers_AuthenticationHeaderValue_
+  commentId: M:SiraUtil.WebClient.GetAsync(System.String,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  fullName: SiraUtil.WebClient.GetAsync(System.String, System.Threading.CancellationToken, System.Net.Http.Headers.AuthenticationHeaderValue)
+  nameWithType: WebClient.GetAsync(String, CancellationToken, AuthenticationHeaderValue)
+- uid: SiraUtil.WebClient.GetAsync*
+  name: GetAsync
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_GetAsync_
+  commentId: Overload:SiraUtil.WebClient.GetAsync
+  isSpec: "True"
+  fullName: SiraUtil.WebClient.GetAsync
+  nameWithType: WebClient.GetAsync
+- uid: SiraUtil.WebClient.Initialize
+  name: Initialize()
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_Initialize
+  commentId: M:SiraUtil.WebClient.Initialize
+  fullName: SiraUtil.WebClient.Initialize()
+  nameWithType: WebClient.Initialize()
+- uid: SiraUtil.WebClient.Initialize*
+  name: Initialize
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_Initialize_
+  commentId: Overload:SiraUtil.WebClient.Initialize
+  isSpec: "True"
+  fullName: SiraUtil.WebClient.Initialize
+  nameWithType: WebClient.Initialize
+- uid: SiraUtil.WebClient.PostAsync(System.String,System.Object,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  name: PostAsync(String, Object, CancellationToken, AuthenticationHeaderValue)
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_PostAsync_System_String_System_Object_System_Threading_CancellationToken_System_Net_Http_Headers_AuthenticationHeaderValue_
+  commentId: M:SiraUtil.WebClient.PostAsync(System.String,System.Object,System.Threading.CancellationToken,System.Net.Http.Headers.AuthenticationHeaderValue)
+  fullName: SiraUtil.WebClient.PostAsync(System.String, System.Object, System.Threading.CancellationToken, System.Net.Http.Headers.AuthenticationHeaderValue)
+  nameWithType: WebClient.PostAsync(String, Object, CancellationToken, AuthenticationHeaderValue)
+- uid: SiraUtil.WebClient.PostAsync*
+  name: PostAsync
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_PostAsync_
+  commentId: Overload:SiraUtil.WebClient.PostAsync
+  isSpec: "True"
+  fullName: SiraUtil.WebClient.PostAsync
+  nameWithType: WebClient.PostAsync
+- uid: SiraUtil.WebClient.SendAsync(System.Net.Http.HttpMethod,System.String,System.Threading.CancellationToken,System.Object,System.Net.Http.Headers.AuthenticationHeaderValue,System.IProgress{System.Double})
+  name: SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress<Double>)
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_SendAsync_System_Net_Http_HttpMethod_System_String_System_Threading_CancellationToken_System_Object_System_Net_Http_Headers_AuthenticationHeaderValue_System_IProgress_System_Double__
+  commentId: M:SiraUtil.WebClient.SendAsync(System.Net.Http.HttpMethod,System.String,System.Threading.CancellationToken,System.Object,System.Net.Http.Headers.AuthenticationHeaderValue,System.IProgress{System.Double})
+  name.vb: SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress(Of Double))
+  fullName: SiraUtil.WebClient.SendAsync(System.Net.Http.HttpMethod, System.String, System.Threading.CancellationToken, System.Object, System.Net.Http.Headers.AuthenticationHeaderValue, System.IProgress<System.Double>)
+  fullName.vb: SiraUtil.WebClient.SendAsync(System.Net.Http.HttpMethod, System.String, System.Threading.CancellationToken, System.Object, System.Net.Http.Headers.AuthenticationHeaderValue, System.IProgress(Of System.Double))
+  nameWithType: WebClient.SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress<Double>)
+  nameWithType.vb: WebClient.SendAsync(HttpMethod, String, CancellationToken, Object, AuthenticationHeaderValue, IProgress(Of Double))
+- uid: SiraUtil.WebClient.SendAsync*
+  name: SendAsync
+  href: api/SiraUtil.WebClient.html#SiraUtil_WebClient_SendAsync_
+  commentId: Overload:SiraUtil.WebClient.SendAsync
+  isSpec: "True"
+  fullName: SiraUtil.WebClient.SendAsync
+  nameWithType: WebClient.SendAsync
+- uid: SiraUtil.WebResponse
+  name: WebResponse
+  href: api/SiraUtil.WebResponse.html
+  commentId: T:SiraUtil.WebResponse
+  fullName: SiraUtil.WebResponse
+  nameWithType: WebResponse
+- uid: SiraUtil.WebResponse.ContentToBytes
+  name: ContentToBytes()
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ContentToBytes
+  commentId: M:SiraUtil.WebResponse.ContentToBytes
+  fullName: SiraUtil.WebResponse.ContentToBytes()
+  nameWithType: WebResponse.ContentToBytes()
+- uid: SiraUtil.WebResponse.ContentToBytes*
+  name: ContentToBytes
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ContentToBytes_
+  commentId: Overload:SiraUtil.WebResponse.ContentToBytes
+  isSpec: "True"
+  fullName: SiraUtil.WebResponse.ContentToBytes
+  nameWithType: WebResponse.ContentToBytes
+- uid: SiraUtil.WebResponse.ContentToJson*
+  name: ContentToJson
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ContentToJson_
+  commentId: Overload:SiraUtil.WebResponse.ContentToJson
+  isSpec: "True"
+  fullName: SiraUtil.WebResponse.ContentToJson
+  nameWithType: WebResponse.ContentToJson
+- uid: SiraUtil.WebResponse.ContentToJson``1
+  name: ContentToJson<T>()
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ContentToJson__1
+  commentId: M:SiraUtil.WebResponse.ContentToJson``1
+  name.vb: ContentToJson(Of T)()
+  fullName: SiraUtil.WebResponse.ContentToJson<T>()
+  fullName.vb: SiraUtil.WebResponse.ContentToJson(Of T)()
+  nameWithType: WebResponse.ContentToJson<T>()
+  nameWithType.vb: WebResponse.ContentToJson(Of T)()
+- uid: SiraUtil.WebResponse.ContentToString
+  name: ContentToString()
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ContentToString
+  commentId: M:SiraUtil.WebResponse.ContentToString
+  fullName: SiraUtil.WebResponse.ContentToString()
+  nameWithType: WebResponse.ContentToString()
+- uid: SiraUtil.WebResponse.ContentToString*
+  name: ContentToString
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ContentToString_
+  commentId: Overload:SiraUtil.WebResponse.ContentToString
+  isSpec: "True"
+  fullName: SiraUtil.WebResponse.ContentToString
+  nameWithType: WebResponse.ContentToString
+- uid: SiraUtil.WebResponse.ConvertToJObject
+  name: ConvertToJObject()
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ConvertToJObject
+  commentId: M:SiraUtil.WebResponse.ConvertToJObject
+  fullName: SiraUtil.WebResponse.ConvertToJObject()
+  nameWithType: WebResponse.ConvertToJObject()
+- uid: SiraUtil.WebResponse.ConvertToJObject*
+  name: ConvertToJObject
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ConvertToJObject_
+  commentId: Overload:SiraUtil.WebResponse.ConvertToJObject
+  isSpec: "True"
+  fullName: SiraUtil.WebResponse.ConvertToJObject
+  nameWithType: WebResponse.ConvertToJObject
+- uid: SiraUtil.WebResponse.Headers
+  name: Headers
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_Headers
+  commentId: F:SiraUtil.WebResponse.Headers
+  fullName: SiraUtil.WebResponse.Headers
+  nameWithType: WebResponse.Headers
+- uid: SiraUtil.WebResponse.IsSuccessStatusCode
+  name: IsSuccessStatusCode
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_IsSuccessStatusCode
+  commentId: F:SiraUtil.WebResponse.IsSuccessStatusCode
+  fullName: SiraUtil.WebResponse.IsSuccessStatusCode
+  nameWithType: WebResponse.IsSuccessStatusCode
+- uid: SiraUtil.WebResponse.ReasonPhrase
+  name: ReasonPhrase
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_ReasonPhrase
+  commentId: F:SiraUtil.WebResponse.ReasonPhrase
+  fullName: SiraUtil.WebResponse.ReasonPhrase
+  nameWithType: WebResponse.ReasonPhrase
+- uid: SiraUtil.WebResponse.RequestMessage
+  name: RequestMessage
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_RequestMessage
+  commentId: F:SiraUtil.WebResponse.RequestMessage
+  fullName: SiraUtil.WebResponse.RequestMessage
+  nameWithType: WebResponse.RequestMessage
+- uid: SiraUtil.WebResponse.StatusCode
+  name: StatusCode
+  href: api/SiraUtil.WebResponse.html#SiraUtil_WebResponse_StatusCode
+  commentId: F:SiraUtil.WebResponse.StatusCode
+  fullName: SiraUtil.WebResponse.StatusCode
+  nameWithType: WebResponse.StatusCode
+- uid: SiraUtil.Zenject
+  name: SiraUtil.Zenject
+  href: api/SiraUtil.Zenject.html
+  commentId: N:SiraUtil.Zenject
+  fullName: SiraUtil.Zenject
+  nameWithType: SiraUtil.Zenject
+- uid: SiraUtil.Zenject.Containerized`1
+  name: Containerized<U>
+  href: api/SiraUtil.Zenject.Containerized-1.html
+  commentId: T:SiraUtil.Zenject.Containerized`1
+  name.vb: Containerized(Of U)
+  fullName: SiraUtil.Zenject.Containerized<U>
+  fullName.vb: SiraUtil.Zenject.Containerized(Of U)
+  nameWithType: Containerized<U>
+  nameWithType.vb: Containerized(Of U)
+- uid: SiraUtil.Zenject.Containerized`1.Container
+  name: Container
+  href: api/SiraUtil.Zenject.Containerized-1.html#SiraUtil_Zenject_Containerized_1_Container
+  commentId: F:SiraUtil.Zenject.Containerized`1.Container
+  fullName: SiraUtil.Zenject.Containerized<U>.Container
+  fullName.vb: SiraUtil.Zenject.Containerized(Of U).Container
+  nameWithType: Containerized<U>.Container
+  nameWithType.vb: Containerized(Of U).Container
+- uid: SiraUtil.Zenject.Containerized`1.Resolve*
+  name: Resolve
+  href: api/SiraUtil.Zenject.Containerized-1.html#SiraUtil_Zenject_Containerized_1_Resolve_
+  commentId: Overload:SiraUtil.Zenject.Containerized`1.Resolve
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Containerized<U>.Resolve
+  fullName.vb: SiraUtil.Zenject.Containerized(Of U).Resolve
+  nameWithType: Containerized<U>.Resolve
+  nameWithType.vb: Containerized(Of U).Resolve
+- uid: SiraUtil.Zenject.Containerized`1.Resolve``1
+  name: Resolve<T>()
+  href: api/SiraUtil.Zenject.Containerized-1.html#SiraUtil_Zenject_Containerized_1_Resolve__1
+  commentId: M:SiraUtil.Zenject.Containerized`1.Resolve``1
+  name.vb: Resolve(Of T)()
+  fullName: SiraUtil.Zenject.Containerized<U>.Resolve<T>()
+  fullName.vb: SiraUtil.Zenject.Containerized(Of U).Resolve(Of T)()
+  nameWithType: Containerized<U>.Resolve<T>()
+  nameWithType.vb: Containerized(Of U).Resolve(Of T)()
+- uid: SiraUtil.Zenject.Containerized`1.ResolveId*
+  name: ResolveId
+  href: api/SiraUtil.Zenject.Containerized-1.html#SiraUtil_Zenject_Containerized_1_ResolveId_
+  commentId: Overload:SiraUtil.Zenject.Containerized`1.ResolveId
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Containerized<U>.ResolveId
+  fullName.vb: SiraUtil.Zenject.Containerized(Of U).ResolveId
+  nameWithType: Containerized<U>.ResolveId
+  nameWithType.vb: Containerized(Of U).ResolveId
+- uid: SiraUtil.Zenject.Containerized`1.ResolveId``1(System.Object)
+  name: ResolveId<T>(Object)
+  href: api/SiraUtil.Zenject.Containerized-1.html#SiraUtil_Zenject_Containerized_1_ResolveId__1_System_Object_
+  commentId: M:SiraUtil.Zenject.Containerized`1.ResolveId``1(System.Object)
+  name.vb: ResolveId(Of T)(Object)
+  fullName: SiraUtil.Zenject.Containerized<U>.ResolveId<T>(System.Object)
+  fullName.vb: SiraUtil.Zenject.Containerized(Of U).ResolveId(Of T)(System.Object)
+  nameWithType: Containerized<U>.ResolveId<T>(Object)
+  nameWithType.vb: Containerized(Of U).ResolveId(Of T)(Object)
+- uid: SiraUtil.Zenject.Containerized`1.Self
+  name: Self
+  href: api/SiraUtil.Zenject.Containerized-1.html#SiraUtil_Zenject_Containerized_1_Self
+  commentId: F:SiraUtil.Zenject.Containerized`1.Self
+  fullName: SiraUtil.Zenject.Containerized<U>.Self
+  fullName.vb: SiraUtil.Zenject.Containerized(Of U).Self
+  nameWithType: Containerized<U>.Self
+  nameWithType.vb: Containerized(Of U).Self
+- uid: SiraUtil.Zenject.InstallBuilder
+  name: InstallBuilder
+  href: api/SiraUtil.Zenject.InstallBuilder.html
+  commentId: T:SiraUtil.Zenject.InstallBuilder
+  fullName: SiraUtil.Zenject.InstallBuilder
+  nameWithType: InstallBuilder
+- uid: SiraUtil.Zenject.InstallBuilder.Expose*
+  name: Expose
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Expose_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.Expose
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.Expose
+  nameWithType: InstallBuilder.Expose
+- uid: SiraUtil.Zenject.InstallBuilder.Expose``1
+  name: Expose<T>()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Expose__1
+  commentId: M:SiraUtil.Zenject.InstallBuilder.Expose``1
+  name.vb: Expose(Of T)()
+  fullName: SiraUtil.Zenject.InstallBuilder.Expose<T>()
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.Expose(Of T)()
+  nameWithType: InstallBuilder.Expose<T>()
+  nameWithType.vb: InstallBuilder.Expose(Of T)()
+- uid: SiraUtil.Zenject.InstallBuilder.Initialized(System.Action{Zenject.SceneContext,Zenject.DiContainer})
+  name: Initialized(Action<SceneContext, DiContainer>)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Initialized_System_Action_Zenject_SceneContext_Zenject_DiContainer__
+  commentId: M:SiraUtil.Zenject.InstallBuilder.Initialized(System.Action{Zenject.SceneContext,Zenject.DiContainer})
+  name.vb: Initialized(Action(Of SceneContext, DiContainer))
+  fullName: SiraUtil.Zenject.InstallBuilder.Initialized(System.Action<Zenject.SceneContext, Zenject.DiContainer>)
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.Initialized(System.Action(Of Zenject.SceneContext, Zenject.DiContainer))
+  nameWithType: InstallBuilder.Initialized(Action<SceneContext, DiContainer>)
+  nameWithType.vb: InstallBuilder.Initialized(Action(Of SceneContext, DiContainer))
+- uid: SiraUtil.Zenject.InstallBuilder.Initialized*
+  name: Initialized
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Initialized_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.Initialized
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.Initialized
+  nameWithType: InstallBuilder.Initialized
+- uid: SiraUtil.Zenject.InstallBuilder.Mutate*
+  name: Mutate
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Mutate_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.Mutate
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.Mutate
+  nameWithType: InstallBuilder.Mutate
+- uid: SiraUtil.Zenject.InstallBuilder.Mutate``1(System.Action{SiraUtil.Zenject.MutationContext,``0})
+  name: Mutate<T>(Action<MutationContext, T>)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Mutate__1_System_Action_SiraUtil_Zenject_MutationContext___0__
+  commentId: M:SiraUtil.Zenject.InstallBuilder.Mutate``1(System.Action{SiraUtil.Zenject.MutationContext,``0})
+  name.vb: Mutate(Of T)(Action(Of MutationContext, T))
+  fullName: SiraUtil.Zenject.InstallBuilder.Mutate<T>(System.Action<SiraUtil.Zenject.MutationContext, T>)
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.Mutate(Of T)(System.Action(Of SiraUtil.Zenject.MutationContext, T))
+  nameWithType: InstallBuilder.Mutate<T>(Action<MutationContext, T>)
+  nameWithType.vb: InstallBuilder.Mutate(Of T)(Action(Of MutationContext, T))
+- uid: SiraUtil.Zenject.InstallBuilder.Mutate``1(System.Action{SiraUtil.Zenject.MutationContext,UnityEngine.MonoBehaviour})
+  name: Mutate<T>(Action<MutationContext, MonoBehaviour>)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Mutate__1_System_Action_SiraUtil_Zenject_MutationContext_UnityEngine_MonoBehaviour__
+  commentId: M:SiraUtil.Zenject.InstallBuilder.Mutate``1(System.Action{SiraUtil.Zenject.MutationContext,UnityEngine.MonoBehaviour})
+  name.vb: Mutate(Of T)(Action(Of MutationContext, MonoBehaviour))
+  fullName: SiraUtil.Zenject.InstallBuilder.Mutate<T>(System.Action<SiraUtil.Zenject.MutationContext, UnityEngine.MonoBehaviour>)
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.Mutate(Of T)(System.Action(Of SiraUtil.Zenject.MutationContext, UnityEngine.MonoBehaviour))
+  nameWithType: InstallBuilder.Mutate<T>(Action<MutationContext, MonoBehaviour>)
+  nameWithType.vb: InstallBuilder.Mutate(Of T)(Action(Of MutationContext, MonoBehaviour))
+- uid: SiraUtil.Zenject.InstallBuilder.On(System.Func{UnityEngine.SceneManagement.Scene,Zenject.Context,Zenject.DiContainer,System.Boolean})
+  name: On(Func<Scene, Context, DiContainer, Boolean>)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_On_System_Func_UnityEngine_SceneManagement_Scene_Zenject_Context_Zenject_DiContainer_System_Boolean__
+  commentId: M:SiraUtil.Zenject.InstallBuilder.On(System.Func{UnityEngine.SceneManagement.Scene,Zenject.Context,Zenject.DiContainer,System.Boolean})
+  name.vb: On(Func(Of Scene, Context, DiContainer, Boolean))
+  fullName: SiraUtil.Zenject.InstallBuilder.On(System.Func<UnityEngine.SceneManagement.Scene, Zenject.Context, Zenject.DiContainer, System.Boolean>)
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.On(System.Func(Of UnityEngine.SceneManagement.Scene, Zenject.Context, Zenject.DiContainer, System.Boolean))
+  nameWithType: InstallBuilder.On(Func<Scene, Context, DiContainer, Boolean>)
+  nameWithType.vb: InstallBuilder.On(Func(Of Scene, Context, DiContainer, Boolean))
+- uid: SiraUtil.Zenject.InstallBuilder.On(System.String)
+  name: On(String)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_On_System_String_
+  commentId: M:SiraUtil.Zenject.InstallBuilder.On(System.String)
+  fullName: SiraUtil.Zenject.InstallBuilder.On(System.String)
+  nameWithType: InstallBuilder.On(String)
+- uid: SiraUtil.Zenject.InstallBuilder.On*
+  name: On
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_On_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.On
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.On
+  nameWithType: InstallBuilder.On
+- uid: SiraUtil.Zenject.InstallBuilder.On``1
+  name: On<T>()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_On__1
+  commentId: M:SiraUtil.Zenject.InstallBuilder.On``1
+  name.vb: On(Of T)()
+  fullName: SiraUtil.Zenject.InstallBuilder.On<T>()
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.On(Of T)()
+  nameWithType: InstallBuilder.On<T>()
+  nameWithType.vb: InstallBuilder.On(Of T)()
+- uid: SiraUtil.Zenject.InstallBuilder.OnlyForCampaigns
+  name: OnlyForCampaigns()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_OnlyForCampaigns
+  commentId: M:SiraUtil.Zenject.InstallBuilder.OnlyForCampaigns
+  fullName: SiraUtil.Zenject.InstallBuilder.OnlyForCampaigns()
+  nameWithType: InstallBuilder.OnlyForCampaigns()
+- uid: SiraUtil.Zenject.InstallBuilder.OnlyForCampaigns*
+  name: OnlyForCampaigns
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_OnlyForCampaigns_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.OnlyForCampaigns
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.OnlyForCampaigns
+  nameWithType: InstallBuilder.OnlyForCampaigns
+- uid: SiraUtil.Zenject.InstallBuilder.OnlyForMultiplayer
+  name: OnlyForMultiplayer()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_OnlyForMultiplayer
+  commentId: M:SiraUtil.Zenject.InstallBuilder.OnlyForMultiplayer
+  fullName: SiraUtil.Zenject.InstallBuilder.OnlyForMultiplayer()
+  nameWithType: InstallBuilder.OnlyForMultiplayer()
+- uid: SiraUtil.Zenject.InstallBuilder.OnlyForMultiplayer*
+  name: OnlyForMultiplayer
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_OnlyForMultiplayer_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.OnlyForMultiplayer
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.OnlyForMultiplayer
+  nameWithType: InstallBuilder.OnlyForMultiplayer
+- uid: SiraUtil.Zenject.InstallBuilder.OnlyForStandard
+  name: OnlyForStandard()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_OnlyForStandard
+  commentId: M:SiraUtil.Zenject.InstallBuilder.OnlyForStandard
+  fullName: SiraUtil.Zenject.InstallBuilder.OnlyForStandard()
+  nameWithType: InstallBuilder.OnlyForStandard()
+- uid: SiraUtil.Zenject.InstallBuilder.OnlyForStandard*
+  name: OnlyForStandard
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_OnlyForStandard_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.OnlyForStandard
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.OnlyForStandard
+  nameWithType: InstallBuilder.OnlyForStandard
+- uid: SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action{Zenject.Context,Zenject.DiContainer})
+  name: Pseudo(Action<Context, DiContainer>)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Pseudo_System_Action_Zenject_Context_Zenject_DiContainer__
+  commentId: M:SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action{Zenject.Context,Zenject.DiContainer})
+  name.vb: Pseudo(Action(Of Context, DiContainer))
+  fullName: SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action<Zenject.Context, Zenject.DiContainer>)
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action(Of Zenject.Context, Zenject.DiContainer))
+  nameWithType: InstallBuilder.Pseudo(Action<Context, DiContainer>)
+  nameWithType.vb: InstallBuilder.Pseudo(Action(Of Context, DiContainer))
+- uid: SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action{Zenject.DiContainer})
+  name: Pseudo(Action<DiContainer>)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Pseudo_System_Action_Zenject_DiContainer__
+  commentId: M:SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action{Zenject.DiContainer})
+  name.vb: Pseudo(Action(Of DiContainer))
+  fullName: SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action<Zenject.DiContainer>)
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.Pseudo(System.Action(Of Zenject.DiContainer))
+  nameWithType: InstallBuilder.Pseudo(Action<DiContainer>)
+  nameWithType.vb: InstallBuilder.Pseudo(Action(Of DiContainer))
+- uid: SiraUtil.Zenject.InstallBuilder.Pseudo*
+  name: Pseudo
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Pseudo_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.Pseudo
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.Pseudo
+  nameWithType: InstallBuilder.Pseudo
+- uid: SiraUtil.Zenject.InstallBuilder.Register*
+  name: Register
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Register_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.Register
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.Register
+  nameWithType: InstallBuilder.Register
+- uid: SiraUtil.Zenject.InstallBuilder.Register``1
+  name: Register<T>()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_Register__1
+  commentId: M:SiraUtil.Zenject.InstallBuilder.Register``1
+  name.vb: Register(Of T)()
+  fullName: SiraUtil.Zenject.InstallBuilder.Register<T>()
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.Register(Of T)()
+  nameWithType: InstallBuilder.Register<T>()
+  nameWithType.vb: InstallBuilder.Register(Of T)()
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitFor(System.String)
+  name: ShortCircuitFor(String)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitFor_System_String_
+  commentId: M:SiraUtil.Zenject.InstallBuilder.ShortCircuitFor(System.String)
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitFor(System.String)
+  nameWithType: InstallBuilder.ShortCircuitFor(String)
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitFor*
+  name: ShortCircuitFor
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitFor_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.ShortCircuitFor
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitFor
+  nameWithType: InstallBuilder.ShortCircuitFor
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitFor``1
+  name: ShortCircuitFor<T>()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitFor__1
+  commentId: M:SiraUtil.Zenject.InstallBuilder.ShortCircuitFor``1
+  name.vb: ShortCircuitFor(Of T)()
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitFor<T>()
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.ShortCircuitFor(Of T)()
+  nameWithType: InstallBuilder.ShortCircuitFor<T>()
+  nameWithType.vb: InstallBuilder.ShortCircuitFor(Of T)()
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForCampaign
+  name: ShortCircuitForCampaign()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForCampaign
+  commentId: M:SiraUtil.Zenject.InstallBuilder.ShortCircuitForCampaign
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForCampaign()
+  nameWithType: InstallBuilder.ShortCircuitForCampaign()
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForCampaign*
+  name: ShortCircuitForCampaign
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForCampaign_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.ShortCircuitForCampaign
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForCampaign
+  nameWithType: InstallBuilder.ShortCircuitForCampaign
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForMultiplayer
+  name: ShortCircuitForMultiplayer()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForMultiplayer
+  commentId: M:SiraUtil.Zenject.InstallBuilder.ShortCircuitForMultiplayer
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForMultiplayer()
+  nameWithType: InstallBuilder.ShortCircuitForMultiplayer()
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForMultiplayer*
+  name: ShortCircuitForMultiplayer
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForMultiplayer_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.ShortCircuitForMultiplayer
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForMultiplayer
+  nameWithType: InstallBuilder.ShortCircuitForMultiplayer
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForStandard
+  name: ShortCircuitForStandard()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForStandard
+  commentId: M:SiraUtil.Zenject.InstallBuilder.ShortCircuitForStandard
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForStandard()
+  nameWithType: InstallBuilder.ShortCircuitForStandard()
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForStandard*
+  name: ShortCircuitForStandard
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForStandard_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.ShortCircuitForStandard
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForStandard
+  nameWithType: InstallBuilder.ShortCircuitForStandard
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForTutorial
+  name: ShortCircuitForTutorial()
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForTutorial
+  commentId: M:SiraUtil.Zenject.InstallBuilder.ShortCircuitForTutorial
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForTutorial()
+  nameWithType: InstallBuilder.ShortCircuitForTutorial()
+- uid: SiraUtil.Zenject.InstallBuilder.ShortCircuitForTutorial*
+  name: ShortCircuitForTutorial
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_ShortCircuitForTutorial_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.ShortCircuitForTutorial
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.ShortCircuitForTutorial
+  nameWithType: InstallBuilder.ShortCircuitForTutorial
+- uid: SiraUtil.Zenject.InstallBuilder.When(System.Func{System.Boolean})
+  name: When(Func<Boolean>)
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_When_System_Func_System_Boolean__
+  commentId: M:SiraUtil.Zenject.InstallBuilder.When(System.Func{System.Boolean})
+  name.vb: When(Func(Of Boolean))
+  fullName: SiraUtil.Zenject.InstallBuilder.When(System.Func<System.Boolean>)
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.When(System.Func(Of System.Boolean))
+  nameWithType: InstallBuilder.When(Func<Boolean>)
+  nameWithType.vb: InstallBuilder.When(Func(Of Boolean))
+- uid: SiraUtil.Zenject.InstallBuilder.When*
+  name: When
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_When_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.When
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.When
+  nameWithType: InstallBuilder.When
+- uid: SiraUtil.Zenject.InstallBuilder.WithParameters(System.Object[])
+  name: WithParameters(Object[])
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_WithParameters_System_Object___
+  commentId: M:SiraUtil.Zenject.InstallBuilder.WithParameters(System.Object[])
+  name.vb: WithParameters(Object())
+  fullName: SiraUtil.Zenject.InstallBuilder.WithParameters(System.Object[])
+  fullName.vb: SiraUtil.Zenject.InstallBuilder.WithParameters(System.Object())
+  nameWithType: InstallBuilder.WithParameters(Object[])
+  nameWithType.vb: InstallBuilder.WithParameters(Object())
+- uid: SiraUtil.Zenject.InstallBuilder.WithParameters*
+  name: WithParameters
+  href: api/SiraUtil.Zenject.InstallBuilder.html#SiraUtil_Zenject_InstallBuilder_WithParameters_
+  commentId: Overload:SiraUtil.Zenject.InstallBuilder.WithParameters
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.InstallBuilder.WithParameters
+  nameWithType: InstallBuilder.WithParameters
+- uid: SiraUtil.Zenject.MutationContext
+  name: MutationContext
+  href: api/SiraUtil.Zenject.MutationContext.html
+  commentId: T:SiraUtil.Zenject.MutationContext
+  fullName: SiraUtil.Zenject.MutationContext
+  nameWithType: MutationContext
+- uid: SiraUtil.Zenject.MutationContext.AddInjectable(UnityEngine.MonoBehaviour)
+  name: AddInjectable(MonoBehaviour)
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_AddInjectable_UnityEngine_MonoBehaviour_
+  commentId: M:SiraUtil.Zenject.MutationContext.AddInjectable(UnityEngine.MonoBehaviour)
+  fullName: SiraUtil.Zenject.MutationContext.AddInjectable(UnityEngine.MonoBehaviour)
+  nameWithType: MutationContext.AddInjectable(MonoBehaviour)
+- uid: SiraUtil.Zenject.MutationContext.AddInjectable*
+  name: AddInjectable
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_AddInjectable_
+  commentId: Overload:SiraUtil.Zenject.MutationContext.AddInjectable
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.MutationContext.AddInjectable
+  nameWithType: MutationContext.AddInjectable
+- uid: SiraUtil.Zenject.MutationContext.Container
+  name: Container
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_Container
+  commentId: P:SiraUtil.Zenject.MutationContext.Container
+  fullName: SiraUtil.Zenject.MutationContext.Container
+  nameWithType: MutationContext.Container
+- uid: SiraUtil.Zenject.MutationContext.Container*
+  name: Container
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_Container_
+  commentId: Overload:SiraUtil.Zenject.MutationContext.Container
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.MutationContext.Container
+  nameWithType: MutationContext.Container
+- uid: SiraUtil.Zenject.MutationContext.Decorator
+  name: Decorator
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_Decorator
+  commentId: P:SiraUtil.Zenject.MutationContext.Decorator
+  fullName: SiraUtil.Zenject.MutationContext.Decorator
+  nameWithType: MutationContext.Decorator
+- uid: SiraUtil.Zenject.MutationContext.Decorator*
+  name: Decorator
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_Decorator_
+  commentId: Overload:SiraUtil.Zenject.MutationContext.Decorator
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.MutationContext.Decorator
+  nameWithType: MutationContext.Decorator
+- uid: SiraUtil.Zenject.MutationContext.GetInjected*
+  name: GetInjected
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_GetInjected_
+  commentId: Overload:SiraUtil.Zenject.MutationContext.GetInjected
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.MutationContext.GetInjected
+  nameWithType: MutationContext.GetInjected
+- uid: SiraUtil.Zenject.MutationContext.GetInjected``1
+  name: GetInjected<T>()
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_GetInjected__1
+  commentId: M:SiraUtil.Zenject.MutationContext.GetInjected``1
+  name.vb: GetInjected(Of T)()
+  fullName: SiraUtil.Zenject.MutationContext.GetInjected<T>()
+  fullName.vb: SiraUtil.Zenject.MutationContext.GetInjected(Of T)()
+  nameWithType: MutationContext.GetInjected<T>()
+  nameWithType.vb: MutationContext.GetInjected(Of T)()
+- uid: SiraUtil.Zenject.MutationContext.GetInjected``1(System.Func{``0,System.Boolean})
+  name: GetInjected<T>(Func<T, Boolean>)
+  href: api/SiraUtil.Zenject.MutationContext.html#SiraUtil_Zenject_MutationContext_GetInjected__1_System_Func___0_System_Boolean__
+  commentId: M:SiraUtil.Zenject.MutationContext.GetInjected``1(System.Func{``0,System.Boolean})
+  name.vb: GetInjected(Of T)(Func(Of T, Boolean))
+  fullName: SiraUtil.Zenject.MutationContext.GetInjected<T>(System.Func<T, System.Boolean>)
+  fullName.vb: SiraUtil.Zenject.MutationContext.GetInjected(Of T)(System.Func(Of T, System.Boolean))
+  nameWithType: MutationContext.GetInjected<T>(Func<T, Boolean>)
+  nameWithType.vb: MutationContext.GetInjected(Of T)(Func(Of T, Boolean))
+- uid: SiraUtil.Zenject.UBinder`2
+  name: UBinder<T, U>
+  href: api/SiraUtil.Zenject.UBinder-2.html
+  commentId: T:SiraUtil.Zenject.UBinder`2
+  name.vb: UBinder(Of T, U)
+  fullName: SiraUtil.Zenject.UBinder<T, U>
+  fullName.vb: SiraUtil.Zenject.UBinder(Of T, U)
+  nameWithType: UBinder<T, U>
+  nameWithType.vb: UBinder(Of T, U)
+- uid: SiraUtil.Zenject.UBinder`2.#ctor(`1)
+  name: UBinder(U)
+  href: api/SiraUtil.Zenject.UBinder-2.html#SiraUtil_Zenject_UBinder_2__ctor__1_
+  commentId: M:SiraUtil.Zenject.UBinder`2.#ctor(`1)
+  fullName: SiraUtil.Zenject.UBinder<T, U>.UBinder(U)
+  fullName.vb: SiraUtil.Zenject.UBinder(Of T, U).UBinder(U)
+  nameWithType: UBinder<T, U>.UBinder(U)
+  nameWithType.vb: UBinder(Of T, U).UBinder(U)
+- uid: SiraUtil.Zenject.UBinder`2.#ctor*
+  name: UBinder
+  href: api/SiraUtil.Zenject.UBinder-2.html#SiraUtil_Zenject_UBinder_2__ctor_
+  commentId: Overload:SiraUtil.Zenject.UBinder`2.#ctor
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.UBinder<T, U>.UBinder
+  fullName.vb: SiraUtil.Zenject.UBinder(Of T, U).UBinder
+  nameWithType: UBinder<T, U>.UBinder
+  nameWithType.vb: UBinder(Of T, U).UBinder
+- uid: SiraUtil.Zenject.UBinder`2.Value
+  name: Value
+  href: api/SiraUtil.Zenject.UBinder-2.html#SiraUtil_Zenject_UBinder_2_Value
+  commentId: F:SiraUtil.Zenject.UBinder`2.Value
+  fullName: SiraUtil.Zenject.UBinder<T, U>.Value
+  fullName.vb: SiraUtil.Zenject.UBinder(Of T, U).Value
+  nameWithType: UBinder<T, U>.Value
+  nameWithType.vb: UBinder(Of T, U).Value
+- uid: SiraUtil.Zenject.Zenjector
+  name: Zenjector
+  href: api/SiraUtil.Zenject.Zenjector.html
+  commentId: T:SiraUtil.Zenject.Zenjector
+  fullName: SiraUtil.Zenject.Zenjector
+  nameWithType: Zenjector
+- uid: SiraUtil.Zenject.Zenjector.Auto
+  name: Auto()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Auto
+  commentId: M:SiraUtil.Zenject.Zenjector.Auto
+  fullName: SiraUtil.Zenject.Zenjector.Auto()
+  nameWithType: Zenjector.Auto()
+- uid: SiraUtil.Zenject.Zenjector.Auto*
+  name: Auto
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Auto_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.Auto
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.Auto
+  nameWithType: Zenjector.Auto
+- uid: SiraUtil.Zenject.Zenjector.Disable
+  name: Disable()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Disable
+  commentId: M:SiraUtil.Zenject.Zenjector.Disable
+  fullName: SiraUtil.Zenject.Zenjector.Disable()
+  nameWithType: Zenjector.Disable()
+- uid: SiraUtil.Zenject.Zenjector.Disable*
+  name: Disable
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Disable_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.Disable
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.Disable
+  nameWithType: Zenjector.Disable
+- uid: SiraUtil.Zenject.Zenjector.Enable
+  name: Enable()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Enable
+  commentId: M:SiraUtil.Zenject.Zenjector.Enable
+  fullName: SiraUtil.Zenject.Zenjector.Enable()
+  nameWithType: Zenjector.Enable()
+- uid: SiraUtil.Zenject.Zenjector.Enable*
+  name: Enable
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Enable_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.Enable
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.Enable
+  nameWithType: Zenjector.Enable
+- uid: SiraUtil.Zenject.Zenjector.Manual
+  name: Manual()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Manual
+  commentId: M:SiraUtil.Zenject.Zenjector.Manual
+  fullName: SiraUtil.Zenject.Zenjector.Manual()
+  nameWithType: Zenjector.Manual()
+- uid: SiraUtil.Zenject.Zenjector.Manual*
+  name: Manual
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Manual_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.Manual
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.Manual
+  nameWithType: Zenjector.Manual
+- uid: SiraUtil.Zenject.Zenjector.Name
+  name: Name
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Name
+  commentId: P:SiraUtil.Zenject.Zenjector.Name
+  fullName: SiraUtil.Zenject.Zenjector.Name
+  nameWithType: Zenjector.Name
+- uid: SiraUtil.Zenject.Zenjector.Name*
+  name: Name
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Name_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.Name
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.Name
+  nameWithType: Zenjector.Name
+- uid: SiraUtil.Zenject.Zenjector.On(System.Func{UnityEngine.SceneManagement.Scene,Zenject.Context,Zenject.DiContainer,System.Boolean})
+  name: On(Func<Scene, Context, DiContainer, Boolean>)
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_On_System_Func_UnityEngine_SceneManagement_Scene_Zenject_Context_Zenject_DiContainer_System_Boolean__
+  commentId: M:SiraUtil.Zenject.Zenjector.On(System.Func{UnityEngine.SceneManagement.Scene,Zenject.Context,Zenject.DiContainer,System.Boolean})
+  name.vb: On(Func(Of Scene, Context, DiContainer, Boolean))
+  fullName: SiraUtil.Zenject.Zenjector.On(System.Func<UnityEngine.SceneManagement.Scene, Zenject.Context, Zenject.DiContainer, System.Boolean>)
+  fullName.vb: SiraUtil.Zenject.Zenjector.On(System.Func(Of UnityEngine.SceneManagement.Scene, Zenject.Context, Zenject.DiContainer, System.Boolean))
+  nameWithType: Zenjector.On(Func<Scene, Context, DiContainer, Boolean>)
+  nameWithType.vb: Zenjector.On(Func(Of Scene, Context, DiContainer, Boolean))
+- uid: SiraUtil.Zenject.Zenjector.On(System.String)
+  name: On(String)
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_On_System_String_
+  commentId: M:SiraUtil.Zenject.Zenjector.On(System.String)
+  fullName: SiraUtil.Zenject.Zenjector.On(System.String)
+  nameWithType: Zenjector.On(String)
+- uid: SiraUtil.Zenject.Zenjector.On*
+  name: On
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_On_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.On
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.On
+  nameWithType: Zenjector.On
+- uid: SiraUtil.Zenject.Zenjector.On``1
+  name: On<T>()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_On__1
+  commentId: M:SiraUtil.Zenject.Zenjector.On``1
+  name.vb: On(Of T)()
+  fullName: SiraUtil.Zenject.Zenjector.On<T>()
+  fullName.vb: SiraUtil.Zenject.Zenjector.On(Of T)()
+  nameWithType: Zenjector.On<T>()
+  nameWithType.vb: Zenjector.On(Of T)()
+- uid: SiraUtil.Zenject.Zenjector.OnApp*
+  name: OnApp
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_OnApp_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.OnApp
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.OnApp
+  nameWithType: Zenjector.OnApp
+- uid: SiraUtil.Zenject.Zenjector.OnApp``1
+  name: OnApp<T>()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_OnApp__1
+  commentId: M:SiraUtil.Zenject.Zenjector.OnApp``1
+  name.vb: OnApp(Of T)()
+  fullName: SiraUtil.Zenject.Zenjector.OnApp<T>()
+  fullName.vb: SiraUtil.Zenject.Zenjector.OnApp(Of T)()
+  nameWithType: Zenjector.OnApp<T>()
+  nameWithType.vb: Zenjector.OnApp(Of T)()
+- uid: SiraUtil.Zenject.Zenjector.OnGame*
+  name: OnGame
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_OnGame_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.OnGame
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.OnGame
+  nameWithType: Zenjector.OnGame
+- uid: SiraUtil.Zenject.Zenjector.OnGame``1
+  name: OnGame<T>()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_OnGame__1
+  commentId: M:SiraUtil.Zenject.Zenjector.OnGame``1
+  name.vb: OnGame(Of T)()
+  fullName: SiraUtil.Zenject.Zenjector.OnGame<T>()
+  fullName.vb: SiraUtil.Zenject.Zenjector.OnGame(Of T)()
+  nameWithType: Zenjector.OnGame<T>()
+  nameWithType.vb: Zenjector.OnGame(Of T)()
+- uid: SiraUtil.Zenject.Zenjector.OnGame``1(System.Boolean)
+  name: OnGame<T>(Boolean)
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_OnGame__1_System_Boolean_
+  commentId: M:SiraUtil.Zenject.Zenjector.OnGame``1(System.Boolean)
+  name.vb: OnGame(Of T)(Boolean)
+  fullName: SiraUtil.Zenject.Zenjector.OnGame<T>(System.Boolean)
+  fullName.vb: SiraUtil.Zenject.Zenjector.OnGame(Of T)(System.Boolean)
+  nameWithType: Zenjector.OnGame<T>(Boolean)
+  nameWithType.vb: Zenjector.OnGame(Of T)(Boolean)
+- uid: SiraUtil.Zenject.Zenjector.OnMenu*
+  name: OnMenu
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_OnMenu_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.OnMenu
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.OnMenu
+  nameWithType: Zenjector.OnMenu
+- uid: SiraUtil.Zenject.Zenjector.OnMenu``1
+  name: OnMenu<T>()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_OnMenu__1
+  commentId: M:SiraUtil.Zenject.Zenjector.OnMenu``1
+  name.vb: OnMenu(Of T)()
+  fullName: SiraUtil.Zenject.Zenjector.OnMenu<T>()
+  fullName.vb: SiraUtil.Zenject.Zenjector.OnMenu(Of T)()
+  nameWithType: Zenjector.OnMenu<T>()
+  nameWithType.vb: Zenjector.OnMenu(Of T)()
+- uid: SiraUtil.Zenject.Zenjector.Register*
+  name: Register
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Register_
+  commentId: Overload:SiraUtil.Zenject.Zenjector.Register
+  isSpec: "True"
+  fullName: SiraUtil.Zenject.Zenjector.Register
+  nameWithType: Zenjector.Register
+- uid: SiraUtil.Zenject.Zenjector.Register``1
+  name: Register<T>()
+  href: api/SiraUtil.Zenject.Zenjector.html#SiraUtil_Zenject_Zenjector_Register__1
+  commentId: M:SiraUtil.Zenject.Zenjector.Register``1
+  name.vb: Register(Of T)()
+  fullName: SiraUtil.Zenject.Zenjector.Register<T>()
+  fullName.vb: SiraUtil.Zenject.Zenjector.Register(Of T)()
+  nameWithType: Zenjector.Register<T>()
+  nameWithType.vb: Zenjector.Register(Of T)()

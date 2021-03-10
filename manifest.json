@@ -1,0 +1,755 @@
+{
+  "homepages": [],
+  "source_base_path": "/github/workspace/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Accessors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Accessors.html",
+          "hash": "Y9gOiy+cPiMBvK9y1MVijA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Attributes.SlogAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Attributes.SlogAttribute.html",
+          "hash": "kS3mmYpyVXnUVyMCFHuR4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Attributes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Attributes.html",
+          "hash": "Q8mdZoE9RMT6GMyZzg2UQw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Converters.FileInfoConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Converters.FileInfoConverter.html",
+          "hash": "Kh7vWcBmQ0RV3DrAZ1Dt5w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Converters.Vector2Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Converters.Vector2Converter.html",
+          "hash": "TLeKTCV+be/BKjDZ4WdVBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Converters.Vector3Converter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Converters.Vector3Converter.html",
+          "hash": "C0HwtXZFbnFFFYkWlz0X5A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Converters.VersionConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Converters.VersionConverter.html",
+          "hash": "eivY8v7urgktm3FIDTFdiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Converters.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Converters.html",
+          "hash": "40dMg+iUzYsKoVhA8xrAyg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Events.SiraEvents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Events.SiraEvents.html",
+          "hash": "Mm3Qks4kCCtEJ3To5yIVcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Events.html",
+          "hash": "r1YQOHkFL3bDGFoAJxNo2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Extensions.html",
+          "hash": "JIbuYqO8J2T9nSTiz5WzOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.ICallback-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.ICallback-1.html",
+          "hash": "2AY0U0EZx70qflt1wavI4g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.IColorable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.IColorable.html",
+          "hash": "oUg54ARPIxwzbLAJYCprjw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.IDismissable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.IDismissable.html",
+          "hash": "H/dqJEuVSsabQDJD7/3rsA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.ILevelFinisher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.ILevelFinisher.html",
+          "hash": "uvZ5nC6Koz5tL60+N+EO5w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.ILocalizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.ILocalizer.html",
+          "hash": "Y1cCS558wiERecu26wDl9A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.IModelProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.IModelProvider.html",
+          "hash": "IadreW3OMLgcsIsdz1jpHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.IPrefabProvider-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.IPrefabProvider-1.html",
+          "hash": "5JSoHL/gH25/ukJ1PeOW1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.IRegistrar-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.IRegistrar-1.html",
+          "hash": "4FvSegUtSYlJj4m0bEJVPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.ISaberRegistrar.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.ISaberRegistrar.html",
+          "hash": "hfedm+noBpu8rIx0SLimUg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.IToggleable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.IToggleable.html",
+          "hash": "b8UH4P5478xw4PqtmJ4fMg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Interfaces.html",
+          "hash": "//rBhFXRAvs9fywsdfUyIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Localizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Localizer.html",
+          "hash": "dyE6eCWsQvitKG+Nai8Q6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Objects.ObjectState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Objects.ObjectState.html",
+          "hash": "vw5HwxdeyxPaqh+9LDhcFQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Objects.ObjectStateContainer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Objects.ObjectStateContainer.html",
+          "hash": "TtEObbGXb4i9UclsewNLWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Objects.SiraPrefabContainer.Pool.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Objects.SiraPrefabContainer.Pool.html",
+          "hash": "JRLS7lWtVgnt2z1uUiz4Sg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Objects.SiraPrefabContainer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Objects.SiraPrefabContainer.html",
+          "hash": "YDoXOJjr3Ec9cIJT1x8qNw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Objects.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Objects.html",
+          "hash": "WqedZQ8KC1SeqS/ikmsqXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Plugin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Plugin.html",
+          "hash": "A0ZeKZt0IwkoLSuyjTPayw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.html",
+          "hash": "uiLF3PMx+Xmi3zjaccJrkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.SiraSaber.Factory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.SiraSaber.Factory.html",
+          "hash": "vLwukI/12Xjst72mQ0q6+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.SiraSaber.SaberFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.SiraSaber.SaberFactory.html",
+          "hash": "aDtct0nCREjaEJp5fZM4/Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.SiraSaber.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.SiraSaber.html",
+          "hash": "SlvJw3r65o0KOXHC+AOBSw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.SiraSaberBurnMarkArea.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.SiraSaberBurnMarkArea.html",
+          "hash": "kGooxfrd9Wd+GoFoTFJBzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.SiraSaberBurnMarkSparkles.html",
+          "hash": "KjoLqMJc1YYdXy+iSLFgXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.SiraSaberClashChecker.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.SiraSaberClashChecker.html",
+          "hash": "jQ5FTVfrFTZ9vAllDEJiFw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Sabers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Sabers.html",
+          "hash": "uCyzp+96A9+nNgpI+LWuBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Services.SaberProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Services.SaberProvider.html",
+          "hash": "JmJlkLl7ZNqFUs6Ie+mFUA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Services.SiraSaberEffectManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Services.SiraSaberEffectManager.html",
+          "hash": "vPZRJchCQo3BmJux0eSTFw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Services.Submission.Ticket.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Services.Submission.Ticket.html",
+          "hash": "GPZGHCBD5xh5LdpSherKHQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Services.Submission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Services.Submission.html",
+          "hash": "8GL8DBbPjJfUVnVl0lCoaQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Services.html",
+          "hash": "dSzxvZaXMx7sCMpZwbHL4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.SiraClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.SiraClient.html",
+          "hash": "lzRL59JnOB5s8+1+2zdqnw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Tools.FPFCToggle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Tools.FPFCToggle.html",
+          "hash": "WVZ+1kmsgTuBX+xt4c+yFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Tools.SiraLog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Tools.SiraLog.html",
+          "hash": "LZaqMfIkhfsl+bvs52PoCg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Tools.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Tools.html",
+          "hash": "U0RtaeojWOgbHNuYAD08PQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Utilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Utilities.html",
+          "hash": "o8Ds/0GQpIAXA2zI0OZuoQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.WebClient.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.WebClient.html",
+          "hash": "zH9L/3LAegmQxnl5axpXoA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.WebResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.WebResponse.html",
+          "hash": "fDJ+YkbhYIpPrSfUtABvVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Zenject.Containerized-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Zenject.Containerized-1.html",
+          "hash": "UlhNrJkMCdod6rS2TiBEnA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Zenject.InstallBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Zenject.InstallBuilder.html",
+          "hash": "kkGDthbC/oOwhSfwl8GuAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Zenject.MutationContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Zenject.MutationContext.html",
+          "hash": "6fm0klwW84A2CPp6VX+Q7A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Zenject.UBinder-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Zenject.UBinder-2.html",
+          "hash": "dZDiEluxAqawW4UX1a05NQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Zenject.Zenjector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Zenject.Zenjector.html",
+          "hash": "A0LtIkBb7FJHNSWNjVM5EQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.Zenject.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.Zenject.html",
+          "hash": "IQa/Ghu9t8VPct8+EeQbfw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/SiraUtil.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/SiraUtil.html",
+          "hash": "9ryTvN8HCFHuPWOLaZkJ3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "8m6AgLwqQ9weovo3GlhORg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "zzB88X7n61f8tJNa+RF80A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 1,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 56,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

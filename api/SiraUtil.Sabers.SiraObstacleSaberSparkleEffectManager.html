@@ -1,0 +1,765 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SiraObstacleSaberSparkleEffectManager
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SiraObstacleSaberSparkleEffectManager
+   ">
+    <meta name="generator" content="docfx 2.56.6.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager">
+  
+  
+  <h1 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager" class="text-break">Class SiraObstacleSaberSparkleEffectManager
+  </h1>
+  <div class="markdown level0 summary"><p>An upgraded obstacle manager which supports more than two sabers.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">UnityEngine.Object</span></div>
+    <div class="level2"><span class="xref">UnityEngine.Component</span></div>
+    <div class="level3"><span class="xref">UnityEngine.Behaviour</span></div>
+    <div class="level4"><span class="xref">UnityEngine.MonoBehaviour</span></div>
+    <div class="level5"><span class="xref">ObstacleSaberSparkleEffectManager</span></div>
+    <div class="level6"><span class="xref">SiraObstacleSaberSparkleEffectManager</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="SiraUtil.Interfaces.ISaberRegistrar.html">ISaberRegistrar</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._obstacleSaberSparkleEffectPrefab</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._rumblePreset</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._beatmapObjectManager</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._saberManager</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._hapticFeedbackController</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._colorManager</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager.sparkleEffectDidStartEvent</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager.sparkleEffectDidEndEvent</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._sabers</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._effects</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._effectsTransforms</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._isSystemActive</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._wasSystemActive</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager._burnMarkPositions</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager.OnDisable()</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager.GetEffectRotation(UnityEngine.Vector3, UnityEngine.Transform, UnityEngine.Bounds)</span>
+    </div>
+    <div>
+      <span class="xref">ObstacleSaberSparkleEffectManager.GetBurnMarkPos(UnityEngine.Bounds, UnityEngine.Transform, UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector3)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.Invoke(System.String, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.InvokeRepeating(System.String, System.Single, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.CancelInvoke(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.IsInvoking(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutine_Auto(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(UnityEngine.Coroutine)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutine(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopAllCoroutines()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.print(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutineManaged(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StartCoroutineManaged2(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutineManaged(UnityEngine.Coroutine)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.StopCoroutineFromEnumeratorManaged(System.Collections.IEnumerator)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.GetScriptClassName()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.MonoBehaviour.useGUILayout</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.enabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Behaviour.isActiveAndEnabled</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentFastPath(System.Type, System.IntPtr)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.TryGetComponent(System.Type, UnityEngine.Component)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.TryGetComponent&lt;T&gt;(T)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponent(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInChildren&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;(System.Boolean, System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsInParent&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponentsForListInternal(System.Type, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents(System.Type, System.Collections.Generic.List&lt;UnityEngine.Component&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;(System.Collections.Generic.List&lt;T&gt;)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.GetComponents&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.CompareTag(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessageUpwards(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.SendMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.BroadcastMessage(System.String, UnityEngine.SendMessageOptions)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.transform</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.gameObject</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Component.tag</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.m_CachedPtr</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.objectIsNullMessage</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.cloneDestroyedMessage</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetInstanceID()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.EnsureRunningOnMainThread()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.GetCachedPtr()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate(UnityEngine.Object, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Vector3, UnityEngine.Quaternion, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Instantiate&lt;T&gt;(T, UnityEngine.Transform, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.Destroy(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object, System.Boolean)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyImmediate(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DontDestroyOnLoad(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object, System.Single)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.DestroyObject(UnityEngine.Object)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindSceneObjectsOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeIncludingAssets(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType&lt;T&gt;()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectsOfTypeAll(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.FindObjectOfType(System.Type)</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.ToString()</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.name</span>
+    </div>
+    <div>
+      <span class="xref">UnityEngine.Object.hideFlags</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="SiraUtil.Sabers.html">SiraUtil.Sabers</a></h6>
+  <h6><strong>Assembly</strong>: SiraUtil.dll</h6>
+  <h5 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SiraObstacleSaberSparkleEffectManager : ObstacleSaberSparkleEffectManager, ISaberRegistrar</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_BurnMarkPosForSaberType_SaberType_.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType(SaberType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L67">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_BurnMarkPosForSaberType_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_BurnMarkPosForSaberType_SaberType_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType(SaberType)">BurnMarkPosForSaberType(SaberType)</h4>
+  <div class="markdown level1 summary"><p>Gets a burn mark position for a specific saber type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Vector3 BurnMarkPosForSaberType(SaberType saberType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">SaberType</span></td>
+        <td><span class="parametername">saberType</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">UnityEngine.Vector3</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">ObstacleSaberSparkleEffectManager.BurnMarkPosForSaberType(SaberType)</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_ChangeColor_Saber_.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor(Saber)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L17">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_ChangeColor_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_ChangeColor_Saber_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.ChangeColor(Saber)">ChangeColor(Saber)</h4>
+  <div class="markdown level1 summary"><p>Force a registered saber to change its color.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ChangeColor(Saber _)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">_</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Initialize_SaberManager_.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize(SaberManager)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L26">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Initialize_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Initialize_SaberManager_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Initialize(SaberManager)">Initialize(SaberManager)</h4>
+  <div class="markdown level1 summary"><p>The initialization method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Initialize(SaberManager saberManager)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">SaberManager</span></td>
+        <td><span class="parametername">saberManager</span></td>
+        <td><p>The saber manager used to gather saber references.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Recalculate.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L148">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Recalculate_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Recalculate" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Recalculate">Recalculate()</h4>
+  <div class="markdown level1 summary"><p>Recalculates saber objects.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Recalculate()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_RegisterSaber_Saber_.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber(Saber)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L80">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_RegisterSaber_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_RegisterSaber_Saber_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.RegisterSaber(Saber)">RegisterSaber(Saber)</h4>
+  <div class="markdown level1 summary"><p>Registers a saber into the Sira obstacle effect manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RegisterSaber(Saber saber)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">saber</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Start.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L34">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Start_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Start" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Start">Start()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Start()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">ObstacleSaberSparkleEffectManager.Start()</span></div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_UnregisterSaber_Saber_.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber(Saber)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L110">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_UnregisterSaber_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_UnregisterSaber_Saber_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.UnregisterSaber(Saber)">UnregisterSaber(Saber)</h4>
+  <div class="markdown level1 summary"><p>Unregisters a saber in the Sira obstacle effect manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UnregisterSaber(Saber saber)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Saber</span></td>
+        <td><span class="parametername">saber</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Update.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L44">View Source</a>
+  </span>
+  <a id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Update_" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update*"></a>
+  <h4 id="SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager_Update" data-uid="SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager.Update">Update()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Update()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">ObstacleSaberSparkleEffectManager.Update()</span></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="SiraUtil.Interfaces.ISaberRegistrar.html">ISaberRegistrar</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="SiraUtil.Extensions.html#SiraUtil_Extensions_Upgrade__2___0_">Extensions.Upgrade&lt;T, U&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="SiraUtil.Extensions.html#SiraUtil_Extensions_Upgrade_UnityEngine_Component_System_Type_">Extensions.Upgrade(Component, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="SiraUtil.Extensions.html#SiraUtil_Extensions_CopyTo_UnityEngine_Behaviour_UnityEngine_Behaviour_">Extensions.CopyTo(Behaviour, Behaviour)</a>
+  </div>
+  <div>
+      <a class="xref" href="SiraUtil.Extensions.html#SiraUtil_Extensions_GetEventHandlers__2___0_System_String_">Extensions.GetEventHandlers&lt;TTarget, TDel&gt;(TTarget, String)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Auros/SiraUtil/new/master/apiSpec/new?filename=SiraUtil_Sabers_SiraObstacleSaberSparkleEffectManager.md&amp;value=---%0Auid%3A%20SiraUtil.Sabers.SiraObstacleSaberSparkleEffectManager%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/Auros/SiraUtil/blob/master/SiraUtil/Sabers/SiraObstacleSaberSparkleEffectManager.cs/#L11" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
