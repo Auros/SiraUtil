@@ -1,13 +1,12 @@
-{
-  "$schema": "https://raw.githubusercontent.com/beat-saber-modding-group/BSIPA-MetadataFileSchema/master/Schema.json",
+﻿{
+  "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
   "id": "SiraUtil",
   "name": "SiraUtil",
   "author": "Auros",
-  "version": "2.5.2",
-  "description": "Utility library/mod for Beat Saber modders.",
-  "gameVersion": "1.13.4",
+  "version": "3.0.0",
+  "description": "A powerful utility mod which expands the capabilities and provides more tools to Beat Saber modders.",
+  "gameVersion": "1.13.5",
   "dependsOn": {
     "BSIPA": "^4.1.4"
-  },
-  "loadBefore": [ "CameraPlus", "Ini Parser", "RuntimeUnityEditor.Core" ]
+  }
 }

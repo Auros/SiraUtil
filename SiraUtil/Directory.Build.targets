@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!-- This file contains the build tasks and targets for verifying the manifest, zipping Release builds,
      and copying the plugin to to your Beat Saber folder. Only edit this if you know what you are doing. -->
 <Project>
@@ -37,10 +37,11 @@
     </GetCommitInfo>
     <PropertyGroup>
       <!--Build name for artifact/zip file-->
-      <ArtifactName>$(AssemblyName)</ArtifactName>
-      <ArtifactName Condition="'$(PluginVersion)' != ''">$(ArtifactName)_[v$(PluginVersion)</ArtifactName>
+      <ArtifactName>$(AssemblyName)_[</ArtifactName>
+      <ArtifactName Condition="'$(PluginVersion)' != ''">$(ArtifactName)v$(PluginVersion)</ArtifactName>
       <ArtifactName Condition="'$(GameVersion)' != ''">$(ArtifactName)-g$(GameVersion)</ArtifactName>
-      <ArtifactName Condition="'$(CommitHash)' != '' AND '$(CommitHash)' != 'local'">$(ArtifactName)-$(CommitHash)]</ArtifactName>
+      <ArtifactName Condition="'$(CommitHash)' != '' AND '$(CommitHash)' != 'local'">$(ArtifactName)-$(CommitHash)</ArtifactName>
+      <ArtifactName>$(ArtifactName)]</ArtifactName>
     </PropertyGroup>
   </Target>
   <!--Build target for Continuous Integration builds. Set up for GitHub Actions.-->
