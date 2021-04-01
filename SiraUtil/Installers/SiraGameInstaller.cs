@@ -1,7 +1,6 @@
-using Zenject;
-using SiraUtil.Tools;
 using SiraUtil.Services;
-using System;
+using SiraUtil.Tools;
+using Zenject;
 
 namespace SiraUtil.Zenject
 {
@@ -22,8 +21,7 @@ namespace SiraUtil.Zenject
             }
             Container.BindInterfacesAndSelfTo<SiraSaberEffectManager>().AsSingle();
 
-            if (DateTime.Now.Month == 4 && DateTime.Now.Day == 1 && AprilFools.maxInSession >= AprilFools.sessionTrack)
-            Container.BindInterfacesTo<AprilFools>().AsSingle();
+            
         }
     }
 }
