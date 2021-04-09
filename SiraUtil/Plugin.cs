@@ -47,7 +47,7 @@ namespace SiraUtil
         public void OnDisable()
         {
             _zenjectManager.Disable();
-            _harmony.UnpatchAll();
+            _harmony.UnpatchAll(ID);
         }
     }
 }
