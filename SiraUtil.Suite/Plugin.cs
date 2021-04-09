@@ -1,5 +1,4 @@
 ﻿using IPA;
-using SiraUtil;
 using SiraUtil.Zenject;
 using IPALogger = IPA.Logging.Logger;
 
@@ -9,9 +8,10 @@ namespace SiraUtil.Suite
     public class Plugin
     {
         [Init]
-        public Plugin(IPALogger logger)
+        public Plugin(IPALogger logger, Zenjector zenjector)
         {
-
+            if (zenjector != null)
+                logger.Info("We have a Zenjector!");
         }
 
         [OnEnable]

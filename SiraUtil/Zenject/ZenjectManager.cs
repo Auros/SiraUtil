@@ -15,6 +15,8 @@ namespace SiraUtil.Zenject
         private bool _initialSceneConstructionRegistered;
         private readonly HashSet<ZenjectorDatum> _zenjectors = new();
 
+        internal void Add(Zenjector zenjector) => _zenjectors.Add(new ZenjectorDatum(zenjector));
+        
         private void PluginManager_PluginEnabled(PluginMetadata plugin, bool _)
         {
             // Enables the zenjector of a plugin being enabled.
