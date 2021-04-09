@@ -25,17 +25,6 @@ namespace SiraUtil
             // Adds the Zenjector type to BSIPA's Init Injection system so mods can receive it in their [Init] parameters.
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
         }
-
-        private object ConstructZenjector(object previous, ParameterInfo param, PluginMetadata meta)
-        {
-            if (previous is not null)
-                return previous;
-
-            Zenjector zenjector = new(meta);
-            _zenjectManager.Add(zenjector);
-            return zenjector;
-        }
-
         [OnEnable]
         public void OnEnable()
         {
@@ -48,6 +37,16 @@ namespace SiraUtil
         {
             _zenjectManager.Disable();
             _harmony.UnpatchAll(ID);
+        }
+
+        private object ConstructZenjector(object previous, ParameterInfo param, PluginMetadata meta)
+        {
+            if (previous is not null)
+                return previous;
+
+            Zenjector zenjector = new(meta);
+            _zenjectManager.Add(zenjector);
+            return zenjector;
         }
     }
 }
