@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <OutputType>Library</OutputType>
-        <LangVersion>8</LangVersion>
+        <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <LocalRefsDir Condition="Exists('..\Refs')">..\Refs</LocalRefsDir>
@@ -43,8 +43,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Reference Include="0Harmony">
+          <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
+        </Reference>
         <Reference Include="HMRendering">
-          <HintPath>$(BeatSaberDir)\\Beat Saber_Data\Managed\HMRendering.dll</HintPath>
+          <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\HMRendering.dll</HintPath>
           <Private>False</Private>
         </Reference>
         <Reference Include="MediaLoader">
@@ -52,7 +55,7 @@
           <Private>False</Private>
         </Reference>
         <Reference Include="Rendering">
-          <HintPath>$(BeatSaberDir)\\Beat Saber_Data\Managed\Rendering.dll</HintPath>
+          <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Rendering.dll</HintPath>
           <Private>False</Private>
         </Reference>
         <Reference Include="SemVer">

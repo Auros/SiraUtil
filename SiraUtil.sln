@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SiraUtil", "SiraUtil\SiraUtil.csproj", "{1411D1AD-7AD8-4CA2-B207-46BDC66F211A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SiraUtil", "SiraUtil\SiraUtil.csproj", "{1411D1AD-7AD8-4CA2-B207-46BDC66F211A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
