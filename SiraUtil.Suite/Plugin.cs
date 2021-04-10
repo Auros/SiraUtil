@@ -1,4 +1,5 @@
 ﻿using IPA;
+using SiraUtil.Suite.Installers;
 using SiraUtil.Zenject;
 using IPALogger = IPA.Logging.Logger;
 
@@ -10,8 +11,7 @@ namespace SiraUtil.Suite
         [Init]
         public Plugin(IPALogger logger, Zenjector zenjector)
         {
-            if (zenjector != null)
-                logger.Info("We have a Zenjector!");
+            zenjector.Install<GenericCustomInstaller>(Location.Menu);
         }
 
         [OnEnable]

@@ -39,12 +39,30 @@ namespace SiraUtil.Zenject
             PluginManager.PluginDisabled += PluginManager_PluginDisabled;
             SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
             Harmony.ContextDecorator.ContextInstalling += ContextDecorator_ContextInstalling;
+
+            // This will set the default state for every Zenjector when SiraUtil enables.
+            foreach (var zenDatum in _zenjectors)
+                zenDatum.Enabled = PluginManager.GetPluginFromId(zenDatum.Zenjector.Metadata.Id) != null;
         }
 
         private void ContextDecorator_ContextInstalling(IEnumerable<ContextBinding> installerBindings)
         {
             if (!_initialSceneConstructionRegistered)
                 return;
+
+            foreach (var zenDatum in _zenjectors)
+            {
+                foreach (var set in zenDatum.Zenjector.Sets)
+                {
+                    foreach (var binding in installerBindings)
+                    {
+                        if (set.installFilter.ShouldInstall(binding))
+                        {
+                            Plugin.Log.Info($"Installing: {set.installerType} onto {binding.installerType}");
+                        }
+                    }
+                }
+            }
         }
 
         private void SceneManager_activeSceneChanged(Scene _, Scene newScene)

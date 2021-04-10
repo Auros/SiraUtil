@@ -25,6 +25,7 @@ namespace SiraUtil
             // Adds the Zenjector type to BSIPA's Init Injection system so mods can receive it in their [Init] parameters.
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
         }
+
         [OnEnable]
         public void OnEnable()
         {
