@@ -1,5 +1,6 @@
 ﻿using IPA.Loader;
 using SiraUtil.Zenject.Internal;
+using SiraUtil.Zenject.Internal.Instructors;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace SiraUtil.Zenject
 
         private bool _initialSceneConstructionRegistered;
         private readonly HashSet<ZenjectorDatum> _zenjectors = new();
+        private readonly InstructorManager _instructorManager = new();
 
         internal void Add(Zenjector zenjector) => _zenjectors.Add(new ZenjectorDatum(zenjector));
         
@@ -58,7 +60,14 @@ namespace SiraUtil.Zenject
                     {
                         if (set.installFilter.ShouldInstall(binding))
                         {
-                            Plugin.Log.Info($"Installing: {set.installerType} onto {binding.installerType}");
+                            Plugin.Log.Info($"Installing: {set.installerType.Name} onto {binding.installerType}");
+                            IInstructor? instructor = _instructorManager.InstructorForSet(set);
+                            if (instructor is null)
+                            {
+                                Plugin.Log.Warn($"Could not find instatiation instructor for the type ${set.installerType}");
+                                continue;
+                            }
+                            instructor.Install(set, binding);
                         }
                     }
                 }

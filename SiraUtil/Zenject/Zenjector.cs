@@ -28,7 +28,7 @@ namespace SiraUtil.Zenject
         /// <param name="location">The location to install it to.</param>
         /// <param name="parameters">
         /// Parameters for the constructor of the installer. This will override Zenject's constructor injection on this installer,
-        /// and the installer type cannot be a <see cref="MonoInstaller" />.
+        /// and the installer type cannot be a <see cref="MonoInstaller" /> if using this.
         /// </param>
         public void Install<T>(Location location, params object[] parameters) where T : IInstaller
         {
@@ -50,8 +50,23 @@ namespace SiraUtil.Zenject
             if (location.HasFlag(Location.MultiplayerCore))
                 installerTypes.Add(typeof(MultiplayerCoreInstaller));
 
-            IInstallFilter filters = new MultiTypedInstallFilter(installerTypes);
-            _installSets.Add(new InstallSet(typeof(T), filters, parameters.Length != 0 ? parameters : null));
+            IInstallFilter filter = new MultiTypedInstallFilter(installerTypes);
+            _installSets.Add(new InstallSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
+        }
+
+        /// <summary>
+        /// Installs a custom installer alongside another installer.
+        /// </summary>
+        /// <typeparam name="TCustomInstaller">The new installer being installed.</typeparam>
+        /// <typeparam name="TBaseInstaller">The installer to install <typeparamref name="TCustomInstaller"/> with.</typeparam>
+        /// <param name="parameters">
+        /// Parameters for the constructor of the installer. This will override Zenject's constructor injection on this installer,
+        /// and the installer type cannot be a <see cref="MonoInstaller" /> if using this.
+        /// </param>
+        public void Install<TCustomInstaller, TBaseInstaller>(params object[] parameters) where TCustomInstaller : IInstaller where TBaseInstaller : IInstaller
+        {
+            IInstallFilter filter = new TypedInstallFilter(typeof(TBaseInstaller));
+            _installSets.Add(new InstallSet(typeof(TCustomInstaller), filter, parameters.Length != 0 ? parameters : null));
         }
     }
 }
