@@ -66,6 +66,17 @@ namespace SiraUtil.Tools
                 _leftController.transform.localPosition = Vector3.zero;
                 _rightController.transform.localPosition = Vector3.zero;
                 _vrLaserPointer.gameObject.SetActive(newScene.name != "GameCore");
+                if (newScene.name == "GameCore")
+                {
+                    foreach (Parametric3SliceSpriteController fakeGlow in _leftController.transform.GetComponentsInChildren<Parametric3SliceSpriteController>())
+                    {
+                        fakeGlow.enabled = false;
+                    }
+                    foreach (Parametric3SliceSpriteController fakeGlow in _rightController.transform.GetComponentsInChildren<Parametric3SliceSpriteController>())
+                    {
+                        fakeGlow.enabled = false;
+                    }
+                }
             }
         }
 
