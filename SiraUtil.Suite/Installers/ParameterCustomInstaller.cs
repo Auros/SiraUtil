@@ -16,7 +16,7 @@ namespace SiraUtil.Suite.Installers
 
         public override void InstallBindings()
         {
-            _logger.Notice($"Installing from {nameof(MonoCustomInstaller)}");
+
         }
     }
 }

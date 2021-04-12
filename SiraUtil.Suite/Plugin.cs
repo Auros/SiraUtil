@@ -18,6 +18,7 @@ namespace SiraUtil.Suite
             zenjector.Install<MonoCustomInstaller>(Location.Tutorial);
             zenjector.Install<OtherCustomInstaller, GameplayCoreInstaller>();
             zenjector.Install<ParameterCustomInstaller>(Location.App, logger);
+            zenjector.Expose<FlickeringNeonSign>("MenuEnvironment");
         }
 
         [OnEnable]

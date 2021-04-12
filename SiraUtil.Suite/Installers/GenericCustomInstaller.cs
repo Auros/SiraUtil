@@ -6,7 +6,7 @@ namespace SiraUtil.Suite.Installers
     {
         public override void InstallBindings()
         {
-            Plugin.Log.Notice($"Installing from {nameof(GenericCustomInstaller)}");
+
         }
     }
 }

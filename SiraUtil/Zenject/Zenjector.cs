@@ -13,7 +13,10 @@ namespace SiraUtil.Zenject
     public class Zenjector
     {
         internal PluginMetadata Metadata { get; }
-        internal IEnumerable<InstallSet> Sets => _installSets;
+        internal IEnumerable<ExposeSet> ExposeSets => _exposeSets;
+        internal IEnumerable<InstallSet> InstallSets => _installSets;
+
+        private readonly HashSet<ExposeSet> _exposeSets = new();
         private readonly HashSet<InstallSet> _installSets = new();
 
         internal Zenjector(PluginMetadata metadata)
@@ -67,6 +70,19 @@ namespace SiraUtil.Zenject
         {
             IInstallFilter filter = new TypedInstallFilter(typeof(TBaseInstaller));
             _installSets.Add(new InstallSet(typeof(TCustomInstaller), filter, parameters.Length != 0 ? parameters : null));
+        }
+
+        /// <summary>
+        /// Searches a decorator context for the first instance that matches a type, then automatically binds them the the active container.
+        /// </summary>
+        /// <typeparam name="TExposeType"></typeparam>
+        /// <param name="contractName">The contract name of the <see cref="SceneDecoratorContext"/> to search on.</param>
+        public void Expose<TExposeType>(string contractName)
+        {
+            if (contractName is null)
+                throw new ArgumentNullException(contractName);
+
+            _exposeSets.Add(new ExposeSet(typeof(TExposeType), contractName));
         }
     }
 }

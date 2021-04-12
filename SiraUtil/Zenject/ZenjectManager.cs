@@ -1,9 +1,11 @@
 ﻿using IPA.Loader;
 using SiraUtil.Zenject.Internal;
+using SiraUtil.Zenject.Internal.Exposers;
 using SiraUtil.Zenject.Internal.Instructors;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
@@ -14,6 +16,7 @@ namespace SiraUtil.Zenject
         private const string _initialSceneName = "PCInit";
 
         private bool _initialSceneConstructionRegistered;
+        private readonly ExposerManager _exposerManager = new();
         private readonly HashSet<ZenjectorDatum> _zenjectors = new();
         private readonly InstructorManager _instructorManager = new();
 
@@ -47,20 +50,36 @@ namespace SiraUtil.Zenject
                 zenDatum.Enabled = PluginManager.GetPluginFromId(zenDatum.Zenjector.Metadata.Id) != null;
         }
 
-        private void ContextDecorator_ContextInstalling(IEnumerable<ContextBinding> installerBindings)
+        private void ContextDecorator_ContextInstalling(Context mainContext, IEnumerable<ContextBinding> installerBindings)
         {
             if (!_initialSceneConstructionRegistered)
                 return;
 
+            IEnumerable<MonoBehaviour>? injectableList = null;
+            bool isDecorator = mainContext is SceneDecoratorContext;
+
             foreach (var zenDatum in _zenjectors)
             {
-                foreach (var set in zenDatum.Zenjector.Sets)
+                if (!zenDatum.Enabled)
+                    continue;
+
+                Zenjector zenjector = zenDatum.Zenjector;
+
+                if (isDecorator)
+                {
+                    foreach (var set in zenjector.ExposeSets)
+                    {
+                        _exposerManager.Install(set, mainContext, ref injectableList);
+                    }
+                }
+
+                foreach (var set in zenjector.InstallSets)
                 {
                     foreach (var binding in installerBindings)
                     {
                         if (set.installFilter.ShouldInstall(binding))
                         {
-                            Plugin.Log.Info($"Installing: {set.installerType.Name} onto {binding.installerType}");
+                            Plugin.Log.Debug($"Installing: {set.installerType.Name} onto {binding.installerType}");
                             IInstructor? instructor = _instructorManager.InstructorForSet(set);
                             if (instructor is null)
                             {

@@ -11,10 +11,19 @@ namespace SiraUtil.Zenject.Harmony
     [HarmonyPatch(new Type[] { typeof(List<InstallerBase>), typeof(List<Type>), typeof(List<ScriptableObjectInstaller>), typeof(List<MonoInstaller>), typeof(List<MonoInstaller>) })]
     internal class ContextDecorator
     {
-        internal static Action<IEnumerable<ContextBinding>>? ContextInstalling;
+        // This set is used to catch any late installing decorators.
+        private static readonly HashSet<Context> _recentlyInstalledDecorators = new();
+        internal static Action<Context, IEnumerable<ContextBinding>>? ContextInstalling;
 
         internal static void Prefix(ref Context __instance, ref List<InstallerBase> normalInstallers, ref List<Type> normalInstallerTypes, ref List<ScriptableObjectInstaller> scriptableObjectInstallers, ref List<MonoInstaller> installers, ref List<MonoInstaller> installerPrefabs)
         {
+            // Check if this is a late bound decorator installation.
+            if (_recentlyInstalledDecorators.Contains(__instance))
+            {
+                _recentlyInstalledDecorators.Remove(__instance);
+                return;
+            }
+
             ZenjectInstallationAccessor accessor = new(ref normalInstallers, ref normalInstallerTypes, ref installers);
 
             // Adds every installer that's being installed to the type registrator.
@@ -30,7 +39,10 @@ namespace SiraUtil.Zenject.Harmony
             foreach (var installerPrefab in installerPrefabs)
                 bindings.Add(new ContextBinding(__instance, installerPrefab.GetType(), accessor));
 
-            ContextInstalling?.Invoke(bindings);
+            if (__instance is SceneDecoratorContext decorator)
+                _recentlyInstalledDecorators.Add(decorator);
+
+            ContextInstalling?.Invoke(__instance, bindings);
         }
     }
 }
