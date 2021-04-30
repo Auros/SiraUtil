@@ -20,8 +20,6 @@ namespace SiraUtil.Zenject
                 Container.BindInterfacesTo<SongControl>().AsSingle();
             }
             Container.BindInterfacesAndSelfTo<SiraSaberEffectManager>().AsSingle();
-
-            
         }
     }
 }

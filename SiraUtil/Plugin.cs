@@ -100,14 +100,6 @@ namespace SiraUtil
 
             zenjector.OnGame<SiraGameInstaller>(true).ShortCircuitForMultiplayer();
 
-            zenjector.On<GameplayCoreInstaller>().Pseudo(Container =>
-            {
-                if (System.DateTime.Now.Month == 4 && System.DateTime.Now.Day == 1 && AprilFools.maxInSession >= AprilFools.sessionTrack)
-                {
-                    Container.BindInterfacesTo<AprilFools>().AsSingle();
-                }
-            }).OnlyForStandard();
-
             // multi specific for toni
             zenjector.OnGame<SiraMultiGameInstaller>(false)
                 .Mutate<SaberBurnMarkArea>(InstallSaberArea)
