@@ -104,9 +104,9 @@ namespace SiraUtil.Services
                 {
                     _queuedNormalActions.Add(new DelegateWrapper().Wrap(callback));
                 }
-                else
+                else if (smc is T strongSaberModelController)
                 {
-                    callback.Invoke((T)GetModel());
+                    callback.Invoke(strongSaberModelController);
                 }
             }
             else
