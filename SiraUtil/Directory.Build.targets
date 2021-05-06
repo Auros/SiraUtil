@@ -95,8 +95,9 @@
     </PropertyGroup>
     <Warning Text="$(CopyToPluginsError)" Condition="'$(CopyToPluginsError)' != ''" />
     <Message Text="Copying '$(OutputAssemblyName).dll' to '$(PluginDir)'." Importance="high" Condition="$(CanCopyToPlugins)" />
-    <Copy SourceFiles="$(OutputAssemblyName).dll" DestinationFiles="$(PluginDir)\$(AssemblyName).dll" Condition="$(CanCopyToPlugins)"  />
-    <Copy SourceFiles="$(OutputAssemblyName).pdb" DestinationFiles="$(PluginDir)\$(AssemblyName).pdb" Condition="'$(CanCopyToPlugins)' == 'True' AND Exists('$(OutputAssemblyName).pdb')"  />
+    <Copy SourceFiles="$(OutputAssemblyName).dll" DestinationFiles="$(PluginDir)\$(AssemblyName).dll" Condition="$(CanCopyToPlugins)" />
+    <Copy SourceFiles="$(OutputAssemblyName).pdb" DestinationFiles="$(PluginDir)\$(AssemblyName).pdb" Condition="'$(CanCopyToPlugins)' == 'True' AND Exists('$(OutputAssemblyName).pdb')" />
+    <Copy SourceFiles="$(OutputAssemblyName).xml" DestinationFiles="$(PluginDir)\$(AssemblyName).xml" Condition="'$(CanCopyToPlugins)' == 'True' AND Exists('$(OutputAssemblyName).xml')" />
     <Warning Text="Beat Saber is running, restart the game to use the latest build." Condition="'$(IsRunning)' == 'True'" />
   </Target>
 </Project>
