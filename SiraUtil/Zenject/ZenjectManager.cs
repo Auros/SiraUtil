@@ -2,6 +2,7 @@
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Exposers;
 using SiraUtil.Zenject.Internal.Instructors;
+using SiraUtil.Zenject.Internal.Mutators;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace SiraUtil.Zenject
 
         private bool _initialSceneConstructionRegistered;
         private readonly ExposerManager _exposerManager = new();
+        private readonly MutatorManager _mutatorManager = new();
         private readonly HashSet<ZenjectorDatum> _zenjectors = new();
         private readonly InstructorManager _instructorManager = new();
 
@@ -65,9 +67,13 @@ namespace SiraUtil.Zenject
 
                 Zenjector zenjector = zenDatum.Zenjector;
 
-                // Expose anything marked to be exposed.
+                // Mutate and expose anything marked to be mutated and exposed.
                 if (isDecorator)
                 {
+                    foreach (var set in zenjector.MutateSets)
+                    {
+                        _mutatorManager.Install(set, mainContext, ref injectableList);
+                    }
                     foreach (var set in zenjector.ExposeSets)
                     {
                         _exposerManager.Install(set, mainContext, ref injectableList);

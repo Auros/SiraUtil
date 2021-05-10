@@ -14,10 +14,12 @@ namespace SiraUtil.Zenject
     {
         internal PluginMetadata Metadata { get; }
         internal IEnumerable<ExposeSet> ExposeSets => _exposeSets;
+        internal IEnumerable<MutateSet> MutateSets => _mutateSets;
         internal IEnumerable<InstallSet> InstallSets => _installSets;
         internal IEnumerable<InstallInstruction> InstallInstructions => _installInstructions;
 
         private readonly HashSet<ExposeSet> _exposeSets = new();
+        private readonly HashSet<MutateSet> _mutateSets = new();
         private readonly HashSet<InstallSet> _installSets = new();
         private readonly HashSet<InstallInstruction> _installInstructions = new();
 
@@ -111,6 +113,20 @@ namespace SiraUtil.Zenject
                 throw new ArgumentNullException(contractName);
 
             _exposeSets.Add(new ExposeSet(typeof(TExposeType), contractName));
+        }
+
+        /// <summary>
+        /// Searches a decorator context for the first instance that matches a type, then invokes a callback with that instance for it to be modified or mutated.
+        /// </summary>
+        /// <typeparam name="TMutateType">The type to mutate.</typeparam>
+        /// <param name="contractName">The contract name of the <see cref="SceneDecoratorContext" /> to search on.</param>
+        /// <param name="mutationCallback">The callback used to mutate the object instance.</param>
+        public void Mutate<TMutateType>(string contractName, Action<SceneDecoratorContext, TMutateType> mutationCallback)
+        {
+            DelegateWrapper wrapper = new();
+            wrapper.Wrap(mutationCallback);
+
+            _mutateSets.Add(new MutateSet(typeof(TMutateType), contractName, wrapper));
         }
     }
 }
