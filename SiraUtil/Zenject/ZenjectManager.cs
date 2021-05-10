@@ -65,6 +65,7 @@ namespace SiraUtil.Zenject
 
                 Zenjector zenjector = zenDatum.Zenjector;
 
+                // Expose anything marked to be exposed.
                 if (isDecorator)
                 {
                     foreach (var set in zenjector.ExposeSets)
@@ -73,6 +74,7 @@ namespace SiraUtil.Zenject
                     }
                 }
 
+                // Install every normal install set.
                 foreach (var set in zenjector.InstallSets)
                 {
                     foreach (var binding in installerBindings)
@@ -87,6 +89,18 @@ namespace SiraUtil.Zenject
                                 continue;
                             }
                             instructor.Install(set, binding);
+                        }
+                    }
+                }
+
+                // Install every installerless binding set.
+                foreach (var instruction in zenjector.InstallInstructions)
+                {
+                    foreach (var binding in installerBindings)
+                    {
+                        if (instruction.baseInstaller == binding.installerType)
+                        {
+                            instruction.onInstall(binding.context.Container);
                         }
                     }
                 }
