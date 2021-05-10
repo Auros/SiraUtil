@@ -27,11 +27,14 @@ namespace SiraUtil.Zenject.Internal.Exposers
                 injectableList.AddRange(SceneDecoratorInjectables(ref sceneDecoratorContext));               
                 iterList = injectableList;
             }
-            if (!context.Container.HasBinding(exposeSet.GetType()))
+            MonoBehaviour toExpose = iterList.FirstOrDefault(i => i.GetType() == exposeSet.typeToExpose);
+            if (toExpose != null && !context.Container.HasBinding(exposeSet.typeToExpose))
             {
-                MonoBehaviour toExpose = iterList.FirstOrDefault(i => i.GetType() == exposeSet.typeToExpose);
-                if (toExpose != null && !context.Container.HasBinding(exposeSet.typeToExpose))
-                    context.Container.Bind(exposeSet.typeToExpose).FromInstance(toExpose).AsSingle();
+                context.Container.Bind(exposeSet.typeToExpose).FromInstance(toExpose).AsSingle();
+            }
+            else
+            {
+                Plugin.Log.Warn($"Could not expose {exposeSet.typeToExpose.Name}. {(toExpose == null ? "It could not be found in the SceneContextDecorator" : "It is already binded.")}");
             }
         }
     }
