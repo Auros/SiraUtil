@@ -62,8 +62,8 @@ namespace SiraUtil.Zenject
         /// <summary>
         /// Install bindings to a custom location with a backing installer(s).
         /// </summary>
-        /// <param name="location"></param>
-        /// <param name="installCallback"></param>
+        /// <param name="location">The location to install it to.</param>
+        /// <param name="installCallback">The callback which is used to install custom bindings into the container.</param>
         public void Install(Location location, Action<DiContainer> installCallback)
         {
             foreach (var installlerType in InstallerForLocation(location))
@@ -73,8 +73,8 @@ namespace SiraUtil.Zenject
         /// <summary>
         /// Install bindings alongsise another installer without a custom installer.
         /// </summary>
-        /// <typeparam name="TBaseInstaller"></typeparam>
-        /// <param name="installCallback"></param>
+        /// <typeparam name="TBaseInstaller">The installer to install your bindings with.</typeparam>
+        /// <param name="installCallback">The callback which is used to install custom bindings into the container.</param>
         public void Install<TBaseInstaller>(Action<DiContainer> installCallback) where TBaseInstaller : IInstaller
         {
             _installInstructions.Add(new InstallInstruction(typeof(TBaseInstaller), installCallback));
@@ -105,7 +105,7 @@ namespace SiraUtil.Zenject
         /// <summary>
         /// Searches a decorator context for the first instance that matches a type, then automatically binds them the the active container.
         /// </summary>
-        /// <typeparam name="TExposeType"></typeparam>
+        /// <typeparam name="TExposeType">The type to expose.</typeparam>
         /// <param name="contractName">The contract name of the <see cref="SceneDecoratorContext"/> to search on.</param>
         public void Expose<TExposeType>(string contractName)
         {
