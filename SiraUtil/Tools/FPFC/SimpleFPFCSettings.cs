@@ -6,6 +6,7 @@ namespace SiraUtil.Tools.FPFC
 {
     internal class SimpleFPFCSettings : IFPFCSettings, ITickable
     {
+        public float FOV => 90;
         public bool Enabled { get; private set; } = true;
 
         public event Action<bool>? Changed;

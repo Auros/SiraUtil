@@ -14,6 +14,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly Transform _originalControllerWrapper;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
         private SimpleCameraController _simpleCameraController = null!;
+        private readonly FPFCState _initialState = new();
 
         public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, IMenuControllerAccessor menuControllerAccessor)
         {
@@ -30,6 +31,8 @@ namespace SiraUtil.Tools.FPFC
             _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
             Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>()[0].enabled = false;
             _simpleCameraController.enabled = false;
+
+            _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
 
             if (_fpfcSettings.Enabled)
                 EnableFPFC();
@@ -50,6 +53,7 @@ namespace SiraUtil.Tools.FPFC
         private void EnableFPFC()
         {
             _simpleCameraController.enabled = true;
+            _mainCamera.camera.fieldOfView = _fpfcSettings.FOV;
             _menuControllerAccessor.LeftController.transform.SetParent(_simpleCameraController.transform);
             _menuControllerAccessor.RightController.transform.SetParent(_simpleCameraController.transform);
             _menuControllerAccessor.LeftController.transform.localPosition = Vector3.zero;
@@ -66,6 +70,7 @@ namespace SiraUtil.Tools.FPFC
         private void DisableFPFC()
         {
             _simpleCameraController.enabled = false;
+            _mainCamera.camera.fieldOfView = _initialState.CameraFOV;
             _menuControllerAccessor.LeftController.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.RightController.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.LeftController.enabled = true;
