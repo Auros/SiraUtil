@@ -19,7 +19,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
         public DynamicHarmonyPatchGenerator(PluginMetadata pluginMetadata)
         { 
-            _id = $"com.{(string.IsNullOrEmpty(pluginMetadata.Author) ? "unknown" : pluginMetadata.Author)}.{pluginMetadata.Name}.affinity";
+            _id = $"com.{(string.IsNullOrEmpty(pluginMetadata.Author) ? "unknown" : pluginMetadata.Author)}.{pluginMetadata.Name}.affinity".ToLower();
             _harmony = new HarmonyLib.Harmony(_id);
 
             _assemblyName = new($"{pluginMetadata.Assembly.GetName().Name}.AffinityPatched");
@@ -40,7 +40,12 @@ namespace SiraUtil.Affinity.Harmony.Generator
             const string delegateName = "_delegate";
 
             TypeBuilder typeBuilder = _moduleBuilder.DefineType($"{patch.DeclaringType}_{patch.MethodName}_{affinityMethod.Name}_{Guid.NewGuid().ToString().Replace("-", "_")}", TypeAttributes.Public);
-            MethodInfo originalMethod = patch.DeclaringType.GetMethod(patch.MethodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+
+            Type[]? types = null;
+            if (patch.ArgumentTypes is not null && patch.ArgumentTypes.Length != 0)
+                types = patch.ArgumentTypes;
+
+            MethodInfo originalMethod = AccessTools.Method(patch.DeclaringType, patch.MethodName, types);
 
             // Create the delegate used to invoke the affinity instance method.
             var delegateType = CreateDelegateType(affinityMethod);
