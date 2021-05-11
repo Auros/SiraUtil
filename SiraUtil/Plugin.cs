@@ -35,6 +35,7 @@ namespace SiraUtil
             });
             zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player);
             zenjector.Install<SiraPlayerInstaller>(Location.Player);
+            zenjector.Install<SiraSettingsInstaller>(Location.App);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
         }
 

@@ -10,9 +10,9 @@ namespace SiraUtil.Tools.FPFC
         
         private float _boost = 0.1f;
         private readonly bool _invertY = true;
-        private readonly float _positionLerpTime = 0.2f;
-        private readonly float _rotationLerpTime = 0.001f;
-        private readonly AnimationCurve _mouseSensitivityCurve = new(new Keyframe(0f, 0.5f, 0f, 5f), new Keyframe(0.75f, 0.75f, 0f, 0f));
+        private readonly float _positionLerpTime = 0.0f;
+        private readonly float _rotationLerpTime = 0.0f;
+        private readonly AnimationCurve _mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
 
         protected void OnEnable()
         {
@@ -69,7 +69,7 @@ namespace SiraUtil.Tools.FPFC
             float mouseSensitivityFactor = _mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
             holdingCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
             holdingCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
-            Vector3 translation = GetInputTranslationDirection() * Time.deltaTime;
+            Vector3 translation = GetInputTranslationDirection() * Time.deltaTime * 2f;
 
             if (IsBoostPressed())
             {
