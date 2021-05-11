@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using IPA;
 using IPA.Loader;
+using SiraUtil.Affinity;
 using SiraUtil.Zenject;
 using System.Reflection;
 using IPALogger = IPA.Logging.Logger;
@@ -16,7 +17,7 @@ namespace SiraUtil
         public const string ID = "dev.auros.sirautil";
 
         [Init]
-        public Plugin(IPALogger logger)
+        public Plugin(IPALogger logger, PluginMetadata metadata)
         {
             Log = logger;
             _harmony = new Harmony(ID);
@@ -24,6 +25,12 @@ namespace SiraUtil
 
             // Adds the Zenjector type to BSIPA's Init Injection system so mods can receive it in their [Init] parameters.
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
+
+            Zenjector zenjector = (ConstructZenjector(null!, null!, metadata) as Zenjector)!;
+            zenjector.Install(Location.App, (Container) =>
+            {
+                Container.Bind<AffinityManager>().ToSelf().AsSingle().CopyIntoAllSubContainers();
+            });
         }
 
         [OnEnable]
@@ -40,7 +47,7 @@ namespace SiraUtil
             _harmony.UnpatchAll(ID);
         }
 
-        private object ConstructZenjector(object previous, ParameterInfo param, PluginMetadata meta)
+        private object ConstructZenjector(object previous, ParameterInfo _, PluginMetadata meta)
         {
             if (previous is not null)
                 return previous;

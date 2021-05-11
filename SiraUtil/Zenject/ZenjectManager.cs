@@ -1,4 +1,5 @@
 ﻿using IPA.Loader;
+using SiraUtil.Affinity;
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Exposers;
 using SiraUtil.Zenject.Internal.Instructors;
@@ -111,6 +112,9 @@ namespace SiraUtil.Zenject
                     }
                 }
             }
+
+            if (!isDecorator)
+                AffinityInstaller.Install(mainContext.Container);
         }
 
         private void SceneManager_activeSceneChanged(Scene _, Scene newScene)

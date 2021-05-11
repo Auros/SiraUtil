@@ -1,5 +1,6 @@
 ﻿using IPA;
 using SiraUtil.Suite.Installers;
+using SiraUtil.Suite.Tests.Installers;
 using SiraUtil.Zenject;
 using IPALogger = IPA.Logging.Logger;
 
@@ -24,6 +25,8 @@ namespace SiraUtil.Suite
 
             zenjector.Expose<FlickeringNeonSign>("MenuEnvironment");
             zenjector.Mutate<PlatformLeaderboardViewController>("MenuViewControllers", (_, __) => { });
+
+            zenjector.Install<AffinityTestInstaller>(Location.Menu);
         }
 
         [OnEnable]
