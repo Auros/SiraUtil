@@ -1,7 +1,9 @@
 ﻿using HarmonyLib;
 using IPA.Loader;
+using IPA.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -103,7 +105,13 @@ namespace SiraUtil.Affinity.Harmony.Generator
             _patchCache.Add(constructedPatchMethod, originalMethod);
 
 #if DEBUG
+            string pathName = Path.Combine(UnityGame.InstallPath, "SiraUtil Affinity Assemblies");
+            Directory.CreateDirectory(pathName);
+            string fileName = $"{_assemblyName.Name}.dll";
+            string endFile = Path.Combine(pathName, fileName);
             _assemblyBuilder.Save($"{_assemblyName.Name}.dll");
+            File.Delete(endFile);
+            File.Move(fileName, Path.Combine(pathName, fileName));
 #endif
             return constructedPatchMethod;
         }
