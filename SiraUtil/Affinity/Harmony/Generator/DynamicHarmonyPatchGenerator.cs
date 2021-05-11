@@ -100,7 +100,6 @@ namespace SiraUtil.Affinity.Harmony.Generator
 #if DEBUG
             _assemblyBuilder.Save($"{_assemblyName.Name}.dll");
 #endif
-
             return constructedPatchMethod;
         }
 
