@@ -36,6 +36,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
         public MethodInfo Patch(IAffinity affinity, MethodInfo affinityMethod, AffinityPatchType patchType, AffinityPatchAttribute patch, int priority = -1, string[]? before = null, string[]? after = null)
         {
             const string patchName = "Patch";
+            const string invokeName = "Invoke";
             const string delegateName = "_delegate";
 
             TypeBuilder typeBuilder = _moduleBuilder.DefineType($"{patch.DeclaringType}_{patch.MethodName}_{affinityMethod.Name}_{Guid.NewGuid().ToString().Replace("-", "_")}", TypeAttributes.Public);
@@ -60,7 +61,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
             ilg.Emit(OpCodes.Ldsfld, affinityDelegate);
             for (int i = 0; i < affinityMethod.GetParameters().Length; i++)
                 ilg.Emit(OpCodes.Ldarg_S, i);
-            ilg.Emit(OpCodes.Callvirt, delegateType.GetMethod("Invoke"));
+            ilg.Emit(OpCodes.Callvirt, delegateType.GetMethod(invokeName));
             ilg.Emit(OpCodes.Nop);
             ilg.Emit(OpCodes.Ret);
 
