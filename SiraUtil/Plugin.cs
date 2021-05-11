@@ -2,6 +2,8 @@
 using IPA;
 using IPA.Loader;
 using SiraUtil.Affinity;
+using SiraUtil.Installers;
+using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
 using System.Reflection;
 using IPALogger = IPA.Logging.Logger;
@@ -31,6 +33,9 @@ namespace SiraUtil
             {
                 Container.Bind<AffinityManager>().ToSelf().AsSingle().CopyIntoAllSubContainers();
             });
+            zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player);
+            zenjector.Install<SiraPlayerInstaller>(Location.Player);
+            zenjector.Install<SiraMenuInstaller>(Location.Menu);
         }
 
         [OnEnable]
