@@ -10,11 +10,11 @@ namespace SiraUtil.Affinity
     [AttributeUsage(AttributeTargets.Method)]
     public class AffinityPatchAttribute : Attribute
     {
-        internal ArgumentType[]? ArgumentVariations { get; }
         internal Type DeclaringType { get; }
         internal string MethodName { get; }
         internal Type[]? ArgumentTypes { get; }
         internal MethodType MethodType { get; }
+        internal ArgumentType[]? ArgumentVariations { get; }
 
         /// <summary>
         /// The constructor for an Affinity patch.
