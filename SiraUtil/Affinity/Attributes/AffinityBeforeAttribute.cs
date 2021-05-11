@@ -6,7 +6,7 @@ namespace SiraUtil.Affinity
     /// Have an affinity patch run before other patches.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class AffinityBefore : Attribute
+    public class AffinityBeforeAttribute : Attribute
     {
         internal string[] Before { get; }
 
@@ -14,7 +14,7 @@ namespace SiraUtil.Affinity
         /// Construct an Affinity Before
         /// </summary>
         /// <param name="before">The IDs of the patches to run before.</param>
-        public AffinityBefore(params string[] before)
+        public AffinityBeforeAttribute(params string[] before)
         {
             Before = before;
         }

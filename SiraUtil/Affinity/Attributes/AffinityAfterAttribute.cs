@@ -6,7 +6,7 @@ namespace SiraUtil.Affinity
     /// Have an affinity patch run after other patches.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public class AffinityAfter : Attribute
+    public class AffinityAfterAttribute : Attribute
     {
         internal string[] After { get; }
 
@@ -14,7 +14,7 @@ namespace SiraUtil.Affinity
         /// Construct an Affinity After
         /// </summary>
         /// <param name="after">The IDs of the patches to run after.</param>
-        public AffinityAfter(params string[] after)
+        public AffinityAfterAttribute(params string[] after)
         {
             After = after;
         }

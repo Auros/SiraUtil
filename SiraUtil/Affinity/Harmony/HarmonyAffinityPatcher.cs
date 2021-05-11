@@ -53,8 +53,8 @@ namespace SiraUtil.Affinity.Harmony
                 string[]? after = null;
                 string[]? before = null;
 
-                AffinityAfter? afterAttribute = affinityMethod.GetCustomAttribute<AffinityAfter>();
-                AffinityBefore? beforeAttribute = affinityMethod.GetCustomAttribute<AffinityBefore>();
+                AffinityAfterAttribute? afterAttribute = affinityMethod.GetCustomAttribute<AffinityAfterAttribute>();
+                AffinityBeforeAttribute? beforeAttribute = affinityMethod.GetCustomAttribute<AffinityBeforeAttribute>();
 
                 after = afterAttribute?.After;
                 before = beforeAttribute?.Before;
