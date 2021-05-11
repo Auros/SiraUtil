@@ -74,20 +74,22 @@ namespace SiraUtil.Affinity.Harmony.Generator
             HarmonyMethod? transpiler = null;
             HarmonyMethod? finalizer = null;
 
+            HarmonyMethod @base = new(constructedPatchMethod, priority, before, after);
+
             // Patch!
             switch (patchType)
             {
                 case AffinityPatchType.Prefix:
-                    prefix = new HarmonyMethod(constructedPatchMethod);
+                    prefix = @base;
                     break;
                 case AffinityPatchType.Postfix:
-                    postfix = new HarmonyMethod(constructedPatchMethod);
+                    postfix = @base;
                     break;
                 case AffinityPatchType.Transpiler:
-                    transpiler = new HarmonyMethod(constructedPatchMethod);
+                    transpiler = @base;
                     break;
                 case AffinityPatchType.Finalizer:
-                    finalizer = new HarmonyMethod(constructedPatchMethod);
+                    finalizer = @base;
                     break;
             }
 
