@@ -52,14 +52,17 @@ namespace SiraUtil.Affinity.Harmony
 
                 string[]? after = null;
                 string[]? before = null;
+                int priority = -1;
 
                 AffinityAfterAttribute? afterAttribute = affinityMethod.GetCustomAttribute<AffinityAfterAttribute>();
                 AffinityBeforeAttribute? beforeAttribute = affinityMethod.GetCustomAttribute<AffinityBeforeAttribute>();
+                AffinityPriorityAttribute? priorityAttribute = affinityMethod.GetCustomAttribute<AffinityPriorityAttribute>();
 
                 after = afterAttribute?.After;
                 before = beforeAttribute?.Before;
+                priority = priorityAttribute?.Priority ?? -1;
 
-                dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, before, after);
+                dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
             }
         }
 

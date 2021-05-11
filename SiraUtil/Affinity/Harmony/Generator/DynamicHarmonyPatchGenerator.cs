@@ -33,7 +33,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(_assemblyName.Name, $"{_assemblyName.Name}.dll");
         }
 
-        public MethodInfo Patch(IAffinity affinity, MethodInfo affinityMethod, AffinityPatchType patchType, AffinityPatchAttribute patch, string[]? before = null, string[]? after = null)
+        public MethodInfo Patch(IAffinity affinity, MethodInfo affinityMethod, AffinityPatchType patchType, AffinityPatchAttribute patch, int priority = -1, string[]? before = null, string[]? after = null)
         {
             const string patchName = "Patch";
             const string delegateName = "_delegate";
