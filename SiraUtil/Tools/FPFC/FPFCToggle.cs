@@ -15,6 +15,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly IMenuControllerAccessor _menuControllerAccessor;
         private SimpleCameraController _simpleCameraController = null!;
         private readonly FPFCState _initialState = new();
+        private Pose _lastPose = new();
 
         public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, IMenuControllerAccessor menuControllerAccessor)
         {
@@ -28,23 +29,30 @@ namespace SiraUtil.Tools.FPFC
         public void Initialize()
         {
             _fpfcSettings.Changed += FPFCSettings_Changed;
-            _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
+            _simpleCameraController = _mainCamera.camera.transform.parent.gameObject.AddComponent<SimpleCameraController>();
             Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>()[0].enabled = false;
             _simpleCameraController.enabled = false;
 
+            _initialState.Aspect = _mainCamera.camera.aspect;
             _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
+            _initialState.StereroTarget = _mainCamera.camera.stereoTargetEye;
 
             if (_fpfcSettings.Enabled)
                 EnableFPFC();
         }
 
-        private void FPFCSettings_Changed(bool on)
+        private void FPFCSettings_Changed(IFPFCSettings fpfcSettings)
         {
-            if (on)
+            if (fpfcSettings.Enabled)
             {
-                EnableFPFC();
+                if (!_simpleCameraController.enabled)
+                    EnableFPFC();
+                else
+                {
+                    _mainCamera.camera.fieldOfView = fpfcSettings.FOV;
+                }
             }
-            else
+            else if (_simpleCameraController.enabled)
             {
                 DisableFPFC();
             }
@@ -53,7 +61,13 @@ namespace SiraUtil.Tools.FPFC
         private void EnableFPFC()
         {
             _simpleCameraController.enabled = true;
+
+            _simpleCameraController.transform.position = _lastPose.position;
+            _simpleCameraController.transform.rotation = _lastPose.rotation;
+            _mainCamera.camera.stereoTargetEye = StereoTargetEyeMask.None;
+            _mainCamera.camera.aspect = Screen.width / (float)Screen.height;
             _mainCamera.camera.fieldOfView = _fpfcSettings.FOV;
+
             _menuControllerAccessor.LeftController.transform.SetParent(_simpleCameraController.transform);
             _menuControllerAccessor.RightController.transform.SetParent(_simpleCameraController.transform);
             _menuControllerAccessor.LeftController.transform.localPosition = Vector3.zero;
@@ -62,6 +76,7 @@ namespace SiraUtil.Tools.FPFC
             _menuControllerAccessor.RightController.transform.localRotation = Quaternion.identity;
             _menuControllerAccessor.LeftController.enabled = false;
             _menuControllerAccessor.RightController.enabled = false;
+
             _vrInputModule.useMouseForPressInput = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -69,13 +84,20 @@ namespace SiraUtil.Tools.FPFC
 
         private void DisableFPFC()
         {
-            _simpleCameraController.enabled = false;
+            _mainCamera.camera.aspect = _initialState.Aspect;
             _mainCamera.camera.fieldOfView = _initialState.CameraFOV;
+            _mainCamera.camera.stereoTargetEye = _initialState.StereroTarget;
+
             _menuControllerAccessor.LeftController.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.RightController.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.LeftController.enabled = true;
             _menuControllerAccessor.RightController.enabled = true;
             _vrInputModule.useMouseForPressInput = false;
+            _simpleCameraController.enabled = false;
+
+            _lastPose = new Pose(_simpleCameraController.transform.position, _simpleCameraController.transform.rotation);
+            _simpleCameraController.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }

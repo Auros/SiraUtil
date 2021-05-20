@@ -6,6 +6,6 @@ namespace SiraUtil.Tools.FPFC
     {
         float FOV { get; }
         bool Enabled { get; }
-        event Action<bool> Changed;
+        event Action<IFPFCSettings> Changed;
     }
 }

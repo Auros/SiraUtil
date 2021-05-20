@@ -14,12 +14,6 @@ namespace SiraUtil.Tools.FPFC
         private readonly float _rotationLerpTime = 0.0f;
         private readonly AnimationCurve _mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
 
-        protected void OnEnable()
-        {
-            _targetCameraState.SetFromTransform(transform);
-            _interpolatingCameraState.SetFromTransform(transform);
-        }
-
         private Vector3 GetInputTranslationDirection()
         {
             Vector3 direction = Vector3.zero;
@@ -47,11 +41,6 @@ namespace SiraUtil.Tools.FPFC
             return new Vector2(Input.GetAxis("MouseX"), Input.GetAxisRaw("MouseY")) * 10;
         }
 
-        private bool IsBoostPressed()
-        {
-            return Input.GetKey(KeyCode.LeftShift);
-        }
-
         private float BoostFactor()
         {
             return Input.mouseScrollDelta.y * 0.2f;
@@ -70,11 +59,6 @@ namespace SiraUtil.Tools.FPFC
             holdingCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
             holdingCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
             Vector3 translation = GetInputTranslationDirection() * Time.deltaTime * 2f;
-
-            if (IsBoostPressed())
-            {
-                translation *= 10f;
-            }
 
             _boost += BoostFactor();
             translation *= Mathf.Pow(2.0f, _boost);
