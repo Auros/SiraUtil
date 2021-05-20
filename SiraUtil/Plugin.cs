@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using IPA;
 using IPA.Loader;
-using SiraUtil.Affinity;
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
@@ -29,10 +28,6 @@ namespace SiraUtil
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
 
             Zenjector zenjector = (ConstructZenjector(null!, null!, metadata) as Zenjector)!;
-            zenjector.Install(Location.App, (Container) =>
-            {
-                Container.Bind<AffinityManager>().ToSelf().AsSingle().CopyIntoAllSubContainers();
-            });
             zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player);
             zenjector.Install<SiraPlayerInstaller>(Location.Player);
             zenjector.Install<SiraSettingsInstaller>(Location.App);

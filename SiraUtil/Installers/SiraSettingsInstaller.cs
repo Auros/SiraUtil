@@ -7,6 +7,7 @@ namespace SiraUtil.Installers
     {
         public override void InstallBindings()
         {
+            Plugin.Log.Info("SIRA SETTINGS INSTALLLING HELLO HELLO");
             Container.Bind(typeof(ITickable), typeof(IFPFCSettings)).To<SimpleFPFCSettings>().AsSingle();
         }
     }

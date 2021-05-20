@@ -1,4 +1,5 @@
 ﻿using SiraUtil.Affinity.Harmony;
+using System.Linq;
 using Zenject;
 
 namespace SiraUtil.Affinity
@@ -8,9 +9,10 @@ namespace SiraUtil.Affinity
         private readonly AffinityManager _affinityManager;
         private readonly IAffinityPatcher _affinityPatcher = new HarmonyAffinityPatcher();
 
-        public AffinityKernel(AffinityManager affinityManager)
+        public AffinityKernel([InjectLocal] AffinityManager affinityManager)
         {
             _affinityManager = affinityManager;
+            Plugin.Log.Info($"Initializing Affinity Kernel with {affinityManager.Affinities.Count()} registered affinities.");
         }
 
         public void Initialize()

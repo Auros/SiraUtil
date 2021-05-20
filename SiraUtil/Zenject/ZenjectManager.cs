@@ -4,6 +4,7 @@ using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Exposers;
 using SiraUtil.Zenject.Internal.Instructors;
 using SiraUtil.Zenject.Internal.Mutators;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,10 @@ namespace SiraUtil.Zenject
 {
     internal class ZenjectManager
     {
+        public static bool InitialSceneConstructionRegistered { get; private set; }
+        private const string _initialContextName = "AppCoreSceneContext";
         private const string _initialSceneName = "PCInit";
 
-        private bool _initialSceneConstructionRegistered;
         private readonly ExposerManager _exposerManager = new();
         private readonly MutatorManager _mutatorManager = new();
         private readonly HashSet<ZenjectorDatum> _zenjectors = new();
@@ -55,9 +57,12 @@ namespace SiraUtil.Zenject
 
         private void ContextDecorator_ContextInstalling(Context mainContext, IEnumerable<ContextBinding> installerBindings)
         {
-            if (!_initialSceneConstructionRegistered)
-                return;
+            if (mainContext.name == _initialContextName)
+                InitialSceneConstructionRegistered = true;
 
+            if (!InitialSceneConstructionRegistered)
+                return;
+            
             IEnumerable<MonoBehaviour>? injectableList = null;
             bool isDecorator = mainContext is SceneDecoratorContext;
 
@@ -112,9 +117,6 @@ namespace SiraUtil.Zenject
                     }
                 }
             }
-
-            if (!isDecorator)
-                AffinityInstaller.Install(mainContext.Container);
         }
 
         private void SceneManager_activeSceneChanged(Scene _, Scene newScene)
@@ -122,16 +124,16 @@ namespace SiraUtil.Zenject
             // The following is to handle loading the game from 'Uninit Mode', when SteamVR has not initialized the project context and original scene get initially loaded and constructed.
             if (newScene.name == _initialSceneName)
             {
-                _initialSceneConstructionRegistered = true;
+                InitialSceneConstructionRegistered = true;
             }
-            else if (!_initialSceneConstructionRegistered)
+            else if (!InitialSceneConstructionRegistered)
             {
                 GameScenesManager gameScenesManager = ProjectContext.Instance.Container.Resolve<GameScenesManager>();
                 void GameScenesManager_transitionDidFinishEvent(ScenesTransitionSetupDataSO _, DiContainer container)
                 {
                     gameScenesManager.transitionDidFinishEvent -= GameScenesManager_transitionDidFinishEvent;
                     // If we still have not registered yet, forcibly restart the game.
-                    if (!_initialSceneConstructionRegistered)
+                    if (!InitialSceneConstructionRegistered)
                     {
                         // Only continue when we are able to. 
                         MenuTransitionsHelper menuTransitionsHelper = container.TryResolve<MenuTransitionsHelper>();
@@ -146,12 +148,12 @@ namespace SiraUtil.Zenject
         {
             // This waits until the menu transition finishes before forcibly restarting Beat Saber
             yield return gameScenesManager.waitUntilSceneTransitionFinish;
-            if (_initialSceneConstructionRegistered)
+            if (InitialSceneConstructionRegistered)
                 yield break;
             if (menuTransitionsHelper != null)
             {
                 Plugin.Log.Debug("Restarting Beat Saber");
-                _initialSceneConstructionRegistered = true;
+                InitialSceneConstructionRegistered = true;
                 menuTransitionsHelper?.RestartGame();
             }
         }

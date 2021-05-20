@@ -6,6 +6,7 @@ namespace SiraUtil.Tools.FPFC
     {
         public override void InstallBindings()
         {
+            Plugin.Log.Info("INSTALLING");
             Container.Bind<IInitializable>().To<FPFCToggle>().AsSingle();
         }
     }
