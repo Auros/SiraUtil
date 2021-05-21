@@ -48,12 +48,11 @@ namespace SiraUtil.Affinity.Harmony.Patches
         private static IfNotBoundBinder KernelInjector(DiContainer container)
         {
             if (!container.HasBinding<AffinityManager>())
+            {
                 ProjectContext.Instance.Container.Bind<AffinityManager>().ToSelf().AsSingle().CopyIntoAllSubContainers();
-
-            if (ZenjectManager.InitialSceneConstructionRegistered)
-                return container.BindInterfacesAndSelfTo<AffinityKernel>().AsSingle().NonLazy();
-            else
-                return null!;
+                container.Bind<AffinityManager>().ToSelf().AsSingle();
+            }
+            return container.BindInterfacesAndSelfTo<AffinityKernel>().AsSingle();
         }
     }
 }

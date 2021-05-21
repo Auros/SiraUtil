@@ -1,10 +1,8 @@
 ﻿using IPA.Loader;
-using SiraUtil.Affinity;
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Exposers;
 using SiraUtil.Zenject.Internal.Instructors;
 using SiraUtil.Zenject.Internal.Mutators;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

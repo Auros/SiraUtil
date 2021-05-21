@@ -25,6 +25,7 @@ namespace SiraUtil.Affinity
         {
             foreach (var affinity in _affinityManager.Affinities)
                 _affinityPatcher.Unpatch(affinity);
+            _affinityPatcher.Dispose();
         }
     }
 }

@@ -85,5 +85,11 @@ namespace SiraUtil.Affinity.Harmony
                 dynamicHarmonyPatchGenerator.Unpatch(affinityContract);
             }
         }
+
+        public void Dispose()
+        {
+            foreach (var patcher in _patchGenerators)
+                patcher.Value.Dispose();
+        }
     }
 }

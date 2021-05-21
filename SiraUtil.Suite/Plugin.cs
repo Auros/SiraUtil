@@ -26,7 +26,7 @@ namespace SiraUtil.Suite
             zenjector.Expose<FlickeringNeonSign>("MenuEnvironment");
             zenjector.Mutate<PlatformLeaderboardViewController>("MenuViewControllers", (_, __) => { });
 
-            zenjector.Install<AffinityTestInstaller>(Location.Menu);
+            zenjector.Install<AffinityTestInstaller>(Location.App);
         }
 
         [OnEnable]

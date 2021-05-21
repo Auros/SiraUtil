@@ -30,7 +30,7 @@ namespace SiraUtil.Tools.FPFC
         {
             _fpfcSettings.Changed += FPFCSettings_Changed;
             _simpleCameraController = _mainCamera.camera.transform.parent.gameObject.AddComponent<SimpleCameraController>();
-            Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>()[0].enabled = false;
+            //Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>()[0].enabled = false;
             _simpleCameraController.enabled = false;
 
             _initialState.Aspect = _mainCamera.camera.aspect;

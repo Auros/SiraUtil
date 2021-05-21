@@ -10,7 +10,7 @@ using System.Reflection.Emit;
 
 namespace SiraUtil.Affinity.Harmony.Generator
 {
-    internal class DynamicHarmonyPatchGenerator
+    internal class DynamicHarmonyPatchGenerator : IDisposable
     {
         private readonly string _id;
         private readonly AssemblyName _assemblyName;
@@ -69,7 +69,9 @@ namespace SiraUtil.Affinity.Harmony.Generator
             for (int i = 0; i < affinityMethod.GetParameters().Length; i++)
                 ilg.Emit(OpCodes.Ldarg_S, i);
             ilg.Emit(OpCodes.Callvirt, delegateType.GetMethod(invokeName));
-            ilg.Emit(OpCodes.Nop);
+            
+            if (affinityMethod.ReturnType == typeof(void))
+                ilg.Emit(OpCodes.Nop);
             ilg.Emit(OpCodes.Ret);
 
             // Construct the type and assign the delegate.
@@ -104,15 +106,6 @@ namespace SiraUtil.Affinity.Harmony.Generator
             _harmony.Patch(originalMethod, prefix, postfix, transpiler, finalizer);
             _patchCache.Add(constructedPatchMethod, originalMethod);
 
-#if DEBUG
-            string pathName = Path.Combine(UnityGame.InstallPath, "SiraUtil Affinity Assemblies");
-            Directory.CreateDirectory(pathName);
-            string fileName = $"{_assemblyName.Name}.dll";
-            string endFile = Path.Combine(pathName, fileName);
-            _assemblyBuilder.Save($"{_assemblyName.Name}.dll");
-            File.Delete(endFile);
-            File.Move(fileName, Path.Combine(pathName, fileName));
-#endif
             return constructedPatchMethod;
         }
 
@@ -162,6 +155,19 @@ namespace SiraUtil.Affinity.Harmony.Generator
             while (_moduleBuilder.GetType(name) != null)
                 name = nameBase + number++;
             return name;
+        }
+
+        public void Dispose()
+        {
+#if DEBUG
+            string pathName = Path.Combine(UnityGame.InstallPath, "SiraUtil Affinity Assemblies");
+            Directory.CreateDirectory(pathName);
+            string fileName = $"{_assemblyName.Name}.dll";
+            string endFile = Path.Combine(pathName, fileName);
+            _assemblyBuilder.Save($"{_assemblyName.Name}.dll");
+            File.Delete(endFile);
+            File.Move(fileName, Path.Combine(pathName, fileName));
+#endif
         }
     }
 }
