@@ -1,10 +1,12 @@
 ﻿using HarmonyLib;
 using IPA;
+using IPA.Config.Stores;
 using IPA.Loader;
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
 using System.Reflection;
+using Conf = IPA.Config.Config;
 using IPALogger = IPA.Logging.Logger;
 
 namespace SiraUtil
@@ -18,8 +20,11 @@ namespace SiraUtil
         public const string ID = "dev.auros.sirautil";
 
         [Init]
-        public Plugin(IPALogger logger, PluginMetadata metadata)
+        public Plugin(Conf conf, IPALogger logger, PluginMetadata metadata)
         {
+            Config config = conf.Generated<Config>();
+            config.Version = metadata.Version;
+
             Log = logger;
             _harmony = new Harmony(ID);
             _zenjectManager = new ZenjectManager();
@@ -28,9 +33,10 @@ namespace SiraUtil
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
 
             Zenjector zenjector = (ConstructZenjector(null!, null!, metadata) as Zenjector)!;
+
             zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player);
+            zenjector.Install<SiraSettingsInstaller>(Location.App, config);
             zenjector.Install<SiraPlayerInstaller>(Location.Player);
-            zenjector.Install<SiraSettingsInstaller>(Location.App);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
         }
 
