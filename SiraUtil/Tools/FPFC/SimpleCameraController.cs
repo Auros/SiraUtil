@@ -17,6 +17,12 @@ namespace SiraUtil.Tools.FPFC
         public float MouseSensitivity { get; set; } = 10f;
         public bool AllowInput { get; set; } = false;
 
+        protected void Awake()
+        {
+            _targetCameraState.SetFromTransform(transform);
+            _interpolatingCameraState.SetFromTransform(transform);
+        }
+
         private Vector3 GetInputTranslationDirection()
         {
             Vector3 direction = Vector3.zero;

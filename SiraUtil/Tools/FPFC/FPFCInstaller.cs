@@ -11,7 +11,7 @@ namespace SiraUtil.Tools.FPFC
             if (!Environment.GetCommandLineArgs().Any(a => a.ToLower() == FPFCToggle.Argument))
                 return;
 
-            Container.Bind<IInitializable>().To<FPFCToggle>().AsSingle();
+            Container.BindInterfacesTo<FPFCToggle>().AsSingle();
         }
     }
 }

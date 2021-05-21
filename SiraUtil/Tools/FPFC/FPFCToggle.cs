@@ -36,12 +36,14 @@ namespace SiraUtil.Tools.FPFC
         public void Initialize()
         {
             _fpfcSettings.Changed += FPFCSettings_Changed;
-            _simpleCameraController = _mainCamera.camera.transform.parent.gameObject.AddComponent<SimpleCameraController>();
 
             _initialState.Aspect = _mainCamera.camera.aspect;
             _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
             _initialState.StereroTarget = _mainCamera.camera.stereoTargetEye;
 
+            if (_fpfcSettings.Enabled)
+                _mainCamera.camera.transform.parent.gameObject.transform.position = new Vector3(0f, 1.7f, 0f);
+            _simpleCameraController = _mainCamera.camera.transform.parent.gameObject.AddComponent<SimpleCameraController>();
             if (_fpfcSettings.Enabled)
                 EnableFPFC();
         }
@@ -96,7 +98,7 @@ namespace SiraUtil.Tools.FPFC
 
         private void DisableFPFC()
         {
-            _menuControllerAccessor.LeftController.transform.SetParent(_originalControllerWrapper);
+            _menuControllerAccessor.LeftController!.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.RightController.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.LeftController.enabled = true;
             _menuControllerAccessor.RightController.enabled = true;
