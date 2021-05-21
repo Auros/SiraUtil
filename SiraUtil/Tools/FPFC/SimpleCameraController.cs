@@ -15,6 +15,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly AnimationCurve _mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
 
         public float MouseSensitivity { get; set; } = 10f;
+        public bool AllowInput { get; set; } = false;
 
         private Vector3 GetInputTranslationDirection()
         {
@@ -50,6 +51,9 @@ namespace SiraUtil.Tools.FPFC
 
         protected void Update()
         {
+            if (!AllowInput)
+                return;
+
             CameraState holdingCameraState = new();
             holdingCameraState.Read(_targetCameraState);
 

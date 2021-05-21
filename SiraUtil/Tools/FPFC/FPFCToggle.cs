@@ -1,6 +1,7 @@
 ﻿using SiraUtil.Services;
 using System;
 using UnityEngine;
+using UnityEngine.XR;
 using VRUIControls;
 using Zenject;
 
@@ -10,7 +11,7 @@ namespace SiraUtil.Tools.FPFC
     {
         public const string Argument = "fpfc";
 
-        private Pose _lastPose = new();
+        private Pose? _lastPose = new();
         private readonly FPFCState _initialState = new();
         private SimpleCameraController _simpleCameraController = null!;
 
@@ -33,8 +34,6 @@ namespace SiraUtil.Tools.FPFC
         {
             _fpfcSettings.Changed += FPFCSettings_Changed;
             _simpleCameraController = _mainCamera.camera.transform.parent.gameObject.AddComponent<SimpleCameraController>();
-            //Resources.FindObjectsOfTypeAll<FirstPersonFlyingController>()[0].enabled = false;
-            _simpleCameraController.enabled = false;
 
             _initialState.Aspect = _mainCamera.camera.aspect;
             _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
@@ -48,7 +47,7 @@ namespace SiraUtil.Tools.FPFC
         {
             if (fpfcSettings.Enabled)
             {
-                if (!_simpleCameraController.enabled)
+                if (!_simpleCameraController.AllowInput)
                     EnableFPFC();
                 else
                 {
@@ -56,7 +55,7 @@ namespace SiraUtil.Tools.FPFC
                     _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
                 }
             }
-            else if (_simpleCameraController.enabled)
+            else if (_simpleCameraController.AllowInput)
             {
                 DisableFPFC();
             }
@@ -64,11 +63,14 @@ namespace SiraUtil.Tools.FPFC
 
         private void EnableFPFC()
         {
-            _simpleCameraController.enabled = true;
+            _simpleCameraController.AllowInput = true;
 
             _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
-            _simpleCameraController.transform.position = _lastPose.position;
-            _simpleCameraController.transform.rotation = _lastPose.rotation;
+            if (_lastPose.HasValue)
+            {
+                _simpleCameraController.transform.position = _lastPose.Value.position;
+                _simpleCameraController.transform.rotation = _lastPose.Value.rotation;
+            }
             _mainCamera.camera.stereoTargetEye = StereoTargetEyeMask.None;
             _mainCamera.camera.aspect = Screen.width / (float)Screen.height;
             _mainCamera.camera.fieldOfView = _fpfcSettings.FOV;
@@ -89,19 +91,22 @@ namespace SiraUtil.Tools.FPFC
 
         private void DisableFPFC()
         {
-            _mainCamera.camera.aspect = _initialState.Aspect;
-            _mainCamera.camera.fieldOfView = _initialState.CameraFOV;
-            _mainCamera.camera.stereoTargetEye = _initialState.StereroTarget;
-
             _menuControllerAccessor.LeftController.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.RightController.transform.SetParent(_originalControllerWrapper);
             _menuControllerAccessor.LeftController.enabled = true;
             _menuControllerAccessor.RightController.enabled = true;
             _vrInputModule.useMouseForPressInput = false;
-            _simpleCameraController.enabled = false;
+            _simpleCameraController.AllowInput = false;
 
-            _lastPose = new Pose(_simpleCameraController.transform.position, _simpleCameraController.transform.rotation);
-            _simpleCameraController.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            if (XRSettings.enabled)
+            {
+                _lastPose = new Pose(_simpleCameraController.transform.position, _simpleCameraController.transform.rotation);
+                _simpleCameraController.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+                _mainCamera.camera.aspect = _initialState.Aspect;
+                _mainCamera.camera.fieldOfView = _initialState.CameraFOV;
+                _mainCamera.camera.stereoTargetEye = _initialState.StereroTarget;
+            }
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
