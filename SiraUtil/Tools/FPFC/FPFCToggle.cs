@@ -8,14 +8,17 @@ namespace SiraUtil.Tools.FPFC
 {
     internal class FPFCToggle : IInitializable, IDisposable
     {
+        public const string Argument = "fpfc";
+
+        private Pose _lastPose = new();
+        private readonly FPFCState _initialState = new();
+        private SimpleCameraController _simpleCameraController = null!;
+
         private readonly MainCamera _mainCamera;
         private readonly IFPFCSettings _fpfcSettings;
         private readonly VRInputModule _vrInputModule;
         private readonly Transform _originalControllerWrapper;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
-        private SimpleCameraController _simpleCameraController = null!;
-        private readonly FPFCState _initialState = new();
-        private Pose _lastPose = new();
 
         public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, IMenuControllerAccessor menuControllerAccessor)
         {

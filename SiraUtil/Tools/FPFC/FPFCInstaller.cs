@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using System;
+using System.Linq;
+using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -6,6 +8,9 @@ namespace SiraUtil.Tools.FPFC
     {
         public override void InstallBindings()
         {
+            if (!Environment.GetCommandLineArgs().Any(a => a.ToLower() == FPFCToggle.Argument))
+                return;
+
             Container.Bind<IInitializable>().To<FPFCToggle>().AsSingle();
         }
     }
