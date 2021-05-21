@@ -1,5 +1,6 @@
 ﻿using SiraUtil.Services;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 using VRUIControls;
@@ -18,14 +19,16 @@ namespace SiraUtil.Tools.FPFC
         private readonly MainCamera _mainCamera;
         private readonly IFPFCSettings _fpfcSettings;
         private readonly VRInputModule _vrInputModule;
+        private readonly List<IFPFCListener> _fpfcListeners;
         private readonly Transform _originalControllerWrapper;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
 
-        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, IMenuControllerAccessor menuControllerAccessor)
+        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
         {
             _mainCamera = mainCamera;
             _fpfcSettings = fpfcSettings;
             _vrInputModule = vrInputModule;
+            _fpfcListeners = fpfcListeners;
             _menuControllerAccessor = menuControllerAccessor;
             _originalControllerWrapper = menuControllerAccessor.LeftController.transform.parent;
         }
@@ -64,7 +67,6 @@ namespace SiraUtil.Tools.FPFC
         private void EnableFPFC()
         {
             _simpleCameraController.AllowInput = true;
-
             _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
             if (_lastPose.HasValue)
             {
@@ -87,6 +89,9 @@ namespace SiraUtil.Tools.FPFC
             _vrInputModule.useMouseForPressInput = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            foreach (var listener in _fpfcListeners)
+                listener.Enabled();
         }
 
         private void DisableFPFC()
@@ -110,6 +115,9 @@ namespace SiraUtil.Tools.FPFC
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            foreach (var listener in _fpfcListeners)
+                listener.Disabled();
         }
 
         public void Dispose()

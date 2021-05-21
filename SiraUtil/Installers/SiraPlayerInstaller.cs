@@ -10,7 +10,7 @@ namespace SiraUtil.Installers
         public override void InstallBindings()
         {
             Container.Bind<IMenuControllerAccessor>().To<GameMenuControllerAccessor>().AsSingle();
-            Container.Bind<IInitializable>().To<PlayerHeadOverrider>().AsSingle();
+            Container.BindInterfacesTo<GameTransformFPFCListener>().AsSingle();
         }
     }
 }
