@@ -14,6 +14,8 @@ namespace SiraUtil.Tools.FPFC
         private readonly float _rotationLerpTime = 0.0f;
         private readonly AnimationCurve _mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
 
+        public float MouseSensitivity { get; set; } = 10f;
+
         private Vector3 GetInputTranslationDirection()
         {
             Vector3 direction = Vector3.zero;
@@ -38,7 +40,7 @@ namespace SiraUtil.Tools.FPFC
 
         private Vector2 GetInputLookRotation()
         {
-            return new Vector2(Input.GetAxis("MouseX"), Input.GetAxisRaw("MouseY")) * 10;
+            return new Vector2(Input.GetAxis("MouseX"), Input.GetAxisRaw("MouseY")) * MouseSensitivity;
         }
 
         private float BoostFactor()

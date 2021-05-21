@@ -7,6 +7,7 @@ namespace SiraUtil.Tools.FPFC
     internal class SimpleFPFCSettings : IFPFCSettings, ITickable
     {
         public float FOV => 100;
+        public float MouseSensitivity => 3.5f;
         public bool Enabled { get; private set; } = true;
 
         public event Action<IFPFCSettings>? Changed;

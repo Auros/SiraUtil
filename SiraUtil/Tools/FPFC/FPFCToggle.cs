@@ -53,6 +53,7 @@ namespace SiraUtil.Tools.FPFC
                 else
                 {
                     _mainCamera.camera.fieldOfView = fpfcSettings.FOV;
+                    _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
                 }
             }
             else if (_simpleCameraController.enabled)
@@ -65,6 +66,7 @@ namespace SiraUtil.Tools.FPFC
         {
             _simpleCameraController.enabled = true;
 
+            _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
             _simpleCameraController.transform.position = _lastPose.position;
             _simpleCameraController.transform.rotation = _lastPose.rotation;
             _mainCamera.camera.stereoTargetEye = StereoTargetEyeMask.None;
