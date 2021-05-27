@@ -1,17 +1,14 @@
-using IPA;
-using Zenject;
-using IPA.Loader;
 using HarmonyLib;
-using UnityEngine;
-using System.Linq;
-using IPA.Utilities;
-using SiraUtil.Sabers;
-using SiraUtil.Zenject;
-using SiraUtil.Services;
+using IPA;
 using IPA.Config.Stores;
-using System.Collections;
+using IPA.Loader;
+using IPA.Utilities;
 using SiraUtil.Installers;
+using SiraUtil.Sabers;
+using SiraUtil.Services;
+using SiraUtil.Zenject;
 using UnityEngine.SceneManagement;
+using Zenject;
 using IPALogger = IPA.Logging.Logger;
 
 namespace SiraUtil
@@ -106,6 +103,7 @@ namespace SiraUtil
                 .Mutate<SaberBurnMarkSparkles>(InstallSaberSparkles)
                 .Mutate<ObstacleSaberSparkleEffectManager>(InstallObstacleEffectManager)
                 .Expose<SaberClashEffect>().OnlyForMultiplayer();
+
         }
 
         /// <summary>
@@ -120,17 +118,7 @@ namespace SiraUtil
 
         private void SceneManager_activeSceneChanged(Scene oldScene, Scene newScene)
         {
-            //Plugin.Log.Info($"{oldScene.name} -> {newScene.name}");
-            if (newScene.name == "MenuViewControllers" && !ZenjectManager.ProjectContextWentOff)
-            {
-                SharedCoroutineStarter.instance.StartCoroutine(BruteForceRestart());
-            }
-        }
-
-        private IEnumerator BruteForceRestart()
-        {
-            yield return new WaitForSecondsRealtime(1f);
-            Resources.FindObjectsOfTypeAll<MenuTransitionsHelper>().FirstOrDefault()?.RestartGame();
+            //Log.Info($"{oldScene.name} -> {newScene.name}");
         }
 
         /// <summary>

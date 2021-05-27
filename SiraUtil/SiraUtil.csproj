@@ -257,6 +257,7 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="WebClient.cs" />
     <Compile Include="Zenject\Containerized.cs" />
+    <Compile Include="Zenject\HarmonyPatches\ContextResetter.cs" />
     <Compile Include="Zenject\HarmonyPatches\GamemodeDecorator.cs" />
     <Compile Include="Zenject\HarmonyPatches\GameplaySubmissionDecorator.cs" />
     <Compile Include="Zenject\HarmonyPatches\MenuTransitionHelperReHelper.cs" />

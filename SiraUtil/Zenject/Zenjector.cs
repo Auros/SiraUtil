@@ -85,7 +85,7 @@ namespace SiraUtil.Zenject
         {
             var ib = new InstallBuilder(typeof(T));
             Builders.Add(ib);
-            ib.On("Menu");
+            ib.On<MainSettingsMenuViewControllersInstaller>();
             return ib;
         }
 
