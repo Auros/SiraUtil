@@ -25,7 +25,6 @@ namespace SiraUtil.Zenject
         internal IList<InstallBuilder> Builders { get; } = new List<InstallBuilder>();
         private PluginMetadata Metadata { get; }
 
-
         internal Zenjector(string name, PluginMetadata metadata)
         {
             Name = name;
