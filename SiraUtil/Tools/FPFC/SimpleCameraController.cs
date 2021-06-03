@@ -64,7 +64,6 @@ namespace SiraUtil.Tools.FPFC
             holdingCameraState.Read(_targetCameraState);
 
             Vector2 mouseMovement = GetInputLookRotation() * 0.05f;
-            print(mouseMovement);
             if (_invertY)
                 mouseMovement.y = -mouseMovement.y;
 
