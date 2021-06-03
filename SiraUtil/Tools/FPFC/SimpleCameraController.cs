@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -63,7 +63,8 @@ namespace SiraUtil.Tools.FPFC
             CameraState holdingCameraState = new();
             holdingCameraState.Read(_targetCameraState);
 
-            Vector2 mouseMovement = GetInputLookRotation() * Time.deltaTime * 5;
+            Vector2 mouseMovement = GetInputLookRotation() * 0.05f;
+            print(mouseMovement);
             if (_invertY)
                 mouseMovement.y = -mouseMovement.y;
 

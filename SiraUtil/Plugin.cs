@@ -15,24 +15,26 @@ namespace SiraUtil
     internal class Plugin
     {
         private readonly Harmony _harmony;
+        private readonly PluginMetadata _pluginMetadata;
         private readonly ZenjectManager _zenjectManager;
         public static IPALogger Log { get; private set; } = null!;
         public const string ID = "dev.auros.sirautil";
 
         [Init]
-        public Plugin(Conf conf, IPALogger logger, PluginMetadata metadata)
+        public Plugin(Conf conf, IPALogger logger, PluginMetadata pluginMetadata)
         {
             Config config = conf.Generated<Config>();
-            config.Version = metadata.HVersion;
+            config.Version = pluginMetadata.HVersion;
 
             Log = logger;
             _harmony = new Harmony(ID);
+            _pluginMetadata = pluginMetadata;
             _zenjectManager = new ZenjectManager();
 
             // Adds the Zenjector type to BSIPA's Init Injection system so mods can receive it in their [Init] parameters.
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
 
-            Zenjector zenjector = (ConstructZenjector(null!, null!, metadata) as Zenjector)!;
+            Zenjector zenjector = (ConstructZenjector(null!, null!, pluginMetadata) as Zenjector)!;
             zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player);
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
             zenjector.Install<SiraPlayerInstaller>(Location.Player);
@@ -42,7 +44,7 @@ namespace SiraUtil
         [OnEnable]
         public void OnEnable()
         {
-            _harmony.PatchAll();
+            _harmony.PatchAll(_pluginMetadata.Assembly);
             _zenjectManager.Enable();
         }
 
