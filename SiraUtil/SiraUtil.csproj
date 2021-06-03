@@ -47,7 +47,7 @@
           <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="Hive.Versioning">
-          <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Beat Saber\Libs\Hive.Versioning.dll</HintPath>
+          <HintPath>$(BeatSaberDir)\Libs\Hive.Versioning.dll</HintPath>
           <Private>False</Private>
         </Reference>
         <Reference Include="HMRendering">

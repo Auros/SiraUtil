@@ -103,7 +103,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
                     break;
             }
 
-            _harmony.Patch(originalMethod, prefix, postfix, transpiler, finalizer);
+            _harmony.Patch(originalMethod, prefix, postfix, transpiler, finalizer, null);
             _patchCache.Add(constructedPatchMethod, originalMethod);
 
             return constructedPatchMethod;

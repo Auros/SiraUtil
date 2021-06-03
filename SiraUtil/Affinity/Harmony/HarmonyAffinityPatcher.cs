@@ -37,7 +37,6 @@ namespace SiraUtil.Affinity.Harmony
                 Plugin.Log.Warn($"'{affinity.GetType().Name}' doesn't have any affinity patches! The IAffinity interface is unecessary.");
             }
 
-
             foreach (var affinityMethod in affinityMethods)
             {
                 AffinityPatchAttribute attribute = affinityMethod.GetCustomAttribute<AffinityPatchAttribute>();
