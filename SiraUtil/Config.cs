@@ -4,7 +4,7 @@ using SiraUtil.Converters;
 using SiraUtil.Tools.FPFC;
 using System;
 using System.Runtime.CompilerServices;
-using Version = SemVer.Version;
+using Version = Hive.Versioning.Version;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace SiraUtil

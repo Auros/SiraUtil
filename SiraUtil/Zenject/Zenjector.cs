@@ -86,7 +86,7 @@ namespace SiraUtil.Zenject
             if (location.HasFlag(Location.App))
                 installerTypes.Add(typeof(PCAppInit));
             if (location.HasFlag(Location.Menu))
-                installerTypes.Add(typeof(MenuInstaller));
+                installerTypes.Add(typeof(MainSettingsMenuViewControllersInstaller));
             if (location.HasFlag(Location.StandardPlayer))
                 installerTypes.Add(typeof(StandardGameplayInstaller));
             if (location.HasFlag(Location.CampaignPlayer))

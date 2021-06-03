@@ -1,16 +1,16 @@
-﻿using SemVer;
-using IPA.Config.Data;
+﻿using IPA.Config.Data;
 using IPA.Config.Stores;
+using Hive.Versioning;
 
 namespace SiraUtil.Converters
 {
     /// <summary>
-    /// A config converter for BSIPA which can serialize and deserialize SemVer <see cref="Version"/> values.
+    /// A config converter for BSIPA which can serialize and deserialize Hive.Versioning <see cref="Version"/> values.
     /// </summary>
     public class VersionConverter : ValueConverter<Version>
     {
         /// <summary>
-        /// Converts a config value text to a SemVer <see cref="Version"/>.
+        /// Converts a config value text to a Hive.Versioning <see cref="Version"/>.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="parent"></param>
@@ -19,11 +19,11 @@ namespace SiraUtil.Converters
         {
             return value is Text t
                 ? new Version(t.Value)
-                : throw new System.ArgumentException("Value cannot be parsed into a Semver Version", nameof(value));
+                : throw new System.ArgumentException("Value cannot be parsed into a Hive.Versioning Version", nameof(value));
         }
 
         /// <summary>
-        /// Converts a SemVer <see cref="Version"/> into a config value text.
+        /// Converts a Hive.Versioning <see cref="Version"/> into a config value text.
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="parent"></param>

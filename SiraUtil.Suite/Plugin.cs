@@ -21,7 +21,7 @@ namespace SiraUtil.Suite
             zenjector.Install<ParameterCustomInstaller>(Location.App, logger);
 
             zenjector.Install(Location.Menu, Container => { });
-            zenjector.Install<MenuInstaller>(Container => { });
+            zenjector.Install<MainSettingsMenuViewControllersInstaller>(Container => { });
 
             zenjector.Expose<FlickeringNeonSign>("MenuEnvironment");
             zenjector.Mutate<PlatformLeaderboardViewController>("MenuViewControllers", (_, __) => { });

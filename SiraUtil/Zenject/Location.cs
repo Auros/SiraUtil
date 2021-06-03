@@ -19,7 +19,7 @@ namespace SiraUtil.Zenject
         App = 1,
 
         /// <summary>
-        /// Installs your bindings onto the menu. The current backing installer is <see cref="MenuInstaller" />
+        /// Installs your bindings onto the menu. The current backing installer is <see cref="MainSettingsMenuViewControllersInstaller" />
         /// </summary>
         Menu = 2,
 

@@ -23,7 +23,7 @@ namespace SiraUtil
         public Plugin(Conf conf, IPALogger logger, PluginMetadata metadata)
         {
             Config config = conf.Generated<Config>();
-            config.Version = metadata.Version;
+            config.Version = metadata.HVersion;
 
             Log = logger;
             _harmony = new Harmony(ID);
@@ -33,7 +33,6 @@ namespace SiraUtil
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
 
             Zenjector zenjector = (ConstructZenjector(null!, null!, metadata) as Zenjector)!;
-
             zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player);
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
             zenjector.Install<SiraPlayerInstaller>(Location.Player);
@@ -54,7 +53,7 @@ namespace SiraUtil
             _harmony.UnpatchAll(ID);
         }
 
-        private object ConstructZenjector(object previous, ParameterInfo _, PluginMetadata meta)
+        private object? ConstructZenjector(object? previous, ParameterInfo _, PluginMetadata meta)
         {
             if (previous is not null)
                 return previous;
