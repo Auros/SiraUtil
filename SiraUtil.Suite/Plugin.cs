@@ -15,6 +15,7 @@ namespace SiraUtil.Suite
         public Plugin(IPALogger logger, Zenjector zenjector)
         {
             Log = logger;
+
             zenjector.Install<GenericCustomInstaller>(Location.Menu);
             zenjector.Install<MonoCustomInstaller>(Location.Tutorial);
             zenjector.Install<OtherCustomInstaller, GameplayCoreInstaller>();

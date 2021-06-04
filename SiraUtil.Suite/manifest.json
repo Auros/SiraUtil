@@ -5,7 +5,7 @@
   "author": "Auros",
   "version": "1.0.0",
   "description": "A suite mod used to test SiraUtil's capabilities and provide examples.",
-  "gameVersion": "1.15.0",
+  "gameVersion": "1.16.2",
   "dependsOn": {
     "BSIPA": "^4.1.6",
     "SiraUtil": "^3.0.0"
