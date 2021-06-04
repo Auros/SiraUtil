@@ -14,7 +14,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly float _rotationLerpTime = 0.0f;
         private readonly AnimationCurve _mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
 
-        public float MouseSensitivity { get; set; } = 10f;
+        public float MouseSensitivity { get; set; } = 5f;
         public bool AllowInput { get; set; } = false;
 
         protected void Awake()
@@ -50,7 +50,7 @@ namespace SiraUtil.Tools.FPFC
             return new Vector2(Input.GetAxis("MouseX"), Input.GetAxisRaw("MouseY")) * MouseSensitivity;
         }
 
-        private float BoostFactor()
+        public float BoostFactor()
         {
             return Input.mouseScrollDelta.y * 0.2f;
         }
@@ -70,9 +70,9 @@ namespace SiraUtil.Tools.FPFC
             float mouseSensitivityFactor = _mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
             holdingCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
             holdingCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
-            Vector3 translation = GetInputTranslationDirection() * Time.deltaTime * 2f;
+            Vector3 translation = GetInputTranslationDirection() * Time.deltaTime * 3f;
 
-            _boost += BoostFactor();
+            //_boost += BoostFactor();
             translation *= Mathf.Pow(2.0f, _boost);
             holdingCameraState.Translate(translation);
 
