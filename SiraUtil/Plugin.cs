@@ -2,6 +2,7 @@
 using IPA;
 using IPA.Config.Stores;
 using IPA.Loader;
+using SiraUtil.Affinity.Harmony.Generator;
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
@@ -53,6 +54,10 @@ namespace SiraUtil
         {
             _zenjectManager.Disable();
             _harmony.UnpatchAll(ID);
+
+#if DEBUG
+            DynamicHarmonyPatchGenerator.Save();
+#endif
         }
 
         private object? ConstructZenjector(object? previous, ParameterInfo _, PluginMetadata meta)

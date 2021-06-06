@@ -28,7 +28,8 @@ namespace SiraUtil.Affinity.Harmony
             }
             if (!_patchCache.TryGetValue(affinity, out List<MethodInfo> methods))
             {
-                _patchCache.Add(affinity, new List<MethodInfo>());
+                methods = new List<MethodInfo>();
+                _patchCache.Add(affinity, methods);
             }
 
             MethodInfo[] affinityMethods = affinity.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
@@ -61,7 +62,8 @@ namespace SiraUtil.Affinity.Harmony
                 before = beforeAttribute?.Before;
                 priority = priorityAttribute?.Priority ?? -1;
 
-                dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
+                MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
+                methods.Add(contract);
             }
         }
 

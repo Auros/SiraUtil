@@ -1,38 +1,61 @@
 ﻿using HarmonyLib;
 using IPA.Loader;
 using IPA.Utilities;
+using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using TypeAttributes = System.Reflection.TypeAttributes;
+using FieldAttributes = System.Reflection.FieldAttributes;
+using MethodAttributes = System.Reflection.MethodAttributes;
+using ParameterAttributes = System.Reflection.ParameterAttributes;
+using MethodImplAttributes = System.Reflection.MethodImplAttributes;
 
 namespace SiraUtil.Affinity.Harmony.Generator
 {
     internal class DynamicHarmonyPatchGenerator : IDisposable
     {
         private readonly string _id;
-        private readonly AssemblyName _assemblyName;
+        private readonly string _name;
         private readonly HarmonyLib.Harmony _harmony;
         private readonly ModuleBuilder _moduleBuilder;
-        private readonly AssemblyBuilder _assemblyBuilder;
-        private readonly Dictionary<MethodInfo, MethodBase> _patchCache = new();
+        private static AssemblyBuilder _assemblyBuilder = null!;
+        private static readonly AssemblyName _assemblyName = new($"SiraUtil.Affinity");
+        private readonly Dictionary<MethodInfo, (MethodBase, FieldInfo)> _patchCache = new();
 
         public DynamicHarmonyPatchGenerator(PluginMetadata pluginMetadata)
         { 
             _id = $"com.{(string.IsNullOrEmpty(pluginMetadata.Author) ? "unknown" : pluginMetadata.Author)}.{pluginMetadata.Name}.affinity".ToLower();
+            _name = pluginMetadata.Assembly.GetName().Name + "_(Generated)";
             _harmony = new HarmonyLib.Harmony(_id);
 
-            _assemblyName = new($"{pluginMetadata.Assembly.GetName().Name}.AffinityPatched");
-            _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(_assemblyName,
+            if (_assemblyBuilder == null)
+            {
+                _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(_assemblyName,
 #if DEBUG
                 AssemblyBuilderAccess.RunAndSave
 #else
-                AssemblyBuilderAccess.Run
+                AssemblyBuilderAccess.RunAndCollect
 #endif
-            );
-            _moduleBuilder = _assemblyBuilder.DefineDynamicModule(_assemblyName.Name, $"{_assemblyName.Name}.dll");
+                );
+            }
+
+            ModuleBuilder module = _assemblyBuilder.GetDynamicModule(_name);
+            if (module == null)
+            {
+#if DEBUG
+                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(_name, $"{_name}.Affinity.dll");
+#else
+                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(pluginAsmName);
+#endif
+            }
+            else
+            {
+                _moduleBuilder = module;
+            }
         }
 
         public MethodInfo Patch(IAffinity affinity, MethodInfo affinityMethod, AffinityPatchType patchType, AffinityPatchAttribute patch, int priority = -1, string[]? before = null, string[]? after = null)
@@ -41,7 +64,8 @@ namespace SiraUtil.Affinity.Harmony.Generator
             const string invokeName = "Invoke";
             const string delegateName = "_delegate";
 
-            TypeBuilder typeBuilder = _moduleBuilder.DefineType($"{patch.DeclaringType}_{patch.MethodName}_{affinityMethod.Name}_{Guid.NewGuid().ToString().Replace("-", "_")}", TypeAttributes.Public);
+            string typeName = $"{patch.DeclaringType}_{patch.MethodName}_{affinityMethod.Name}_{Guid.NewGuid().ToString().Replace("-", "_")}";
+            TypeBuilder typeBuilder = _moduleBuilder.DefineType(GetUniqueName($"{_name}.{patch.DeclaringType}_{patch.MethodName}_{affinityMethod.Name}"), TypeAttributes.Public);
 
             Type[]? types = null;
             if (patch.ArgumentTypes is not null && patch.ArgumentTypes.Length != 0)
@@ -74,16 +98,17 @@ namespace SiraUtil.Affinity.Harmony.Generator
                 ilg.Emit(OpCodes.Nop);
             ilg.Emit(OpCodes.Ret);
 
+
             // Construct the type and assign the delegate.
             Type finalizedType = typeBuilder.CreateType();
             MethodInfo constructedPatchMethod = finalizedType.GetMethod(patchName);
-            finalizedType.GetField(delegateName).SetValue(null, Delegate.CreateDelegate(delegateType, affinity, affinityMethod));
+            FieldInfo delegateField = finalizedType.GetField(delegateName);
+            delegateField.SetValue(null, Delegate.CreateDelegate(delegateType, affinity, affinityMethod));
 
             HarmonyMethod? prefix = null;
             HarmonyMethod? postfix = null;
             HarmonyMethod? transpiler = null;
             HarmonyMethod? finalizer = null;
-
             HarmonyMethod @base = new(constructedPatchMethod, priority, before, after);
 
             // Patch!
@@ -104,16 +129,16 @@ namespace SiraUtil.Affinity.Harmony.Generator
             }
 
             _harmony.Patch(originalMethod, prefix, postfix, transpiler, finalizer, null);
-            _patchCache.Add(constructedPatchMethod, originalMethod);
-
+            _patchCache.Add(constructedPatchMethod, (originalMethod, delegateField));
             return constructedPatchMethod;
         }
 
         public void Unpatch(MethodInfo contract)
         {
-            if (_patchCache.TryGetValue(contract, out MethodBase original))
+            if (_patchCache.TryGetValue(contract, out (MethodBase, FieldInfo) original))
             {
-                _harmony.Unpatch(original, contract);
+                _harmony.Unpatch(original.Item1, contract);
+                original.Item2.SetValue(null, null);
                 _patchCache.Remove(contract);
             }
         }
@@ -144,7 +169,6 @@ namespace SiraUtil.Affinity.Harmony.Generator
                 var parameter = parameters[i];
                 invokeMethod.DefineParameter(i + 1, ParameterAttributes.None, parameter.Name);
             }
-
             return typeBuilder.CreateType();
         }
 
@@ -159,15 +183,33 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
         public void Dispose()
         {
+            foreach (var contract in _patchCache)
+            {
+                _harmony.Unpatch(contract.Value.Item1, contract.Key);
+                contract.Value.Item2.SetValue(null, null);
+            }
+            _patchCache.Clear();
+        }
+
 #if DEBUG
+        public static void Save()
+        {
             string pathName = Path.Combine(UnityGame.InstallPath, "SiraUtil Affinity Assemblies");
             Directory.CreateDirectory(pathName);
-            string fileName = $"{_assemblyName.Name}.dll";
-            string endFile = Path.Combine(pathName, fileName);
-            _assemblyBuilder.Save($"{_assemblyName.Name}.dll");
-            File.Delete(endFile);
-            File.Move(fileName, Path.Combine(pathName, fileName));
-#endif
+            string fileName = $"IGNORE_ME.dll";
+            _assemblyBuilder.Save(fileName);
+            File.Delete(fileName);
+
+            foreach (var file in new DirectoryInfo(UnityGame.InstallPath).EnumerateFiles())
+            {
+                if (file.Name.Contains("_(Generated).Affinity"))
+                {
+                    string newSavePath = Path.Combine(pathName, file.Name.Replace("_(Generated).Affinity", string.Empty));
+                    File.Delete(newSavePath);
+                    File.Move(file.FullName, newSavePath);
+                }
+            }
         }
+#endif
     }
 }
