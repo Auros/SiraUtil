@@ -1,14 +1,15 @@
 ﻿using SiraUtil.Services;
+using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR;
 using VRUIControls;
-using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCToggle : IInitializable, IDisposable
+    internal class FPFCToggle : IAsyncInitializable, IDisposable
     {
         public const string Argument = "fpfc";
 
@@ -20,7 +21,6 @@ namespace SiraUtil.Tools.FPFC
         private readonly IFPFCSettings _fpfcSettings;
         private readonly VRInputModule _vrInputModule;
         private readonly List<IFPFCListener> _fpfcListeners;
-        private readonly Transform _originalControllerWrapper;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
 
         public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
@@ -30,12 +30,15 @@ namespace SiraUtil.Tools.FPFC
             _vrInputModule = vrInputModule;
             _fpfcListeners = fpfcListeners;
             _menuControllerAccessor = menuControllerAccessor;
-            _originalControllerWrapper = menuControllerAccessor.LeftController.transform.parent;
         }
 
-        public void Initialize()
+        public async Task InitializeAsync()
         {
             _fpfcSettings.Changed += FPFCSettings_Changed;
+
+            if (_mainCamera.camera == null)
+                while (_mainCamera.camera == null)
+                    await Task.Delay(10);
 
             _initialState.Aspect = _mainCamera.camera.aspect;
             _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
@@ -98,8 +101,8 @@ namespace SiraUtil.Tools.FPFC
 
         private void DisableFPFC()
         {
-            _menuControllerAccessor.LeftController!.transform.SetParent(_originalControllerWrapper);
-            _menuControllerAccessor.RightController.transform.SetParent(_originalControllerWrapper);
+            _menuControllerAccessor.LeftController!.transform.SetParent(_menuControllerAccessor.Parent);
+            _menuControllerAccessor.RightController.transform.SetParent(_menuControllerAccessor.Parent);
             _menuControllerAccessor.LeftController.enabled = true;
             _menuControllerAccessor.RightController.enabled = true;
             _vrInputModule.useMouseForPressInput = false;

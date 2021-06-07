@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using SiraUtil.Zenject.Internal;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -11,7 +12,8 @@ namespace SiraUtil.Affinity.Harmony.Patches
     internal class SceneAffinityKernelInjector
     {
         private static readonly MethodInfo _nonLazyMethod = typeof(NonLazyBinder).GetMethod(nameof(NonLazyBinder.NonLazy));
-        private static readonly MethodInfo _kernelInjectorMethod = SymbolExtensions.GetMethodInfo(() => KernelInjector(null!));
+        private static readonly MethodInfo _kernelInjectorMethod = SymbolExtensions.GetMethodInfo(() => AffinityKernelInjector(null!));
+        private static readonly MethodInfo _siraKernelInjectorMethod = SymbolExtensions.GetMethodInfo(() => AffinityKernelInjector(null!));
         private static readonly FieldInfo _containerField = typeof(SceneContext).GetField("_container", BindingFlags.NonPublic | BindingFlags.Instance);
 
         [HarmonyTranspiler]
@@ -44,14 +46,32 @@ namespace SiraUtil.Affinity.Harmony.Patches
             return codes;
         }
 
-        private static IfNotBoundBinder KernelInjector(DiContainer container)
+        private static IfNotBoundBinder AffinityKernelInjector(DiContainer container)
         {
             if (!container.HasBinding<AffinityManager>())
             {
                 ProjectContext.Instance.Container.Bind<AffinityManager>().ToSelf().AsSingle().CopyIntoAllSubContainers();
                 container.Bind<AffinityManager>().ToSelf().AsSingle();
             }
+            container.BindInterfacesAndSelfTo<SiraKernel>().AsSingle();
             return container.BindInterfacesAndSelfTo<AffinityKernel>().AsSingle();
+        }
+    }
+
+    [HarmonyPatch(typeof(GameObjectContext), "InstallBindings")]
+    internal class GameObjectKernelInjector
+    {
+        [HarmonyPrefix]
+        internal static void Install(ref DiContainer ____container)
+        {
+            DiContainer container = ____container;
+            if (!container.HasBinding<AffinityManager>())
+            {
+                ProjectContext.Instance.Container.Bind<AffinityManager>().ToSelf().AsSingle().CopyIntoAllSubContainers();
+                container.Bind<AffinityManager>().ToSelf().AsSingle();
+            }
+            container.BindInterfacesAndSelfTo<SiraKernel>().AsSingle();
+            container.BindInterfacesAndSelfTo<AffinityKernel>().AsSingle();
         }
     }
 }

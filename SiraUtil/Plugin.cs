@@ -2,6 +2,9 @@
 using IPA;
 using IPA.Config.Stores;
 using IPA.Loader;
+#if DEBUG
+using SiraUtil.Affinity.Harmony.Generator;
+#endif
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;

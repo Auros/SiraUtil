@@ -1,4 +1,6 @@
-﻿namespace SiraUtil.Services
+﻿using UnityEngine;
+
+namespace SiraUtil.Services
 {
     /// <summary>
     /// Gets the active menu controllers. This works while in the menu scene or the game scene (pause menu controllers).
@@ -14,5 +16,10 @@
         /// The right VR controller.
         /// </summary>
         VRController RightController { get; }
+
+        /// <summary>
+        /// The parent of the VRControllers
+        /// </summary>
+        Transform Parent { get; }
     }
 }
