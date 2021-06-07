@@ -1,8 +1,12 @@
-﻿using IPA.Loader;
+﻿using HarmonyLib;
+using IPA.Loader;
+using IPA.Logging;
+using SiraUtil.Attributes;
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Filters;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace SiraUtil.Zenject
@@ -12,6 +16,8 @@ namespace SiraUtil.Zenject
     /// </summary>
     public class Zenjector
     {
+        internal bool Slog { get; }
+        internal Logger? Logger { get; set; }
         internal PluginMetadata Metadata { get; }
         internal IEnumerable<ExposeSet> ExposeSets => _exposeSets;
         internal IEnumerable<MutateSet> MutateSets => _mutateSets;
@@ -26,6 +32,7 @@ namespace SiraUtil.Zenject
         internal Zenjector(PluginMetadata metadata)
         {
             Metadata = metadata;
+            Slog = metadata.PluginType?.CustomAttributes.Any(ca => ca.AttributeType.FullName == typeof(SlogAttribute).FullName) ?? false;
         }
 
         /// <summary>
@@ -127,6 +134,15 @@ namespace SiraUtil.Zenject
             wrapper.Wrap(mutationCallback);
 
             _mutateSets.Add(new MutateSet(typeof(TMutateType), contractName, wrapper));
+        }
+
+        /// <summary>
+        /// Sets up a logger to be used in Zenject.
+        /// </summary>
+        /// <param name="logger">The logger to use as a source. If nothing is put in here, a logger is generated automatically.</param>
+        public void UseLogger(Logger? logger = null)
+        {
+            Logger = logger ?? AccessTools.Constructor(typeof(StandardLogger), new Type[] { typeof(string) }).Invoke(new object[] { Metadata.Name }) as StandardLogger;
         }
     }
 }

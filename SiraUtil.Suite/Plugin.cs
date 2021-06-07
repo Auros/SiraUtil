@@ -28,6 +28,7 @@ namespace SiraUtil.Suite
             zenjector.Mutate<PlatformLeaderboardViewController>("MenuViewControllers", (_, __) => { });
 
             zenjector.Install<AffinityTestInstaller>(Location.App);
+            zenjector.UseLogger(logger);
         }
 
         [OnEnable]

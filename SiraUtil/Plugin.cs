@@ -36,10 +36,12 @@ namespace SiraUtil
             PluginInitInjector.AddInjector(typeof(Zenjector), ConstructZenjector);
 
             Zenjector zenjector = (ConstructZenjector(null!, null!, pluginMetadata) as Zenjector)!;
+            zenjector.Install<SiraInitializationInstaller>(Location.App, _zenjectManager);
             zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player);
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
             zenjector.Install<SiraPlayerInstaller>(Location.Player);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
+            zenjector.UseLogger(logger);
         }
 
         [OnEnable]

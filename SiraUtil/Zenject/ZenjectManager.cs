@@ -5,6 +5,7 @@ using SiraUtil.Zenject.Internal.Instructors;
 using SiraUtil.Zenject.Internal.Mutators;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using Zenject;
 
@@ -21,6 +22,8 @@ namespace SiraUtil.Zenject
         private readonly InstructorManager _instructorManager = new();
 
         internal void Add(Zenjector zenjector) => _zenjectors.Add(new ZenjectorDatum(zenjector));
+        internal IEnumerable<Zenjector> ActiveZenjectors => _zenjectors.Where(z => z.Enabled).Select(z => z.Zenjector);
+        internal Zenjector? ZenjectorFromAssembly(Assembly assembly) => _zenjectors.FirstOrDefault(z => z.Zenjector.Metadata.Assembly == assembly)?.Zenjector;
         
         private void PluginManager_PluginEnabled(PluginMetadata plugin, bool _)
         {
