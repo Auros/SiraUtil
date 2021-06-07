@@ -34,6 +34,11 @@ namespace SiraUtil.Logging
             }
         }
 
+        internal void Clear()
+        {
+            _loggerAssemblies.Clear();
+        }
+
         internal LoggerContext LoggerFromAssembly(Assembly assembly)
         {
             if (_loggerAssemblies.TryGetValue(assembly, out LoggerContext context))

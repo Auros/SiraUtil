@@ -87,6 +87,8 @@ namespace SiraUtil.Zenject
             _installInstructions.Add(new InstallInstruction(typeof(TBaseInstaller), installCallback));
         }
 
+        // This converts the Location to an actual installer type usable by the Zenjector system.
+        // These need to be updated if some game update drastically changes, renames, or deletes one of these installers.
         private IEnumerable<Type> InstallerForLocation(Location location)
         {
             HashSet<Type> installerTypes = new();
@@ -130,6 +132,7 @@ namespace SiraUtil.Zenject
         /// <param name="mutationCallback">The callback used to mutate the object instance.</param>
         public void Mutate<TMutateType>(string contractName, Action<SceneDecoratorContext, TMutateType> mutationCallback)
         {
+            // Wraps the action into a class so it can be invoked without a generic.
             DelegateWrapper wrapper = new();
             wrapper.Wrap(mutationCallback);
 
@@ -142,6 +145,7 @@ namespace SiraUtil.Zenject
         /// <param name="logger">The logger to use as a source. If nothing is put in here, a logger is generated automatically.</param>
         public void UseLogger(Logger? logger = null)
         {
+            // Creates a new logger if no logger is specified.
             Logger = logger ?? AccessTools.Constructor(typeof(StandardLogger), new Type[] { typeof(string) }).Invoke(new object[] { Metadata.Name }) as StandardLogger;
         }
     }

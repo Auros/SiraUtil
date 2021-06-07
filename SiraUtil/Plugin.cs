@@ -2,7 +2,6 @@
 using IPA;
 using IPA.Config.Stores;
 using IPA.Loader;
-using SiraUtil.Affinity.Harmony.Generator;
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
