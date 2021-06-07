@@ -49,7 +49,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
 #if DEBUG
                 _moduleBuilder = _assemblyBuilder.DefineDynamicModule(_name, $"{_name}.Affinity.dll");
 #else
-                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(pluginAsmName);
+                _moduleBuilder = _assemblyBuilder.DefineDynamicModule(_name);
 #endif
             }
             else
