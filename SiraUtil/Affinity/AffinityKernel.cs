@@ -1,5 +1,4 @@
 ﻿using SiraUtil.Affinity.Harmony;
-using System.Linq;
 using Zenject;
 
 namespace SiraUtil.Affinity

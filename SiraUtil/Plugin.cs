@@ -39,12 +39,11 @@ namespace SiraUtil
 
             Zenjector zenjector = (ConstructZenjector(null!, null!, pluginMetadata) as Zenjector)!;
             zenjector.Install<FPFCInstaller>(Location.Menu | Location.Player | Location.Tutorial);
+            zenjector.Install<SiraGameplayInstaller>(Location.Player | Location.Tutorial);
             zenjector.Install<SiraInitializationInstaller>(Location.App, _zenjectManager);
             zenjector.Install<SiraSingleplayerInstaller>(Location.Singleplayer);
             zenjector.Install<SiraMultiplayerInstaller>(Location.MultiPlayer);
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
-            zenjector.Install<SiraTutorialInstaller>(Location.Tutorial);
-            zenjector.Install<SiraPlayerInstaller>(Location.Player);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
             zenjector.UseLogger(logger);
         }
