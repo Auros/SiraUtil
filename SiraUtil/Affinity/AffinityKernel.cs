@@ -12,7 +12,6 @@ namespace SiraUtil.Affinity
         public AffinityKernel([InjectLocal] AffinityManager affinityManager)
         {
             _affinityManager = affinityManager;
-            Plugin.Log.Info($"Initializing Affinity Kernel with {affinityManager.Affinities.Count()} registered affinities.");
         }
 
         public void Initialize()

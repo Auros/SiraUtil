@@ -5,15 +5,12 @@ using Zenject;
 
 namespace SiraUtil.Installers
 {
-    internal class SiraPlayerInstaller : Installer
+    internal class SiraTutorialInstaller : Installer
     {
         public override void InstallBindings()
         {
-            // FPFC stuff
             Container.BindInterfacesAndSelfTo<GameMenuControllerAccessor>().AsSingle();
             Container.BindInterfacesTo<GameTransformFPFCListener>().AsSingle();
-
-            // SongControl stuff
             Container.BindInterfacesTo<SongControlManager>().AsSingle();
         }
     }

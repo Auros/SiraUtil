@@ -56,10 +56,15 @@ namespace SiraUtil.Zenject
         /// will be included. Some things you would expect to be in here would be the currently played map (difficulty beatmap).
         /// </remarks>
         GameCore = 64,
-        
+
         /// <summary>
         /// Installs your bindings onto the Multiplayer Core. The current backing installer is <see cref="MultiplayerCoreInstaller" />
         /// </summary>
-        MultiplayerCore = 128
+        MultiplayerCore = 128,
+
+        /// <summary>
+        /// Installs your bindings onto all Players related to singleplayer (Standard, Campaign, or Tutorial).
+        /// </summary>
+        Singleplayer = StandardPlayer | CampaignPlayer | Tutorial
     }
 }
