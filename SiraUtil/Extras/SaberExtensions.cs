@@ -1,4 +1,5 @@
 ﻿using IPA.Utilities;
+using SiraUtil.Interfaces;
 using UnityEngine;
 
 namespace SiraUtil.Extras
@@ -13,6 +14,13 @@ namespace SiraUtil.Extras
         private static readonly FieldAccessor<SaberModelController, SetSaberGlowColor[]>.Accessor SaberModelController_SetSaberGlowColors = FieldAccessor<SaberModelController, SetSaberGlowColor[]>.GetAccessor("_setSaberGlowColors");
         private static readonly FieldAccessor<SaberModelController, SetSaberFakeGlowColor[]>.Accessor SaberModelController_SetSaberFakeGlowColors = FieldAccessor<SaberModelController, SetSaberFakeGlowColor[]>.GetAccessor("_setSaberFakeGlowColors");
 
+        internal static Color GetColor(this SaberModelController saberModelController)
+        {
+            if (saberModelController is IColorable colorable)
+                return colorable.Color;
+            return SaberTrail_Color(ref SaberModelController_SaberTrail(ref saberModelController));
+        }
+
         internal static void SetColor(this SaberModelController saberModelController, Color color)
         {
             SaberTrail trail = SaberModelController_SaberTrail(ref saberModelController);
@@ -20,7 +28,8 @@ namespace SiraUtil.Extras
             SetSaberGlowColor[] glowColors = SaberModelController_SetSaberGlowColors(ref saberModelController);
             SetSaberFakeGlowColor[] fakeGlowColors = SaberModelController_SetSaberFakeGlowColors(ref saberModelController);
 
-            SaberTrail_Color(ref trail) = SaberTrail_ColorOverwrite(ref trail) ? SaberTrail_ForcedColor(ref trail) : color;
+            float beforeAlpha = SaberTrail_Color(ref trail).a;
+            SaberTrail_Color(ref trail) = SaberTrail_ColorOverwrite(ref trail) ? SaberTrail_ForcedColor(ref trail) : color.ColorWithAlpha(beforeAlpha);
             foreach (var glow in glowColors)
                 glow.SetColors(color);
             foreach (var fakeGlow in fakeGlowColors)

@@ -1,4 +1,5 @@
 ﻿using SiraUtil.Sabers;
+using SiraUtil.Sabers.Effects;
 using SiraUtil.Services.Controllers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Tools.SongControl;
@@ -19,6 +20,8 @@ namespace SiraUtil.Installers
             Container.BindInterfacesTo<SongControlManager>().AsSingle();
 
             // Saber API
+            Container.BindInterfacesAndSelfTo<SaberModelManager>().AsSingle();
+            Container.BindInterfacesTo<SaberClashEffectAdjuster>().AsSingle();
             Container.Bind<SaberModelProvider>().AsSingle();
             Container.Bind<SiraSaberFactory>().AsSingle();
         }

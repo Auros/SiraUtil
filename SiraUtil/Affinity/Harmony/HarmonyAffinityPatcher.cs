@@ -72,7 +72,7 @@ namespace SiraUtil.Affinity.Harmony
             Assembly assembly = affinity.GetType().Assembly;
             if (!_patchCache.TryGetValue(affinity, out List<MethodInfo> methods))
             {
-                Plugin.Log.Warn($"Could not find any patch registrations for this instance of '{affinity.GetType().Name}'. Unable to create patch.");
+                Plugin.Log.Warn($"Could not find any patch registrations for this instance of '{affinity.GetType().Name}'. Unable to unpatch.");
                 return;
             }
             if (!_patchGenerators.TryGetValue(assembly, out DynamicHarmonyPatchGenerator dynamicHarmonyPatchGenerator))

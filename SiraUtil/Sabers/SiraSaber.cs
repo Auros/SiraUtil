@@ -1,5 +1,7 @@
 ﻿using IPA.Utilities;
 using SiraUtil.Extras;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -17,12 +19,15 @@ namespace SiraUtil.Sabers
         /// Do not set the saber unless you know what you're doing.
         /// </remarks>
         public Saber Saber { get; set; } = null!;
+        internal SaberModelController Model => _saberModelController;
 
         private NoteCutter _noteCutter = null!;
         private ColorManager _colorManager = null!;
         private SaberTypeObject _saberTypeObject = null!;
         private SaberModelProvider _saberModelProvider = null!;
         private SaberModelController _saberModelController = null!;
+        private Queue<Action> _colorProcessNextFrame = new();
+        private bool _constructedThisFrame = false;
 
         private static readonly FieldAccessor<Saber, Vector3>.Accessor SaberBladeTopPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeTopPos");
         private static readonly FieldAccessor<Saber, Vector3>.Accessor SaberBladeBottomPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeBottomPos");
@@ -60,6 +65,7 @@ namespace SiraUtil.Sabers
             _saberTypeObject.SetField("_saberType", saberType);
             _saberModelController = _saberModelProvider.NewModel(null);
             _saberModelController.Init(transform, Saber);
+            _constructedThisFrame = true;
         }
 
         internal void Update()
@@ -74,6 +80,14 @@ namespace SiraUtil.Sabers
                 Saber.movementData.AddNewData(topPosition, bottomPosition, TimeHelper.time);
                 _noteCutter.Cut(Saber);
             }
+
+            if (_colorProcessNextFrame.Count > 0)
+                _colorProcessNextFrame.Dequeue().Invoke();
+        }
+
+        internal void LateUpdate()
+        {
+            _constructedThisFrame = false;
         }
 
         /// <summary>
@@ -91,7 +105,16 @@ namespace SiraUtil.Sabers
         /// <param name="newColor">The new color.</param>
         public void SetColor(Color newColor)
         {
-            _saberModelController.SetColor(newColor);
+            if (!_constructedThisFrame)
+            {
+                _saberModelController.SetColor(newColor);
+                return;
+            }
+            else
+            {
+                // Sabers created on the same frame that the model was constructed wont have their colors be updated, so we have it so the color is only set once per frame.
+                _colorProcessNextFrame.Enqueue(() => _saberModelController.SetColor(newColor));
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SiraUtil.Logging;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +12,11 @@ namespace SiraUtil.Sabers
     {
         private readonly SiraLog _siraLog;
         private readonly DiContainer _container;
+
+        /// <summary>
+        /// Called when a new saber is created.
+        /// </summary>
+        public event Action<SiraSaber>? SaberCreated;
 
         internal SiraSaberFactory(SiraLog siraLog, DiContainer container)
         {
@@ -29,6 +35,7 @@ namespace SiraUtil.Sabers
             GameObject siraSaberGameObject = new("SiraUtil | SiraSaber");
             SiraSaber siraSaber = _container.InstantiateComponent<SiraSaber>(siraSaberGameObject);
             siraSaber.SetInitialType(saberType);
+            SaberCreated?.Invoke(siraSaber);
             return siraSaber;
         }
     }
