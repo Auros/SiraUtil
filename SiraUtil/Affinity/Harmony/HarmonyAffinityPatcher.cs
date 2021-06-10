@@ -1,5 +1,6 @@
 ﻿using IPA.Loader;
 using SiraUtil.Affinity.Harmony.Generator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,11 +9,12 @@ namespace SiraUtil.Affinity.Harmony
 {
     internal class HarmonyAffinityPatcher : IAffinityPatcher
     {
-        private readonly Dictionary<IAffinity, List<MethodInfo>> _patchCache = new();
+        private readonly Dictionary<Guid, List<MethodInfo>> _patchCache = new();
         private readonly Dictionary<Assembly, DynamicHarmonyPatchGenerator> _patchGenerators = new();
 
-        public void Patch(IAffinity affinity)
+        public Guid? Patch(IAffinity affinity)
         {
+            Guid patchContract = Guid.NewGuid();
             Assembly assembly = affinity.GetType().Assembly;
             if (!_patchGenerators.TryGetValue(assembly, out DynamicHarmonyPatchGenerator dynamicHarmonyPatchGenerator))
             {
@@ -21,15 +23,15 @@ namespace SiraUtil.Affinity.Harmony
                 if (metadata is null)
                 {
                     Plugin.Log.Warn($"Could not find an active plugin assembly for '{affinity.GetType().Name}'. Unable to create patch.");
-                    return;
+                    return null;
                 }
                 dynamicHarmonyPatchGenerator = new DynamicHarmonyPatchGenerator(metadata);
                 _patchGenerators.Add(assembly, dynamicHarmonyPatchGenerator);
             }
-            if (!_patchCache.TryGetValue(affinity, out List<MethodInfo> methods))
+            if (!_patchCache.TryGetValue(patchContract, out List<MethodInfo> methods))
             {
                 methods = new List<MethodInfo>();
-                _patchCache.Add(affinity, methods);
+                _patchCache.Add(patchContract, methods);
             }
 
             MethodInfo[] affinityMethods = affinity.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
@@ -65,17 +67,17 @@ namespace SiraUtil.Affinity.Harmony
                 MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
                 methods.Add(contract);
             }
+            return Guid.NewGuid();
         }
 
-        public void Unpatch(IAffinity affinity)
+        public void Unpatch(Guid patchContract, Assembly owner)
         {
-            Assembly assembly = affinity.GetType().Assembly;
-            if (!_patchCache.TryGetValue(affinity, out List<MethodInfo> methods))
+            if (!_patchCache.TryGetValue(patchContract, out List<MethodInfo> methods))
             {
-                Plugin.Log.Warn($"Could not find any patch registrations for this instance of '{affinity.GetType().Name}'. Unable to unpatch.");
+                Plugin.Log.Warn($"Could not find any patch registrations. Unable to unpatch.");
                 return;
             }
-            if (!_patchGenerators.TryGetValue(assembly, out DynamicHarmonyPatchGenerator dynamicHarmonyPatchGenerator))
+            if (!_patchGenerators.TryGetValue(owner, out DynamicHarmonyPatchGenerator dynamicHarmonyPatchGenerator))
             {
                 // The patches can only be generated through a generator. So, if the patches are found (which they were, above) but the generator is missing, something signficantly wrong has happened.
                 Plugin.Log.Error($"The {nameof(DynamicHarmonyPatchGenerator)} could not be found for an assembly! This should NEVER happen and should be reported!");
