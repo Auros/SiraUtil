@@ -1,6 +1,7 @@
 ﻿using IPA;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
+using SiraUtil.Suite.Tests.Web;
 using SiraUtil.Zenject;
 using IPALogger = IPA.Logging.Logger;
 
@@ -24,11 +25,16 @@ namespace SiraUtil.Suite
             zenjector.Install(Location.Menu, Container => { });
             zenjector.Install<MainSettingsMenuViewControllersInstaller>(Container => { });
 
+
             zenjector.Expose<FlickeringNeonSign>("MenuEnvironment");
             zenjector.Mutate<PlatformLeaderboardViewController>("MenuViewControllers", (_, __) => { });
 
             zenjector.Install<AffinityTestInstaller>(Location.App);
             zenjector.UseLogger(logger);
+            zenjector.UseHttpService();
+
+
+            zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
         }
 
         [OnEnable]

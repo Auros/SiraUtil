@@ -54,11 +54,6 @@ namespace SiraUtil.Web.Implementations
             }
         }
 
-        public UWRHttpService()
-        {
-
-        }
-
         public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null)
         {
             return SendAsync(HTTPMethod.GET, url, null, null, progress, cancellationToken);
@@ -89,9 +84,7 @@ namespace SiraUtil.Web.Implementations
             string newURL = url;
             if (BaseURL is not null)
                 newURL = Path.Combine(BaseURL, url);
-            DownloadHandler? dHandler = null;
-            if (downloadProgress is not null)
-                dHandler = new DownloadHandlerBuffer();
+            DownloadHandler? dHandler = new DownloadHandlerBuffer();
 
             HTTPMethod originalMethod = method;
             if (method == HTTPMethod.POST && body is not null)
@@ -127,7 +120,7 @@ namespace SiraUtil.Web.Implementations
                 }
                 if (downloadProgress is not null && dHandler is not null)
                 {
-                    float currentProgress = dHandler.InvokeMethod<float, DownloadHandler>("GetProgress");
+                    float currentProgress = asyncOp.progress;
                     if (_lastProgress != currentProgress)
                     {
                         downloadProgress.Report(currentProgress);
@@ -137,7 +130,8 @@ namespace SiraUtil.Web.Implementations
                 await Task.Delay(10);
             }
             downloadProgress?.Report(1f);
-            return new UnityWebRequestHttpResponse(request);
+            bool successful = request.isDone && !request.isHttpError && !request.isNetworkError;
+            return new UnityWebRequestHttpResponse(request, successful);
         }
     }
 }

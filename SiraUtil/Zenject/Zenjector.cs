@@ -2,6 +2,7 @@
 using IPA.Loader;
 using IPA.Logging;
 using SiraUtil.Attributes;
+using SiraUtil.Web;
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Filters;
 using System;
@@ -19,6 +20,9 @@ namespace SiraUtil.Zenject
         internal bool Slog { get; }
         internal Logger? Logger { get; set; }
         internal PluginMetadata Metadata { get; }
+        internal Type? UBinderType { get; private set; }
+        internal object? UBinderValue { get; private set; }
+        internal HttpServiceType? HttpServiceType { get; private set; }
         internal IEnumerable<ExposeSet> ExposeSets => _exposeSets;
         internal IEnumerable<MutateSet> MutateSets => _mutateSets;
         internal IEnumerable<InstallSet> InstallSets => _installSets;
@@ -147,6 +151,29 @@ namespace SiraUtil.Zenject
         {
             // Creates a new logger if no logger is specified.
             Logger = logger ?? AccessTools.Constructor(typeof(StandardLogger), new Type[] { typeof(string) }).Invoke(new object[] { Metadata.Name }) as StandardLogger;
+        }
+
+        /// <summary>
+        /// Registers your metadata under a UBinder
+        /// </summary>
+        /// <typeparam name="TKey">The key to retrive it by. Make this a type that is in your assembly.</typeparam>
+        /// <remarks>
+        /// This allows you to retrieve your PluginMetadata through the container by requesting UBinder|TKey, PluginMetadata| and accessing .Value 
+        /// </remarks>
+        public void UseMetadataBinder<TKey>()
+        {
+            object ubinder = new UBinder<TKey, PluginMetadata>(Metadata);
+            UBinderType = ubinder.GetType();
+            UBinderValue = ubinder;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        public void UseHttpService(HttpServiceType type = Web.HttpServiceType.UnityWebRequests)
+        {
+            HttpServiceType = type;
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.Networking;
@@ -11,13 +8,15 @@ namespace SiraUtil.Web.Implementations
 {
     internal class UnityWebRequestHttpResponse : IHttpResponse
     {
-        private readonly UnityWebRequest _unityWebRequest;
-        public int Code => (int)_unityWebRequest.responseCode;
-        public bool Successful => _unityWebRequest.isDone && !_unityWebRequest.isNetworkError && !_unityWebRequest.isHttpError;
+        public int Code { get; }
+        public byte[] Bytes { get; }
+        public bool Successful { get; }
 
-        public UnityWebRequestHttpResponse(UnityWebRequest unityWebRequest)
+        public UnityWebRequestHttpResponse(UnityWebRequest unityWebRequest, bool successful)
         {
-            _unityWebRequest = unityWebRequest;
+            Successful = successful;
+            Code = (int)unityWebRequest.responseCode;
+            Bytes = unityWebRequest.downloadHandler.data;
         }
 
         public async Task<string?> Error()
@@ -41,17 +40,17 @@ namespace SiraUtil.Web.Implementations
 
         public Task<byte[]> ReadAsByteArrayAsync()
         {
-            return Task.FromResult(_unityWebRequest.downloadHandler.data);
+            return Task.FromResult(Bytes);
         }
 
         public Task<Stream> ReadAsStreamAsync()
         {
-            return Task.FromResult<Stream>(new MemoryStream(_unityWebRequest.downloadHandler.data));
+            return Task.FromResult<Stream>(new MemoryStream(Bytes));
         }
 
         public Task<string> ReadAsStringAsync()
         {
-            return Task.FromResult(Encoding.UTF8.GetString(_unityWebRequest.downloadHandler.data));
+            return Task.FromResult(Encoding.UTF8.GetString(Bytes));
         }
         
         private class ErrorBody

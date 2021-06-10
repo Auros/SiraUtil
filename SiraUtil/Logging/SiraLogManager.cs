@@ -11,7 +11,7 @@ namespace SiraUtil.Logging
     {
         private static Logger? _defaultLogger;
         private readonly ZenjectManager _zenjectManager;
-        private readonly Dictionary<Assembly, LoggerContext> _loggerAssemblies = new Dictionary<Assembly, LoggerContext>();
+        private readonly Dictionary<Assembly, LoggerContext> _loggerAssemblies = new();
 
         internal SiraLogManager(ZenjectManager zenjectManager)
         {
