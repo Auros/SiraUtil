@@ -22,7 +22,6 @@ namespace SiraUtil.Tweaks
         internal static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {
             var codes = instructions.ToList();
-
             for (int i = 0; i < codes.Count; i++)
             {
                 if (Utilities.OpCodeSequence(codes, _logOpCodes, i))
