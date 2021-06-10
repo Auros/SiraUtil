@@ -20,6 +20,7 @@ namespace SiraUtil.Installers
 
             // Saber API
             Container.Bind<SaberModelProvider>().AsSingle();
+            Container.Bind<SiraSaberFactory>().AsSingle();
         }
     }
 }

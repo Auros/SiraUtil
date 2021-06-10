@@ -35,7 +35,7 @@ namespace SiraUtil.Suite
 
 
             //zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
-            zenjector.Install(Location.Player | Location.Tutorial, Container => Container.BindInterfacesTo<SpawnDefaultSabersTest>().AsSingle());
+            zenjector.Install(Location.Player | Location.Tutorial, Container => Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle());
         }
 
         [OnEnable]
