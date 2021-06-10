@@ -16,5 +16,10 @@ namespace SiraUtil.Affinity
                 _affinities.Add(affinity);
             }
         }
+
+        public void Add(IAffinity affinity)
+        {
+            _affinities.Add(affinity);
+        }
     }
 }

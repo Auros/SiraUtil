@@ -1,7 +1,7 @@
 ﻿using IPA;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
-using SiraUtil.Suite.Tests.Web;
+using SiraUtil.Suite.Tests.Sabers;
 using SiraUtil.Zenject;
 using IPALogger = IPA.Logging.Logger;
 
@@ -35,6 +35,7 @@ namespace SiraUtil.Suite
 
 
             //zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
+            zenjector.Install(Location.Player | Location.Tutorial, Container => Container.BindInterfacesTo<SpawnDefaultSabersTest>().AsSingle());
         }
 
         [OnEnable]

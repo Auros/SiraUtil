@@ -1,4 +1,5 @@
-﻿using SiraUtil.Services.Controllers;
+﻿using SiraUtil.Sabers;
+using SiraUtil.Services.Controllers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Tools.SongControl;
 using Zenject;
@@ -16,6 +17,9 @@ namespace SiraUtil.Installers
 
             // SongControl stuff
             Container.BindInterfacesTo<SongControlManager>().AsSingle();
+
+            // Saber API
+            Container.Bind<SaberModelProvider>().AsSingle();
         }
     }
 }
