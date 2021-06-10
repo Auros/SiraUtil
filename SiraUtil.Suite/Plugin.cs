@@ -34,7 +34,7 @@ namespace SiraUtil.Suite
             zenjector.UseHttpService();
 
 
-            zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
+            //zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
         }
 
         [OnEnable]
