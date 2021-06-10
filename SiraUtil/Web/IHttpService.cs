@@ -28,7 +28,7 @@ namespace SiraUtil.Web
         /// <summary>
         /// The user agent for your requests. By default, it will be set to: '[Mod Name]/[Mod Version] ([IHttpService Provider Name]; [SiraUtil Version]; Beat Saber; [Beat Saber Version])  
         /// </summary>
-        string UserAgent { get; set; }
+        string? UserAgent { get; set; }
 
         /// <summary>
         /// The default headers for your requests. Token and UserAgent are synchronized with this.
@@ -54,24 +54,6 @@ namespace SiraUtil.Web
         Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null);
 
         /// <summary>
-        /// Creates a HTTP POST request.
-        /// </summary>
-        /// <param name="url">The URL to send the request to.</param>
-        /// <param name="rawBody">The content to include as a body. Anything put in here will be uploaded as is.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>The response.</returns>
-        Task<IHttpResponse> PostAsync(string url, string rawBody, CancellationToken? cancellationToken = null);
-
-        /// <summary>
-        /// Creates a HTTP POST request.
-        /// </summary>
-        /// <param name="url">The URL to send the request to.</param>
-        /// <param name="content">The body (as a stream) for file uploads.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>The response.</returns>
-        Task<IHttpResponse> PostAsync(string url, Stream content, CancellationToken? cancellationToken = null);
-
-        /// <summary>
         /// Creates a HTTP PUT request.
         /// </summary>
         /// <param name="url">The URL to send the request to.</param>
@@ -81,15 +63,6 @@ namespace SiraUtil.Web
         Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null);
 
         /// <summary>
-        /// Creates a HTTP PUT request.
-        /// </summary>
-        /// <param name="url">The URL to send the request to.</param>
-        /// <param name="rawBody">The content to include as a body. Anything put in here will be uploaded as is.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>The response.</returns>
-        Task<IHttpResponse> PutAsync(string url, string rawBody, CancellationToken? cancellationToken = null);
-
-        /// <summary>
         /// Creates a HTTP PATCH request.
         /// </summary>
         /// <param name="url">The URL to send the request to.</param>
@@ -97,15 +70,6 @@ namespace SiraUtil.Web
         /// <param name="cancellationToken"></param>
         /// <returns>The response.</returns>
         Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null);
-
-        /// <summary>
-        /// Creates a HTTP PATCH request.
-        /// </summary>
-        /// <param name="url">The URL to send the request to.</param>
-        /// <param name="rawBody">The content to include as a body. Anything put in here will be uploaded as is.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns>The response.</returns>
-        Task<IHttpResponse> PatchAsync(string url, string rawBody, CancellationToken? cancellationToken = null);
 
         /// <summary>
         /// Creates a HTTP DELETE request.
@@ -120,11 +84,11 @@ namespace SiraUtil.Web
         /// </summary>
         /// <param name="method">The HTTP method.</param>
         /// <param name="url">The URL to send the request to.</param>
-        /// <param name="body">The body of the response. If this is a <see cref="Stream"/>, it will be converted to form-data. If not, it will be application/json.</param>
+        /// <param name="body">The body of the response. It will be application/json.</param>
         /// <param name="withHeaders">Additional headers on top of the default headers. This will be combined with the default headers associated with this <see cref="IHttpService"/></param>
         /// <param name="downloadProgress">The download progress of the request.</param>
         /// <param name="cancellationToken">The cancellation token to cancel the token with.</param>
         /// <returns></returns>
-        Task<IHttpResponse> SendAsync(HTTPMethod method, string url, object? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null);
+        Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null);
     }
 }

@@ -21,6 +21,11 @@
         PUT,
 
         /// <summary>
+        /// HTTP PATCH Method
+        /// </summary>
+        PATCH,
+
+        /// <summary>
         /// HTTP DELETE Method
         /// </summary>
         DELETE
