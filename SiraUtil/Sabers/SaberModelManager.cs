@@ -46,7 +46,15 @@ namespace SiraUtil.Sabers
                 return smc;
             else
             {
-                smc = saber.GetComponentInChildren<SaberModelController>();
+                foreach (Transform child in saber.gameObject.transform)
+                {
+                    SaberModelController saberModelController = child.gameObject.GetComponent<SaberModelController>();
+                    if (saberModelController != null)
+                    {
+                        smc = saberModelController;
+                        break;
+                    }
+                }
                 if (smc != null)
                 {
                     _saberModelLink.Add(saber, smc);
