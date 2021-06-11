@@ -3,6 +3,7 @@ using IPA.Utilities;
 using SiraUtil.Affinity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SiraUtil.Sabers.Effects
@@ -71,7 +72,7 @@ namespace SiraUtil.Sabers.Effects
             if (_saberBurnMarkArea is null)
                 return;
 
-            Sabers(ref _saberBurnMarkArea) = Sabers(ref _saberBurnMarkArea).AddToArray(saber);
+            Saber[] sabers = Sabers(ref _saberBurnMarkArea) = Sabers(ref _saberBurnMarkArea).AddToArray(saber);
             PreviousMarks(ref _saberBurnMarkArea) = PreviousMarks(ref _saberBurnMarkArea).AddToArray(default);
             PreviousMarksValid(ref _saberBurnMarkArea) = PreviousMarksValid(ref _saberBurnMarkArea).AddToArray(default);
 
@@ -107,6 +108,19 @@ namespace SiraUtil.Sabers.Effects
             foreach (var siraSaber in _earlySabers)
                 AddSaber(siraSaber.Saber);
             _earlySabers.Clear();
+        }
+
+        [AffinityPostfix]
+        [AffinityPatch(typeof(SaberBurnMarkArea), nameof(SaberBurnMarkArea.LateUpdate))]
+        internal void AbsoluteCarouselRenderShift(ref RenderTexture[] ____renderTextures)
+        {
+            // Shift every render texture down one in the array
+            RenderTexture lastTexture = ____renderTextures[____renderTextures.Length - 1];
+            for (int i = ____renderTextures.Length - 1; i > 0; i--)
+            {
+                ____renderTextures[i] = ____renderTextures[i - 1];
+            }
+            ____renderTextures[0] = lastTexture;
         }
     }
 }

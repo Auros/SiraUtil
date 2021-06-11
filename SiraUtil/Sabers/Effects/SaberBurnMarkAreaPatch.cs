@@ -11,7 +11,20 @@ namespace SiraUtil.Sabers.Effects
     internal class SaberBurnMarkAreaPatch
     {
         private static readonly MethodInfo _destroyExtraLines = SymbolExtensions.GetMethodInfo(() => DestroyExtraLines(null!));
+        private static readonly MethodInfo _evaluateAllRenderers = SymbolExtensions.GetMethodInfo(() => CompareAllRenderers(null!));
         private static readonly MethodInfo _safeDestroyMethodInfo = SymbolExtensions.GetMethodInfo(() => EssentialHelpers.SafeDestroy(null!));
+        private static readonly FieldInfo _lineRendererInfo = typeof(SaberBurnMarkArea).GetField("_lineRenderers", BindingFlags.NonPublic | BindingFlags.Instance);
+
+
+        private static readonly List<OpCode> _lineCheck = new()
+        {
+            OpCodes.Ldarg_0,
+            OpCodes.Ldfld,
+            OpCodes.Ldc_I4_0,
+            OpCodes.Ldelem_Ref,
+            OpCodes.Callvirt,
+            OpCodes.Brtrue_S
+        };
 
         [HarmonyPostfix]
         [HarmonyPatch(nameof(SaberBurnMarkArea.OnEnable))]
@@ -37,6 +50,30 @@ namespace SiraUtil.Sabers.Effects
         {
             List<CodeInstruction> codes = instructions.ToList();
             TwoToLength(ref codes);
+
+
+            bool removedNativeSwap = false;
+
+            for (int i = codes.Count - 1; i >= 0; i--)
+            {
+                if (removedNativeSwap && codes[i].Is(OpCodes.Ldfld, _lineRendererInfo))
+                {
+                    Plugin.Log.Info("sussy");
+                    codes.RemoveAt(i + 1);
+                    codes.RemoveAt(i + 1);
+                    codes[i + 1] = new CodeInstruction(OpCodes.Callvirt, _evaluateAllRenderers);
+                    break;
+                }
+
+                if (!removedNativeSwap && codes[i].opcode == OpCodes.Call)
+                {
+                    Plugin.Log.Info("uwu");
+                    codes.RemoveRange(i + 1, codes.Count - i - 1);
+                    codes.Add(new(OpCodes.Ret));
+                    removedNativeSwap = true;
+                }
+            }
+
             return codes;
         }
 
@@ -62,14 +99,24 @@ namespace SiraUtil.Sabers.Effects
                     object lineRendererOperand = codes[i].operand;
                     codes.InsertRange(insertIndex, new CodeInstruction[]
                     {
-                        new CodeInstruction(OpCodes.Ldarg_0),
-                        new CodeInstruction(OpCodes.Ldfld, lineRendererOperand),
-                        new CodeInstruction(OpCodes.Callvirt, _destroyExtraLines)
+                        new(OpCodes.Ldarg_0),
+                        new(OpCodes.Ldfld, lineRendererOperand),
+                        new(OpCodes.Callvirt, _destroyExtraLines)
                     });
                     break;
                 }
             }
             return codes;
+        }
+
+        private static bool CompareAllRenderers(LineRenderer[] lineRenderers)
+        {
+            for (int i = 0; i < lineRenderers.Length; i++)
+            {
+                if (lineRenderers[i].enabled)
+                    return true;
+            }
+            return false;
         }
 
         private static void DestroyExtraLines(LineRenderer[] lineRenderers)
