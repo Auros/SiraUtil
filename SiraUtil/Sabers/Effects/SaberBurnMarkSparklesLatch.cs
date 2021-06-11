@@ -52,8 +52,6 @@ namespace SiraUtil.Sabers.Effects
             if (_saberBurnMarkSparkles is null)
                 return;
 
-            Plugin.Log.Notice("ADDING NEW SABER!!!");
-
             Sabers(ref _saberBurnMarkSparkles) = Sabers(ref _saberBurnMarkSparkles).AddItem(saber).ToArray();
             PreviousMarks(ref _saberBurnMarkSparkles) = PreviousMarks(ref _saberBurnMarkSparkles).AddItem(default).ToArray();
             PreviousMarksValid(ref _saberBurnMarkSparkles) = PreviousMarksValid(ref _saberBurnMarkSparkles).AddItem(default).ToArray();
