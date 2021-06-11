@@ -21,8 +21,6 @@ namespace SiraUtil.Affinity
 
         public void LateDispose()
         {
-            foreach (var affinity in _affinityManager.Affinities)
-                _affinityPatcher.Unpatch(affinity);
             _affinityPatcher.Dispose();
         }
     }
