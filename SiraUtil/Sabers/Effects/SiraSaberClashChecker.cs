@@ -50,7 +50,6 @@ namespace SiraUtil.Sabers.Effects
             {
                 return base.AreSabersClashing(out clashingPoint);
             }
-            _sabers.RemoveWhere(x => x == null);
             if (_leftSaber.movementData.lastAddedData.time < 0.1f)
             {
                 clashingPoint = _clashingPoint;
