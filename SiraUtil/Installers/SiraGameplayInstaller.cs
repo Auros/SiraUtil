@@ -20,6 +20,7 @@ namespace SiraUtil.Installers
             Container.BindInterfacesTo<SongControlManager>().AsSingle();
 
             // Saber API
+            Container.BindInterfacesTo<SaberBurnMarkSparklesLatch>().AsSingle();
             Container.BindInterfacesAndSelfTo<SaberModelManager>().AsSingle();
             Container.BindInterfacesTo<SaberClashEffectAdjuster>().AsSingle();
             Container.Bind<SaberModelProvider>().AsSingle();

@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using UnityEngine;
 
 namespace SiraUtil.Sabers.Effects
 {
     [HarmonyPatch(typeof(SaberBurnMarkSparkles))]
     internal class SaberBurnMarkSparklesPatch
     {
-        private static readonly MethodInfo _setStartColor = typeof(ParticleSystem.EmitParams).GetMethod("set_startColor", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
-
+        private static readonly MethodInfo _evaluateState = SymbolExtensions.GetMethodInfo(() => CountOrDefault(null!));
+        
         [HarmonyTranspiler]
         [HarmonyPatch(nameof(SaberBurnMarkSparkles.OnEnable))]
         internal static IEnumerable<CodeInstruction> DynamicEnable(IEnumerable<CodeInstruction> instructions)
@@ -55,13 +54,17 @@ namespace SiraUtil.Sabers.Effects
                     {
                         new CodeInstruction(OpCodes.Ldarg_0),
                         new CodeInstruction(OpCodes.Ldfld, burnMarks), // this needs operand of _burnMarksPs or _sabers
-                        new CodeInstruction(OpCodes.Ldlen),
-                        new CodeInstruction(OpCodes.Conv_I4)
+                        new CodeInstruction(OpCodes.Callvirt, _evaluateState)
                     });
                     break;
                 }
             }
+        }
 
+        // Since OnEnable can be called before the burn sparkles Start, we need to check if the array are null or not. 
+        private static int CountOrDefault(object[] ps)
+        {
+            return ps is not null ? ps.Length : 2;
         }
     }
 }
