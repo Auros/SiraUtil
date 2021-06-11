@@ -22,10 +22,10 @@ namespace SiraUtil.Installers
             // Saber API
             Container.BindInterfacesTo<ObstacleSaberSparkleEffectManagerLatch>().AsSingle();
             Container.BindInterfacesTo<SaberBurnMarkSparklesLatch>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SaberModelProvider>().AsSingle();
             Container.BindInterfacesAndSelfTo<SaberModelManager>().AsSingle();
             Container.BindInterfacesTo<SaberClashEffectAdjuster>().AsSingle();
             Container.BindInterfacesTo<SaberBurnMarkAreaLatch>().AsSingle();
-            Container.Bind<SaberModelProvider>().AsSingle();
             Container.Bind<SiraSaberFactory>().AsSingle();
         }
     }

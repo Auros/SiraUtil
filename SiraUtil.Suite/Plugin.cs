@@ -1,4 +1,5 @@
 ﻿using IPA;
+using SiraUtil.Sabers;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
 using SiraUtil.Suite.Tests.Sabers;
@@ -35,7 +36,11 @@ namespace SiraUtil.Suite
 
 
             //zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
-            zenjector.Install(Location.Player | Location.Tutorial, Container => Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle());
+            zenjector.Install(Location.Player | Location.Tutorial, Container =>
+            {
+                Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
+                Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
+            });
         }
 
         [OnEnable]
