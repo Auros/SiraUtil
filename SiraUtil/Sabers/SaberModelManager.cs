@@ -2,17 +2,25 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace SiraUtil.Sabers
 {
     /// <summary>
     /// Manages sabers and their models
     /// </summary>
-    public class SaberModelManager : IDisposable
+    public class SaberModelManager : ILateTickable, IDisposable
     {
         private readonly ColorManager _colorManager;
         private readonly SiraSaberFactory _siraSaberFactory;
+        private readonly Dictionary<Saber, SiraSaber> _siraSaberLink = new();
         private readonly Dictionary<Saber, SaberModelController> _saberModelLink = new();
+        private readonly Queue<Action> _colorUpdateQueue = new();
+
+        /// <summary>
+        /// Called when a saber's color has been changed.
+        /// </summary>
+        public event Action<Saber, Color>? ColorUpdated;
 
         internal SaberModelManager(ColorManager colorManager, SiraSaberFactory siraSaberFactory)
         {
@@ -23,6 +31,7 @@ namespace SiraUtil.Sabers
 
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
+            _siraSaberLink.Add(siraSaber.Saber, siraSaber);
             _saberModelLink.Add(siraSaber.Saber, siraSaber.Model);
         }
 
@@ -64,8 +73,48 @@ namespace SiraUtil.Sabers
         }
 
         /// <summary>
+        /// Efficiently changes the color of a saber.
+        /// </summary>
+        /// <param name="saber">The saber to change the color of.</param>
+        /// <param name="color">The color to change the saber to.</param>
+        public void SetColor(Saber saber, Color color)
+        {
+            if (_siraSaberLink.TryGetValue(saber, out SiraSaber siraSaber))
+            {
+                siraSaber.SetColor(color);
+            }
+            else
+            {
+                SaberModelController? saberModelController = GetSaberModelController(saber);
+                if (saberModelController is not null)
+                {
+                    _colorUpdateQueue.Enqueue(() =>
+                    {
+                        saberModelController.SetColor(color);
+                        ColorUpdated?.Invoke(saber, color);
+                    });
+                }
+            }
+        }
+
+        /// <summary>
+        /// Object tick loop.
+        /// </summary>
+        /// <remarks>
+        /// This is called by Zenject. Please don't call it manually.
+        /// </remarks>
+        public void LateTick()
+        {
+            while (_colorUpdateQueue.Count > 0)
+                _colorUpdateQueue.Dequeue().Invoke();
+        }
+
+        /// <summary>
         /// Disposes this object.
         /// </summary>
+        /// <remarks>
+        /// This is called by Zenject. Please don't call it manually.
+        /// </remarks>
         public void Dispose()
         {
             _siraSaberFactory.SaberCreated -= SiraSaberFactory_SaberCreated;

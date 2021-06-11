@@ -17,6 +17,7 @@ namespace SiraUtil.Sabers
         /// Called when a new saber is created.
         /// </summary>
         public event Action<SiraSaber>? SaberCreated;
+        internal event Action<Saber, Color>? ColorUpdated;
 
         internal SiraSaberFactory(SiraLog siraLog, DiContainer container)
         {
@@ -34,9 +35,13 @@ namespace SiraUtil.Sabers
             _siraLog.Debug($"Creating a new saber. Type: ({saberType}).");
             GameObject siraSaberGameObject = new("SiraUtil | SiraSaber");
             SiraSaber siraSaber = _container.InstantiateComponent<SiraSaber>(siraSaberGameObject);
+            siraSaber.ColorUpdated = UpdateColorInternal;
             siraSaber.SetInitialType(saberType);
             SaberCreated?.Invoke(siraSaber);
             return siraSaber;
         }
+
+        private void UpdateColorInternal(Saber saber, Color color)
+            => ColorUpdated?.Invoke(saber, color);
     }
 }
