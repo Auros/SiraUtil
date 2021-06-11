@@ -58,7 +58,6 @@ namespace SiraUtil.Sabers.Effects
             {
                 if (removedNativeSwap && codes[i].Is(OpCodes.Ldfld, _lineRendererInfo))
                 {
-                    Plugin.Log.Info("sussy");
                     codes.RemoveAt(i + 1);
                     codes.RemoveAt(i + 1);
                     codes[i + 1] = new CodeInstruction(OpCodes.Callvirt, _evaluateAllRenderers);
@@ -67,7 +66,6 @@ namespace SiraUtil.Sabers.Effects
 
                 if (!removedNativeSwap && codes[i].opcode == OpCodes.Call)
                 {
-                    Plugin.Log.Info("uwu");
                     codes.RemoveRange(i + 1, codes.Count - i - 1);
                     codes.Add(new(OpCodes.Ret));
                     removedNativeSwap = true;
