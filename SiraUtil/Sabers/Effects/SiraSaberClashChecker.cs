@@ -16,20 +16,19 @@ namespace SiraUtil.Sabers.Effects
 
         protected readonly DiContainer _container;
         protected readonly SaberManager _saberManager;
-        protected readonly SiraSaberFactory _siraSaberFacotry;
+        protected readonly SiraSaberFactory _siraSaberFactory;
 
         public SiraSaberClashChecker(DiContainer container, SaberManager saberManager, SiraSaberFactory siraSaberFactory)
         {
             _container = container;
             _saberManager = saberManager;
-            _siraSaberFacotry = siraSaberFactory;
+            _siraSaberFactory = siraSaberFactory;
             _sabers.Add(_saberManager.leftSaber);
             _sabers.Add(_saberManager.rightSaber);
-
-            _siraSaberFacotry.SaberCreated += SiraSaberFacotry_SaberCreated;
+            _siraSaberFactory.SaberCreated += SiraSaberFactory_SaberCreated;
         }
 
-        private void SiraSaberFacotry_SaberCreated(SiraSaber siraSaber)
+        private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
             _extraSabersDetected = true;
             _sabers.Add(siraSaber.Saber);
@@ -37,7 +36,7 @@ namespace SiraUtil.Sabers.Effects
 
         ~SiraSaberClashChecker()
         {
-            _siraSaberFacotry.SaberCreated -= SiraSaberFacotry_SaberCreated;
+            _siraSaberFactory.SaberCreated -= SiraSaberFactory_SaberCreated;
         }
 
         /// <summary>
