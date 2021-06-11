@@ -63,6 +63,7 @@ namespace SiraUtil.Sabers.Effects
         private ObstacleSaberSparkleEffect CreateNewObstacleSaberSparkleEffect()
         {
             ObstacleSaberSparkleEffect obstacleSaberSparkleEffect = UnityEngine.Object.Instantiate(SparkleEffectPrefab(ref _obstacleSaberSparkleEffectManager!));
+            obstacleSaberSparkleEffect.name = $"SiraUtil | {obstacleSaberSparkleEffect.name}";
             obstacleSaberSparkleEffect.color = _colorManager.GetObstacleEffectColor();
             return obstacleSaberSparkleEffect;
         }

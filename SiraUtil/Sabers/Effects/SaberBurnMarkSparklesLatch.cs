@@ -3,8 +3,6 @@ using IPA.Utilities;
 using SiraUtil.Affinity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 namespace SiraUtil.Sabers.Effects
@@ -18,19 +16,18 @@ namespace SiraUtil.Sabers.Effects
         private static readonly FieldAccessor<SaberBurnMarkSparkles, ParticleSystem>.Accessor ParticlesPrefab = FieldAccessor<SaberBurnMarkSparkles, ParticleSystem>.GetAccessor("_burnMarksPSPrefab");
         private static readonly FieldAccessor<SaberBurnMarkSparkles, ParticleSystem.EmissionModule[]>.Accessor Emissions = FieldAccessor<SaberBurnMarkSparkles, ParticleSystem.EmissionModule[]>.GetAccessor("_burnMarksEmissionModules");
 
-        private readonly MethodInfo _colorForSaberType;
         private readonly SiraSaberFactory _siraSaberFactory;
         private readonly SaberModelManager _saberModelManager;
-        private SaberBurnMarkSparkles? _saberBurnMarkSparkles;
         private readonly Queue<SiraSaber> _earlySabers = new();
+
+        private SaberBurnMarkSparkles? _saberBurnMarkSparkles;
         private bool _sisterLoopActive = false;
         private int _activeSaberIndex = 0;
 
-        public SaberBurnMarkSparklesLatch(SiraSaberFactory siraSaberFactory, SaberModelManager saberModelManager, ColorManager colorManager)
+        public SaberBurnMarkSparklesLatch(SiraSaberFactory siraSaberFactory, SaberModelManager saberModelManager)
         {
             _siraSaberFactory = siraSaberFactory;
             _saberModelManager = saberModelManager;
-            _colorForSaberType = SymbolExtensions.GetMethodInfo(() => colorManager.ColorForSaberType(default));
             _siraSaberFactory.SaberCreated += SiraSaberFactory_SaberCreated;
         }
 
@@ -52,9 +49,9 @@ namespace SiraUtil.Sabers.Effects
             if (_saberBurnMarkSparkles is null)
                 return;
 
-            Sabers(ref _saberBurnMarkSparkles) = Sabers(ref _saberBurnMarkSparkles).AddItem(saber).ToArray();
-            PreviousMarks(ref _saberBurnMarkSparkles) = PreviousMarks(ref _saberBurnMarkSparkles).AddItem(default).ToArray();
-            PreviousMarksValid(ref _saberBurnMarkSparkles) = PreviousMarksValid(ref _saberBurnMarkSparkles).AddItem(default).ToArray();
+            Sabers(ref _saberBurnMarkSparkles) = Sabers(ref _saberBurnMarkSparkles).AddToArray(saber);
+            PreviousMarks(ref _saberBurnMarkSparkles) = PreviousMarks(ref _saberBurnMarkSparkles).AddToArray(default);
+            PreviousMarksValid(ref _saberBurnMarkSparkles) = PreviousMarksValid(ref _saberBurnMarkSparkles).AddToArray(default);
 
             ParticleSystem newPs = CreateNewBurnMarkParticles();
             Particles(ref _saberBurnMarkSparkles) = Particles(ref _saberBurnMarkSparkles).AddToArray(newPs);
@@ -110,11 +107,6 @@ namespace SiraUtil.Sabers.Effects
 
             __result = _saberModelManager.GetPhysicalSaberColor(sabers[_activeSaberIndex++]).ColorWithAlpha(1f);
             return false;
-        }
-
-        private Color PhysicalSaberColor(Saber saber)
-        {
-            return _saberModelManager.GetPhysicalSaberColor(saber);
         }
     }
 }

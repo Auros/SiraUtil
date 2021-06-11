@@ -9,7 +9,7 @@ using Zenject;
 namespace SiraUtil.Sabers.Effects
 {
     [HarmonyPatch(typeof(GameplayCoreInstaller), nameof(GameplayCoreInstaller.InstallBindings))]
-    internal class SiraSaberClashCheckerLatch
+    internal class SiraSaberClashCheckerPatch
     {
         private static readonly MethodInfo _rootMethod = typeof(DiContainer).GetMethod(nameof(DiContainer.Bind), Array.Empty<Type>());
         private static readonly MethodInfo _clashAttacher = SymbolExtensions.GetMethodInfo(() => ClashAttacher(null!));
