@@ -15,7 +15,6 @@ namespace SiraUtil.Sabers.Effects
         private static readonly MethodInfo _safeDestroyMethodInfo = SymbolExtensions.GetMethodInfo(() => EssentialHelpers.SafeDestroy(null!));
         private static readonly FieldInfo _lineRendererInfo = typeof(SaberBurnMarkArea).GetField("_lineRenderers", BindingFlags.NonPublic | BindingFlags.Instance);
 
-
         private static readonly List<OpCode> _lineCheck = new()
         {
             OpCodes.Ldarg_0,
@@ -51,9 +50,7 @@ namespace SiraUtil.Sabers.Effects
             List<CodeInstruction> codes = instructions.ToList();
             TwoToLength(ref codes);
 
-
             bool removedNativeSwap = false;
-
             for (int i = codes.Count - 1; i >= 0; i--)
             {
                 if (removedNativeSwap && codes[i].Is(OpCodes.Ldfld, _lineRendererInfo))
@@ -63,7 +60,6 @@ namespace SiraUtil.Sabers.Effects
                     codes[i + 1] = new CodeInstruction(OpCodes.Callvirt, _evaluateAllRenderers);
                     break;
                 }
-
                 if (!removedNativeSwap && codes[i].opcode == OpCodes.Call)
                 {
                     codes.RemoveRange(i + 1, codes.Count - i - 1);
@@ -71,7 +67,6 @@ namespace SiraUtil.Sabers.Effects
                     removedNativeSwap = true;
                 }
             }
-
             return codes;
         }
 
