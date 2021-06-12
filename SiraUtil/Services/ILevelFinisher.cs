@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SiraUtil.Interfaces
+namespace SiraUtil.Services
 {
     /// <summary>
     /// A collection of events for when a level finishes. Avoid using this in the game scene.
@@ -21,7 +21,7 @@ namespace SiraUtil.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        event Action<MultiplayerLevelScenesTransitionSetupDataSO, LevelCompletionResults, Dictionary<string, LevelCompletionResults>> MultiplayerLevelDidFinish;
+        event Action<MultiplayerLevelScenesTransitionSetupDataSO, MultiplayerResultsData> MultiplayerLevelDidFinish;
 
         /// <summary>
         /// 
@@ -46,6 +46,6 @@ namespace SiraUtil.Interfaces
         /// <summary>
         /// 
         /// </summary>
-        event Action<LevelCompletionResults, Dictionary<string, LevelCompletionResults>> MultiplayerLevelFinished;
+        event Action<MultiplayerResultsData> MultiplayerLevelFinished;
     }
 }

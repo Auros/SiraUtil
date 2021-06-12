@@ -1,5 +1,6 @@
 ﻿using IPA.Loader;
 using SiraUtil.Logging;
+using SiraUtil.Services.Events;
 using SiraUtil.Web;
 using SiraUtil.Web.Zenject;
 using SiraUtil.Zenject;
@@ -42,6 +43,9 @@ namespace SiraUtil.Installers
                 if (zenjector.HttpServiceType is not null)
                     _httpServiceManager.AddService(zenjector.Metadata.Assembly);
             Container.Bind<IHttpService>().To<ContainerizedHttpService>().AsTransient().OnInstantiated<IHttpService>(HttpServiceCreated);
+
+            // Bind any global services
+            Container.BindInterfacesTo<FinishEventDispatcher>().AsSingle();
         }
 
         private void SiraLogCreated(InjectContext ctx, SiraLog siraLog)
