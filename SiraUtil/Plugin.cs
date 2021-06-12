@@ -44,6 +44,7 @@ namespace SiraUtil
             zenjector.Install<SiraSingleplayerInstaller>(Location.Singleplayer);
             zenjector.Install<SiraMultiplayerInstaller>(Location.MultiPlayer);
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
+            zenjector.Install<SiraGameCoreInstaller>(Location.GameCore);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
 
             zenjector.UseMetadataBinder<Plugin>();

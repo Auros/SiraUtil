@@ -1,9 +1,11 @@
 ﻿using IPA;
-using SiraUtil.Sabers;
+using SiraUtil.Extras;
+using SiraUtil.Objects;
+using SiraUtil.Objects.Beatmap;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
-using SiraUtil.Suite.Tests.Sabers;
 using SiraUtil.Zenject;
+using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
 
 namespace SiraUtil.Suite
@@ -38,7 +40,37 @@ namespace SiraUtil.Suite
             {
                 //Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
                 //Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
+
+                Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
             });
+            zenjector.Install(Location.ConnectedPlayer, Container =>
+            {
+                Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
+            });
+        }
+
+        private GameNoteController Create2(GameNoteController before)
+        {
+            Log.Info("ASEklsgkjpesrg");
+
+            GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            g.transform.SetParent(before.transform.GetChild(0));
+            g.transform.localPosition = Vector3.zero;
+            g.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
+
+            return before;
+        }
+
+        private MultiplayerConnectedPlayerGameNoteController Create(MultiplayerConnectedPlayerGameNoteController before)
+        {
+            Log.Info("hello");
+
+            GameObject g = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            g.transform.SetParent(before.transform.GetChild(0));
+            g.transform.localPosition = new Vector3(0f, 0f, 0);
+            g.transform.localScale *= 3f;
+
+            return before;
         }
 
         [OnEnable]
