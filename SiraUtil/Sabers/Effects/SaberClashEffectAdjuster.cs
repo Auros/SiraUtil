@@ -1,29 +1,26 @@
 ﻿using IPA.Utilities;
+using SiraUtil.Affinity;
 using System;
 using UnityEngine;
 using Zenject;
 
 namespace SiraUtil.Sabers.Effects
 {
-    internal class SaberClashEffectAdjuster : IInitializable, IDisposable
+    internal class SaberClashEffectAdjuster : IInitializable, IDisposable, IAffinity
     {
-        private readonly SaberClashEffect _saberClashEffect;
+        private SaberClashEffect? _saberClashEffect;
+        private ParticleSystem? _glowParticleSystem;
+        private ParticleSystem? _sparkleParticleSystem;
         private readonly SaberModelManager _saberModelManager;
         private readonly SiraSaberClashChecker _saberClashChecker;
 
-        private readonly ParticleSystem _glowParticleSystem;
-        private readonly ParticleSystem _sparkleParticleSystem;
         private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor GlowParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_glowParticleSystem");
         private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor SparkleParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_sparkleParticleSystem");
 
-        public SaberClashEffectAdjuster(SaberClashEffect saberClashEffect, SaberModelManager saberModelManager, SaberClashChecker saberClashChecker)
+        public SaberClashEffectAdjuster(SaberModelManager saberModelManager, SaberClashChecker saberClashChecker)
         {
-            _saberClashEffect = saberClashEffect;
             _saberModelManager = saberModelManager;
             _saberClashChecker = (saberClashChecker as SiraSaberClashChecker)!;
-
-            _glowParticleSystem = GlowParticles(ref _saberClashEffect);
-            _sparkleParticleSystem = SparkleParticles(ref _saberClashEffect);
         }
 
         public void Initialize()
@@ -33,6 +30,9 @@ namespace SiraUtil.Sabers.Effects
 
         private void SaberClashChecker_NewSabersClashed(Saber saberA, Saber saberB)
         {
+            if (!(_glowParticleSystem is not null && _sparkleParticleSystem is not null && _saberClashEffect is not null))
+                return;
+
             Color colorA = _saberModelManager.GetPhysicalSaberColor(saberA);
             Color colorB = _saberModelManager.GetPhysicalSaberColor(saberB);
 
@@ -47,6 +47,15 @@ namespace SiraUtil.Sabers.Effects
         public void Dispose()
         {
             _saberClashChecker.NewSabersClashed -= SaberClashChecker_NewSabersClashed;
+        }
+
+        [AffinityPostfix]
+        [AffinityPatch(typeof(SaberClashEffect), nameof(SaberClashEffect.Start))]
+        private void ClashersInit(SaberClashEffect __instance, ref ParticleSystem ____glowParticleSystem, ref ParticleSystem ____sparkleParticleSystem)
+        {
+            _saberClashEffect = __instance;
+            _glowParticleSystem = ____glowParticleSystem;
+            _sparkleParticleSystem = ____sparkleParticleSystem;
         }
     }
 }

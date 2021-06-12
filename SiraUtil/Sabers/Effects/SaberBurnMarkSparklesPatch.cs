@@ -41,7 +41,6 @@ namespace SiraUtil.Sabers.Effects
         private static void ProcessEnableDisable(ref List<CodeInstruction> codes)
         {
             object? burnMarks = null;
-
             for (int i = 0; i < codes.Count; i++)
             {
                 if (codes[i].opcode == OpCodes.Ldfld && burnMarks is null) // We collect the operand that we are going to be using (_burnMarksPS or _sabers)

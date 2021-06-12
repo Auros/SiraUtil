@@ -26,7 +26,6 @@ namespace SiraUtil.Suite
             zenjector.Install(Location.Menu, Container => { });
             zenjector.Install<MainSettingsMenuViewControllersInstaller>(Container => { });
 
-
             zenjector.Expose<FlickeringNeonSign>("MenuEnvironment");
             zenjector.Mutate<PlatformLeaderboardViewController>("MenuViewControllers", (_, __) => { });
 
@@ -34,12 +33,11 @@ namespace SiraUtil.Suite
             zenjector.UseLogger(logger);
             zenjector.UseHttpService();
 
-
             //zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
             zenjector.Install(Location.Player | Location.Tutorial, Container =>
             {
-                Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
-                Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
+                //Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
+                //Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
             });
         }
 

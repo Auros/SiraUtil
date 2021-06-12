@@ -18,6 +18,8 @@ namespace SiraUtil.Sabers
         private readonly SiraLog _siraLog;
         private readonly DiContainer _container;
         private readonly SaberManager _saberManager;
+        private readonly SaberModelContainer _localLeftContainer;
+        private readonly SaberModelContainer _localRightContainer;
         private readonly SaberModelRegistration _activeSaberModelRegistration;
         private readonly SaberModelRegistration _defaultSaberModelRegistration;
         private readonly HashSet<SetSaberGlowColor> _earlyInittingGlowColors = new();
@@ -30,9 +32,9 @@ namespace SiraUtil.Sabers
             _container = container;
             _saberManager = saberManager;
 
-            SaberModelContainer leftDefaultContainer = _saberManager.leftSaber.GetComponent<SaberModelContainer>();
-            SaberModelContainer rightDefaultContainer = _saberManager.rightSaber.GetComponent<SaberModelContainer>();
-            _defaultSaberModelRegistration = new(SaberModelContainer_SaberModelController(ref leftDefaultContainer), SaberModelContainer_SaberModelController(ref rightDefaultContainer), -1);
+            _localLeftContainer = _saberManager.leftSaber.GetComponent<SaberModelContainer>();
+            _localRightContainer = _saberManager.rightSaber.GetComponent<SaberModelContainer>();
+            _defaultSaberModelRegistration = new(SaberModelContainer_SaberModelController(ref _localLeftContainer), SaberModelContainer_SaberModelController(ref _localRightContainer), -1);
 
             List<SaberModelRegistration> registrations = new();
             registrations.Add(_defaultSaberModelRegistration);
@@ -155,8 +157,12 @@ namespace SiraUtil.Sabers
 
         [AffinityPrefix]
         [AffinityPatch(typeof(SaberModelContainer), nameof(SaberModelContainer.Start))]
-        private void DefaultSaberPrefabSwap(ref SaberModelController ____saberModelControllerPrefab, ref Saber ____saber)
+        private void DefaultSaberPrefabSwap(ref SaberModelContainer __instance, ref SaberModelController ____saberModelControllerPrefab, ref Saber ____saber)
         {
+            // If the SaberModelContainer doesn't belong to us, don't do anything.
+            if (__instance != _localLeftContainer && __instance != _localRightContainer)
+                return;
+
             if (_activeSaberModelRegistration == _defaultSaberModelRegistration)
                 return;
 

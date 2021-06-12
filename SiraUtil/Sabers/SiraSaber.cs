@@ -15,10 +15,7 @@ namespace SiraUtil.Sabers
         /// <summary>
         /// The saber this <see cref="SiraSaber"/> is referencing.
         /// </summary>
-        /// <remarks>
-        /// Do not set the saber unless you know what you're doing.
-        /// </remarks>
-        public Saber Saber { get; set; } = null!;
+        public Saber Saber { get; private set; } = null!;
         internal SaberModelController Model => _saberModelController;
         internal Action<Saber, Color> ColorUpdated { get; set; } = null!;
 
@@ -27,7 +24,7 @@ namespace SiraUtil.Sabers
         private SaberTypeObject _saberTypeObject = null!;
         private SaberModelProvider _saberModelProvider = null!;
         private SaberModelController _saberModelController = null!;
-        private Queue<Action> _colorProcessNextFrame = new();
+        private readonly Queue<Action> _colorProcessNextFrame = new();
         private bool _constructedThisFrame = false;
 
         private static readonly FieldAccessor<Saber, Vector3>.Accessor SaberBladeTopPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeTopPos");
@@ -43,9 +40,13 @@ namespace SiraUtil.Sabers
             _noteCutter = noteCutter;
             _colorManager = colorManager;
             _saberModelProvider = saberModelProvider;
+        }
 
+        internal void Setup<T>(SaberType saberType) where T : Saber
+        {
             _saberTypeObject = gameObject.AddComponent<SaberTypeObject>();
-            Saber saber = Saber = gameObject.AddComponent<Saber>();
+            Saber saber = Saber = gameObject.AddComponent<T>();
+            gameObject.layer = LayerMask.NameToLayer("Saber");
             Saber.SetField("_saberType", _saberTypeObject);
 
             GameObject top = new("Top");
@@ -59,10 +60,7 @@ namespace SiraUtil.Sabers
             SaberBladeBottomTransform(ref saber) = bottom.transform;
             SaberBladeTopPosition(ref saber) = top.transform.position;
             SaberBladeBottomPosition(ref saber) = bottom.transform.position;
-        }
 
-        internal void SetInitialType(SaberType saberType)
-        {
             _saberTypeObject.SetField("_saberType", saberType);
             _saberModelController = _saberModelProvider.NewModel(saberType);
             _saberModelController.Init(transform, Saber);

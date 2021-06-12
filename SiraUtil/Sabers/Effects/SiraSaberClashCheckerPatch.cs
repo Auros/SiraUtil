@@ -8,16 +8,39 @@ using Zenject;
 
 namespace SiraUtil.Sabers.Effects
 {
-    [HarmonyPatch(typeof(GameplayCoreInstaller), nameof(GameplayCoreInstaller.InstallBindings))]
     internal class SiraSaberClashCheckerPatch
     {
-        private static readonly MethodInfo _rootMethod = typeof(DiContainer).GetMethod(nameof(DiContainer.Bind), Array.Empty<Type>());
-        private static readonly MethodInfo _clashAttacher = SymbolExtensions.GetMethodInfo(() => ClashAttacher(null!));
-        private static readonly MethodInfo _originalMethod = _rootMethod.MakeGenericMethod(new Type[] { typeof(SaberClashChecker) });
+        internal static readonly MethodInfo _rootMethod = typeof(DiContainer).GetMethod(nameof(DiContainer.Bind), Array.Empty<Type>());
+        internal static readonly MethodInfo _clashAttacher = SymbolExtensions.GetMethodInfo(() => ClashAttacher(null!));
+        internal static readonly MethodInfo _originalMethod = _rootMethod.MakeGenericMethod(new Type[] { typeof(SaberClashChecker) });
 
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        [HarmonyPatch(typeof(GameplayCoreInstaller), nameof(GameplayCoreInstaller.InstallBindings))]
+        private class GameplayCore
         {
-            var codes = instructions.ToList();
+            [HarmonyTranspiler]
+            public static IEnumerable<CodeInstruction> Upgrade(IEnumerable<CodeInstruction> instructions)
+            {
+                var codes = instructions.ToList();
+                SiraSaberClashCheckerPatch.Upgrade(ref codes);
+                return codes.AsEnumerable();
+            }
+        }
+
+        [HarmonyPatch(typeof(TutorialInstaller), nameof(TutorialInstaller.InstallBindings))]
+        private class Tutorial
+        {
+            [HarmonyTranspiler]
+            public static IEnumerable<CodeInstruction> Upgrade(IEnumerable<CodeInstruction> instructions)
+            {
+                var codes = instructions.ToList();
+                SiraSaberClashCheckerPatch.Upgrade(ref codes);
+                return codes.AsEnumerable();
+            }
+
+        }
+
+        internal static void Upgrade(ref List<CodeInstruction> codes)
+        {
             for (int i = 0; i < codes.Count; i++)
             {
                 if (codes[i].Calls(_originalMethod))
@@ -26,7 +49,6 @@ namespace SiraUtil.Sabers.Effects
                     break;
                 }
             }
-            return codes.AsEnumerable();
         }
 
         private static FromBinderGeneric<SiraSaberClashChecker> ClashAttacher(ConcreteIdBinderGeneric<SaberClashChecker> contract)

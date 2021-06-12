@@ -65,6 +65,11 @@ namespace SiraUtil.Zenject
         /// <summary>
         /// Installs your bindings onto all Players related to singleplayer (Standard, Campaign, or Tutorial).
         /// </summary>
-        Singleplayer = StandardPlayer | CampaignPlayer | Tutorial
+        Singleplayer = StandardPlayer | CampaignPlayer | Tutorial,
+
+        /// <summary>
+        /// Installs your bindings onto every connected player in multiplayer. The current backing installer is <see cref="MultiplayerConnectedPlayerInstaller" />
+        /// </summary>
+        ConnectedPlayer = 256
     }
 }

@@ -112,6 +112,8 @@ namespace SiraUtil.Zenject
                 installerTypes.Add(typeof(GameCoreSceneSetup));
             if (location.HasFlag(Location.MultiplayerCore))
                 installerTypes.Add(typeof(MultiplayerCoreInstaller));
+            if (location.HasFlag(Location.ConnectedPlayer))
+                installerTypes.Add(typeof(MultiplayerConnectedPlayerInstaller));
             return installerTypes;
         }
 

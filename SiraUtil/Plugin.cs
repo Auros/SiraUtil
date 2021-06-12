@@ -45,7 +45,6 @@ namespace SiraUtil
             zenjector.Install<SiraMultiplayerInstaller>(Location.MultiPlayer);
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
-            zenjector.Expose<SaberClashEffect>("Gameplay");
 
             zenjector.UseMetadataBinder<Plugin>();
             zenjector.UseLogger(logger);
