@@ -49,7 +49,7 @@ namespace SiraUtil.Suite
                 Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
             });
 
-            zenjector.Install(Location.StandardPlayer | Location.CampaignPlayer, Container => Container.BindInterfacesTo<DisableSubmission>().AsSingle());
+            //zenjector.Install(Location.StandardPlayer | Location.CampaignPlayer, Container => Container.BindInterfacesTo<DisableSubmission>().AsSingle());
         }
 
         private GameNoteController Create2(GameNoteController before)
@@ -59,7 +59,7 @@ namespace SiraUtil.Suite
             GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
             g.transform.SetParent(before.transform.GetChild(0));
             g.transform.localPosition = Vector3.zero;
-            g.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
+            g.transform.localScale = new Vector3(0.05f, 0.05f, 0.6f);
 
             return before;
         }

@@ -1,5 +1,10 @@
-﻿using IPA.Utilities;
+﻿using IPA.Loader;
+using IPA.Utilities;
+using Mono.Cecil;
 using SiraUtil.Affinity;
+using System;
+using System.Linq;
+using System.Reflection;
 using Zenject;
 
 namespace SiraUtil.Submissions
@@ -9,12 +14,15 @@ namespace SiraUtil.Submissions
         private readonly bool _inMission;
         private readonly bool _inStandard;
         private readonly Submission _submission;
+        private readonly SubmissionDataContainer _submissionDataContainer;
 
-        public SubmissionCompletionInjector(Submission submission, [InjectOptional] MissionGameplaySceneSetupData missionGameplaySceneSetupData, [InjectOptional] StandardGameplaySceneSetupData standardGameplaySceneSetupData)
+        public SubmissionCompletionInjector(Submission submission, SubmissionDataContainer submissionDataContainer, [InjectOptional] MissionGameplaySceneSetupData missionGameplaySceneSetupData, [InjectOptional] StandardGameplaySceneSetupData standardGameplaySceneSetupData)
         {
             _submission = submission;
+            _submissionDataContainer = submissionDataContainer;
             _inMission = missionGameplaySceneSetupData != null;
             _inStandard = standardGameplaySceneSetupData != null;
+            _submissionDataContainer.SSS(false);
         }
 
         [AffinityPatch(typeof(PrepareLevelCompletionResults), nameof(PrepareLevelCompletionResults.FillLevelCompletionResults))]
@@ -30,7 +38,14 @@ namespace SiraUtil.Submissions
             }
 
             if (_submission.Activated)
+            {
+                if (_inStandard)
+                {
+                    _submissionDataContainer.SSS(!_submission.Activated);
+                }
+
                 __result = new SiraLevelCompletionResults(__result, !_submission.Activated);
+            }
         }
     }
 }
