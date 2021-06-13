@@ -1,8 +1,9 @@
-﻿using IPA.Loader;
-using SiraUtil.Logging;
+﻿using SiraUtil.Logging;
 using SiraUtil.Services.Events;
 using SiraUtil.Submissions;
 using SiraUtil.Web;
+using SiraUtil.Web.SiraSync;
+using SiraUtil.Web.SiraSync.Zenject;
 using SiraUtil.Web.Zenject;
 using SiraUtil.Zenject;
 using Zenject;
@@ -11,21 +12,28 @@ namespace SiraUtil.Installers
 {
     internal class SiraInitializationInstaller : Installer
     {
-        private readonly PluginMetadata _siraUtil;
+        private readonly Zenjector _siraUtil;
         private readonly SiraLogManager _siraLogManager;
         private readonly ZenjectManager _zenjectManager;
+        private readonly SiraSyncManager _siraSyncManager;
         private readonly HttpServiceManager _httpServiceManager;
 
-        public SiraInitializationInstaller(PluginMetadata siraUtil, ZenjectManager zenjectManager)
+        public SiraInitializationInstaller(Zenjector siraUtil, ZenjectManager zenjectManager)
         {
             _siraUtil = siraUtil;
             _zenjectManager = zenjectManager;
             _siraLogManager = new(zenjectManager);
-            _httpServiceManager = new(zenjectManager, _siraUtil);
+            _httpServiceManager = new(zenjectManager, _siraUtil.Metadata);
+            _siraSyncManager = new SiraSyncManager(siraUtil, zenjectManager, _httpServiceManager);
         }
 
         public override void InstallBindings()
         {
+            // Install all UBinders
+            foreach (var zenjector in _zenjectManager.ActiveZenjectors)
+                if (zenjector.UBinderType is not null && zenjector.UBinderValue is not null)
+                    Container.Bind(zenjector.UBinderType).FromInstance(zenjector.UBinderValue).AsSingle();
+
             // Takes every active zenjector and adds them to the SiraLogger
             _siraLogManager.Clear();
             foreach (var zenjector in _zenjectManager.ActiveZenjectors)
@@ -33,17 +41,19 @@ namespace SiraUtil.Installers
                     _siraLogManager.AddLogger(zenjector.Metadata.Assembly, zenjector.Logger);
             Container.Bind<SiraLog>().AsTransient().OnInstantiated<SiraLog>(SiraLogCreated);
 
-            // Install all UBinders
-            foreach (var zenjector in _zenjectManager.ActiveZenjectors)
-                if (zenjector.UBinderType is not null && zenjector.UBinderValue is not null)
-                    Container.Bind(zenjector.UBinderType).FromInstance(zenjector.UBinderValue).AsSingle();
-
             // Takes every active zenjector and adds them to the http service.
             _httpServiceManager.Clear();
             foreach (var zenjector in _zenjectManager.ActiveZenjectors)
                 if (zenjector.HttpServiceType is not null)
                     _httpServiceManager.AddService(zenjector.Metadata.Assembly);
             Container.Bind<IHttpService>().To<ContainerizedHttpService>().AsTransient().OnInstantiated<IHttpService>(HttpServiceCreated);
+
+            // Takes every active zenjector and adds them to the SiraSync service.
+            _siraSyncManager.Clear();
+            foreach (var zenjector in _zenjectManager.ActiveZenjectors)
+                if (zenjector.SiraSyncServiceType is not null)
+                    _siraSyncManager.AddService(zenjector.Metadata.Assembly);
+            Container.Bind<ISiraSyncService>().To<ContainerizedSiraSyncService>().AsTransient().OnInstantiated<ISiraSyncService>(SiraSyncServiceCreated);
 
             // Bind any global services
             Container.BindInterfacesTo<FinishEventDispatcher>().AsSingle();
@@ -59,9 +69,16 @@ namespace SiraUtil.Installers
 
         private void HttpServiceCreated(InjectContext ctx, IHttpService httpService)
         {
-            // When an HttpService is instantied, add its backing service.
+            // When a ContainerizedHttpService is instantied, add its backing service.
             IHttpService container = _httpServiceManager.ServiceFromAssembly(ctx.ObjectType.Assembly);
             (httpService as ContainerizedHttpService)!.Setup(container);
+        }
+
+        private void SiraSyncServiceCreated(InjectContext ctx, ISiraSyncService siraSyncService)
+        {
+            // When a ContainerizedSiraSyncService is instantiated, add its backing service.
+            ISiraSyncService container = _siraSyncManager.ServiceFromAssembly(ctx.ObjectType.Assembly);
+            (siraSyncService as ContainerizedSiraSyncService)!.Setup(container);
         }
     }
 }

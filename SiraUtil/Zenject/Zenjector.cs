@@ -3,6 +3,7 @@ using IPA.Loader;
 using IPA.Logging;
 using SiraUtil.Attributes;
 using SiraUtil.Web;
+using SiraUtil.Web.SiraSync;
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Filters;
 using System;
@@ -21,8 +22,11 @@ namespace SiraUtil.Zenject
         internal Logger? Logger { get; set; }
         internal PluginMetadata Metadata { get; }
         internal Type? UBinderType { get; private set; }
+        internal string SiraSyncID { get; private set; }
+        internal string SiraSyncOwner { get; private set; }
         internal object? UBinderValue { get; private set; }
         internal HttpServiceType? HttpServiceType { get; private set; }
+        internal SiraSyncServiceType? SiraSyncServiceType { get; private set; }
         internal IEnumerable<ExposeSet> ExposeSets => _exposeSets;
         internal IEnumerable<MutateSet> MutateSets => _mutateSets;
         internal IEnumerable<InstallSet> InstallSets => _installSets;
@@ -36,6 +40,8 @@ namespace SiraUtil.Zenject
         internal Zenjector(PluginMetadata metadata)
         {
             Metadata = metadata;
+            SiraSyncID = metadata.Id;
+            SiraSyncOwner = metadata.Author;
             Slog = metadata.PluginType?.CustomAttributes.Any(ca => ca.AttributeType.FullName == typeof(SlogAttribute).FullName) ?? false;
         }
 
@@ -170,12 +176,33 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
-        /// 
+        /// Allows you to use SiraUtil's HTTP service system.
         /// </summary>
         /// <param name="type"></param>
         public void UseHttpService(HttpServiceType type = Web.HttpServiceType.UnityWebRequests)
         {
             HttpServiceType = type;
+        }
+
+        /// <summary>
+        /// SiraSync allows you to get generic info about your mod from the internet like the latest version and changelog.
+        /// </summary>
+        /// <param name="type">The type of service to use under the hood.</param>
+        /// <param name="userID">The username/ID of the owner of the mod/repo in the SiraSync service.</param>
+        /// <param name="modID">The ID of your mod/repo in the SiraSync service.</param>
+        /// <remarks>
+        /// This will register this Zenjector into the Sira HttpService if it already isn't so.
+        /// </remarks>
+        public void UseSiraSync(SiraSyncServiceType type = Web.SiraSync.SiraSyncServiceType.GitHub, string? userID = null!, string? modID = null!)
+        {
+            SiraSyncServiceType = type;
+            if (!string.IsNullOrWhiteSpace(modID))
+                SiraSyncID = modID!;
+            if (!string.IsNullOrWhiteSpace(userID))
+                SiraSyncOwner = userID!;
+
+            if (HttpServiceType is null)
+                UseHttpService();
         }
     }
 }

@@ -1,10 +1,9 @@
 ﻿using IPA;
 using SiraUtil.Extras;
-using SiraUtil.Objects;
 using SiraUtil.Objects.Beatmap;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
-using SiraUtil.Suite.Tests.SubmissionTest;
+using SiraUtil.Suite.Tests.Web;
 using SiraUtil.Zenject;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
@@ -36,7 +35,9 @@ namespace SiraUtil.Suite
             zenjector.UseLogger(logger);
             zenjector.UseHttpService();
 
+            //zenjector.UseSiraSync(Web.SiraSync.SiraSyncServiceType.GitHub, "Auros", "SiraUtil");
             //zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
+
             zenjector.Install(Location.Player | Location.Tutorial, Container =>
             {
                 //Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();

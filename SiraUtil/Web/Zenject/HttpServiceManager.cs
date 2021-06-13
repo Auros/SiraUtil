@@ -33,7 +33,6 @@ namespace SiraUtil.Web.Zenject
                             service = new UWRHttpService();
                         _services.Add(assembly, service);
 
-
                         service.UserAgent = $"{zenjector.Metadata.Name}/{zenjector.Metadata.HVersion} ({service.GetType().Name}; {_managerMetadata.HVersion}; Beat Saber; {UnityGame.GameVersion})";
                     }
                     else
