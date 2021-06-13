@@ -35,7 +35,7 @@ namespace SiraUtil.Submission
             {
                 _targetFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", _siraSubmissionViewController, ViewController.AnimationType.In);
                 _siraSubmissionViewController.Enabled(true);
-                _siraSubmissionViewController.SetText($"<size=115%><color=#f00e0e>Score Submission Disabled By</color></size>\n{_submissionDataContainer.Read()}");
+                _siraSubmissionViewController.SetText($"<size=115%><color=#f03030>Score Submission Disabled By</color></size>\n{_submissionDataContainer.Read()}");
             }
         }
 
