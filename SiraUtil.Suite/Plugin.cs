@@ -4,6 +4,7 @@ using SiraUtil.Objects;
 using SiraUtil.Objects.Beatmap;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
+using SiraUtil.Suite.Tests.SubmissionTest;
 using SiraUtil.Zenject;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
@@ -47,6 +48,8 @@ namespace SiraUtil.Suite
             {
                 Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
             });
+
+            zenjector.Install(Location.StandardPlayer | Location.CampaignPlayer, Container => Container.BindInterfacesTo<DisableSubmission>().AsSingle());
         }
 
         private GameNoteController Create2(GameNoteController before)

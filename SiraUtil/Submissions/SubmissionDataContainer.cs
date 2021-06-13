@@ -1,9 +1,9 @@
-﻿namespace SiraUtil.Submission
+﻿namespace SiraUtil.Submissions
 {
     internal sealed class SubmissionDataContainer
     {
         private string _data = "";
-        public bool Disabled { get; set; } = true;
+        public bool Disabled { get; set; }
 
         internal void Set(bool disabled, Ticket[] tickets)
         {

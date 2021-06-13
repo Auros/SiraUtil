@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace SiraUtil.Submission
+namespace SiraUtil.Submissions
 {
     internal class SiraSubmissionViewController : ViewController
     {

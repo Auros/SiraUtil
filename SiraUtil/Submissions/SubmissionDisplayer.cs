@@ -3,14 +3,12 @@ using IPA.Utilities;
 using System;
 using Zenject;
 
-namespace SiraUtil.Submission
+namespace SiraUtil.Submissions
 {
     internal abstract class SubmissionDisplayer : IInitializable, IDisposable
     {
+        private readonly ViewController _resultsViewController;
         private readonly FlowCoordinator _targetFlowCoordinator;
-
-        [Inject]
-        private readonly ResultsViewController _resultsViewController = null!;
 
         [Inject]
         private readonly SubmissionDataContainer _submissionDataContainer = null!;
@@ -18,8 +16,9 @@ namespace SiraUtil.Submission
         [Inject]
         private readonly SiraSubmissionViewController _siraSubmissionViewController = null!;
 
-        public SubmissionDisplayer(FlowCoordinator targetFlowCoordinator)
+        public SubmissionDisplayer(FlowCoordinator targetFlowCoordinator, ViewController resultsViewController)
         {
+            _resultsViewController = resultsViewController;
             _targetFlowCoordinator = targetFlowCoordinator;
         }
 

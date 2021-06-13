@@ -1,7 +1,7 @@
 ﻿using IPA.Loader;
 using SiraUtil.Logging;
 using SiraUtil.Services.Events;
-using SiraUtil.Submission;
+using SiraUtil.Submissions;
 using SiraUtil.Web;
 using SiraUtil.Web.Zenject;
 using SiraUtil.Zenject;

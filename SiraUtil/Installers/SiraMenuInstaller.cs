@@ -1,6 +1,6 @@
 ﻿using SiraUtil.Services;
 using SiraUtil.Services.Controllers;
-using SiraUtil.Submission;
+using SiraUtil.Submissions;
 using Zenject;
 
 namespace SiraUtil.Installers

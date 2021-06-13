@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace SiraUtil.Submission
+namespace SiraUtil.Submissions
 {
     /// <summary>
     /// A ticket which contains details for a score submission disable event.
@@ -23,10 +23,10 @@ namespace SiraUtil.Submission
         /// Adds a reason to this.
         /// </summary>
         /// <param name="reason"></param>
-        public void AddReason(string reason)
+        public void AddReason(string? reason)
         {
             if (!string.IsNullOrWhiteSpace(reason))
-                _reasons.Add(reason);
+                _reasons.Add(reason!);
         }
 
         /// <summary>
