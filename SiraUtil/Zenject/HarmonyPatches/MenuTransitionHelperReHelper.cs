@@ -32,9 +32,9 @@ namespace SiraUtil.Zenject.HarmonyPatches
                 var dict = new Dictionary<string, LevelCompletionResults>();
                 foreach (var player in multiplayerResultsData.otherPlayersData)
                 {
-                    dict.Add(player.connectedPlayer.userId, player.levelCompletionResults);
+                    dict.Add(player.connectedPlayer.userId, player.multiplayerLevelCompletionResults.levelCompletionResults);
                 }
-                SiraEvents.SendMultiplayerEvent(multiplayerLevelScenesTransitionSetupData, multiplayerResultsData.localPlayerResultData.levelCompletionResults, dict);
+                SiraEvents.SendMultiplayerEvent(multiplayerLevelScenesTransitionSetupData, multiplayerResultsData.localPlayerResultData.multiplayerLevelCompletionResults.levelCompletionResults, dict);
             }
         }
 
