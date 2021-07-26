@@ -37,7 +37,7 @@ namespace SiraUtil
             Harmony = new Harmony("dev.auros.sirautil");
 
             // Set Config Verison
-            config.Version = metadata.Version;
+            config.Version = metadata.HVersion;
 
             // Setup Zenjector
             _zenjectManager = new ZenjectManager();

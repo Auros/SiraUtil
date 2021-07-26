@@ -59,7 +59,19 @@ namespace SiraUtil
         /// </summary>
         /// <param name="app">The name of the application (or mod in this case).</param>
         /// <param name="version">The version of the application.</param>
+        [Obsolete]
         public void SetUserAgent(string app, SemVer.Version version)
+        {
+            _unique = true;
+            Main.client.DefaultRequestHeaders.UserAgent.TryParseAdd($"{app}/{version}");
+        }
+
+        /// <summary>
+        /// Sets the user agent of the web client
+        /// </summary>
+        /// <param name="app">The name of the application (or mod in this case).</param>
+        /// <param name="version">The version of the application.</param>
+        public void SetUserAgent(string app, Hive.Versioning.Version version)
         {
             _unique = true;
             Main.client.DefaultRequestHeaders.UserAgent.TryParseAdd($"{app}/{version}");

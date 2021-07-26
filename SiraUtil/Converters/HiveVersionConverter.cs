@@ -1,14 +1,13 @@
-using SemVer;
+using Hive.Versioning;
 using IPA.Config.Data;
 using IPA.Config.Stores;
 
 namespace SiraUtil.Converters
 {
     /// <summary>
-    /// A config converter for BSIPA which can serialize and deserialize SemVer <see cref="Version"/> values.
+    /// A config converter for BSIPA which can serialize and deserialize Hive.Versioning <see cref="Version"/> values.
     /// </summary>
-    [System.Obsolete]
-    public class VersionConverter : ValueConverter<Version>
+    public class HiveVersionConverter : ValueConverter<Version>
     {
         /// <summary>
         /// Converts a config value text to a SemVer <see cref="Version"/>.

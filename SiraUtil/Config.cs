@@ -3,18 +3,18 @@ using Polyglot;
 using UnityEngine;
 using IPA.Config.Stores;
 using SiraUtil.Converters;
-using Version = SemVer.Version;
 using System.Collections.Generic;
 using IPA.Config.Stores.Converters;
 using IPA.Config.Stores.Attributes;
 using System.Runtime.CompilerServices;
+using Version = Hive.Versioning.Version;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 namespace SiraUtil
 {
     internal class Config
     {
-        [NonNullable, UseConverter(typeof(VersionConverter))]
+        [NonNullable, UseConverter(typeof(HiveVersionConverter))]
         public virtual Version Version { get; set; }
 
         [NonNullable]
