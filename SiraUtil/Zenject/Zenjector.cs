@@ -9,6 +9,7 @@ using SiraUtil.Zenject.Internal.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Zenject;
 
 namespace SiraUtil.Zenject
@@ -31,11 +32,14 @@ namespace SiraUtil.Zenject
         internal IEnumerable<MutateSet> MutateSets => _mutateSets;
         internal IEnumerable<InstallSet> InstallSets => _installSets;
         internal IEnumerable<InstallInstruction> InstallInstructions => _installInstructions;
+        internal IEnumerable<AutobindInstruction> AutobindInstructions => _autobindInstructions;
 
+        private bool _autoBinded;
         private readonly HashSet<ExposeSet> _exposeSets = new();
         private readonly HashSet<MutateSet> _mutateSets = new();
         private readonly HashSet<InstallSet> _installSets = new();
         private readonly HashSet<InstallInstruction> _installInstructions = new();
+        private readonly HashSet<AutobindInstruction> _autobindInstructions = new();
 
         internal Zenjector(PluginMetadata metadata)
         {
@@ -203,6 +207,31 @@ namespace SiraUtil.Zenject
 
             if (HttpServiceType is null)
                 UseHttpService();
+        }
+
+        /// <summary>
+        /// Registers autobinding support, which provides easy zenject binding installations through the <see cref="BindAttribute"/> attribute.
+        /// </summary>
+        /// <remarks>
+        /// This will scan all the types in your assembly, so if you're using strict optional dependencies, warnings will probably be thrown.
+        /// </remarks>
+        public void UseAutoBinder()
+        {
+            if (_autoBinded)
+                return;
+
+            _autoBinded = true;
+            foreach (var type in Metadata.Assembly.GetTypes())
+            {
+                BindAttribute? bind = type.GetCustomAttribute<BindAttribute>();
+                if (bind is not null)
+                {
+                    Plugin.Log.Debug($"Found bind attribute in type '{type.FullName}'");
+                    var instruction = new AutobindInstruction(type, bind);
+                    Install(instruction.Location, Container => instruction.Bind(Container));
+                    _autobindInstructions.Add(instruction);
+                }
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ using SiraUtil.Extras;
 using SiraUtil.Objects.Beatmap;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
-using SiraUtil.Suite.Tests.Web;
 using SiraUtil.Zenject;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
@@ -20,6 +19,7 @@ namespace SiraUtil.Suite
         {
             Log = logger;
 
+            zenjector.UseAutoBinder();
             zenjector.Install<GenericCustomInstaller>(Location.Menu);
             zenjector.Install<MonoCustomInstaller>(Location.Tutorial);
             zenjector.Install<OtherCustomInstaller, GameplayCoreInstaller>();
