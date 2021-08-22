@@ -27,7 +27,7 @@ namespace SiraUtil.Zenject.Internal
                 {
                     try
                     {
-                        await initter.InitializeAsync();
+                        await initter.InitializeAsync(_cancellationTokenSource.Token);
                     }
                     catch (Exception e)
                     {

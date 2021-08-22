@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace SiraUtil.Zenject
 {
@@ -11,6 +12,6 @@ namespace SiraUtil.Zenject
         /// Initializees asynchronously.
         /// </summary>
         /// <returns>The task of the initialization.</returns>
-        Task InitializeAsync();
+        Task InitializeAsync(CancellationToken token);
     }
 }

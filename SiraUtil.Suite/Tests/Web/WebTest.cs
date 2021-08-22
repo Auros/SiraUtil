@@ -21,7 +21,7 @@ namespace SiraUtil.Suite.Tests.Web
             _siraSyncService = siraSyncService;
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken token)
         {
             _siraLog.Notice("Testing Changelog:");
             var changelog = await _siraSyncService.LatestChangelog();

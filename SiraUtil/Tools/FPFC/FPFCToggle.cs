@@ -2,6 +2,7 @@
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.XR;
@@ -32,13 +33,13 @@ namespace SiraUtil.Tools.FPFC
             _menuControllerAccessor = menuControllerAccessor;
         }
 
-        public async Task InitializeAsync()
+        public async Task InitializeAsync(CancellationToken token)
         {
             _fpfcSettings.Changed += FPFCSettings_Changed;
 
             if (_mainCamera.camera == null)
                 while (_mainCamera.camera == null)
-                    await Task.Delay(10);
+                    await Task.Yield();
 
             _initialState.Aspect = _mainCamera.camera.aspect;
             _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
