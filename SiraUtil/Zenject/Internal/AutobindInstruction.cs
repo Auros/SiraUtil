@@ -40,7 +40,10 @@ namespace SiraUtil.Zenject.Internal
                     if (majorContract.DerivesFrom(type))
                         contracts.Add(type);
                 if (contracts.Count > 0)
+                {
+                    contracts.Add(majorContract);
                     _contracts = contracts.ToArray();
+                }
                 else
                     _contracts = null;
             }
