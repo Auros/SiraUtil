@@ -20,32 +20,70 @@ namespace SiraUtil.Attributes
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public sealed class BindAttribute : Attribute
     {
+        /// <summary>
+        /// Whether or not the binding is NonLazy
+        /// </summary>
         public bool NonLazy { get; }
+
+        /// <summary>
+        /// The location to bind to.
+        /// </summary>
         public Location Location { get; }
+
+        /// <summary>
+        /// The type contracts for this binding.
+        /// </summary>
         public Type[]? Contracts { get; }
+
+        /// <summary>
+        /// The Zenject bind type.
+        /// </summary>
         public BindType BindType { get; } = BindType.Single;
 
+        /// <summary>
+        /// Creates a attributed-binding.
+        /// </summary>
         public BindAttribute()
         {
             Location = Location.App;
         }
 
+        /// <summary>
+        /// Creates a attributed-binding.
+        /// </summary>
+        /// <param name="location">The location to install to.</param>
         public BindAttribute(Location location)
         {
             Location = location;
         }
 
+        /// <summary>
+        /// Creates a attributed-binding.
+        /// </summary>
+        /// <param name="contracts">The type contracts for this binding.</param>
         public BindAttribute(params Type[] contracts)
         {
             Contracts = contracts;
         }
 
+        /// <summary>
+        /// Creates a attributed-binding.
+        /// </summary>
+        /// <param name="location">The location to install to.</param>
+        /// <param name="contracts">The type contracts for this binding.</param>
         public BindAttribute(Location location, params Type[] contracts)
         {
             Location = location;
             Contracts = contracts;
         }
 
+        /// <summary>
+        /// Creates a attributed-binding.
+        /// </summary>
+        /// <param name="location">The location to install to.</param>
+        /// <param name="bindType">The Zenject bind type.</param>
+        /// <param name="nonLazy">Whether or not this binding is NonLazy</param>
+        /// <param name="contracts">The type contracts for this binding.</param>
         public BindAttribute(Location location = Location.App, BindType bindType = BindType.Single, bool nonLazy = false, params Type[]? contracts)
         {
             NonLazy = nonLazy;
