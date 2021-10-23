@@ -19,7 +19,6 @@ namespace SiraUtil.Sabers.Effects
         private static readonly FieldAccessor<SaberBurnMarkArea, LineRenderer[]>.Accessor Lines = FieldAccessor<SaberBurnMarkArea, LineRenderer[]>.GetAccessor("_lineRenderers");
         private static readonly FieldAccessor<SaberBurnMarkArea, Vector3[]>.Accessor PreviousMarks = FieldAccessor<SaberBurnMarkArea, Vector3[]>.GetAccessor("_prevBurnMarkPos");
         private static readonly FieldAccessor<SaberBurnMarkArea, bool[]>.Accessor PreviousMarksValid = FieldAccessor<SaberBurnMarkArea, bool[]>.GetAccessor("_prevBurnMarkPosValid");
-        private static readonly FieldAccessor<SaberBurnMarkArea, RenderTexture[]>.Accessor Textures = FieldAccessor<SaberBurnMarkArea, RenderTexture[]>.GetAccessor("_renderTextures");
         private static readonly FieldAccessor<SaberBurnMarkArea, LineRenderer>.Accessor LinePrefab = FieldAccessor<SaberBurnMarkArea, LineRenderer>.GetAccessor("_saberBurnMarkLinePrefab");
         private static readonly FieldAccessor<SaberBurnMarkArea, int>.Accessor TextureWidth = FieldAccessor<SaberBurnMarkArea, int>.GetAccessor("_textureWidth");
         private static readonly FieldAccessor<SaberBurnMarkArea, int>.Accessor TextureHeight = FieldAccessor<SaberBurnMarkArea, int>.GetAccessor("_textureHeight");
@@ -31,7 +30,8 @@ namespace SiraUtil.Sabers.Effects
             _siraSaberFactory = siraSaberFactory;
             _saberModelManager = saberModelManager;
             _siraSaberFactory.SaberCreated += SiraSaberFactory_SaberCreated;
-            _siraSaberFactory.ColorUpdated += SiraSaberFactory_ColorUpdated;
+            _saberModelManager.ColorUpdated += ColorUpdated;
+            _siraSaberFactory.ColorUpdated += ColorUpdated;
         }
 
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
@@ -42,7 +42,7 @@ namespace SiraUtil.Sabers.Effects
                 AddSaber(siraSaber.Saber);
         }
 
-        private void SiraSaberFactory_ColorUpdated(Saber saber, Color color)
+        private void ColorUpdated(Saber saber, Color color)
         {
             if (_saberBurnMarkArea is null)
                 return;
@@ -62,7 +62,8 @@ namespace SiraUtil.Sabers.Effects
 
         public void Dispose()
         {
-            _siraSaberFactory.ColorUpdated -= SiraSaberFactory_ColorUpdated;
+            _siraSaberFactory.ColorUpdated -= ColorUpdated;
+            _saberModelManager.ColorUpdated -= ColorUpdated;
             _siraSaberFactory.SaberCreated -= SiraSaberFactory_SaberCreated;
         }
 
@@ -77,8 +78,6 @@ namespace SiraUtil.Sabers.Effects
 
             LineRenderer line = CreateNewLineRenderer(_saberModelManager.GetPhysicalSaberColor(saber));
             Lines(ref _saberBurnMarkArea) = Lines(ref _saberBurnMarkArea).AddToArray(line);
-            RenderTexture tex = CreateNewRenderTexture();
-            Textures(ref _saberBurnMarkArea) = Textures(ref _saberBurnMarkArea).AddToArray(tex);
         }
 
         private LineRenderer CreateNewLineRenderer(Color initialColor)

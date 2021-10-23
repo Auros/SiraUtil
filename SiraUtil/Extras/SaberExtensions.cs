@@ -23,6 +23,9 @@ namespace SiraUtil.Extras
 
         internal static void SetColor(this SaberModelController saberModelController, Color color)
         {
+            if (saberModelController is IColorable colorable)
+                colorable.Color = color;
+
             SaberTrail trail = SaberModelController_SaberTrail(ref saberModelController);
             TubeBloomPrePassLight? light = SaberModelController_SaberLight(ref saberModelController);
             SetSaberGlowColor[] glowColors = SaberModelController_SetSaberGlowColors(ref saberModelController);

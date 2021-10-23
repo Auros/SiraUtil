@@ -5,6 +5,7 @@ using IPA.Loader;
 #if DEBUG
 using SiraUtil.Affinity.Harmony.Generator;
 #endif
+using SiraUtil.Attributes;
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
@@ -14,7 +15,7 @@ using IPALogger = IPA.Logging.Logger;
 
 namespace SiraUtil
 {
-    [Plugin(RuntimeOptions.DynamicInit)]
+    [Slog, Plugin(RuntimeOptions.DynamicInit)]
     internal class Plugin
     {
         private readonly Harmony _harmony;

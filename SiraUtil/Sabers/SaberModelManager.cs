@@ -1,6 +1,8 @@
 ﻿using SiraUtil.Extras;
+using SiraUtil.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -11,10 +13,13 @@ namespace SiraUtil.Sabers
     /// </summary>
     public class SaberModelManager : ILateTickable, IDisposable
     {
+        private readonly SiraLog _siraLog;
         private readonly ColorManager _colorManager;
         private readonly SiraSaberFactory _siraSaberFactory;
         private readonly Dictionary<Saber, SiraSaber> _siraSaberLink = new();
         private readonly Dictionary<Saber, SaberModelController> _saberModelLink = new();
+        private readonly List<DesperationContract> _desperationList = new();
+        private readonly List<DesperationContract> _salvationList = new();
         private readonly Queue<Action> _colorUpdateQueue = new();
 
         /// <summary>
@@ -22,8 +27,9 @@ namespace SiraUtil.Sabers
         /// </summary>
         public event Action<Saber, Color>? ColorUpdated;
 
-        internal SaberModelManager(ColorManager colorManager, SiraSaberFactory siraSaberFactory)
+        internal SaberModelManager(SiraLog siraLog, ColorManager colorManager, SiraSaberFactory siraSaberFactory)
         {
+            _siraLog = siraLog;
             _colorManager = colorManager;
             _siraSaberFactory = siraSaberFactory;
             _siraSaberFactory.SaberCreated += SiraSaberFactory_SaberCreated;
@@ -43,7 +49,9 @@ namespace SiraUtil.Sabers
         public SaberModelController? GetSaberModelController(Saber saber)
         {
             if (_saberModelLink.TryGetValue(saber, out SaberModelController smc))
+            {
                 return smc;
+            }
             else
             {
                 foreach (Transform child in saber.gameObject.transform)
@@ -51,12 +59,14 @@ namespace SiraUtil.Sabers
                     SaberModelController saberModelController = child.gameObject.GetComponent<SaberModelController>();
                     if (saberModelController != null)
                     {
+                        _siraLog.Debug("Found a new saber model controller.");
                         smc = saberModelController;
                         break;
                     }
                 }
                 if (smc != null)
                 {
+                    _siraLog.Debug("Adding model to cache, establishing a link.");
                     _saberModelLink.Add(saber, smc);
                     return smc;
                 }
@@ -96,11 +106,27 @@ namespace SiraUtil.Sabers
                 SaberModelController? saberModelController = GetSaberModelController(saber);
                 if (saberModelController is not null)
                 {
+                    _siraLog.Debug("Enqueing color update.");
                     _colorUpdateQueue.Enqueue(() =>
                     {
+                        _siraLog.Debug("Updated color of saber.");
                         saberModelController.SetColor(color);
                         ColorUpdated?.Invoke(saber, color);
                     });
+
+                    DesperationContract contract = _desperationList.FirstOrDefault(d => d.Saber == saber && d.color == color);
+                    if (contract is not null)
+                        _salvationList.Add(contract);
+                }
+                else
+                {
+                    if (!_desperationList.Any(d => d.Saber == saber))
+                    {
+                        // The desperation list is designed for sabers still in the progress of initialization.
+                        // It will continue retrying up to a set amount.
+                        _siraLog.Debug("Could not find saber model controller. Adding it to the desperation list.");
+                        _desperationList.Add(new DesperationContract(saber, color));
+                    }
                 }
             }
         }
@@ -115,6 +141,15 @@ namespace SiraUtil.Sabers
         {
             while (_colorUpdateQueue.Count > 0)
                 _colorUpdateQueue.Dequeue().Invoke();
+
+            foreach (var desperator in _desperationList)
+            {
+                if (desperator.Saber != null)
+                    SetColor(desperator.Saber, desperator.color);
+            }
+            foreach (var salvation in _salvationList)
+                _desperationList.Remove(salvation);
+            _salvationList.Clear();
         }
 
         /// <summary>
@@ -126,6 +161,35 @@ namespace SiraUtil.Sabers
         public void Dispose()
         {
             _siraSaberFactory.SaberCreated -= SiraSaberFactory_SaberCreated;
+        }
+
+        private class DesperationContract
+        {
+            private const int _maxAccessTimes = 10;
+            public readonly Color color;
+            private int _accessed = 0;
+            private Saber? _saber;
+
+            public Saber? Saber
+            {
+                get
+                {
+                    _accessed++;
+                    if (_accessed == _maxAccessTimes)
+                    {
+                        Saber? saber = _saber;
+                        _saber = null;
+                        return saber;
+                    }
+                    return _saber;
+                }
+            }
+
+            public DesperationContract(Saber saber, Color color)
+            {
+                _saber = saber;
+                this.color = color;
+            }
         }
     }
 }

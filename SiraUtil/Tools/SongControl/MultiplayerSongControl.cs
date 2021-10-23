@@ -2,33 +2,33 @@
 {
     internal class MultiplayerSongControl : ISongControl
     {
-        private readonly MultiplayerLocalActivePlayerInGameMenuViewController _multiplayerLocalActivePlayerInGameMenuViewController;
+        //private readonly MultiplayerLocalActivePlayerInGameMenuViewController _multiplayerLocalActivePlayerInGameMenuViewController;
+        //
+        //internal MultiplayerSongControl(MultiplayerLocalActivePlayerInGameMenuViewController multiplayerLocalActivePlayerInGameMenuViewController)
+        //{
+        //    _multiplayerLocalActivePlayerInGameMenuViewController = multiplayerLocalActivePlayerInGameMenuViewController;
+        //}
 
-        internal MultiplayerSongControl(MultiplayerLocalActivePlayerInGameMenuViewController multiplayerLocalActivePlayerInGameMenuViewController)
-        {
-            _multiplayerLocalActivePlayerInGameMenuViewController = multiplayerLocalActivePlayerInGameMenuViewController;
-        }
-
-        public bool IsPaused => _multiplayerLocalActivePlayerInGameMenuViewController.isActiveAndEnabled;
+        public bool IsPaused => false;// _multiplayerLocalActivePlayerInGameMenuViewController.isActiveAndEnabled;
 
         public void Continue()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController.ResumeButtonPressed();
+            //_multiplayerLocalActivePlayerInGameMenuViewController.ResumeButtonPressed();
         }
 
         public void Pause()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController.ShowMenu();
+           // _multiplayerLocalActivePlayerInGameMenuViewController.ShowMenu();
         }
 
         public void Quit()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController.GiveUpButtonPressed();
+            //_multiplayerLocalActivePlayerInGameMenuViewController.GiveUpButtonPressed();
         }
 
         public void Restart()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController.GiveUpButtonPressed();
+            //_multiplayerLocalActivePlayerInGameMenuViewController.GiveUpButtonPressed();
         }
     }
 }
