@@ -87,7 +87,7 @@ namespace SiraUtil.Web.Implementations
             DownloadHandler? dHandler = new DownloadHandlerBuffer();
 
             HTTPMethod originalMethod = method;
-            if (method == HTTPMethod.POST && body is not null)
+            if (method == HTTPMethod.POST && body != null)
                 method = HTTPMethod.PUT;
 
             using UnityWebRequest request = new(newURL, method.ToString(), dHandler, null);
@@ -104,10 +104,8 @@ namespace SiraUtil.Web.Implementations
                 request.SetRequestHeader("Content-Type", "application/json");
 
             // some unity bull
-            if (body is not null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
-            {
-                request.method = method.ToString();
-            }
+            if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
+                request.method = originalMethod.ToString();
 
             float _lastProgress = -1f;
             AsyncOperation asyncOp = request.SendWebRequest();
