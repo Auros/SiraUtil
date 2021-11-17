@@ -13,7 +13,6 @@ namespace SiraUtil.Affinity.Harmony.Patches
     {
         private static readonly MethodInfo _nonLazyMethod = typeof(NonLazyBinder).GetMethod(nameof(NonLazyBinder.NonLazy));
         private static readonly MethodInfo _kernelInjectorMethod = SymbolExtensions.GetMethodInfo(() => AffinityKernelInjector(null!));
-        private static readonly MethodInfo _siraKernelInjectorMethod = SymbolExtensions.GetMethodInfo(() => AffinityKernelInjector(null!));
         private static readonly FieldInfo _containerField = typeof(SceneContext).GetField("_container", BindingFlags.NonPublic | BindingFlags.Instance);
 
         [HarmonyTranspiler]

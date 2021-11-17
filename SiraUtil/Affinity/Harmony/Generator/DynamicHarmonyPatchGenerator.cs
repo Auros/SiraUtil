@@ -71,7 +71,15 @@ namespace SiraUtil.Affinity.Harmony.Generator
             if (patch.ArgumentTypes is not null && patch.ArgumentTypes.Length != 0)
                 types = patch.ArgumentTypes;
 
-            MethodInfo originalMethod = AccessTools.Method(patch.DeclaringType, patch.MethodName, types);
+            MethodBase originalMethod = patch.MethodType switch
+            {
+                MethodType.Normal => AccessTools.Method(patch.DeclaringType, patch.MethodName, types),
+                MethodType.Getter => AccessTools.PropertyGetter(patch.DeclaringType, patch.MethodName),
+                MethodType.Setter => AccessTools.PropertySetter(patch.DeclaringType, patch.MethodName),
+                MethodType.Constructor => AccessTools.Constructor(patch.DeclaringType, types, false),
+                MethodType.StaticConstructor => AccessTools.Constructor(patch.DeclaringType, types, true),
+                _ => throw new NotImplementedException($"MethodType '{patch.MethodType}' is unrecognized.")
+            };
 
             // Create the delegate used to invoke the affinity instance method.
             var delegateType = CreateDelegateType(affinityMethod);
