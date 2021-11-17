@@ -47,7 +47,7 @@ namespace Zenject
                     go.name = vc.GetType().Name;
                     var rt = vc.rectTransform;
                     rt.localEulerAngles = Vector3.zero;
-                    rt.localScale = rt.anchorMax = Vector3.one;
+                    rt.anchorMax = rt.localScale = Vector3.one;
                     rt.anchorMin = rt.sizeDelta = Vector2.zero;
                 }
                 onInstantiated?.Invoke(ctx, obj);
