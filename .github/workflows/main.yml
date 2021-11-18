@@ -24,7 +24,7 @@ jobs:
         manifest: ./SiraUtil/manifest.json
         sira-server-code: ${{ secrets.SIRA_SERVER_CODE }}
     - name: Acquire Mod References
-      uses: Goobwabber/download-beatmods-deps@1.1
+      uses: Goobwabber/download-beatmods-deps@1.2
       with:
         manifest: ./SiraUtil/manifest.json
     - name: Build
