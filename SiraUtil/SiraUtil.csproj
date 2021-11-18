@@ -42,6 +42,10 @@
 		<DocumentationFile>bin\Debug\SiraUtil.xml</DocumentationFile>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>bin\Release\SiraUtil.xml</DocumentationFile>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Reference Include="0Harmony">
 			<HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
