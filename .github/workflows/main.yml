@@ -39,7 +39,7 @@ jobs:
       env:
         BUILDTEXT: Filename=${{ steps.Build.outputs.filename }}
         ASSEMBLYNAME: AssemblyName=${{ steps.Build.outputs.assemblyname }}
-    - name: Upload Artifact(s)
+    - name: Upload Artifact
       uses: actions/upload-artifact@v1
       with:
         name: SiraUtil
