@@ -31,7 +31,7 @@ jobs:
       id: Build
       env:
         FrameworkPathOverride: /usr/lib/mono/4.8-api
-      run: dotnet build --configuration Release
+      run: dotnet build SiraUtil/SiraUtil.csproj --configuration Release
     - name: Git Status
       run: git status
     - name: Echo File Name
