@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.XR;
 using VRUIControls;
 
@@ -19,10 +20,12 @@ namespace SiraUtil.Tools.FPFC
         private SimpleCameraController _simpleCameraController = null!;
 
         private readonly MainCamera _mainCamera;
+        private readonly EventSystem _eventSystem;
         private readonly IFPFCSettings _fpfcSettings;
         private readonly VRInputModule _vrInputModule;
         private readonly List<IFPFCListener> _fpfcListeners;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
+        private readonly Transform _previousEventSystemTransformParent;
 
         public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
         {
@@ -31,6 +34,9 @@ namespace SiraUtil.Tools.FPFC
             _vrInputModule = vrInputModule;
             _fpfcListeners = fpfcListeners;
             _menuControllerAccessor = menuControllerAccessor;
+
+            _eventSystem = vrInputModule.GetComponent<EventSystem>();
+            _previousEventSystemTransformParent = _eventSystem.transform.parent;
         }
 
         public async Task InitializeAsync(CancellationToken token)
@@ -83,6 +89,7 @@ namespace SiraUtil.Tools.FPFC
             _mainCamera.camera.aspect = Screen.width / (float)Screen.height;
             _mainCamera.camera.fieldOfView = _fpfcSettings.FOV;
 
+            _eventSystem.gameObject.transform.SetParent(_simpleCameraController.transform);
             _menuControllerAccessor.LeftController.transform.SetParent(_simpleCameraController.transform);
             _menuControllerAccessor.RightController.transform.SetParent(_simpleCameraController.transform);
             _menuControllerAccessor.LeftController.transform.localPosition = Vector3.zero;
@@ -102,6 +109,7 @@ namespace SiraUtil.Tools.FPFC
 
         private void DisableFPFC()
         {
+            _eventSystem.gameObject.transform.SetParent(_previousEventSystemTransformParent);
             _menuControllerAccessor.LeftController!.transform.SetParent(_menuControllerAccessor.Parent);
             _menuControllerAccessor.RightController.transform.SetParent(_menuControllerAccessor.Parent);
             _menuControllerAccessor.LeftController.enabled = true;
