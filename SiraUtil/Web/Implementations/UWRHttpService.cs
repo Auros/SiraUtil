@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -82,7 +83,7 @@ namespace SiraUtil.Web.Implementations
         public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
         {
             string newURL = url;
-            if (BaseURL is not null)
+            if (BaseURL != null)
                 newURL = Path.Combine(BaseURL, url);
             DownloadHandler? dHandler = new DownloadHandlerBuffer();
 
@@ -90,18 +91,20 @@ namespace SiraUtil.Web.Implementations
             if (method == HTTPMethod.POST && body != null)
                 method = HTTPMethod.PUT;
 
-            using UnityWebRequest request = new(newURL, method.ToString(), dHandler, null);
+            using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(Encoding.UTF8.GetBytes(body)));
             request.timeout = 60;
 
             foreach (var header in Headers)
                 request.SetRequestHeader(header.Key, header.Value);
 
-            if (withHeaders is not null)
+            if (withHeaders != null)
                 foreach (var header in withHeaders)
                     request.SetRequestHeader(header.Key, header.Value);
 
-            if (body is not null)
+            if (body != null)
+            {
                 request.SetRequestHeader("Content-Type", "application/json");
+            }
 
             // some unity bull
             if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
