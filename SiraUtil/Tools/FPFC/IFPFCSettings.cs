@@ -8,6 +8,7 @@ namespace SiraUtil.Tools.FPFC
         bool Enabled { get; }
         float MoveSensitivity { get; }
         float MouseSensitivity { get; }
+        bool Ignore { get; }
 
         event Action<IFPFCSettings> Changed;
     }

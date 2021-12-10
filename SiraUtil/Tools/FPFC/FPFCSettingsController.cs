@@ -6,11 +6,11 @@ namespace SiraUtil.Tools.FPFC
 {
     internal class FPFCSettingsController : IFPFCSettings, IInitializable, ITickable, IDisposable
     {
+        public bool Ignore => _fpfcOptions.Ignore;
         public float FOV => _fpfcOptions.CameraFOV;
         public float MoveSensitivity => _fpfcOptions.MoveSensitivity;
         public float MouseSensitivity => _fpfcOptions.MouseSensitivity;
-        public bool Enabled { get; private set; } = true;
-
+        public bool Enabled { get; private set; }
 
         public event Action<IFPFCSettings>? Changed;
         private readonly FPFCOptions _fpfcOptions;
@@ -18,6 +18,7 @@ namespace SiraUtil.Tools.FPFC
         public FPFCSettingsController(FPFCOptions fpfcOptions)
         {
             _fpfcOptions = fpfcOptions;
+            Enabled = !_fpfcOptions.Ignore;
         }
 
         public void Tick()

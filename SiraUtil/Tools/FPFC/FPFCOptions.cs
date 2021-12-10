@@ -19,6 +19,8 @@ namespace SiraUtil.Tools.FPFC
         [UseConverter(typeof(EnumConverter<KeyCode>))]
         public virtual KeyCode ToggleKeyCode { get; set; } = KeyCode.G;
 
+        public virtual bool Ignore { get; set; } = false;
+
         public void Changed()
         {
             Updated?.Invoke(this);
