@@ -6,7 +6,7 @@ namespace SiraUtil.Tools.FPFC
     {
         [AffinityPrefix]
         [AffinityPatch(typeof(FirstPersonFlyingController), nameof(FirstPersonFlyingController.Start))]
-        protected bool FPFCStart(ref FirstPersonFlyingController __instance) => false;
+        protected bool FPFCStart() => false;
 
         [AffinityPrefix]
         [AffinityPatch(typeof(FirstPersonFlyingController), nameof(FirstPersonFlyingController.OnEnable))]
