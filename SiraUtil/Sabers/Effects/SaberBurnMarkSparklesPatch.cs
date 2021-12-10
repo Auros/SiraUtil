@@ -10,7 +10,7 @@ namespace SiraUtil.Sabers.Effects
     internal class SaberBurnMarkSparklesPatch
     {
         private static readonly MethodInfo _evaluateState = SymbolExtensions.GetMethodInfo(() => CountOrDefault(null!));
-        
+
         [HarmonyTranspiler]
         [HarmonyPatch(nameof(SaberBurnMarkSparkles.OnEnable))]
         internal static IEnumerable<CodeInstruction> DynamicEnable(IEnumerable<CodeInstruction> instructions)
@@ -63,7 +63,7 @@ namespace SiraUtil.Sabers.Effects
         // Since OnEnable can be called before the burn sparkles Start, we need to check if the array are null or not. 
         private static int CountOrDefault(object[] ps)
         {
-            return ps is not null ? ps.Length : 2;
+            return ps != null ? ps.Length : 2;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿    using UnityEngine;
+﻿using UnityEngine;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -7,14 +7,14 @@ namespace SiraUtil.Tools.FPFC
     {
         private readonly CameraState _targetCameraState = new();
         private readonly CameraState _interpolatingCameraState = new();
-        
-        private float _boost = 0.1f;
+
         private readonly bool _invertY = true;
         private readonly float _positionLerpTime = 0.0f;
         private readonly float _rotationLerpTime = 0.0f;
         private readonly AnimationCurve _mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
 
         public float MouseSensitivity { get; set; } = 5f;
+        public float MoveSensitivity { get; set; } = 3f;
         public bool AllowInput { get; set; } = false;
 
         protected void Awake()
@@ -50,11 +50,6 @@ namespace SiraUtil.Tools.FPFC
             return new Vector2(Input.GetAxis("MouseX"), Input.GetAxisRaw("MouseY")) * MouseSensitivity;
         }
 
-        public float BoostFactor()
-        {
-            return Input.mouseScrollDelta.y * 0.2f;
-        }
-
         protected void Update()
         {
             if (!AllowInput)
@@ -70,14 +65,14 @@ namespace SiraUtil.Tools.FPFC
             float mouseSensitivityFactor = _mouseSensitivityCurve.Evaluate(mouseMovement.magnitude);
             holdingCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
             holdingCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
-            Vector3 translation = GetInputTranslationDirection() * Time.deltaTime * 3f;
+            Vector3 translation = GetInputTranslationDirection() * Time.deltaTime * MoveSensitivity;
 
             //_boost += BoostFactor();
-            translation *= Mathf.Pow(2.0f, _boost);
+            translation *= Mathf.Pow(2.0f, 0.1f);
             holdingCameraState.Translate(translation);
 
-            float positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / _positionLerpTime) * Time.deltaTime);
-            float rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / _rotationLerpTime) * Time.deltaTime);
+            float positionLerpPct = 1f - Mathf.Exp(Mathf.Log(1f - 0.99f) / _positionLerpTime * Time.deltaTime);
+            float rotationLerpPct = 1f - Mathf.Exp(Mathf.Log(1f - 0.99f) / _rotationLerpTime * Time.deltaTime);
 
             if (_interpolatingCameraState.AboveBounds(holdingCameraState, rotationLerpPct))
             {

@@ -10,9 +10,10 @@ namespace SiraUtil.Tools.FPFC
 {
     internal class FPFCOptions
     {
-        public Action<FPFCOptions>? Updated; 
+        public Action<FPFCOptions>? Updated;
 
         public virtual float CameraFOV { get; set; } = 100f;
+        public virtual float MoveSensitivity { get; set; } = 3f;
         public virtual float MouseSensitivity { get; set; } = 5f;
 
         [UseConverter(typeof(EnumConverter<KeyCode>))]

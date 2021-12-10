@@ -67,6 +67,7 @@ namespace SiraUtil.Tools.FPFC
                 else
                 {
                     _mainCamera.camera.fieldOfView = fpfcSettings.FOV;
+                    _simpleCameraController.MoveSensitivity = _fpfcSettings.MoveSensitivity;
                     _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
                 }
             }
@@ -79,6 +80,7 @@ namespace SiraUtil.Tools.FPFC
         private void EnableFPFC()
         {
             _simpleCameraController.AllowInput = true;
+            _simpleCameraController.MoveSensitivity = _fpfcSettings.MoveSensitivity;
             _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
             if (_lastPose.HasValue)
             {

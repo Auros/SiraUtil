@@ -7,8 +7,10 @@ namespace SiraUtil.Tools.FPFC
     internal class FPFCSettingsController : IFPFCSettings, IInitializable, ITickable, IDisposable
     {
         public float FOV => _fpfcOptions.CameraFOV;
+        public float MoveSensitivity => _fpfcOptions.MoveSensitivity;
         public float MouseSensitivity => _fpfcOptions.MouseSensitivity;
         public bool Enabled { get; private set; } = true;
+
 
         public event Action<IFPFCSettings>? Changed;
         private readonly FPFCOptions _fpfcOptions;

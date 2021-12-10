@@ -6,6 +6,7 @@ namespace SiraUtil.Tools.FPFC
     {
         float FOV { get; }
         bool Enabled { get; }
+        float MoveSensitivity { get; }
         float MouseSensitivity { get; }
 
         event Action<IFPFCSettings> Changed;
