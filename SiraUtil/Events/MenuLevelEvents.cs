@@ -27,6 +27,9 @@ namespace SiraUtil.Events
             _missionSelectionViewController = missionSelectionViewController;
         }
 
+        /// <summary>
+        /// Initialize Method
+        /// </summary>
         public void Initialize()
         {
             _levelDetailViewController.didChangeContentEvent += LevelDetailContentChanged;
@@ -34,6 +37,9 @@ namespace SiraUtil.Events
             _missionSelectionViewController.didSelectMissionLevelEvent += MissionSelected;
         }
 
+        /// <summary>
+        /// Dispose Method
+        /// </summary>
         public void Dispose()
         {
             _levelDetailViewController.didChangeContentEvent -= LevelDetailContentChanged;
@@ -41,11 +47,14 @@ namespace SiraUtil.Events
             _missionSelectionViewController.didSelectMissionLevelEvent -= MissionSelected;
         }
 
-        private void LevelDetailContentChanged(StandardLevelDetailViewController levelDetailViewController, StandardLevelDetailViewController.ContentType _)
+        private void LevelDetailContentChanged(StandardLevelDetailViewController levelDetailViewController, StandardLevelDetailViewController.ContentType contentType)
         {
-            IDifficultyBeatmap difficultyBeatmap = levelDetailViewController.selectedDifficultyBeatmap;
-            PreviewBeatmapLevelUpdated?.Invoke(difficultyBeatmap.level);
-            DifficultyBeatmapUpdated?.Invoke(difficultyBeatmap);
+            if (contentType == StandardLevelDetailViewController.ContentType.OwnedAndReady)
+            {
+                IDifficultyBeatmap difficultyBeatmap = levelDetailViewController.selectedDifficultyBeatmap;
+                PreviewBeatmapLevelUpdated?.Invoke(difficultyBeatmap.level);
+                DifficultyBeatmapUpdated?.Invoke(difficultyBeatmap);
+            }
         }
 
         private void LevelDetailDifficultyChanged(StandardLevelDetailViewController _, IDifficultyBeatmap difficultyBeatmap)
