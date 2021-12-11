@@ -1,4 +1,4 @@
-name: .NET
+name: Development Builds
 
 on:
   push:
