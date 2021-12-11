@@ -31,7 +31,6 @@ namespace SiraUtil.Submissions
             if (!(_inStandard || _inMission))
                 return;
 
-
             if (_submission.Activated)
             {
                 if (_inStandard)
