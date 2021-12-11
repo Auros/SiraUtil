@@ -9,9 +9,13 @@ namespace SiraUtil.Tools.FPFC
         public override void InstallBindings()
         {
             if (!Environment.GetCommandLineArgs().Any(a => a.ToLower() == FPFCToggle.Argument))
+            {
+                Container.Bind<IFPFCSettings>().To<NoFPFCSettings>().AsSingle();
                 return;
-
+            }
             Container.BindInterfacesTo<FPFCToggle>().AsSingle();
+            Container.BindInterfacesTo<FPFCFixDaemon>().AsSingle();
+            Container.BindInterfacesTo<MenuFPFCListener>().AsSingle();
         }
     }
 }

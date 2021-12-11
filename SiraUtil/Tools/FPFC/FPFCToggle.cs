@@ -8,10 +8,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR;
 using VRUIControls;
+using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCToggle : IAsyncInitializable, IDisposable
+    internal class FPFCToggle : IAsyncInitializable, ITickable, IDisposable
     {
         public const string Argument = "fpfc";
 
@@ -26,6 +27,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly List<IFPFCListener> _fpfcListeners;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
         private readonly Transform _previousEventSystemTransformParent;
+        private bool _didFirstFocus = false;
 
         public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
         {
@@ -37,6 +39,8 @@ namespace SiraUtil.Tools.FPFC
 
             _eventSystem = vrInputModule.GetComponent<EventSystem>();
             _previousEventSystemTransformParent = _eventSystem.transform.parent;
+
+            _didFirstFocus = Application.isFocused;
         }
 
         public async Task InitializeAsync(CancellationToken token)
@@ -102,8 +106,11 @@ namespace SiraUtil.Tools.FPFC
             _menuControllerAccessor.RightController.enabled = false;
 
             _vrInputModule.useMouseForPressInput = true;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            if (_didFirstFocus)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
 
             foreach (var listener in _fpfcListeners)
                 listener.Enabled();
@@ -139,6 +146,16 @@ namespace SiraUtil.Tools.FPFC
         public void Dispose()
         {
             _fpfcSettings.Changed -= FPFCSettings_Changed;
+        }
+
+        public void Tick()
+        {
+            if (!_didFirstFocus && Application.isFocused && _fpfcSettings.Enabled)
+            {
+                _didFirstFocus = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 }
