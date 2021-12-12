@@ -101,9 +101,9 @@ namespace SiraUtil.Logging
         /// Quickly perform a null check on an object and log the results.
         /// </summary>
         /// <param name="obj">The object to null check.</param>
-        public void Null(object obj)
+        public void Null(object? obj)
         {
-            Logger?.Info(obj != null ? $"{obj.GetType().Name} is not null." : $"Object is null");
+            Logger?.Info(obj != null ? $"{obj.GetType().Name} is not null." : "Object is null");
         }
     }
 }
