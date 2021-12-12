@@ -28,7 +28,7 @@ namespace SiraUtil.Logging
         }
 
         /// <summary>
-        /// Log with a <see cref="Logger.Level"/> of info.
+        /// Log with a <see cref="IPA.Logging.Logger.Level"/> of info.
         /// </summary>
         /// <param name="obj">The object to log.</param>
         public void Info(object obj)
@@ -37,7 +37,7 @@ namespace SiraUtil.Logging
         }
 
         /// <summary>
-        /// Log with a <see cref="Logger.Level"/> of warning.
+        /// Log with a <see cref="IPA.Logging.Logger.Level"/> of warning.
         /// </summary>
         /// <param name="obj">The object to log.</param>
         public void Warn(object obj)
@@ -46,7 +46,7 @@ namespace SiraUtil.Logging
         }
 
         /// <summary>
-        /// Log with a <see cref="Logger.Level"/> of error.
+        /// Log with a <see cref="IPA.Logging.Logger.Level"/> of error.
         /// </summary>
         /// <param name="obj">The object to log.</param>
         public void Error(object obj)
@@ -55,7 +55,7 @@ namespace SiraUtil.Logging
         }
 
         /// <summary>
-        /// Log with a <see cref="Logger.Level"/> of trace.
+        /// Log with a <see cref="IPA.Logging.Logger.Level"/> of trace.
         /// </summary>
         /// <param name="obj">The object to log.</param>
         public void Trace(object obj)
@@ -64,7 +64,7 @@ namespace SiraUtil.Logging
         }
 
         /// <summary>
-        /// Log with a <see cref="Logger.Level"/> of notice.
+        /// Log with a <see cref="IPA.Logging.Logger.Level"/> of notice.
         /// </summary>
         /// <param name="obj">The object to log.</param>
         public void Notice(object obj)
@@ -73,7 +73,7 @@ namespace SiraUtil.Logging
         }
 
         /// <summary>
-        /// Log with a <see cref="Logger.Level"/> of critical.
+        /// Log with a <see cref="IPA.Logging.Logger.Level"/> of critical.
         /// </summary>
         /// <param name="obj">The object to log.</param>
         public void Critical(object obj)
@@ -82,7 +82,7 @@ namespace SiraUtil.Logging
         }
 
         /// <summary>
-        /// Log with a <see cref="Logger.Level"/> of debug.
+        /// Log with a <see cref="IPA.Logging.Logger.Level"/> of debug.
         /// </summary>
         /// <param name="obj">The object to log.</param>
         public void Debug(object obj)
