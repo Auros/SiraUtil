@@ -19,7 +19,7 @@ namespace SiraUtil.Converters
         {
             return value is Text t
                 ? new FileInfo(t.Value)
-                : throw new System.ArgumentNullException("Value is not a valid IO Path", nameof(value));
+                : throw new System.ArgumentNullException(nameof(value), "Value is not a valid IO Path");
         }
 
         /// <summary>
