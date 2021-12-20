@@ -6,7 +6,11 @@ namespace SiraUtil.Tools.FPFC
     {
         public float FOV => default;
 
-        public bool Enabled => default;
+        public bool Enabled
+        {
+            get => default;
+            set => _ = false;
+        }
 
         public float MoveSensitivity => default;
 
