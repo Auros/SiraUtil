@@ -1,6 +1,7 @@
 ﻿using SiraUtil.Logging;
 using SiraUtil.Services.Events;
 using SiraUtil.Submissions;
+using SiraUtil.Tools.FPFC;
 using SiraUtil.Web;
 using SiraUtil.Web.SiraSync;
 using SiraUtil.Web.SiraSync.Zenject;
@@ -30,6 +31,8 @@ namespace SiraUtil.Installers
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesTo<FPFCFixDaemon>().AsSingle();
+
             // Install all UBinders
             foreach (var zenjector in _zenjectManager.ActiveZenjectors)
                 if (zenjector.UBinderType is not null && zenjector.UBinderValue is not null)

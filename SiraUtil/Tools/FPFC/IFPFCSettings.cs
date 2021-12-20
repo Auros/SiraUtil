@@ -15,7 +15,7 @@ namespace SiraUtil.Tools.FPFC
         /// <summary>
         /// Whether or not the controller is enabled.
         /// </summary>
-        bool Enabled { get; }
+        bool Enabled { get; set; }
 
         /// <summary>
         /// The arbituary move sensitivity.

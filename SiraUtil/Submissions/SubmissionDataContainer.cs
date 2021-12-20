@@ -34,12 +34,13 @@ namespace SiraUtil.Submissions
                 PluginMetadata? scoreSaber = PluginManager.GetPluginFromId("ScoreSaber");
                 if (scoreSaber is not null && scoreSaber.PluginType is not null)
                 {
-                    Type? type = scoreSaber.Assembly.GetType(scoreSaber.PluginType.Name);
-                    if (type is not null)
+                    Type? type = scoreSaber.Assembly.GetType(scoreSaber.PluginType.FullName);
+                    if (type != null)
                         _ssssdi = type.GetProperty("ScoreSubmission");
                 }
             }
-            if (_ssssdi is not null)
+
+            if (_ssssdi != null)
                 _ssssdi.SetValue(null, value);
         }
     }

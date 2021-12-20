@@ -14,7 +14,6 @@ namespace SiraUtil.Tools.FPFC
                 return;
             }
             Container.BindInterfacesTo<FPFCToggle>().AsSingle();
-            Container.BindInterfacesTo<FPFCFixDaemon>().AsSingle();
             Container.BindInterfacesTo<MenuFPFCListener>().AsSingle();
         }
     }
