@@ -65,7 +65,7 @@ namespace SiraUtil
         public void OnDisable()
         {
             _zenjectManager.Disable();
-            _harmony.UnpatchAll(ID);
+            _harmony.UnpatchSelf();
 
 #if DEBUG
             DynamicHarmonyPatchGenerator.Save();

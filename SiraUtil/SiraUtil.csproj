@@ -47,6 +47,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\logo.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Reference Include="0Harmony">
 			<HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
 		</Reference>
@@ -173,6 +177,7 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="manifest.json" />
+		<EmbeddedResource Include="Resources\logo.png" />
 	</ItemGroup>
 
 	<ItemGroup>

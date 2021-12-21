@@ -15,7 +15,7 @@ namespace SiraUtil.Converters
         /// <param name="value"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        public override Version FromValue(Value value, object parent)
+        public override Version FromValue(Value? value, object parent)
         {
             return value is Text t
                 ? new Version(t.Value)
@@ -28,8 +28,10 @@ namespace SiraUtil.Converters
         /// <param name="obj"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        public override Value ToValue(Version obj, object parent)
+        public override Value? ToValue(Version? obj, object parent)
         {
+            if (obj is null)
+                return Value.Null();
             return Value.Text(obj.ToString());
         }
     }
