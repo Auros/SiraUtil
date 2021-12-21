@@ -31,19 +31,17 @@ namespace SiraUtil.Submissions
             if (!(_inStandard || _inMission))
                 return;
 
-            if (_inMission)
-            {
-                __result.SetField("levelEndStateType", LevelCompletionResults.LevelEndStateType.Failed);
-                __result.SetField("levelEndAction", LevelCompletionResults.LevelEndAction.None);
-            }
-
             if (_submission.Activated)
             {
                 if (_inStandard)
                 {
                     _submissionDataContainer.SSS(!_submission.Activated);
                 }
-
+                else if (_inMission)
+                {
+                    __result.SetField("levelEndStateType", LevelCompletionResults.LevelEndStateType.Failed);
+                    __result.SetField("levelEndAction", LevelCompletionResults.LevelEndAction.None);
+                }
                 __result = new SiraLevelCompletionResults(__result, !_submission.Activated);
             }
         }

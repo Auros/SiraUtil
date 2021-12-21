@@ -27,7 +27,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
         private readonly Dictionary<MethodInfo, (MethodBase, FieldInfo)> _patchCache = new();
 
         public DynamicHarmonyPatchGenerator(PluginMetadata pluginMetadata)
-        { 
+        {
             _id = $"com.{(string.IsNullOrEmpty(pluginMetadata.Author) ? "unknown" : pluginMetadata.Author)}.{pluginMetadata.Name}.affinity".ToLower();
             _name = pluginMetadata.Assembly.GetName().Name + "_(Generated)";
             _harmony = new HarmonyLib.Harmony(_id);
@@ -73,7 +73,8 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
             MethodBase originalMethod = patch.MethodType switch
             {
-                MethodType.Normal => AccessTools.Method(patch.DeclaringType, patch.MethodName, types),
+                // For a normal method, it'll first check the delcared type for the method. If it can't find it, it'll look to the types in the bases,
+                MethodType.Normal => AccessTools.DeclaredMethod(patch.DeclaringType, patch.MethodName, types) ?? AccessTools.Method(patch.DeclaringType, patch.MethodName, types),
                 MethodType.Getter => AccessTools.PropertyGetter(patch.DeclaringType, patch.MethodName),
                 MethodType.Setter => AccessTools.PropertySetter(patch.DeclaringType, patch.MethodName),
                 MethodType.Constructor => AccessTools.Constructor(patch.DeclaringType, types, false),
@@ -101,7 +102,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
             for (int i = 0; i < affinityMethod.GetParameters().Length; i++)
                 ilg.Emit(OpCodes.Ldarg_S, i);
             ilg.Emit(OpCodes.Callvirt, delegateType.GetMethod(invokeName));
-            
+
             if (affinityMethod.ReturnType == typeof(void))
                 ilg.Emit(OpCodes.Nop);
             ilg.Emit(OpCodes.Ret);

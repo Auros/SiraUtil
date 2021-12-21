@@ -23,7 +23,7 @@ namespace SiraUtil.Objects
         /// <param name="chain">Whether to chain this redecoration with others. Every redecoration is now aggregated.
         /// The chain will start if the highest priority object has chaining enabled and will stop once a registration
         /// in the aggregate has chaining disabled.</param>
-        internal RedecoratorRegistration(string contract, Type prefabType, Type containerType, int priority = 0, bool chain = true)
+        public RedecoratorRegistration(string contract, Type prefabType, Type containerType, int priority = 0, bool chain = true)
         {
             Chain = chain;
             Priority = priority;
@@ -32,6 +32,11 @@ namespace SiraUtil.Objects
             ContainerType = containerType;
         }
 
-        internal abstract object Redecorate(object value);
+        /// <summary>
+        /// Redecorates an object.
+        /// </summary>
+        /// <param name="value">The object to redecorate.</param>
+        /// <returns>The redecorated object.</returns>
+        protected internal abstract object Redecorate(object value);
     }
 }
