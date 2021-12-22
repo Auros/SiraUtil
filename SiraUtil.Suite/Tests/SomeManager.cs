@@ -5,7 +5,7 @@ using Zenject;
 
 namespace SiraUtil.Suite.Tests
 {
-    [Bind(Location.Menu)]
+    [Bind(Location.StandardPlayer)]
     public class SomeManager : ISomeManager, IInitializable
     {
         [Inject]
