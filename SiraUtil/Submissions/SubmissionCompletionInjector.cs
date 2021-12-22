@@ -1,10 +1,5 @@
-﻿using IPA.Loader;
-using IPA.Utilities;
-using Mono.Cecil;
+﻿using IPA.Utilities;
 using SiraUtil.Affinity;
-using System;
-using System.Linq;
-using System.Reflection;
 using Zenject;
 
 namespace SiraUtil.Submissions
@@ -22,7 +17,7 @@ namespace SiraUtil.Submissions
             _submissionDataContainer = submissionDataContainer;
             _inMission = missionGameplaySceneSetupData != null;
             _inStandard = standardGameplaySceneSetupData != null;
-            _submissionDataContainer.SSS(false);
+            _submissionDataContainer.SSS(true);
         }
 
         [AffinityPatch(typeof(PrepareLevelCompletionResults), nameof(PrepareLevelCompletionResults.FillLevelCompletionResults))]
@@ -35,7 +30,7 @@ namespace SiraUtil.Submissions
             {
                 if (_inStandard)
                 {
-                    _submissionDataContainer.SSS(!_submission.Activated);
+                    _submissionDataContainer.SSS(false);
                 }
                 else if (_inMission)
                 {
