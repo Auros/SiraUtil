@@ -115,7 +115,7 @@ namespace SiraUtil.Zenject
             if (location.HasFlag(Location.CampaignPlayer))
                 installerTypes.Add(typeof(MissionGameplayInstaller));
             if (location.HasFlag(Location.MultiPlayer))
-                installerTypes.Add(typeof(MultiplayerLocalPlayerInstaller));
+                installerTypes.Add(typeof(MultiplayerLocalActivePlayerInstaller));
             if (location.HasFlag(Location.Tutorial))
                 installerTypes.Add(typeof(TutorialInstaller));
             if (location.HasFlag(Location.GameCore))
