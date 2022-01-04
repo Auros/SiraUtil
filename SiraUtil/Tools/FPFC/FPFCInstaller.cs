@@ -15,6 +15,7 @@ namespace SiraUtil.Tools.FPFC
             }
             Container.BindInterfacesTo<FPFCToggle>().AsSingle();
             Container.BindInterfacesTo<MenuFPFCListener>().AsSingle();
+            Container.BindInterfacesTo<SmoothCameraListener>().AsSingle();
         }
     }
 }
