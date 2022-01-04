@@ -101,6 +101,12 @@ namespace SiraUtil.Zenject
             _installInstructions.Add(new InstallInstruction(typeof(TBaseInstaller), installCallback));
         }
 
+        internal void Install<T, TContext>(string sceneName, params object[] parameters) where T : IInstaller where TContext : Context
+        {
+            IInstallFilter filter = new ContextedNamedSceneInstallFilter<TContext>(sceneName);
+            _installSets.Add(new InstallSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
+        } 
+
         // This converts the Location to an actual installer type usable by the Zenjector system.
         // These need to be updated if some game update drastically changes, renames, or deletes one of these installers.
         private IEnumerable<Type> InstallerForLocation(Location location)

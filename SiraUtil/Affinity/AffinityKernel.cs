@@ -3,7 +3,7 @@ using Zenject;
 
 namespace SiraUtil.Affinity
 {
-    internal class AffinityKernel : IInitializable, ILateDisposable
+    internal class AffinityKernel : ILateDisposable
     {
         private readonly AffinityManager _affinityManager;
         private readonly IAffinityPatcher _affinityPatcher = new HarmonyAffinityPatcher();
@@ -11,10 +11,7 @@ namespace SiraUtil.Affinity
         public AffinityKernel([InjectLocal] AffinityManager affinityManager)
         {
             _affinityManager = affinityManager;
-        }
 
-        public void Initialize()
-        {
             foreach (var affinity in _affinityManager.Affinities)
                 _affinityPatcher.Patch(affinity);
         }

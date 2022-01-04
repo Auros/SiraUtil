@@ -10,6 +10,7 @@ using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
 using System.Reflection;
+using Zenject;
 using Conf = IPA.Config.Config;
 using IPALogger = IPA.Logging.Logger;
 
@@ -48,6 +49,9 @@ namespace SiraUtil
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
             zenjector.Install<SiraGameCoreInstaller>(Location.GameCore);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
+
+            zenjector.Install<SiraCreditsInstaller, GameObjectContext>("Credits");
+            zenjector.Install<FPFCInstaller, GameObjectContext>("Credits");
 
             zenjector.UseMetadataBinder<Plugin>();
             zenjector.UseLogger(logger);

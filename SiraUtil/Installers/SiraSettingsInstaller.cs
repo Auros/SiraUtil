@@ -21,7 +21,7 @@ namespace SiraUtil.Installers
             Container.BindInterfacesTo<FPFCSettingsController>().AsSingle();
 
             if (Environment.GetCommandLineArgs().Any(a => a.ToLower() == FPFCToggle.Argument))
-                Container.BindInterfacesTo<OriginalFPFCDisabler>().AsSingle().NonLazy();
+                Container.BindInterfacesTo<FPFCAffinityDaemon>().AsSingle().NonLazy();
         }
     }
 }
