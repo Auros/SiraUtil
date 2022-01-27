@@ -5,6 +5,7 @@ namespace SiraUtil.Affinity
     /// <summary>
     /// Have an affinity patch run before other patches.
     /// </summary>
+    [JetBrains.Annotations.MeansImplicitUse]
     [AttributeUsage(AttributeTargets.Method)]
     public class AffinityBeforeAttribute : Attribute
     {

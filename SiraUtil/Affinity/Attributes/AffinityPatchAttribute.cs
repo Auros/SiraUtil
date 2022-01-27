@@ -7,6 +7,7 @@ namespace SiraUtil.Affinity
     /// <summary>
     /// An attribute for defining Affinity patch data.
     /// </summary>
+    [JetBrains.Annotations.MeansImplicitUse]
     [AttributeUsage(AttributeTargets.Method)]
     public class AffinityPatchAttribute : Attribute
     {

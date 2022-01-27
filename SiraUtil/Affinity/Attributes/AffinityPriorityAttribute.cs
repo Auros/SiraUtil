@@ -5,6 +5,7 @@ namespace SiraUtil.Affinity
     /// <summary>
     /// Assign an affinity patch a priority.
     /// </summary>
+    [JetBrains.Annotations.MeansImplicitUse]
     [AttributeUsage(AttributeTargets.Method)]
     public class AffinityPriorityAttribute : Attribute
     {
