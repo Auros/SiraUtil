@@ -55,7 +55,10 @@ namespace SiraUtil.Objects
         private static UnityEngine.Object PrefabInitializing(UnityEngine.Object originalPrefab, DiContainer container, string fieldName, Type mainType)
         {
             IEnumerable<RedecoratorRegistration> registrations = container.AncestorContainers[0].Resolve<List<RedecoratorRegistration>>().Where(rr => rr.ContainerType == mainType && rr.Contract == fieldName).OrderByDescending(rr => rr.Priority);
-
+            foreach (var uh in container.AncestorContainers[0].Resolve<List<RedecoratorRegistration>>())
+            {
+                Plugin.Log.Info($"{mainType.Name} =? {uh.ContainerType}, {fieldName} =? {uh.Contract}");
+            }
             if (!registrations.Any())
                 return originalPrefab;
 
@@ -75,7 +78,7 @@ namespace SiraUtil.Objects
 
             return clone;
         }
-    
+
         internal static void Redecorate(ref List<CodeInstruction> codes)
         {
             OpCode? containerOpcode = null!;
@@ -83,7 +86,7 @@ namespace SiraUtil.Objects
 
             for (int i = 0; i < codes.Count - 1; i++)
             {
-                if (codes[i].opcode == OpCodes.Ldfld && codes[i + 1].Calls(_newPrefabMethod))
+                if (codes[i].opcode == OpCodes.Ldfld && (codes[i + 1].Calls(_newPrefabMethod) || (codes.Count > i + 4 && codes[i + 4].Calls(_newPrefabMethod)))) // uhhh for teranary operators :PogOh:
                 {
                     if (containerOpcode is null && containerOperand is null)
                     {

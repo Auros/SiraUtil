@@ -30,6 +30,8 @@ namespace SiraUtil.Objects
             Contract = contract;
             PrefabType = prefabType;
             ContainerType = containerType;
+
+            Plugin.Log.Info($"Installing redecorator with contract {contract} on {containerType}");
         }
 
         /// <summary>

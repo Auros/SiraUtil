@@ -1,8 +1,10 @@
 ﻿using IPA;
 using SiraUtil.Extras;
 using SiraUtil.Objects.Beatmap;
+using SiraUtil.Sabers;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
+using SiraUtil.Suite.Tests.Sabers;
 using SiraUtil.Zenject;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
@@ -40,8 +42,8 @@ namespace SiraUtil.Suite
 
             zenjector.Install(Location.Player | Location.Tutorial, Container =>
             {
-                //Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
-                //Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
+                Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
+                Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
 
                 Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
             });
