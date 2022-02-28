@@ -14,8 +14,8 @@ namespace SiraUtil.Submissions
             }
         }
 
-        [HarmonyPatch(typeof(ArcadeFlowCoordinator), "ProcessLevelCompletionResultsAfterLevelDidFinish")]
-        internal class Arcade
+        [HarmonyPatch(typeof(PartyFreePlayFlowCoordinator), "ProcessLevelCompletionResultsAfterLevelDidFinish")]
+        internal class Party
         {
             [HarmonyPrefix]
             internal static void DynamicFinish(LevelCompletionResults levelCompletionResults, ref bool practice)

@@ -69,7 +69,7 @@ namespace SiraUtil.Sabers
 
         internal void Update()
         {
-            if (Saber != null && Saber.gameObject.activeInHierarchy && !Saber.disableCutting)
+            if (Saber != null && Saber.gameObject.activeInHierarchy && Saber.enabled)
             {
                 Saber saber = Saber;
                 Transform topTransform = SaberBladeTopTransform(ref saber);
