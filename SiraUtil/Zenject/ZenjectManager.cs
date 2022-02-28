@@ -60,7 +60,6 @@ namespace SiraUtil.Zenject
             if (!InitialSceneConstructionRegistered)
                 return;
 
-            Plugin.Log.Notice($"Installing: {mainContext.GetType().Name} ({mainContext.name})");
             IEnumerable<MonoBehaviour>? injectableList = null;
             bool isDecorator = mainContext is SceneDecoratorContext;
 
