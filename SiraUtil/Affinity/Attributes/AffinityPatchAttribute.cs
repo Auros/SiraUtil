@@ -8,7 +8,7 @@ namespace SiraUtil.Affinity
     /// An attribute for defining Affinity patch data.
     /// </summary>
     [JetBrains.Annotations.MeansImplicitUse]
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class AffinityPatchAttribute : Attribute
     {
         internal Type DeclaringType { get; }
@@ -30,7 +30,7 @@ namespace SiraUtil.Affinity
             MethodName = methodName;
             DeclaringType = declaringType;
             MethodType = (MethodType)(int)methodType;
-            
+
             if (argumentVariations is not null)
             {
                 ArgumentVariations = argumentVariations.Select(aat => (ArgumentType)(int)aat).ToArray();

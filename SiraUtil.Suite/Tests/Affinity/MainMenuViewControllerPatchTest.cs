@@ -13,11 +13,11 @@ namespace SiraUtil.Suite.Tests.Affinity
             _siraLog = siraLog;
         }
 
+        [AffinityPatch(typeof(PlatformLeaderboardViewController), nameof(PlatformLeaderboardViewController.SetData))]
         [AffinityPatch(typeof(MainMenuViewController), nameof(MainMenuViewController.HandleMenuButton))]
         protected void MenuDown()
         {
-            _siraLog.Info($"Menu button was pressed. {AppDomain.CurrentDomain.GetAssemblies().Length}");
-            GC.Collect();
+            _siraLog.Info($"Something happened@");
         }
     }
 }

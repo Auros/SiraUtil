@@ -1,5 +1,6 @@
 ﻿using IPA.Loader;
 using SiraUtil.Affinity.Harmony.Generator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -40,30 +41,32 @@ namespace SiraUtil.Affinity.Harmony
 
             foreach (var affinityMethod in affinityMethods)
             {
-                AffinityPatchAttribute attribute = affinityMethod.GetCustomAttribute<AffinityPatchAttribute>();
-                AffinityPatchType patchType = AffinityPatchType.Postfix;
+                foreach (var attribute in affinityMethod.GetCustomAttributes<AffinityPatchAttribute>())
+                {
+                    AffinityPatchType patchType = AffinityPatchType.Postfix;
 
-                if (affinityMethod.GetCustomAttribute<AffinityPrefixAttribute>() is not null)
-                    patchType = AffinityPatchType.Prefix;
-                else if (affinityMethod.GetCustomAttribute<AffinityTranspilerAttribute>() is not null)
-                    patchType = AffinityPatchType.Transpiler;
-                else if (affinityMethod.GetCustomAttribute<AffinityFinalizerAttribute>() is not null)
-                    patchType = AffinityPatchType.Finalizer;
+                    if (affinityMethod.GetCustomAttribute<AffinityPrefixAttribute>() is not null)
+                        patchType = AffinityPatchType.Prefix;
+                    else if (affinityMethod.GetCustomAttribute<AffinityTranspilerAttribute>() is not null)
+                        patchType = AffinityPatchType.Transpiler;
+                    else if (affinityMethod.GetCustomAttribute<AffinityFinalizerAttribute>() is not null)
+                        patchType = AffinityPatchType.Finalizer;
 
-                string[]? after = null;
-                string[]? before = null;
-                int priority = -1;
+                    string[]? after = null;
+                    string[]? before = null;
+                    int priority = -1;
 
-                AffinityAfterAttribute? afterAttribute = affinityMethod.GetCustomAttribute<AffinityAfterAttribute>();
-                AffinityBeforeAttribute? beforeAttribute = affinityMethod.GetCustomAttribute<AffinityBeforeAttribute>();
-                AffinityPriorityAttribute? priorityAttribute = affinityMethod.GetCustomAttribute<AffinityPriorityAttribute>();
+                    AffinityAfterAttribute? afterAttribute = affinityMethod.GetCustomAttribute<AffinityAfterAttribute>();
+                    AffinityBeforeAttribute? beforeAttribute = affinityMethod.GetCustomAttribute<AffinityBeforeAttribute>();
+                    AffinityPriorityAttribute? priorityAttribute = affinityMethod.GetCustomAttribute<AffinityPriorityAttribute>();
 
-                after = afterAttribute?.After;
-                before = beforeAttribute?.Before;
-                priority = priorityAttribute?.Priority ?? -1;
+                    after = afterAttribute?.After;
+                    before = beforeAttribute?.Before;
+                    priority = priorityAttribute?.Priority ?? -1;
 
-                MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
-                methods.Add(contract);
+                    MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
+                    methods.Add(contract);
+                }
             }
         }
 
