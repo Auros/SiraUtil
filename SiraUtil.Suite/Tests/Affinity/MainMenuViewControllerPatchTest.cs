@@ -1,6 +1,5 @@
 ﻿using SiraUtil.Affinity;
 using SiraUtil.Logging;
-using System;
 
 namespace SiraUtil.Suite.Tests.Affinity
 {
@@ -18,6 +17,12 @@ namespace SiraUtil.Suite.Tests.Affinity
         protected void MenuDown()
         {
             _siraLog.Info($"Something happened!");
+        }
+
+        [AffinityPatch(typeof(MirroredNoteController<INoteMirrorable>), "Mirror")]
+        private void BlahBlahBlah(MirroredNoteController<INoteMirrorable> __instance)
+        {
+
         }
     }
 }

@@ -64,8 +64,8 @@ namespace SiraUtil.Affinity.Harmony.Generator
             const string invokeName = "Invoke";
             const string delegateName = "_delegate";
 
-            string typeName = $"{patch.DeclaringType}_{patch.MethodName}_{affinityMethod.Name}_{Guid.NewGuid().ToString().Replace("-", "_")}";
-            TypeBuilder typeBuilder = _moduleBuilder.DefineType(GetUniqueName($"{_name}.{patch.DeclaringType}_{patch.MethodName}_{affinityMethod.Name}"), TypeAttributes.Public);
+            string typeName = $"_{patch.MethodName}_{affinityMethod.Name}_{Guid.NewGuid().ToString().Replace("-", "_")}";
+            TypeBuilder typeBuilder = _moduleBuilder.DefineType(typeName, TypeAttributes.Public);
 
             Type[]? types = null;
             if (patch.ArgumentTypes is not null && patch.ArgumentTypes.Length != 0)
@@ -110,6 +110,8 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
             // Construct the type and assign the delegate.
             Type finalizedType = typeBuilder.CreateType();
+
+
             MethodInfo constructedPatchMethod = finalizedType.GetMethod(patchName);
             FieldInfo delegateField = finalizedType.GetField(delegateName);
             delegateField.SetValue(null, Delegate.CreateDelegate(delegateType, affinity, affinityMethod));
