@@ -33,11 +33,14 @@ namespace SiraUtil.Affinity.Harmony
                 _patchCache.Add(affinity, methods);
             }
 
-            MethodInfo[] affinityMethods = affinity.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
+            var affinityType = affinity.GetType();
+            MethodInfo[] affinityMethods = affinityType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
             if (affinityMethods.Length == 0)
             {
                 Plugin.Log.Warn($"'{affinity.GetType().Name}' doesn't have any affinity patches! The IAffinity interface is unecessary.");
             }
+
+            var classAffinityPatch = affinityType.GetCustomAttribute<AffinityPatchAttribute>();
 
             foreach (var affinityMethod in affinityMethods)
             {
@@ -64,7 +67,12 @@ namespace SiraUtil.Affinity.Harmony
                     before = beforeAttribute?.Before;
                     priority = priorityAttribute?.Priority ?? -1;
 
-                    MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
+                    if (!attribute.Complete && classAffinityPatch is null)
+                    {
+                        throw new Exception("No patches?? Could not find completed [AffinityPatch(...)] attribute for this method. Make sure that the method or the class that it inherits has a non-parameterless AffinityPatch attribute.");
+                    }
+
+                    MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute.Complete ? attribute : classAffinityPatch, priority, before, after);
                     methods.Add(contract);
                 }
             }
