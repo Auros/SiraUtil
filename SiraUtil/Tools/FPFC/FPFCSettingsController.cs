@@ -22,6 +22,8 @@ namespace SiraUtil.Tools.FPFC
             }
         }
 
+        public bool LockViewOnDisable => _fpfcOptions.LockViewOnDisable;
+
         public event Action<IFPFCSettings>? Changed;
         private readonly FPFCOptions _fpfcOptions;
 

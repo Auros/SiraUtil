@@ -149,7 +149,7 @@ namespace SiraUtil.Tools.FPFC
 
             _simpleCameraController.AllowInput = false;
 
-            if (XRSettings.enabled)
+            if (XRSettings.enabled && !_fpfcSettings.LockViewOnDisable)
             {
                 _lastPose = new Pose(_simpleCameraController.transform.position, _simpleCameraController.transform.rotation);
                 _simpleCameraController.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);

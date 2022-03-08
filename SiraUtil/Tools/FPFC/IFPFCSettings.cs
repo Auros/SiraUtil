@@ -33,6 +33,11 @@ namespace SiraUtil.Tools.FPFC
         bool Ignore { get; }
 
         /// <summary>
+        /// Doesn't restore the camera back to the user when they toggle out of FPFC. Requested by Mawntee.
+        /// </summary>
+        bool LockViewOnDisable { get; }
+
+        /// <summary>
         /// Called when the object is changed.
         /// </summary>
         event Action<IFPFCSettings> Changed;
