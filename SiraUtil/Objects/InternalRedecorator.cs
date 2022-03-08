@@ -75,7 +75,7 @@ namespace SiraUtil.Objects
 
             return clone;
         }
-    
+
         internal static void Redecorate(ref List<CodeInstruction> codes)
         {
             OpCode? containerOpcode = null!;
@@ -83,7 +83,7 @@ namespace SiraUtil.Objects
 
             for (int i = 0; i < codes.Count - 1; i++)
             {
-                if (codes[i].opcode == OpCodes.Ldfld && codes[i + 1].Calls(_newPrefabMethod))
+                if (codes[i].opcode == OpCodes.Ldfld && (codes[i + 1].Calls(_newPrefabMethod) || (codes.Count > i + 4 && codes[i + 4].Calls(_newPrefabMethod)))) // uhhh for teranary operators :PogOh:
                 {
                     if (containerOpcode is null && containerOperand is null)
                     {

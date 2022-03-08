@@ -1,5 +1,6 @@
 ﻿using IPA.Loader;
 using SiraUtil.Affinity.Harmony.Generator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -32,38 +33,48 @@ namespace SiraUtil.Affinity.Harmony
                 _patchCache.Add(affinity, methods);
             }
 
-            MethodInfo[] affinityMethods = affinity.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
+            var affinityType = affinity.GetType();
+            MethodInfo[] affinityMethods = affinityType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
             if (affinityMethods.Length == 0)
             {
                 Plugin.Log.Warn($"'{affinity.GetType().Name}' doesn't have any affinity patches! The IAffinity interface is unecessary.");
             }
 
+            var classAffinityPatch = affinityType.GetCustomAttribute<AffinityPatchAttribute>();
+
             foreach (var affinityMethod in affinityMethods)
             {
-                AffinityPatchAttribute attribute = affinityMethod.GetCustomAttribute<AffinityPatchAttribute>();
-                AffinityPatchType patchType = AffinityPatchType.Postfix;
+                foreach (var attribute in affinityMethod.GetCustomAttributes<AffinityPatchAttribute>())
+                {
+                    AffinityPatchType patchType = AffinityPatchType.Postfix;
 
-                if (affinityMethod.GetCustomAttribute<AffinityPrefixAttribute>() is not null)
-                    patchType = AffinityPatchType.Prefix;
-                else if (affinityMethod.GetCustomAttribute<AffinityTranspilerAttribute>() is not null)
-                    patchType = AffinityPatchType.Transpiler;
-                else if (affinityMethod.GetCustomAttribute<AffinityFinalizerAttribute>() is not null)
-                    patchType = AffinityPatchType.Finalizer;
+                    if (affinityMethod.GetCustomAttribute<AffinityPrefixAttribute>() is not null)
+                        patchType = AffinityPatchType.Prefix;
+                    else if (affinityMethod.GetCustomAttribute<AffinityTranspilerAttribute>() is not null)
+                        patchType = AffinityPatchType.Transpiler;
+                    else if (affinityMethod.GetCustomAttribute<AffinityFinalizerAttribute>() is not null)
+                        patchType = AffinityPatchType.Finalizer;
 
-                string[]? after = null;
-                string[]? before = null;
-                int priority = -1;
+                    string[]? after = null;
+                    string[]? before = null;
+                    int priority = -1;
 
-                AffinityAfterAttribute? afterAttribute = affinityMethod.GetCustomAttribute<AffinityAfterAttribute>();
-                AffinityBeforeAttribute? beforeAttribute = affinityMethod.GetCustomAttribute<AffinityBeforeAttribute>();
-                AffinityPriorityAttribute? priorityAttribute = affinityMethod.GetCustomAttribute<AffinityPriorityAttribute>();
+                    AffinityAfterAttribute? afterAttribute = affinityMethod.GetCustomAttribute<AffinityAfterAttribute>();
+                    AffinityBeforeAttribute? beforeAttribute = affinityMethod.GetCustomAttribute<AffinityBeforeAttribute>();
+                    AffinityPriorityAttribute? priorityAttribute = affinityMethod.GetCustomAttribute<AffinityPriorityAttribute>();
 
-                after = afterAttribute?.After;
-                before = beforeAttribute?.Before;
-                priority = priorityAttribute?.Priority ?? -1;
+                    after = afterAttribute?.After;
+                    before = beforeAttribute?.Before;
+                    priority = priorityAttribute?.Priority ?? -1;
 
-                MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute, priority, before, after);
-                methods.Add(contract);
+                    if (!attribute.Complete && classAffinityPatch is null)
+                    {
+                        throw new Exception("No patches?? Could not find completed [AffinityPatch(...)] attribute for this method. Make sure that the method or the class that it inherits has a non-parameterless AffinityPatch attribute.");
+                    }
+
+                    MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute.Complete ? attribute : classAffinityPatch, priority, before, after);
+                    methods.Add(contract);
+                }
             }
         }
 

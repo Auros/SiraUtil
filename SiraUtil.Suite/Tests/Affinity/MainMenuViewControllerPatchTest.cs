@@ -1,9 +1,9 @@
 ﻿using SiraUtil.Affinity;
 using SiraUtil.Logging;
-using System;
 
 namespace SiraUtil.Suite.Tests.Affinity
 {
+    [AffinityPatch(typeof(PlatformLeaderboardViewController), nameof(PlatformLeaderboardViewController.SetData))]
     internal class MainMenuViewControllerPatchTest : IAffinity
     {
         private readonly SiraLog _siraLog;
@@ -13,11 +13,16 @@ namespace SiraUtil.Suite.Tests.Affinity
             _siraLog = siraLog;
         }
 
-        [AffinityPatch(typeof(MainMenuViewController), nameof(MainMenuViewController.HandleMenuButton))]
+        [AffinityPrefix, AffinityPatch]
         protected void MenuDown()
         {
-            _siraLog.Info($"Menu button was pressed. {AppDomain.CurrentDomain.GetAssemblies().Length}");
-            GC.Collect();
+            _siraLog.Info($"Something happened!");
+        }
+
+        [AffinityPatch(typeof(MirroredNoteController<INoteMirrorable>), "Mirror")]
+        private void BlahBlahBlah(MirroredNoteController<INoteMirrorable> __instance)
+        {
+
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using IPA;
-using SiraUtil.Extras;
-using SiraUtil.Objects.Beatmap;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
 using SiraUtil.Zenject;
@@ -9,7 +7,7 @@ using IPALogger = IPA.Logging.Logger;
 
 namespace SiraUtil.Suite
 {
-    [Plugin(RuntimeOptions.DynamicInit)]
+    [Plugin(RuntimeOptions.DynamicInit), NoEnableDisable]
     public class Plugin
     {
         internal static IPALogger Log { get; set; } = null!;
@@ -42,12 +40,12 @@ namespace SiraUtil.Suite
             {
                 //Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
                 //Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
-
-                Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
+                //
+                //Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
             });
             zenjector.Install(Location.ConnectedPlayer, Container =>
             {
-                Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
+                //Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
             });
 
             //zenjector.Install(Location.StandardPlayer | Location.CampaignPlayer, Container => Container.BindInterfacesTo<DisableSubmission>().AsSingle());
@@ -75,18 +73,6 @@ namespace SiraUtil.Suite
             g.transform.localScale *= 3f;
 
             return before;
-        }
-
-        [OnEnable]
-        public void OnEnable()
-        {
-
-        }
-
-        [OnDisable]
-        public void OnDisable()
-        {
-
         }
     }
 }

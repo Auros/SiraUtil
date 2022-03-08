@@ -55,8 +55,11 @@ namespace SiraUtil.Tools.FPFC
             if (!AllowInput)
                 return;
 
+            float positionLerpPct = 1f - Mathf.Exp(Mathf.Log(1f - 0.99f) / _positionLerpTime * Time.deltaTime);
+            float rotationLerpPct = 1f - Mathf.Exp(Mathf.Log(1f - 0.99f) / _rotationLerpTime * Time.deltaTime);
+
             CameraState holdingCameraState = new();
-            holdingCameraState.Read(_targetCameraState);
+            holdingCameraState.Read(_targetCameraState, rotationLerpPct);
 
             Vector2 mouseMovement = GetInputLookRotation() * 0.05f;
             if (_invertY)
@@ -71,15 +74,7 @@ namespace SiraUtil.Tools.FPFC
             translation *= Mathf.Pow(2.0f, 0.1f);
             holdingCameraState.Translate(translation);
 
-            float positionLerpPct = 1f - Mathf.Exp(Mathf.Log(1f - 0.99f) / _positionLerpTime * Time.deltaTime);
-            float rotationLerpPct = 1f - Mathf.Exp(Mathf.Log(1f - 0.99f) / _rotationLerpTime * Time.deltaTime);
-
-            if (_interpolatingCameraState.AboveBounds(holdingCameraState, rotationLerpPct))
-            {
-                return;
-            }
-
-            _targetCameraState.Read(holdingCameraState);
+            _targetCameraState.Read(holdingCameraState, rotationLerpPct);
             _interpolatingCameraState.LerpTowards(_targetCameraState, positionLerpPct, rotationLerpPct);
             _interpolatingCameraState.UpdateTransform(transform);
         }
@@ -115,18 +110,20 @@ namespace SiraUtil.Tools.FPFC
             public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)
             {
                 yaw = Mathf.Lerp(yaw, target.yaw, rotationLerpPct);
-                pitch = Mathf.Lerp(pitch, target.pitch, rotationLerpPct);
-                roll = Mathf.Lerp(roll, target.roll, rotationLerpPct);
+                if (!WillPitchExceedBounds(target, rotationLerpPct))
+                {
+                    pitch = Mathf.Lerp(pitch, target.pitch, rotationLerpPct);
+                    roll = Mathf.Lerp(roll, target.roll, rotationLerpPct);
+                }
 
                 x = Mathf.Lerp(x, target.x, positionLerpPct);
                 y = Mathf.Lerp(y, target.y, positionLerpPct);
                 z = Mathf.Lerp(z, target.z, positionLerpPct);
             }
 
-            public bool AboveBounds(CameraState target, float rotationLerpPct)
+            public bool WillPitchExceedBounds(CameraState target, float rotationLerpPct)
             {
-                pitch = Mathf.Lerp(pitch, target.pitch, rotationLerpPct);
-                return Mathf.Abs(pitch) > 90f;
+                return Mathf.Abs(Mathf.Lerp(pitch, target.pitch, rotationLerpPct)) > 90f;
             }
 
             public void UpdateTransform(Transform t)
@@ -135,14 +132,16 @@ namespace SiraUtil.Tools.FPFC
                 t.position = new Vector3(x, y, z);
             }
 
-            public void Read(CameraState newState)
+            public void Read(CameraState newState, float rotationLerpPct)
             {
                 x = newState.x;
                 y = newState.y;
                 z = newState.z;
                 yaw = newState.yaw;
                 roll = newState.roll;
-                pitch = newState.pitch;
+
+                if (!WillPitchExceedBounds(newState, rotationLerpPct))
+                    pitch = newState.pitch;
             }
         }
     }

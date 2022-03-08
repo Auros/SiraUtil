@@ -3,10 +3,10 @@
   "id": "SiraUtil",
   "name": "SiraUtil",
   "author": "Auros",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "icon": "SiraUtil.Resources.logo.png",
   "description": "A powerful utility mod which expands the capabilities and provides more tools to Beat Saber modders.",
-  "gameVersion": "1.19.0",
+  "gameVersion": "1.20.0",
   "dependsOn": {
     "BSIPA": "^4.2.1"
   },

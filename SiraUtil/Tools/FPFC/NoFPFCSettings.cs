@@ -18,6 +18,8 @@ namespace SiraUtil.Tools.FPFC
 
         public bool Ignore => default;
 
+        public bool LockViewOnDisable => false;
+
         public event Action<IFPFCSettings>? Changed;
 
         public void CallEvent()

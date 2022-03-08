@@ -21,6 +21,8 @@ namespace SiraUtil.Tools.FPFC
 
         public virtual bool Ignore { get; set; } = false;
 
+        public virtual bool LockViewOnDisable { get; set; }
+
         public void Changed()
         {
             Updated?.Invoke(this);
