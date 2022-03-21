@@ -128,8 +128,8 @@ namespace SiraUtil.Tools.FPFC
 
             public void UpdateTransform(Transform t)
             {
-                t.eulerAngles = new Vector3(pitch, yaw, roll);
-                t.position = new Vector3(x, y, z);
+                t.localEulerAngles = new Vector3(pitch, yaw, roll);
+                t.localPosition = new Vector3(x, y, z);
             }
 
             public void Read(CameraState newState, float rotationLerpPct)

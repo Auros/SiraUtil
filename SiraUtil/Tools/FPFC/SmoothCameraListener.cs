@@ -1,5 +1,4 @@
-﻿using IPA.Utilities;
-using SiraUtil.Affinity;
+﻿using SiraUtil.Affinity;
 
 namespace SiraUtil.Tools.FPFC
 {
