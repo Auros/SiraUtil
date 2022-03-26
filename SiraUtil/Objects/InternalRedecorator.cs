@@ -52,6 +52,18 @@ namespace SiraUtil.Objects
             }
         }
 
+        [HarmonyPatch(typeof(MultiplayerLobbyInstaller), nameof(MultiplayerLobbyInstaller.InstallBindings))]
+        internal class MultiplayerLobby
+        {
+            [HarmonyTranspiler]
+            protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
+            {
+                List<CodeInstruction> codes = instructions.ToList();
+                InternalRedecorator.Redecorate(ref codes);
+                return codes;
+            }
+        }
+
         private static UnityEngine.Object PrefabInitializing(UnityEngine.Object originalPrefab, DiContainer container, string fieldName, Type mainType)
         {
             IEnumerable<RedecoratorRegistration> registrations = container.AncestorContainers[0].Resolve<List<RedecoratorRegistration>>().Where(rr => rr.ContainerType == mainType && rr.Contract == fieldName).OrderByDescending(rr => rr.Priority);
@@ -83,7 +95,7 @@ namespace SiraUtil.Objects
 
             for (int i = 0; i < codes.Count - 1; i++)
             {
-                if (codes[i].opcode == OpCodes.Ldfld && (codes[i + 1].Calls(_newPrefabMethod) || (codes.Count > i + 4 && codes[i + 4].Calls(_newPrefabMethod)))) // uhhh for teranary operators :PogOh:
+                if (codes[i].opcode == OpCodes.Ldfld && (codes[i + 1].Calls(_newPrefabMethod) || (codes[i + 1].opcode == OpCodes.Callvirt && ((MethodInfo)codes[i + 1].operand).Name == "ByNewContextPrefab") || (codes.Count > i + 4 && codes[i + 4].Calls(_newPrefabMethod)))) // uhhh for teranary operators :PogOh:
                 {
                     if (containerOpcode is null && containerOperand is null)
                     {
