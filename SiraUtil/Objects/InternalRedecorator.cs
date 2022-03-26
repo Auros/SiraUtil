@@ -11,6 +11,8 @@ namespace SiraUtil.Objects
 {
     internal class InternalRedecorator
     {
+        private const string NewContextPrefabMethodName = "ByNewPrefabContext";
+
         private static readonly MethodInfo _getType = typeof(object).GetMethod(nameof(object.GetType));
         private static readonly MethodInfo _prefabInitializingField = SymbolExtensions.GetMethodInfo(() => PrefabInitializing(null!, null!, null!, null!));
         private static readonly MethodInfo _newPrefabMethod = typeof(FactoryFromBinderBase).GetMethod(nameof(FactoryFromBinderBase.FromComponentInNewPrefab));
@@ -95,7 +97,7 @@ namespace SiraUtil.Objects
 
             for (int i = 0; i < codes.Count - 1; i++)
             {
-                if (codes[i].opcode == OpCodes.Ldfld && (codes[i + 1].Calls(_newPrefabMethod) || (codes[i + 1].opcode == OpCodes.Callvirt && ((MethodInfo)codes[i + 1].operand).Name == "ByNewContextPrefab") || (codes.Count > i + 4 && codes[i + 4].Calls(_newPrefabMethod)))) // uhhh for teranary operators :PogOh:
+                if (codes[i].opcode == OpCodes.Ldfld && (codes[i + 1].Calls(_newPrefabMethod) || (codes[i + 1].opcode == OpCodes.Callvirt && ((MethodInfo)codes[i + 1].operand).Name == NewContextPrefabMethodName) || (codes.Count > i + 4 && codes[i + 4].Calls(_newPrefabMethod)))) // uhhh for teranary operators :PogOh:
                 {
                     if (containerOpcode is null && containerOperand is null)
                     {
