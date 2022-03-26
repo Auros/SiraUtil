@@ -12,6 +12,7 @@ namespace SiraUtil.Objects
     internal class InternalRedecorator
     {
         private const string NewContextPrefabMethodName = "ByNewContextPrefab";
+        private const string ContainerFieldName = "_container";
         private static readonly MethodInfo _getType = typeof(object).GetMethod(nameof(object.GetType));
         private static readonly MethodInfo _prefabInitializingField = SymbolExtensions.GetMethodInfo(() => PrefabInitializing(null!, null!, null!, null!));
         private static readonly MethodInfo _newPrefabMethod = typeof(FactoryFromBinderBase).GetMethod(nameof(FactoryFromBinderBase.FromComponentInNewPrefab));
@@ -65,6 +66,18 @@ namespace SiraUtil.Objects
             }
         }
 
+        [HarmonyPatch(typeof(MultiplayerPlayersManager), nameof(MultiplayerPlayersManager.BindPlayerFactories))]
+        internal class MultiplayerPlayerFactories
+        {
+            [HarmonyTranspiler]
+            protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
+            {
+                List<CodeInstruction> codes = instructions.ToList();
+                InternalRedecorator.Redecorate(ref codes);
+                return codes;
+            }
+        }
+
         private static UnityEngine.Object PrefabInitializing(UnityEngine.Object originalPrefab, DiContainer container, string fieldName, Type mainType)
         {
             IEnumerable<RedecoratorRegistration> registrations = container.AncestorContainers[0].Resolve<List<RedecoratorRegistration>>().Where(rr => rr.ContainerType == mainType && rr.Contract == fieldName).OrderByDescending(rr => rr.Priority);
@@ -106,6 +119,13 @@ namespace SiraUtil.Objects
                             if (codes[c].opcode == OpCodes.Call)
                             {
                                 containerOpcode = OpCodes.Callvirt;
+                                containerOperand = codes[c].operand;
+                                break;
+                            }
+
+                            if (codes[c].opcode == OpCodes.Ldfld && ((FieldInfo)codes[c].operand).Name == ContainerFieldName)
+                            {
+                                containerOpcode = OpCodes.Ldfld;
                                 containerOperand = codes[c].operand;
                                 break;
                             }
