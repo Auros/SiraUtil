@@ -6,7 +6,7 @@ using Zenject;
 
 namespace SiraUtil.Suite.Tests.SubmissionTest
 {
-    [Bind(Location.StandardPlayer)]
+    [Bind(Location.StandardPlayer | Location.MultiPlayer)]
     internal class DisableSubmission : IInitializable
     {
         private readonly SiraLog _siraLog;

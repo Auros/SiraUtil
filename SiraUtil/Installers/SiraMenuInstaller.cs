@@ -13,6 +13,7 @@ namespace SiraUtil.Installers
 
             // Score Submission
             Container.Bind<SiraSubmissionViewController>().FromNewComponentAsViewController().AsSingle();
+            Container.BindInterfacesTo<MultiplayerDisplayer>().AsSingle();
             Container.BindInterfacesTo<StandardDisplayer>().AsSingle();
             Container.BindInterfacesTo<MissionDisplayer>().AsSingle();
         }

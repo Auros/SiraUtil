@@ -3,7 +3,7 @@ using Zenject;
 
 namespace SiraUtil.Installers
 {
-    internal class SiraStandardCampaignInstaller : Installer
+    internal class SiraStandardCampaignMultiplayerInstaller : Installer
     {
         public override void InstallBindings()
         {
