@@ -34,7 +34,7 @@ namespace SiraUtil.Zenject
         CampaignPlayer = 8,
 
         /// <summary>
-        /// Installs your bindings onto the local multiplayer player. The current backing installer is <see cref="MultiplayerLocalPlayerInstaller" />
+        /// Installs your bindings onto the local active multi player. Think of this as when the local user is actively playing the song. The current backing installer is <see cref="MultiplayerLocalActivePlayerInstaller" />
         /// </summary>
         MultiPlayer = 16,
 
@@ -70,6 +70,16 @@ namespace SiraUtil.Zenject
         /// <summary>
         /// Installs your bindings onto every connected player in multiplayer. The current backing installer is <see cref="MultiplayerConnectedPlayerInstaller" />
         /// </summary>
-        ConnectedPlayer = 256
+        ConnectedPlayer = 256,
+
+        /// <summary>
+        /// Installs your bindings onto the local active player in multiplayer. This is the current local player, no matter if they're spectating or not. The current backing installer is <see cref="MultiplayerLocalPlayerInstaller" />
+        /// </summary>
+        AlwaysMultiPlayer = 512,
+
+        /// <summary>
+        /// Installs your bindings onto the local inactive player in multiplayer. Think of this as when the local user is spectating in multiplayer. The current backing installer is <see cref="MultiplayerLocalInactivePlayerInstaller" />
+        /// </summary>
+        InactiveMultiPlayer = 1024,
     }
 }

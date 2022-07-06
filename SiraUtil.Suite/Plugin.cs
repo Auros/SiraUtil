@@ -47,8 +47,6 @@ namespace SiraUtil.Suite
             {
                 //Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
             });
-
-            //zenjector.Install(Location.StandardPlayer | Location.CampaignPlayer, Container => Container.BindInterfacesTo<DisableSubmission>().AsSingle());
         }
 
         private GameNoteController Create2(GameNoteController before)
