@@ -14,7 +14,8 @@ namespace SiraUtil.Tools.FPFC
 {
     internal class FPFCToggle : IAsyncInitializable, ITickable, IDisposable
     {
-        public const string Argument = "fpfc";
+        public const string EnableArgument = "fpfc";
+        public const string DisableArgument = "--no-sirautil-fpfc";
 
         private Pose? _lastPose = new();
         private readonly FPFCState _initialState = new();
