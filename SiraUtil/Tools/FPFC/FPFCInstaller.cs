@@ -4,7 +4,7 @@ using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCInstaller : Installer
+    internal class SiraFullFPFCInstaller : Installer
     {
         public override void InstallBindings()
         {

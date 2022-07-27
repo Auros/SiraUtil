@@ -1,6 +1,5 @@
 ﻿using SiraUtil.Sabers;
 using SiraUtil.Sabers.Effects;
-using SiraUtil.Services.Controllers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Tools.SongControl;
 using Zenject;
@@ -12,8 +11,6 @@ namespace SiraUtil.Installers
     {
         public override void InstallBindings()
         {
-            // FPFC stuff
-            Container.BindInterfacesAndSelfTo<GameMenuControllerAccessor>().AsSingle();
             Container.BindInterfacesTo<GameTransformFPFCListener>().AsSingle();
 
             // SongControl stuff
