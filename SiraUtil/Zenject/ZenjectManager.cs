@@ -90,7 +90,7 @@ namespace SiraUtil.Zenject
                     {
                         if (set.installFilter.ShouldInstall(binding))
                         {
-                            Plugin.Log.Debug($"Installing: {set.installerType.Name} onto {binding.installerType}");
+                            Plugin.Log.Debug($"Installing: {set.installerType.FullName} onto {binding.installerType}");
                             IInstructor? instructor = _instructorManager.InstructorForSet(set);
                             if (instructor is null)
                             {

@@ -20,7 +20,8 @@ namespace SiraUtil.Installers
             Container.BindInstance(_config.SongControl).AsSingle();
             Container.BindInterfacesTo<FPFCSettingsController>().AsSingle();
 
-            if (Environment.GetCommandLineArgs().Any(a => a.ToLower() == FPFCToggle.Argument))
+            var args = Environment.GetCommandLineArgs();
+            if (args.Any(a => a.Equals(FPFCToggle.EnableArgument, StringComparison.OrdinalIgnoreCase)) && !args.Any(a => a.Equals(FPFCToggle.DisableArgument, StringComparison.OrdinalIgnoreCase)))
                 Container.BindInterfacesTo<FPFCAffinityDaemon>().AsSingle().NonLazy();
         }
     }

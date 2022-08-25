@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IPA.Utilities.Async;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,57 +82,62 @@ namespace SiraUtil.Web.Implementations
 
         public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
         {
-            string newURL = url;
-            if (BaseURL != null)
-                newURL = Path.Combine(BaseURL, url);
-            DownloadHandler? dHandler = new DownloadHandlerBuffer();
+            // I HATE UNITY I HATE UNITY I HATE UNITY
+            var response = await await UnityMainThreadTaskScheduler.Factory.StartNew(async () =>
+            {
+                string newURL = url;
+                if (BaseURL != null)
+                    newURL = Path.Combine(BaseURL, url);
+                DownloadHandler? dHandler = new DownloadHandlerBuffer();
 
-            HTTPMethod originalMethod = method;
-            if (method == HTTPMethod.POST && body != null)
-                method = HTTPMethod.PUT;
+                HTTPMethod originalMethod = method;
+                if (method == HTTPMethod.POST && body != null)
+                    method = HTTPMethod.PUT;
 
-            using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(Encoding.UTF8.GetBytes(body)));
-            request.timeout = 60;
+                using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(Encoding.UTF8.GetBytes(body)));
+                request.timeout = 60;
 
-            foreach (var header in Headers)
-                request.SetRequestHeader(header.Key, header.Value);
-
-            if (withHeaders != null)
-                foreach (var header in withHeaders)
+                foreach (var header in Headers)
                     request.SetRequestHeader(header.Key, header.Value);
 
-            if (body != null)
-            {
-                request.SetRequestHeader("Content-Type", "application/json");
-            }
+                if (withHeaders != null)
+                    foreach (var header in withHeaders)
+                        request.SetRequestHeader(header.Key, header.Value);
 
-            // some unity bull
-            if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
-                request.method = originalMethod.ToString();
-
-            float _lastProgress = -1f;
-            AsyncOperation asyncOp = request.SendWebRequest();
-            while (!asyncOp.isDone)
-            {
-                if (cancellationToken.HasValue && cancellationToken.Value.IsCancellationRequested)
+                if (body != null)
                 {
-                    request.Abort();
-                    break;
+                    request.SetRequestHeader("Content-Type", "application/json");
                 }
-                if (downloadProgress is not null && dHandler is not null)
+
+                // some unity bull
+                if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
+                    request.method = originalMethod.ToString();
+
+                float _lastProgress = -1f;
+                AsyncOperation asyncOp = request.SendWebRequest();
+                while (!asyncOp.isDone)
                 {
-                    float currentProgress = asyncOp.progress;
-                    if (_lastProgress != currentProgress)
+                    if (cancellationToken.HasValue && cancellationToken.Value.IsCancellationRequested)
                     {
-                        downloadProgress.Report(currentProgress);
-                        _lastProgress = currentProgress;
+                        request.Abort();
+                        break;
                     }
+                    if (downloadProgress is not null && dHandler is not null)
+                    {
+                        float currentProgress = asyncOp.progress;
+                        if (_lastProgress != currentProgress)
+                        {
+                            downloadProgress.Report(currentProgress);
+                            _lastProgress = currentProgress;
+                        }
+                    }
+                    await Task.Delay(10);
                 }
-                await Task.Delay(10);
-            }
-            downloadProgress?.Report(1f);
-            bool successful = request.isDone && !request.isHttpError && !request.isNetworkError;
-            return new UnityWebRequestHttpResponse(request, successful);
+                downloadProgress?.Report(1f);
+                bool successful = request.isDone && !request.isHttpError && !request.isNetworkError;
+                return new UnityWebRequestHttpResponse(request, successful);
+            });
+            return response;
         }
     }
 }

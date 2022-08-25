@@ -4,11 +4,12 @@ using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCInstaller : Installer
+    internal class SiraFullFPFCInstaller : Installer
     {
         public override void InstallBindings()
         {
-            if (!Environment.GetCommandLineArgs().Any(a => a.ToLower() == FPFCToggle.Argument))
+            var args = Environment.GetCommandLineArgs();
+            if (!args.Any(a => a.Equals(FPFCToggle.EnableArgument, StringComparison.OrdinalIgnoreCase)) || args.Any(a => a.Equals(FPFCToggle.DisableArgument, StringComparison.OrdinalIgnoreCase)))
             {
                 Container.Bind<IFPFCSettings>().To<NoFPFCSettings>().AsSingle();
                 return;

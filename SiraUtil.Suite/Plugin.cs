@@ -16,7 +16,6 @@ namespace SiraUtil.Suite
         public Plugin(IPALogger logger, Zenjector zenjector)
         {
             Log = logger;
-
             zenjector.UseAutoBinder();
             zenjector.Install<GenericCustomInstaller>(Location.Menu);
             zenjector.Install<MonoCustomInstaller>(Location.Tutorial);
@@ -69,7 +68,7 @@ namespace SiraUtil.Suite
             g.transform.SetParent(before.transform.GetChild(0));
             g.transform.localPosition = new Vector3(0f, 0f, 0);
             g.transform.localScale *= 3f;
-
+            
             return before;
         }
     }
