@@ -7,7 +7,7 @@ namespace SiraUtil.Zenject.Internal.Instructors
     {
         private readonly IInstructor _monoInstructor = new MonoInstructor();
         private readonly IInstructor _typedInstructor = new TypedInstructor();
-        private readonly IInstructor _parameterizedInstructor = new ParamertizedInstructor();
+        private readonly IInstructor _parameterizedInstructor = new ParameterizedInstructor();
 
         public IInstructor? InstructorForSet(InstallSet installSet)
         {

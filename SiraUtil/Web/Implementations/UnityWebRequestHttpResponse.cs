@@ -30,7 +30,7 @@ namespace SiraUtil.Web.Implementations
 
             try
             {
-                return JsonConvert.DeserializeObject<ErrorBody>(body).Error;
+                return JsonConvert.DeserializeObject<ErrorBody>(body)!.Error;
             }
             catch
             {
