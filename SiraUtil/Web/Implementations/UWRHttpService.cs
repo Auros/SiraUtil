@@ -82,6 +82,17 @@ namespace SiraUtil.Web.Implementations
 
         public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
         {
+            if (body != null)
+            {
+                if (withHeaders == null)
+                    withHeaders = new Dictionary<string, string>();
+                withHeaders.Add("Content-Type", "application/json");
+            }
+            return await SendRawAsync(method, url, Encoding.UTF8.GetBytes(body), withHeaders, downloadProgress, cancellationToken);
+        }
+
+        public async Task<IHttpResponse> SendRawAsync(HTTPMethod method, string url, byte[]? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
+        {
             // I HATE UNITY I HATE UNITY I HATE UNITY
             var response = await await UnityMainThreadTaskScheduler.Factory.StartNew(async () =>
             {
@@ -94,7 +105,7 @@ namespace SiraUtil.Web.Implementations
                 if (method == HTTPMethod.POST && body != null)
                     method = HTTPMethod.PUT;
 
-                using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(Encoding.UTF8.GetBytes(body)));
+                using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(body));
                 request.timeout = 60;
 
                 foreach (var header in Headers)
@@ -103,11 +114,6 @@ namespace SiraUtil.Web.Implementations
                 if (withHeaders != null)
                     foreach (var header in withHeaders)
                         request.SetRequestHeader(header.Key, header.Value);
-
-                if (body != null)
-                {
-                    request.SetRequestHeader("Content-Type", "application/json");
-                }
 
                 // some unity bull
                 if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
