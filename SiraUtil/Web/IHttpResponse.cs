@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace SiraUtil.Web
@@ -17,6 +18,11 @@ namespace SiraUtil.Web
         /// Whether or not the reuqest was successful or not.
         /// </summary>
         bool Successful { get; }
+
+        /// <summary>
+        /// The headers of the response.
+        /// </summary>
+        Dictionary<string, string> Headers { get; }
 
         /// <summary>
         /// Read the body as a stream.
