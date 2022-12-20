@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,14 @@ namespace SiraUtil.Web.Implementations
         public int Code { get; }
         public byte[] Bytes { get; }
         public bool Successful { get; }
+        public Dictionary<string, string> Headers { get; }
 
         public UnityWebRequestHttpResponse(UnityWebRequest unityWebRequest, bool successful)
         {
             Successful = successful;
             Code = (int)unityWebRequest.responseCode;
             Bytes = unityWebRequest.downloadHandler.data;
+            Headers = unityWebRequest.GetResponseHeaders();
         }
 
         public async Task<string?> Error()
