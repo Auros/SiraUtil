@@ -172,13 +172,13 @@ namespace SiraUtil.Sabers
 
         [AffinityPrefix]
         [AffinityPatch(typeof(SaberModelController), nameof(SaberModelController.Init))]
-        private void PreInit(ref SaberModelController __instance, Transform parent, Saber saber)
+        private bool PreInit(ref SaberModelController __instance, Transform parent, Saber saber)
         {
             var runner = __instance.GetComponent<IPreSaberModelInit>();
             if (runner == null)
-                return;
+                return true;
 
-            runner.PreInit(parent, saber);
+            return runner.PreInit(parent, saber);
         }
 
 

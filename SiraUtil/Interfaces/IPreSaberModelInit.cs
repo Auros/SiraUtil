@@ -12,6 +12,7 @@ namespace SiraUtil.Interfaces
         /// </summary>
         /// <param name="parent">The parent of the saber model.</param>
         /// <param name="saber">The saber component associated with the current model.</param>
-        void PreInit(Transform parent, Saber saber);
+        /// <returns>Do you want the original Init to run?</returns>
+        bool PreInit(Transform parent, Saber saber);
     }
 }
