@@ -6,17 +6,27 @@ using Zenject;
 
 namespace SiraUtil.Sabers.Effects
 {
-    internal class SiraSaberClashChecker : SaberClashChecker
+    internal interface ISiraClashChecker
+    {
+        event Action<Saber, Saber>? NewSabersClashed;
+        
+        bool ExtraSabersDetected { get; }
+
+        bool AreSabersClashing(ref bool sabersAreClashing, ref Vector3 localClashingPoint, ref int prevGetFrameNum, out Vector3 clashingPoint);
+    }
+
+    internal class SiraSaberClashChecker : SaberClashChecker, ISiraClashChecker
     {
         private Saber? _lastSaberA;
         private Saber? _lastSaberB;
-        private bool _extraSabersDetected;
         private readonly HashSet<Saber> _sabers = new();
         public event Action<Saber, Saber>? NewSabersClashed;
 
         protected readonly DiContainer _container;
         protected readonly SaberManager _saberManager;
         protected readonly SiraSaberFactory _siraSaberFactory;
+
+        public bool ExtraSabersDetected { get; private set; }
 
         public SiraSaberClashChecker(DiContainer container, SaberManager saberManager, SiraSaberFactory siraSaberFactory)
         {
@@ -30,7 +40,7 @@ namespace SiraUtil.Sabers.Effects
 
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
-            _extraSabersDetected = true;
+            ExtraSabersDetected = true;
             _sabers.Add(siraSaber.Saber);
         }
 
@@ -39,28 +49,19 @@ namespace SiraUtil.Sabers.Effects
             _siraSaberFactory.SaberCreated -= SiraSaberFactory_SaberCreated;
         }
 
-        /// <summary>
-        /// Checks if any of the registered sabers are clashing.
-        /// </summary>
-        /// <param name="clashingPoint">The point that the sabers are clashing at.</param>
-        /// <returns>Are any sabers clashing?</returns>
-        public override bool AreSabersClashing(out Vector3 clashingPoint)
+        public bool AreSabersClashing(ref bool sabersAreClashing, ref Vector3 localClashingPoint, ref int prevGetFrameNum, out Vector3 clashingPoint)
         {
-            if (!_extraSabersDetected)
-            {
-                return base.AreSabersClashing(out clashingPoint);
-            }
             if (_leftSaber.movementData.lastAddedData.time < 0.1f)
             {
-                clashingPoint = _clashingPoint;
+                clashingPoint = localClashingPoint;
                 return false;
             }
-            if (_prevGetFrameNum == Time.frameCount)
+            if (prevGetFrameNum == Time.frameCount)
             {
-                clashingPoint = _clashingPoint;
-                return _sabersAreClashing;
+                clashingPoint = localClashingPoint;
+                return sabersAreClashing;
             }
-            _prevGetFrameNum = Time.frameCount;
+            prevGetFrameNum = Time.frameCount;
             for (int i = 0; i < _sabers.Count; i++)
             {
                 for (int h = 0; h < _sabers.Count; h++)
@@ -86,22 +87,22 @@ namespace SiraUtil.Sabers.Effects
                                 _lastSaberB = saberB;
                                 NewSabersClashed?.Invoke(_lastSaberA, _lastSaberB);
                             }
-                            _clashingPoint = clashingPoint2;
-                            clashingPoint = _clashingPoint;
-                            _sabersAreClashing = true;
-                            return _sabersAreClashing;
+                            localClashingPoint = clashingPoint2;
+                            clashingPoint = localClashingPoint;
+                            sabersAreClashing = true;
+                            return sabersAreClashing;
                         }
                         else
                         {
                             _lastSaberA = null;
                             _lastSaberB = null;
-                            _sabersAreClashing = false;
+                            sabersAreClashing = false;
                         }
                     }
                 }
             }
-            clashingPoint = _clashingPoint;
-            return _sabersAreClashing;
+            clashingPoint = localClashingPoint;
+            return sabersAreClashing;
         }
     }
 }

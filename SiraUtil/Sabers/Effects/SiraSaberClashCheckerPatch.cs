@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using UnityEngine;
 using Zenject;
 
 namespace SiraUtil.Sabers.Effects
@@ -37,6 +38,22 @@ namespace SiraUtil.Sabers.Effects
                 return codes.AsEnumerable();
             }
 
+        }
+
+        [HarmonyPatch(typeof(SaberClashChecker), nameof(SaberClashChecker.AreSabersClashing))]
+        private class DefaultOverride
+        {
+            [HarmonyPrefix]
+            public static bool OverrideDefault(ref SaberClashChecker __instance, ref bool ____sabersAreClashing, ref Vector3 ____clashingPoint, ref int ____prevGetFrameNum, ref bool __result, out Vector3 clashingPoint)
+            {
+                if (__instance is not ISiraClashChecker customClashChecker || !customClashChecker.ExtraSabersDetected)
+                {
+                    clashingPoint = Vector3.zero;
+                    return true;
+                }
+                __result = customClashChecker.AreSabersClashing(ref ____sabersAreClashing, ref ____clashingPoint, ref ____prevGetFrameNum, out clashingPoint);
+                return false;
+            }
         }
 
         internal static void Upgrade(ref List<CodeInstruction> codes)

@@ -1,6 +1,7 @@
 ﻿using IPA.Utilities;
 using SiraUtil.Affinity;
 using SiraUtil.Extras;
+using SiraUtil.Interfaces;
 using SiraUtil.Logging;
 using System;
 using System.Collections.Generic;
@@ -167,6 +168,29 @@ namespace SiraUtil.Sabers
                 return;
 
             ____saberModelControllerPrefab = NewModel(____saber.saberType);
+        }
+
+        [AffinityPrefix]
+        [AffinityPatch(typeof(SaberModelController), nameof(SaberModelController.Init))]
+        private void PreInit(ref SaberModelController __instance, Transform parent, Saber saber)
+        {
+            var runner = __instance.GetComponent<IPreSaberModelInit>();
+            if (runner == null)
+                return;
+
+            runner.PreInit(parent, saber);
+        }
+
+
+        [AffinityPostfix]
+        [AffinityPatch(typeof(SaberModelController), nameof(SaberModelController.Init))]
+        private void PostInit(ref SaberModelController __instance, Transform parent, Saber saber)
+        {
+            var runner = __instance.GetComponent<IPostSaberModelInit>();
+            if (runner == null)
+                return;
+
+            runner.PostInit(parent, saber);
         }
     }
 }
