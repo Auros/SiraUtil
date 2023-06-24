@@ -32,6 +32,7 @@ namespace SiraUtil.Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<FPFCFixDaemon>().AsSingle();
+            Container.BindInterfacesTo<InputSpoofFPFCListener>().AsSingle();
 
             // Install all UBinders
             foreach (var zenjector in _zenjectManager.ActiveZenjectors)

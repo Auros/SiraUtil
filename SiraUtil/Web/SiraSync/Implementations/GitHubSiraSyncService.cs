@@ -64,7 +64,7 @@ namespace SiraUtil.Web.SiraSync.Implementations
             Release[] releases;
             try
             {
-                releases = JsonConvert.DeserializeObject<Release[]>(await response.ReadAsStringAsync());
+                releases = JsonConvert.DeserializeObject<Release[]>(await response.ReadAsStringAsync())!;
             }
             catch (Exception e)
             {

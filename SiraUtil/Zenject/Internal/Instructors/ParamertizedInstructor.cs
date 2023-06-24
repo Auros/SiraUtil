@@ -4,7 +4,7 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal.Instructors
 {
-    internal class ParamertizedInstructor : IInstructor
+    internal class ParameterizedInstructor : IInstructor
     {
         public void Install(InstallSet installSet, ContextBinding contextBinding)
         {

@@ -140,7 +140,7 @@ namespace SiraUtil.Web.Implementations
                     await Task.Delay(10);
                 }
                 downloadProgress?.Report(1f);
-                bool successful = request.isDone && !request.isHttpError && !request.isNetworkError;
+                bool successful = request.isDone && request.result == UnityWebRequest.Result.Success;
                 return new UnityWebRequestHttpResponse(request, successful);
             });
             return response;

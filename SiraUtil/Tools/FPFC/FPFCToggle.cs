@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SpatialTracking;
 using UnityEngine.XR;
 using VRUIControls;
 using Zenject;
@@ -119,13 +120,20 @@ namespace SiraUtil.Tools.FPFC
                 _menuControllerAccessor.RightController.enabled = false;
             }
 
-            if (_vrInputModule != null)
-                _vrInputModule.useMouseForPressInput = true;
+            //if (_vrInputModule != null)
+            //    _vrInputModule.useMouseForPressInput = true;
 
             if (_didFirstFocus)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+            }
+
+            if (_mainCamera != null)
+            {
+                var poseDriver = _mainCamera.GetComponent<TrackedPoseDriver>();
+                if (poseDriver != null)
+                    poseDriver.enabled = false;
             }
 
             foreach (var listener in _fpfcListeners)
@@ -145,8 +153,8 @@ namespace SiraUtil.Tools.FPFC
                 _menuControllerAccessor.RightController.enabled = true;
             }
 
-            if (_vrInputModule != null)
-                _vrInputModule.useMouseForPressInput = false;
+            //if (_vrInputModule != null)
+            //    _vrInputModule.useMouseForPressInput = false;
 
             _simpleCameraController.AllowInput = false;
 
@@ -161,6 +169,13 @@ namespace SiraUtil.Tools.FPFC
                     _mainCamera.camera.fieldOfView = _initialState.CameraFOV;
                     _mainCamera.camera.stereoTargetEye = _initialState.StereroTarget;
                 }
+            }
+
+            if (_mainCamera != null)
+            {
+                var poseDriver = _mainCamera.GetComponent<TrackedPoseDriver>();
+                if (poseDriver != null)
+                    poseDriver.enabled = true;
             }
 
             Cursor.lockState = CursorLockMode.None;
