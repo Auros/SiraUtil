@@ -9,32 +9,38 @@ using Zenject;
 
 namespace SiraUtil.Tweaks
 {
-    class InitializableUnasserter
+    [HarmonyPatch]
+    class ZenjectLifecycleUnasserter
     {
         private static readonly MethodInfo _newFail = SymbolExtensions.GetMethodInfo(() => NewErrorBehavior(null!, null!, null!));
         private static readonly MethodInfo _rootMethod = typeof(ModestTree.Assert).GetMethod(nameof(ModestTree.Assert.CreateException), new Type[] { typeof(Exception), typeof(string), typeof(object[]) });
 
-        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            var codes = instructions.ToList();
-            for (int i = 0; i < codes.Count; i++)
-            {
-                var code = codes[i];
+            CodeMatcher codeMatcher = new(instructions, generator);
+            codeMatcher
+                .MatchForward(false, new CodeMatch(OpCodes.Call, _rootMethod), new CodeMatch(OpCodes.Throw))
+                .ThrowIfInvalid($"Call to {nameof(ModestTree.Assert.CreateException)} & throw not found");
 
-                if (code.operand != null && code.Is(OpCodes.Call, _rootMethod))
-                {
-                    codes[i] = new CodeInstruction(OpCodes.Callvirt, _newFail);
-                    codes.RemoveAt(i + 1);
-                    break;
-                }
-            }
-            return codes.AsEnumerable();
+            List<ExceptionBlock> blocks = codeMatcher.InstructionAt(1).blocks;
+            codeMatcher
+                .RemoveInstructions(2)
+                .Insert(new CodeInstruction(OpCodes.Call, _newFail) { blocks = blocks });
+
+            return codeMatcher.InstructionEnumeration();
         }
 
-        private static void NewErrorBehavior(Exception exception, string _, object[] parameters)
+        public static IEnumerable<MethodInfo> TargetMethods()
+        {
+            yield return AccessTools.Method(typeof(InitializableManager), nameof(InitializableManager.Initialize));
+            yield return AccessTools.Method(typeof(DisposableManager), nameof(DisposableManager.Dispose));
+            yield return AccessTools.Method(typeof(DisposableManager), nameof(DisposableManager.LateDispose));
+        }
+
+        private static void NewErrorBehavior(Exception exception, string message, params object[] parameters)
         {
             var failedType = (Type)parameters[0];
-            string failText = $"Error occurred while initializing {nameof(IInitializable)} with type '{failedType.FullName}'";
+            string failText = string.Format(message, failedType.FullName);
             if (failedType.Name != failedType.FullName)
             {
                 Plugin.Log.Critical(failText);

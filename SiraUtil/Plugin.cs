@@ -2,6 +2,7 @@
 using IPA;
 using IPA.Config.Stores;
 using IPA.Loader;
+using IPA.Utilities.Async;
 #if DEBUG
 using SiraUtil.Affinity.Harmony.Generator;
 #endif
@@ -10,6 +11,7 @@ using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
 using SiraUtil.Zenject;
 using System.Reflection;
+using System.Threading.Tasks;
 using Zenject;
 using Conf = IPA.Config.Config;
 using IPALogger = IPA.Logging.Logger;
@@ -70,7 +72,9 @@ namespace SiraUtil
         public void OnDisable()
         {
             _zenjectManager.Disable();
-            _harmony.UnpatchSelf();
+
+            // delay so DisposableManager is able to run before we unpatch on shutdown
+            UnityMainThreadTaskScheduler.Factory.StartNew(() => _harmony.UnpatchSelf()).ContinueWith((task) => Log.Error($"Failed to unpatch\n{task.Exception}"), TaskContinuationOptions.OnlyOnFaulted);
 
 #if DEBUG
             DynamicHarmonyPatchGenerator.Save();
