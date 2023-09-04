@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Specialized;
+using UnityEngine;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -19,7 +20,7 @@ namespace SiraUtil.Tools.FPFC
 
         protected void Awake()
         {
-            _targetCameraState.SetFromTransform(transform);
+            _targetCameraState.SetFromPose(new Vector3(0, 1.7f, 0), Quaternion.identity);
             _interpolatingCameraState.SetFromTransform(transform);
         }
 
@@ -87,6 +88,16 @@ namespace SiraUtil.Tools.FPFC
             public float x;
             public float y;
             public float z;
+
+            public void SetFromPose(Vector3 position, Quaternion rotation)
+            {
+                pitch = rotation.eulerAngles.x;
+                yaw = rotation.eulerAngles.y;
+                roll = rotation.eulerAngles.z;
+                x = position.x;
+                y = position.y;
+                z = position.z;
+            }
 
             public void SetFromTransform(Transform t)
             {
