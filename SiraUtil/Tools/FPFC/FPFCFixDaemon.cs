@@ -1,4 +1,5 @@
 ﻿using SiraUtil.Affinity;
+using UnityEngine;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -17,6 +18,13 @@ namespace SiraUtil.Tools.FPFC
         {
             if (_fpfcSettings.Enabled)
                 __result = true;
+        }
+
+        [AffinityPatch(typeof(UnityXRHelper), nameof(UnityXRHelper.GetThumbstickValue))]
+        protected void ForceInputFocus(ref Vector2 __result)
+        {
+            if (_fpfcSettings.Enabled)
+                __result = new Vector2(Input.GetAxis("Mouse ScrollWheel"), Input.GetAxis("Mouse ScrollWheel"));
         }
     }
 }
