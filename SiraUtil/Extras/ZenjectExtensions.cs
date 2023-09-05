@@ -1,8 +1,5 @@
 ﻿using HMUI;
-using IPA.Utilities;
-using ModestTree;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VRUIControls;
@@ -44,9 +41,6 @@ namespace Zenject
             return componentBinding;
         }
 
-        private static readonly PropertyAccessor<FromBinder, IBindingFinalizer>.Setter FromBinder_SubFinalizer = PropertyAccessor<FromBinder, IBindingFinalizer>.GetSetter("SubFinalizer");
-        private static readonly PropertyAccessor<FromBinder, IEnumerable<Type>>.Getter FromBinder_ConcreteTypes = PropertyAccessor<FromBinder, IEnumerable<Type>>.GetGetter("ConcreteTypes");
-
         // From Extenject https://github.com/Mathijs-Bakker/Extenject/blob/1e2b6fc88fed215ade79aa914887fef115d3328e/UnityProject/Assets/Plugins/Zenject/Source/Binding/Binders/FromBinders/FromBinder.cs#L295
         /// <summary>
         /// Creates a new component on a new GameObject
@@ -61,22 +55,18 @@ namespace Zenject
         // From Extenject https://github.com/Mathijs-Bakker/Extenject/blob/1e2b6fc88fed215ade79aa914887fef115d3328e/UnityProject/Assets/Plugins/Zenject/Source/Binding/Binders/FromBinders/FromBinder.cs#L300
         private static NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(FromBinder fromBinder, GameObjectCreationParameters gameObjectInfo)
         {
-            var concreteTypes = FromBinder_ConcreteTypes(ref fromBinder);
-            foreach (Type type in concreteTypes)
-            {
-                Assert.That(type.DerivesFrom(typeof(Component)), "Invalid type given during bind command.  Expected type '{0}' to derive from UnityEngine.Component", type);
-                Assert.That(!type.IsAbstract(), "Invalid type given during bind command.  Expected type '{0}' to not be abstract.", type);
-            }
+            var concreteTypes = fromBinder.ConcreteTypes;
+            BindingUtil.AssertIsComponent(concreteTypes);
+            BindingUtil.AssertIsNotAbstract(concreteTypes);
 
             fromBinder.BindInfo.RequireExplicitScope = true;
-            var finalizer = new ScopableBindingFinalizer(
+            fromBinder.SubFinalizer = new ScopableBindingFinalizer(
                 fromBinder.BindInfo,
                 (container, type) => new AddToNewGameObjectComponentProvider(
                     container,
                     type,
                     fromBinder.BindInfo.Arguments,
                     gameObjectInfo, fromBinder.BindInfo.ConcreteIdentifier, fromBinder.BindInfo.InstantiatedCallback));
-            FromBinder_SubFinalizer(ref fromBinder, finalizer);
 
             return new NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder(fromBinder.BindInfo, gameObjectInfo);
         }
