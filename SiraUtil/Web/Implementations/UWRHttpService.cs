@@ -24,10 +24,7 @@ namespace SiraUtil.Web.Implementations
                         Headers.Remove("Authorization");
 
                 if (value is not null)
-                    if (Headers.ContainsKey("Authorization"))
-                        Headers["Authorization"] = $"Bearer {value}";
-                    else
-                        Headers.Add("Authorization", $"Bearer {value}");
+                    Headers["Authorization"] = $"Bearer {value}";
             }
         }
 
@@ -35,12 +32,7 @@ namespace SiraUtil.Web.Implementations
 
         public string? UserAgent
         {
-            get
-            {
-                if (Headers.TryGetValue("User-Agent", out string value))
-                    return value;
-                else return null;
-            }
+            get => Headers.TryGetValue("User-Agent", out var value) ? value : null;
             set
             {
                 if (value is null)
@@ -48,10 +40,7 @@ namespace SiraUtil.Web.Implementations
                         Headers.Remove("User-Agent");
 
                 if (value is not null)
-                    if (Headers.ContainsKey("User-Agent"))
-                        Headers["User-Agent"] = value;
-                    else
-                        Headers.Add("User-Agent", value);
+                    Headers["User-Agent"] = value;
             }
         }
 
@@ -82,13 +71,12 @@ namespace SiraUtil.Web.Implementations
 
         public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
         {
-            if (body != null)
+            if (body is not null)
             {
-                if (withHeaders == null)
-                    withHeaders = new Dictionary<string, string>();
+                withHeaders ??= new Dictionary<string, string>();
                 withHeaders.Add("Content-Type", "application/json");
             }
-            return await SendRawAsync(method, url, Encoding.UTF8.GetBytes(body), withHeaders, downloadProgress, cancellationToken);
+            return await SendRawAsync(method, url, body is not null ? Encoding.UTF8.GetBytes(body) : null, withHeaders, downloadProgress, cancellationToken);
         }
 
         public async Task<IHttpResponse> SendRawAsync(HTTPMethod method, string url, byte[]? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
@@ -96,12 +84,12 @@ namespace SiraUtil.Web.Implementations
             // I HATE UNITY I HATE UNITY I HATE UNITY
             var response = await await UnityMainThreadTaskScheduler.Factory.StartNew(async () =>
             {
-                string newURL = url;
+                var newURL = url;
                 if (BaseURL != null)
                     newURL = Path.Combine(BaseURL, url);
                 DownloadHandler? dHandler = new DownloadHandlerBuffer();
 
-                HTTPMethod originalMethod = method;
+                var originalMethod = method;
                 if (method == HTTPMethod.POST && body != null)
                     method = HTTPMethod.PUT;
 
@@ -119,28 +107,28 @@ namespace SiraUtil.Web.Implementations
                 if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
                     request.method = originalMethod.ToString();
 
-                float _lastProgress = -1f;
+                var lastProgress = -1f;
                 AsyncOperation asyncOp = request.SendWebRequest();
                 while (!asyncOp.isDone)
                 {
-                    if (cancellationToken.HasValue && cancellationToken.Value.IsCancellationRequested)
+                    if (cancellationToken is { IsCancellationRequested: true })
                     {
                         request.Abort();
                         break;
                     }
                     if (downloadProgress is not null && dHandler is not null)
                     {
-                        float currentProgress = asyncOp.progress;
-                        if (_lastProgress != currentProgress)
+                        var currentProgress = asyncOp.progress;
+                        if (Math.Abs(lastProgress - currentProgress) > 0.001f)
                         {
                             downloadProgress.Report(currentProgress);
-                            _lastProgress = currentProgress;
+                            lastProgress = currentProgress;
                         }
                     }
                     await Task.Delay(10);
                 }
                 downloadProgress?.Report(1f);
-                bool successful = request.isDone && request.result == UnityWebRequest.Result.Success;
+                var successful = request is { isDone: true, result: UnityWebRequest.Result.Success };
                 return new UnityWebRequestHttpResponse(request, successful);
             });
             return response;
