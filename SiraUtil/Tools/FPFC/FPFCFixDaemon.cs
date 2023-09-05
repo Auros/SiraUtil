@@ -1,25 +1,30 @@
 ﻿using SiraUtil.Affinity;
+using UnityEngine;
 
 namespace SiraUtil.Tools.FPFC
 {
     internal class FPFCFixDaemon : IAffinity
     {
-        private readonly bool _isOculus;
         private readonly IFPFCSettings _fpfcSettings;
-        private readonly IVRPlatformHelper _vrPlatformHelper;
 
-        public FPFCFixDaemon(IFPFCSettings fpfcSettings, IVRPlatformHelper vrPlatformHelper)
+        public FPFCFixDaemon(IFPFCSettings fpfcSettings)
         {
             _fpfcSettings = fpfcSettings;
-            _vrPlatformHelper = vrPlatformHelper;
-            _isOculus = _vrPlatformHelper is OculusVRHelper;
         }
 
         [AffinityPatch(typeof(OculusVRHelper), nameof(OculusVRHelper.hasInputFocus), AffinityMethodType.Getter)]
+        [AffinityPatch(typeof(UnityXRHelper), nameof(UnityXRHelper.hasInputFocus), AffinityMethodType.Getter)]
         protected void ForceInputFocus(ref bool __result)
         {
-            if (_isOculus && _fpfcSettings.Enabled)
+            if (_fpfcSettings.Enabled)
                 __result = true;
+        }
+
+        [AffinityPatch(typeof(UnityXRHelper), nameof(UnityXRHelper.GetThumbstickValue))]
+        protected void ForceInputFocus(ref Vector2 __result)
+        {
+            if (_fpfcSettings.Enabled)
+                __result = new Vector2(Input.GetAxis("Mouse ScrollWheel"), Input.GetAxis("Mouse ScrollWheel"));
         }
     }
 }

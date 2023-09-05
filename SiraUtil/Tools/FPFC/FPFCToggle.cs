@@ -1,13 +1,15 @@
-﻿using SiraUtil.Services;
+﻿using SiraUtil.Logging;
+using SiraUtil.Services;
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SpatialTracking;
-using UnityEngine.XR;
+using UnityEngine.XR.Management;
 using VRUIControls;
 using Zenject;
 
@@ -22,20 +24,20 @@ namespace SiraUtil.Tools.FPFC
         private readonly FPFCState _initialState = new();
         private SimpleCameraController _simpleCameraController = null!;
 
+        private readonly SiraLog _siraLog;
         private readonly MainCamera _mainCamera;
         private readonly EventSystem _eventSystem;
         private readonly IFPFCSettings _fpfcSettings;
-        private readonly VRInputModule _vrInputModule;
         private readonly List<IFPFCListener> _fpfcListeners;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
         private readonly Transform _previousEventSystemTransformParent;
         private bool _didFirstFocus = false;
 
-        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
+        public FPFCToggle(SiraLog siraLog, MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
         {
+            _siraLog = siraLog;
             _mainCamera = mainCamera;
             _fpfcSettings = fpfcSettings;
-            _vrInputModule = vrInputModule;
             _fpfcListeners = fpfcListeners;
             _menuControllerAccessor = menuControllerAccessor;
 
@@ -57,8 +59,6 @@ namespace SiraUtil.Tools.FPFC
             _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
             _initialState.StereroTarget = _mainCamera.camera.stereoTargetEye;
 
-            if (_fpfcSettings.Enabled)
-                _mainCamera.camera.transform.parent.gameObject.transform.position = new Vector3(0f, 1.7f, 0f);
             _simpleCameraController = _mainCamera.camera.transform.parent.gameObject.AddComponent<SimpleCameraController>();
             if (_fpfcSettings.Enabled)
                 EnableFPFC();
@@ -120,9 +120,6 @@ namespace SiraUtil.Tools.FPFC
                 _menuControllerAccessor.RightController.enabled = false;
             }
 
-            //if (_vrInputModule != null)
-            //    _vrInputModule.useMouseForPressInput = true;
-
             if (_didFirstFocus)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -138,6 +135,8 @@ namespace SiraUtil.Tools.FPFC
 
             foreach (var listener in _fpfcListeners)
                 listener.Enabled();
+
+            DeinitializeXRLoader();
         }
 
         private void DisableFPFC()
@@ -153,12 +152,9 @@ namespace SiraUtil.Tools.FPFC
                 _menuControllerAccessor.RightController.enabled = true;
             }
 
-            //if (_vrInputModule != null)
-            //    _vrInputModule.useMouseForPressInput = false;
-
             _simpleCameraController.AllowInput = false;
 
-            if (XRSettings.enabled && !_fpfcSettings.LockViewOnDisable)
+            if (!_fpfcSettings.LockViewOnDisable)
             {
                 _lastPose = new Pose(_simpleCameraController.transform.position, _simpleCameraController.transform.rotation);
                 _simpleCameraController.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -183,11 +179,15 @@ namespace SiraUtil.Tools.FPFC
 
             foreach (var listener in _fpfcListeners)
                 listener.Disabled();
+
+            InitializeXRLoader();
         }
 
         public void Dispose()
         {
             _fpfcSettings.Changed -= FPFCSettings_Changed;
+
+            InitializeXRLoader();
         }
 
         public void Tick()
@@ -198,6 +198,37 @@ namespace SiraUtil.Tools.FPFC
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+        }
+
+        // we unfortunately need to fully deinitialize/initialize the XR loader since OpenXR doesn't simply stop/start properly
+        private void InitializeXRLoader()
+        {
+            XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
+
+            if (manager.activeLoader != null || !manager.activeLoaders.Any(l => l != null))
+                return;
+
+            _siraLog.Notice("Enabling XR Loader");
+            manager.InitializeLoaderSync();
+
+            if (!manager.isInitializationComplete)
+            {
+                _siraLog.Error("Failed to initialize XR loader");
+                return;
+            }
+
+            manager.StartSubsystems();
+        }
+
+        private void DeinitializeXRLoader()
+        {
+            XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
+
+            if (manager.activeLoader == null)
+                return;
+
+            _siraLog.Notice("Disabling XR Loader");
+            manager.DeinitializeLoader();
         }
     }
 }
