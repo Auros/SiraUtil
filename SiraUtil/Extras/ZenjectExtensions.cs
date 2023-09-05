@@ -3,10 +3,9 @@ using IPA.Utilities;
 using ModestTree;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using VRUIControls;
-using Object = UnityEngine.Object;
 
 namespace Zenject
 {
@@ -23,35 +22,25 @@ namespace Zenject
         /// <returns></returns>
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentAsViewController(this FromBinder binder, Action<InjectContext, object> onInstantiated = null!)
         {
-            var go = new GameObject("ViewController");
-
-            go.gameObject.SetActive(false);
-            var canvas = go.AddComponent<Canvas>();
-            canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.Normal;
-            canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord1;
-            canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord2;
-            canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.Tangent;
-
-            var raycaster = go.AddComponent<DummyRaycaster>();
-            var componentBinding = binder.FromNewComponentOn(go);
-            raycaster.enabled = false;
-
-            componentBinding.OnInstantiated((ctx, obj) =>
+            var go = new GameObject(binder.ConcreteTypes.FirstOrDefault(t => typeof(ViewController).IsAssignableFrom(t))?.Name)
             {
-                if (obj is ViewController vc)
-                {
-                    var newRaycaster = go.AddComponent<VRGraphicRaycaster>();
-                    Object.Destroy(raycaster);
-                    var cache = ctx.Container.Resolve<PhysicsRaycasterWithCache>();
-                    newRaycaster.SetField("_physicsRaycaster", cache);
-                    go.name = vc.GetType().Name;
-                    var rt = vc.rectTransform;
-                    rt.localEulerAngles = Vector3.zero;
-                    rt.anchorMax = rt.localScale = Vector3.one;
-                    rt.anchorMin = rt.sizeDelta = Vector2.zero;
-                }
-                onInstantiated?.Invoke(ctx, obj);
-            });
+                layer = 5,
+            };
+
+            go.SetActive(false);
+
+            RectTransform rt = go.AddComponent<RectTransform>();
+            rt.localEulerAngles = Vector3.zero;
+            rt.anchorMax = rt.localScale = Vector3.one;
+            rt.anchorMin = rt.sizeDelta = Vector2.zero;
+
+            var canvas = go.AddComponent<Canvas>();
+            canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord2;
+
+            binder.BindContainer.QueueForInject(go.AddComponent<VRGraphicRaycaster>());
+            var componentBinding = binder.FromNewComponentOn(go);
+
+            componentBinding.OnInstantiated(onInstantiated);
             return componentBinding;
         }
 
@@ -90,16 +79,6 @@ namespace Zenject
             FromBinder_SubFinalizer(ref fromBinder, finalizer);
 
             return new NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder(fromBinder.BindInfo, gameObjectInfo);
-        }
-
-        internal class DummyRaycaster : BaseRaycaster
-        {
-            public override Camera eventCamera => Camera.main;
-
-            public override void Raycast(PointerEventData eventData, List<RaycastResult> resultAppendList)
-            {
-
-            }
         }
     }
 }
