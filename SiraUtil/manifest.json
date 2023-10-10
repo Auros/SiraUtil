@@ -6,7 +6,7 @@
   "version": "3.1.5",
   "icon": "SiraUtil.Resources.logo.png",
   "description": "A powerful utility mod which provides more tools to Beat Saber modders.",
-  "gameVersion": "1.31.1",
+  "gameVersion": "1.32.0",
   "dependsOn": {
     "BSIPA": "^4.3.0"
   },
