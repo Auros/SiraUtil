@@ -3,12 +3,15 @@ using SiraUtil.Services;
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SpatialTracking;
+using UnityEngine.XR;
 using UnityEngine.XR.Management;
 using VRUIControls;
 using Zenject;
@@ -19,6 +22,11 @@ namespace SiraUtil.Tools.FPFC
     {
         public const string EnableArgument = "fpfc";
         public const string DisableArgument = "--no-sirautil-fpfc";
+
+        // SteamVR path is always the same on every machine, so we can hardcode it
+        public const string SteamVRPathBase = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SteamVR\\";
+        public const string SteamVRx64Path = SteamVRPathBase + "bin\\win64\\vrserver.exe";
+        public const string SteamVRx86Path = SteamVRPathBase + "bin\\win32\\vrserver.exe";
 
         private Pose? _lastPose = new();
         private readonly FPFCState _initialState = new();
@@ -105,8 +113,7 @@ namespace SiraUtil.Tools.FPFC
                 _mainCamera.camera.fieldOfView = _fpfcSettings.FOV;
             }
 
-            if (_eventSystem != null)
-                _eventSystem.gameObject.transform.SetParent(_simpleCameraController.transform);
+            _eventSystem?.gameObject.transform.SetParent(_simpleCameraController.transform);
 
             if (_menuControllerAccessor.LeftController != null && _menuControllerAccessor.RightController != null)
             {
@@ -141,8 +148,7 @@ namespace SiraUtil.Tools.FPFC
 
         private void DisableFPFC()
         {
-            if (_eventSystem != null)
-                _eventSystem.gameObject.transform.SetParent(_previousEventSystemTransformParent);
+            _eventSystem?.gameObject.transform.SetParent(_previousEventSystemTransformParent);
 
             if (_menuControllerAccessor.LeftController != null && _menuControllerAccessor.RightController != null)
             {
@@ -180,7 +186,21 @@ namespace SiraUtil.Tools.FPFC
             foreach (var listener in _fpfcListeners)
                 listener.Disabled();
 
-            InitializeXRLoader();
+            if (IsProcessRunning(SteamVRx64Path) || IsProcessRunning(SteamVRx86Path)) InitializeXRLoader();
+        }
+
+        private bool IsProcessRunning(string targetPath)
+        {
+            var sw = new Stopwatch();
+            sw.Start();
+            var value = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(targetPath))
+                .Any(process =>
+                    !process.HasExited &&
+                    string.Equals(Path.GetFullPath(process.MainModule.FileName), targetPath, StringComparison.OrdinalIgnoreCase)
+                );
+            sw.Stop();
+            _siraLog.Info($"IsProcessRunning took {sw.ElapsedMilliseconds}ms and finished with value {value}");
+            return value;
         }
 
         public void Dispose()
