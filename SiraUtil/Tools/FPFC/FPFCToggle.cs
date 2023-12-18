@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SpatialTracking;
-using UnityEngine.XR;
 using UnityEngine.XR.Management;
 using VRUIControls;
 using Zenject;
@@ -191,16 +190,11 @@ namespace SiraUtil.Tools.FPFC
 
         private bool IsProcessRunning(string targetPath)
         {
-            var sw = new Stopwatch();
-            sw.Start();
-            var value = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(targetPath))
+            return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(targetPath))
                 .Any(process =>
                     !process.HasExited &&
                     string.Equals(Path.GetFullPath(process.MainModule.FileName), targetPath, StringComparison.OrdinalIgnoreCase)
                 );
-            sw.Stop();
-            _siraLog.Info($"IsProcessRunning took {sw.ElapsedMilliseconds}ms and finished with value {value}");
-            return value;
         }
 
         public void Dispose()
