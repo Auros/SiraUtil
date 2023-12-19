@@ -4,7 +4,6 @@ using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,11 +20,6 @@ namespace SiraUtil.Tools.FPFC
     {
         public const string EnableArgument = "fpfc";
         public const string DisableArgument = "--no-sirautil-fpfc";
-
-        // SteamVR path is always the same on every machine, so we can hardcode it
-        public const string SteamVRPathBase = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\SteamVR\\";
-        public const string SteamVRx64Path = SteamVRPathBase + "bin\\win64\\vrserver.exe";
-        public const string SteamVRx86Path = SteamVRPathBase + "bin\\win32\\vrserver.exe";
 
         private Pose? _lastPose = new();
         private readonly FPFCState _initialState = new();
@@ -185,16 +179,24 @@ namespace SiraUtil.Tools.FPFC
             foreach (var listener in _fpfcListeners)
                 listener.Disabled();
 
-            if (IsProcessRunning(SteamVRx64Path) || IsProcessRunning(SteamVRx86Path)) InitializeXRLoader();
+            _siraLog.Debug(IsProcessRunning("vrserver") ? "VR Server is running" : "VR Server is not running");
+            _siraLog.Debug(IsProcessRunning("vrcompositor") ? "VR Compositor is running" : "VR Compositor is not running");
+            _siraLog.Debug(Environment.GetCommandLineArgs().Any(s => s.ToLower() == "oculus") ? "Running as vrmode Oculus" : "Running as vrmode Steam");
+            bool startXR = (IsProcessRunning("vrserver") && IsProcessRunning("vrcompositor")) || Environment.GetCommandLineArgs().Any(s => s.ToLower() == "oculus"); // If we're running Oculus, we need to start XR
+            if (startXR) InitializeXRLoader();
         }
 
-        private bool IsProcessRunning(string targetPath)
+        private bool IsProcessRunning(string targetProcessName)
         {
-            return Process.GetProcessesByName(Path.GetFileNameWithoutExtension(targetPath))
-                .Any(process =>
-                    !process.HasExited &&
-                    string.Equals(Path.GetFullPath(process.MainModule.FileName), targetPath, StringComparison.OrdinalIgnoreCase)
-                );
+            var processes = Process.GetProcessesByName(targetProcessName);
+            foreach (var process in processes)
+            {
+                if (!process.HasExited)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Dispose()
