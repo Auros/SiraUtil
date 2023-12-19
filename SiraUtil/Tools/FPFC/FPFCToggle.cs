@@ -106,7 +106,8 @@ namespace SiraUtil.Tools.FPFC
                 _mainCamera.camera.fieldOfView = _fpfcSettings.FOV;
             }
 
-            _eventSystem?.gameObject.transform.SetParent(_simpleCameraController.transform);
+            if (_eventSystem != null)
+                _eventSystem.gameObject.transform.SetParent(_simpleCameraController.transform);
 
             if (_menuControllerAccessor.LeftController != null && _menuControllerAccessor.RightController != null)
             {
@@ -141,7 +142,8 @@ namespace SiraUtil.Tools.FPFC
 
         private void DisableFPFC()
         {
-            _eventSystem?.gameObject.transform.SetParent(_previousEventSystemTransformParent);
+            if (_eventSystem != null)
+                _eventSystem.gameObject.transform.SetParent(_previousEventSystemTransformParent);
 
             if (_menuControllerAccessor.LeftController != null && _menuControllerAccessor.RightController != null)
             {
