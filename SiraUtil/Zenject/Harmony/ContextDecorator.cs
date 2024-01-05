@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BGLib.AppFlow.Initialization;
+using HarmonyLib;
 using SiraUtil.Zenject.Internal;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,10 @@ namespace SiraUtil.Zenject.Harmony
                 bindings.Add(new ContextBinding(__instance, installer.GetType(), accessor));
             foreach (var installerPrefab in installerPrefabs)
                 bindings.Add(new ContextBinding(__instance, installerPrefab.GetType(), accessor));
+
+            if (__instance is AsyncSceneContext asyncSceneContext)
+                foreach (var asyncInstaller in asyncSceneContext._asyncInstallers)
+                    bindings.Add(new ContextBinding(__instance, asyncInstaller.GetType(), accessor));
 
             if (__instance is SceneDecoratorContext decorator)
                 _recentlyInstalledDecorators.Add(decorator);
