@@ -53,7 +53,7 @@ namespace SiraUtil.Sabers.Effects
                     {
                         new CodeInstruction(OpCodes.Ldarg_0),
                         new CodeInstruction(OpCodes.Ldfld, burnMarks), // this needs operand of _burnMarksPs or _sabers
-                        new CodeInstruction(OpCodes.Callvirt, _evaluateState)
+                        new CodeInstruction(OpCodes.Call, _evaluateState)
                     });
                     break;
                 }
