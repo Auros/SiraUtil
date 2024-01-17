@@ -1,4 +1,4 @@
-﻿using Polyglot;
+﻿using BGLib.Polyglot;
 
 namespace SiraUtil.Interfaces
 {
