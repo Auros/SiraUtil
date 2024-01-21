@@ -181,11 +181,8 @@ namespace SiraUtil.Tools.FPFC
             foreach (var listener in _fpfcListeners)
                 listener.Disabled();
 
-            _siraLog.Debug(IsProcessRunning("vrserver") ? "VR Server is running" : "VR Server is not running");
-            _siraLog.Debug(IsProcessRunning("vrcompositor") ? "VR Compositor is running" : "VR Compositor is not running");
-            _siraLog.Debug(Environment.GetCommandLineArgs().Any(s => s.ToLower() == "oculus") ? "Running as vrmode Oculus" : "Running as vrmode Steam");
-            bool startXR = (IsProcessRunning("vrserver") && IsProcessRunning("vrcompositor")) || Environment.GetCommandLineArgs().Any(s => s.ToLower() == "oculus"); // If we're running Oculus, we need to start XR
-            if (startXR) InitializeXRLoader();
+            if (IsProcessRunning("vrserver") && IsProcessRunning("vrcompositor")) // Not sure how to check for Oculus if vrmode oculus is not working anymore
+                InitializeXRLoader();
         }
 
         private bool IsProcessRunning(string targetProcessName)
