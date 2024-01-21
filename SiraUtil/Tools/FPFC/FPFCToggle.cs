@@ -3,6 +3,7 @@ using SiraUtil.Services;
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -180,7 +181,21 @@ namespace SiraUtil.Tools.FPFC
             foreach (var listener in _fpfcListeners)
                 listener.Disabled();
 
-            InitializeXRLoader();
+            if (IsProcessRunning("vrserver") && IsProcessRunning("vrcompositor")) // Not sure how to check for Oculus if vrmode oculus is not working anymore
+                InitializeXRLoader();
+        }
+
+        private bool IsProcessRunning(string targetProcessName)
+        {
+            var processes = Process.GetProcessesByName(targetProcessName);
+            foreach (var process in processes)
+            {
+                if (!process.HasExited)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Dispose()
