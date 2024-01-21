@@ -161,7 +161,7 @@
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.VRModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
-	<Reference Include="Main">
+        <Reference Include="Main">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Main.dll</HintPath>
             <Publicize>True</Publicize>
             <Private>False</Private>
@@ -182,7 +182,7 @@
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.XRModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
-	<Reference Include="VRUI">
+        <Reference Include="VRUI">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\VRUI.dll</HintPath>
             <Publicize>True</Publicize>
             <Private>False</Private>
