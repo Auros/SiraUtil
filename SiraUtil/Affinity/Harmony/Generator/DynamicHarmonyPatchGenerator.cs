@@ -69,7 +69,10 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
             Type[]? types = null;
             if (patch.ArgumentTypes is not null && patch.ArgumentTypes.Length != 0)
+            {
                 types = patch.ArgumentTypes;
+                ParseSpecialArguments(types, patch.ArgumentVariations);
+            }
 
             MethodBase originalMethod = patch.MethodType switch
             {
@@ -151,6 +154,35 @@ namespace SiraUtil.Affinity.Harmony.Generator
                 _harmony.Unpatch(original.Item1, contract);
                 original.Item2.SetValue(null, null);
                 _patchCache.Remove(contract);
+            }
+        }
+
+        // adapted from https://github.com/pardeike/Harmony/blob/77d37bee5bffd053681b34ba70a650d6d2d45486/Harmony/Public/Attributes.cs#L335-L366
+        private void ParseSpecialArguments(Type[] argumentTypes, ArgumentType[]? argumentVariations)
+        {
+            if (argumentVariations is null || argumentVariations.Length == 0)
+            {
+                return;
+            }
+
+            if (argumentTypes.Length < argumentVariations.Length)
+            {
+                throw new ArgumentException("argumentVariations contains more elements than argumentTypes", nameof(argumentVariations));
+            }
+
+            for (var i = 0; i < argumentTypes.Length; i++)
+            {
+                var type = argumentTypes[i];
+                switch (argumentVariations[i])
+                {
+                    case ArgumentType.Ref:
+                    case ArgumentType.Out:
+                        argumentTypes[i] = type.MakeByRefType();
+                        break;
+                    case ArgumentType.Pointer:
+                        argumentTypes[i] = type.MakePointerType();
+                        break;
+                }
             }
         }
 
