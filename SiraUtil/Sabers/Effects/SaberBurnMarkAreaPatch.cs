@@ -13,17 +13,9 @@ namespace SiraUtil.Sabers.Effects
         private static readonly MethodInfo _destroyExtraLines = SymbolExtensions.GetMethodInfo(() => DestroyExtraLines(null!));
         private static readonly MethodInfo _evaluateAllRenderers = SymbolExtensions.GetMethodInfo(() => CompareAllRenderers(null!));
         private static readonly MethodInfo _safeDestroyMethodInfo = SymbolExtensions.GetMethodInfo(() => EssentialHelpers.SafeDestroy(null!));
-        private static readonly FieldInfo _lineRendererInfo = typeof(SaberBurnMarkArea).GetField("_lineRenderers", BindingFlags.NonPublic | BindingFlags.Instance);
-
-        private static readonly List<OpCode> _lineCheck = new()
-        {
-            OpCodes.Ldarg_0,
-            OpCodes.Ldfld,
-            OpCodes.Ldc_I4_0,
-            OpCodes.Ldelem_Ref,
-            OpCodes.Callvirt,
-            OpCodes.Brtrue_S
-        };
+        private static readonly FieldInfo _lineRendererInfo = typeof(SaberBurnMarkArea).GetField(nameof(SaberBurnMarkArea._lineRenderers), BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly FieldInfo _sabersInfo = typeof(SaberBurnMarkArea).GetField(nameof(SaberBurnMarkArea._sabers), BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo _rendererGetEnabled = typeof(Renderer).GetProperty(nameof(Renderer.enabled), BindingFlags.Public | BindingFlags.Instance).GetMethod;
 
         [HarmonyPostfix]
         [HarmonyPatch(nameof(SaberBurnMarkArea.OnEnable))]
@@ -47,27 +39,40 @@ namespace SiraUtil.Sabers.Effects
         [HarmonyPatch(nameof(SaberBurnMarkArea.LateUpdate))]
         internal static IEnumerable<CodeInstruction> DynamicUpdate(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
-            TwoToLength(ref codes);
-
-            bool removedNativeSwap = false;
-            for (int i = codes.Count - 1; i >= 0; i--)
-            {
-                if (removedNativeSwap && codes[i].Is(OpCodes.Ldfld, _lineRendererInfo))
-                {
-                    codes.RemoveAt(i + 1);
-                    codes.RemoveAt(i + 1);
-                    codes[i + 1] = new CodeInstruction(OpCodes.Callvirt, _evaluateAllRenderers);
-                    break;
-                }
-                if (!removedNativeSwap && codes[i].opcode == OpCodes.Call)
-                {
-                    codes.RemoveRange(i + 1, codes.Count - i - 1);
-                    codes.Add(new(OpCodes.Ret));
-                    removedNativeSwap = true;
-                }
-            }
-            return codes;
+            return new CodeMatcher(instructions)
+                // replace hardcoded 2 in `for (int i = 0; i < 2; i++)` with length of _sabers array
+                .MatchForward(
+                    false,
+                    new CodeMatch(OpCodes.Ldc_I4_2),
+                    new CodeMatch(OpCodes.Blt))
+                .ThrowIfInvalid("Ldc_I4_2 not found")
+                .RemoveInstruction()
+                .InsertAndAdvance(
+                    new CodeInstruction(OpCodes.Ldarg_0),
+                    new CodeInstruction(OpCodes.Ldfld, _sabersInfo),
+                    new CodeInstruction(OpCodes.Ldlen),
+                    new CodeInstruction(OpCodes.Conv_I4))
+                // remove hardcoded check of _lineRenderers at index 0 and 1 with check on everything in the array
+                // `if (_lineRenderers[0].enabled || _lineRenderers[1].enabled)`
+                .MatchForward(
+                    false,
+                    new CodeMatch(OpCodes.Ldarg_0),
+                    new CodeMatch(i => i.LoadsField(_lineRendererInfo)),
+                    new CodeMatch(OpCodes.Ldc_I4_0),
+                    new CodeMatch(OpCodes.Ldelem_Ref),
+                    new CodeMatch(i => i.Calls(_rendererGetEnabled)),
+                    new CodeMatch(OpCodes.Brtrue),
+                    new CodeMatch(OpCodes.Ldarg_0),
+                    new CodeMatch(i => i.LoadsField(_lineRendererInfo)),
+                    new CodeMatch(OpCodes.Ldc_I4_1),
+                    new CodeMatch(OpCodes.Ldelem_Ref),
+                    new CodeMatch(i => i.Calls(_rendererGetEnabled)),
+                    new CodeMatch(OpCodes.Brfalse))
+                .ThrowIfInvalid("_lineRenderers comparison not found")
+                .Advance(2) // keep _lineRenderers field load
+                .RemoveInstructions(9) // remove everything until the final brfalse
+                .InsertAndAdvance(new CodeInstruction(OpCodes.Call, _evaluateAllRenderers))
+                .InstructionEnumeration();
         }
 
         // This destroys the other line renderers in between where the first ones were destroyed and when the fade out material is destroyed.
@@ -118,30 +123,6 @@ namespace SiraUtil.Sabers.Effects
                 for (int i = 2; i < lineRenderers.Length; i++)
                     if (lineRenderers[i] != null)
                         Object.Destroy(lineRenderers[i]);
-        }
-
-        private static void TwoToLength(ref List<CodeInstruction> codes)
-        {
-            object? array = null;
-
-            for (int i = 0; i < codes.Count; i++)
-            {
-                if (codes[i].opcode == OpCodes.Ldfld && array is null) // We collect the operand that we are going to be using _sabers
-                    array = codes[i].operand;
-
-                if (codes[i].opcode == OpCodes.Ldc_I4_2)
-                {
-                    codes.RemoveAt(i); // Remove the '2' being pushed onto the stack
-                    codes.InsertRange(i, new CodeInstruction[] // And use the Length property of the array
-                    {
-                        new CodeInstruction(OpCodes.Ldarg_0),
-                        new CodeInstruction(OpCodes.Ldfld, array), // this needs operand of _sabers
-                        new CodeInstruction(OpCodes.Ldlen),
-                        new CodeInstruction(OpCodes.Conv_I4)
-                    });
-                    break;
-                }
-            }
         }
     }
 }

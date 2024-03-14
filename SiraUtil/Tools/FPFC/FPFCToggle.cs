@@ -186,8 +186,6 @@ namespace SiraUtil.Tools.FPFC
         public void Dispose()
         {
             _fpfcSettings.Changed -= FPFCSettings_Changed;
-
-            InitializeXRLoader();
         }
 
         public void Tick()

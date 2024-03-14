@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using IPA.Utilities;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +12,7 @@ namespace SiraUtil.Zenject.Harmony
         private static SiraPCScenesTransitionSetupDataSO _restartTransitionData = null!;
 
         [HarmonyPrefix]
-        public static bool Prefix(GameScenesManager __instance, ScenesTransitionSetupDataSO scenesTransitionSetupData)
+        public static bool Prefix(GameScenesManager __instance)
         {
             if (!ZenjectManager.InitialSceneConstructionRegistered)
             {
@@ -23,8 +22,8 @@ namespace SiraUtil.Zenject.Harmony
                 }
                 __instance.ClearAndOpenScenes(_restartTransitionData, finishCallback: (_) =>
                 {
-                    PCAppInit pcAppInit = SceneManager.GetSceneByName(__instance.GetCurrentlyLoadedSceneNames()[0]).GetRootGameObjects()[0].GetComponent<PCAppInit>();
-                    pcAppInit.InvokeMethod<object, PCAppInit>("TransitionToNextScene");
+                    PCAppInit pcAppInit = SceneManager.GetSceneByName(_initialSceneName).GetRootGameObjects()[0].GetComponent<PCAppInit>();
+                    pcAppInit.TransitionToNextScene();
                 });
                 return false;
             }
@@ -36,7 +35,7 @@ namespace SiraUtil.Zenject.Harmony
             protected override void OnEnable()
             {
                 var si = CreateInstance<SceneInfo>();
-                si.SetField("_sceneName", _initialSceneName);
+                si._sceneName = _initialSceneName;
                 Init(new SceneInfo[] { si }, Array.Empty<SceneSetupData>());
                 base.OnEnable();
             }
