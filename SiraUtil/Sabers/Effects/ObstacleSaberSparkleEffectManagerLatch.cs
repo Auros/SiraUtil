@@ -3,7 +3,6 @@ using IPA.Utilities;
 using SiraUtil.Affinity;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace SiraUtil.Sabers.Effects
 {
@@ -15,10 +14,6 @@ namespace SiraUtil.Sabers.Effects
         private ObstacleSaberSparkleEffectManager? _obstacleSaberSparkleEffectManager;
 
         private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, Saber[]>.Accessor Sabers = FieldAccessor<ObstacleSaberSparkleEffectManager, Saber[]>.GetAccessor("_sabers");
-        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, bool[]>.Accessor IsSystemActive = FieldAccessor<ObstacleSaberSparkleEffectManager, bool[]>.GetAccessor("_isSystemActive");
-        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, bool[]>.Accessor WasSystemActive = FieldAccessor<ObstacleSaberSparkleEffectManager, bool[]>.GetAccessor("_wasSystemActive");
-        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, Vector3[]>.Accessor Positions = FieldAccessor<ObstacleSaberSparkleEffectManager, Vector3[]>.GetAccessor("_burnMarkPositions");
-        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, Transform[]>.Accessor Transforms = FieldAccessor<ObstacleSaberSparkleEffectManager, Transform[]>.GetAccessor("_effectsTransforms");
         private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect[]>.Accessor Effects = FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect[]>.GetAccessor("_effects");
         private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect>.Accessor SparkleEffectPrefab = FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect>.GetAccessor("_obstacleSaberSparkleEffectPrefab");
 
@@ -48,12 +43,8 @@ namespace SiraUtil.Sabers.Effects
                 return;
 
             Sabers(ref _obstacleSaberSparkleEffectManager) = Sabers(ref _obstacleSaberSparkleEffectManager).AddToArray(saber);
-            IsSystemActive(ref _obstacleSaberSparkleEffectManager) = IsSystemActive(ref _obstacleSaberSparkleEffectManager).AddToArray(default);
-            WasSystemActive(ref _obstacleSaberSparkleEffectManager) = WasSystemActive(ref _obstacleSaberSparkleEffectManager).AddToArray(default);
-            Positions(ref _obstacleSaberSparkleEffectManager) = Positions(ref _obstacleSaberSparkleEffectManager).AddToArray(default);
 
             ObstacleSaberSparkleEffect effect = CreateNewObstacleSaberSparkleEffect();
-            Transforms(ref _obstacleSaberSparkleEffectManager) = Transforms(ref _obstacleSaberSparkleEffectManager).AddToArray(effect.transform);
             Effects(ref _obstacleSaberSparkleEffectManager) = Effects(ref _obstacleSaberSparkleEffectManager).AddToArray(effect);
         }
 
@@ -74,20 +65,6 @@ namespace SiraUtil.Sabers.Effects
             foreach (var siraSaber in _earlySabers)
                 AddSaber(siraSaber.Saber);
             _earlySabers.Clear();
-        }
-
-        [AffinityPrefix]
-        [AffinityPatch(typeof(ObstacleSaberSparkleEffectManager), nameof(ObstacleSaberSparkleEffectManager.Update))]
-        internal void UpdateExtraSystemStates(ref bool[] ____isSystemActive, ref bool[] ____wasSystemActive)
-        {
-            if (____isSystemActive.Length > 2 && ____wasSystemActive.Length > 2 && ____isSystemActive.Length == ____wasSystemActive.Length)
-            {
-                for (int i = 2; i < ____isSystemActive.Length; i++)
-                {
-                    ____wasSystemActive[i] = ____isSystemActive[i];
-                    ____isSystemActive[i] = false;
-                }
-            }
         }
     }
 }
