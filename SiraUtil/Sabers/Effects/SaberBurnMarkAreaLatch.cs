@@ -20,13 +20,9 @@ namespace SiraUtil.Sabers.Effects
         private static readonly FieldAccessor<SaberBurnMarkArea, Vector3[]>.Accessor PreviousMarks = FieldAccessor<SaberBurnMarkArea, Vector3[]>.GetAccessor("_prevBurnMarkPos");
         private static readonly FieldAccessor<SaberBurnMarkArea, bool[]>.Accessor PreviousMarksValid = FieldAccessor<SaberBurnMarkArea, bool[]>.GetAccessor("_prevBurnMarkPosValid");
         private static readonly FieldAccessor<SaberBurnMarkArea, LineRenderer>.Accessor LinePrefab = FieldAccessor<SaberBurnMarkArea, LineRenderer>.GetAccessor("_saberBurnMarkLinePrefab");
-        private static readonly FieldAccessor<SaberBurnMarkArea, int>.Accessor TextureWidth = FieldAccessor<SaberBurnMarkArea, int>.GetAccessor("_textureWidth");
-        private static readonly FieldAccessor<SaberBurnMarkArea, int>.Accessor TextureHeight = FieldAccessor<SaberBurnMarkArea, int>.GetAccessor("_textureHeight");
-        private int _lineFactoryIncrement;
 
         public SaberBurnMarkAreaLatch(SiraSaberFactory siraSaberFactory, SaberModelManager saberModelManager)
         {
-            _lineFactoryIncrement = 2;
             _siraSaberFactory = siraSaberFactory;
             _saberModelManager = saberModelManager;
             _siraSaberFactory.SaberCreated += SiraSaberFactory_SaberCreated;
@@ -90,14 +86,6 @@ namespace SiraUtil.Sabers.Effects
             return newLine;
         }
 
-        private RenderTexture CreateNewRenderTexture()
-        {
-            RenderTexture renderTexture = new(TextureWidth(ref _saberBurnMarkArea!), TextureHeight(ref _saberBurnMarkArea!), 0, RenderTextureFormat.ARGB32);
-            renderTexture.name = $"SiraUtil | SaberBurnMarkArea Texture {_lineFactoryIncrement++}";
-            renderTexture.hideFlags = HideFlags.DontSave;
-            return renderTexture;
-        }
-
         [AffinityPostfix]
         [AffinityPatch(typeof(SaberBurnMarkArea), nameof(SaberBurnMarkArea.Start))]
         internal void BurnAreaStarting(SaberBurnMarkArea __instance)
@@ -106,19 +94,6 @@ namespace SiraUtil.Sabers.Effects
             foreach (var siraSaber in _earlySabers)
                 AddSaber(siraSaber.Saber);
             _earlySabers.Clear();
-        }
-
-        [AffinityPostfix]
-        [AffinityPatch(typeof(SaberBurnMarkArea), nameof(SaberBurnMarkArea.LateUpdate))]
-        internal void AbsoluteCarouselRenderShift(ref RenderTexture[] ____renderTextures)
-        {
-            // Shift every render texture down one in the array
-            RenderTexture lastTexture = ____renderTextures[____renderTextures.Length - 1];
-            for (int i = ____renderTextures.Length - 1; i > 0; i--)
-            {
-                ____renderTextures[i] = ____renderTextures[i - 1];
-            }
-            ____renderTextures[0] = lastTexture;
         }
     }
 }

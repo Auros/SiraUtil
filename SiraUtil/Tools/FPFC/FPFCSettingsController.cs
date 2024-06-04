@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SiraUtil.Logging;
+using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.XR.Management;
 using Zenject;
 
 namespace SiraUtil.Tools.FPFC
@@ -18,6 +21,12 @@ namespace SiraUtil.Tools.FPFC
             set
             {
                 _enabled = value;
+
+                if (value)
+                    DeinitializeXRLoader();
+                else
+                    InitializeXRLoader();
+
                 Changed?.Invoke(this);
             }
         }
@@ -26,10 +35,12 @@ namespace SiraUtil.Tools.FPFC
 
         public event Action<IFPFCSettings>? Changed;
         private readonly FPFCOptions _fpfcOptions;
+        private readonly SiraLog _siraLog;
 
-        public FPFCSettingsController(FPFCOptions fpfcOptions)
+        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog)
         {
             _fpfcOptions = fpfcOptions;
+            _siraLog = siraLog;
             Enabled = !_fpfcOptions.Ignore;
         }
 
@@ -45,6 +56,7 @@ namespace SiraUtil.Tools.FPFC
         public void Initialize()
         {
             _fpfcOptions.Updated += ConfigUpdated;
+            DeinitializeXRLoader();
         }
 
         private void ConfigUpdated(FPFCOptions _)
@@ -55,6 +67,38 @@ namespace SiraUtil.Tools.FPFC
         public void Dispose()
         {
             _fpfcOptions.Updated -= ConfigUpdated;
+            InitializeXRLoader();
+        }
+
+        // we unfortunately need to fully deinitialize/initialize the XR loader since OpenXR doesn't simply stop/start properly
+        private void InitializeXRLoader()
+        {
+            XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
+
+            if (manager.activeLoader != null || !manager.activeLoaders.Any(l => l != null))
+                return;
+
+            _siraLog.Notice("Enabling XR Loader");
+            manager.InitializeLoaderSync();
+
+            if (!manager.isInitializationComplete)
+            {
+                _siraLog.Error("Failed to initialize XR loader");
+                return;
+            }
+
+            manager.StartSubsystems();
+        }
+
+        private void DeinitializeXRLoader()
+        {
+            XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
+
+            if (manager.activeLoader == null)
+                return;
+
+            _siraLog.Notice("Disabling XR Loader");
+            manager.DeinitializeLoader();
         }
     }
 }
