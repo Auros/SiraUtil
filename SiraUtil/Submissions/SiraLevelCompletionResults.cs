@@ -8,7 +8,7 @@
             lcr.rank, lcr.fullCombo, lcr.leftSaberMovementDistance, lcr.rightSaberMovementDistance, lcr.leftHandMovementDistance,
             lcr.rightHandMovementDistance, lcr.levelEndStateType, lcr.levelEndAction, lcr.energy, lcr.goodCutsCount,
             lcr.badCutsCount, lcr.missedCount, lcr.notGoodCount, lcr.okCount, lcr.maxCutScore, lcr.totalCutScore, lcr.goodCutsCountForNotesWithFullScoreScoringType, lcr.averageCenterDistanceCutScoreForNotesWithFullScoreScoringType, lcr.averageCutScoreForNotesWithFullScoreScoringType,
-            lcr.maxCombo, lcr.endSongTime)
+            lcr.maxCombo, lcr.endSongTime, lcr.invalidated)
         {
             ShouldSubmitScores = scoreSubmission;
         }
