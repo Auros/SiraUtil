@@ -24,6 +24,7 @@ namespace SiraUtil.Sabers
         private SaberTypeObject _saberTypeObject = null!;
         private SaberModelProvider _saberModelProvider = null!;
         private SaberModelController _saberModelController = null!;
+        private SaberModelContainer.InitData _saberModelControllerInitData = new SaberModelContainer.InitData();
         private readonly Queue<Action> _colorProcessNextFrame = new();
         private bool _constructedThisFrame = false;
 
@@ -35,11 +36,16 @@ namespace SiraUtil.Sabers
         private static readonly FieldAccessor<Saber, Transform>.Accessor SaberBladeBottomTransform = FieldAccessor<Saber, Transform>.GetAccessor("_saberBladeBottomTransform");
 
         [Inject]
-        internal void Construct(NoteCutter noteCutter, ColorManager colorManager, SaberModelProvider saberModelProvider)
+        internal void Construct(
+            NoteCutter noteCutter,
+            ColorManager colorManager,
+            SaberModelProvider saberModelProvider,
+            [InjectOptional] SaberModelContainer.InitData saberModelControllerInitData)
         {
             _noteCutter = noteCutter;
             _colorManager = colorManager;
             _saberModelProvider = saberModelProvider;
+            _saberModelControllerInitData = saberModelControllerInitData;
         }
 
         internal void Setup<T>(SaberType saberType) where T : Saber
@@ -63,7 +69,7 @@ namespace SiraUtil.Sabers
 
             _saberTypeObject.SetField("_saberType", saberType);
             _saberModelController = _saberModelProvider.NewModel(saberType);
-            _saberModelController.Init(transform, Saber);
+            _saberModelController.Init(transform, Saber, _saberModelControllerInitData.trailTintColor);
             _constructedThisFrame = true;
         }
 
@@ -76,7 +82,7 @@ namespace SiraUtil.Sabers
                 Transform bottomTransform = SaberBladeBottomTransform(ref saber);
                 Vector3 topPosition = SaberBladeTopPosition(ref saber) = topTransform.position;
                 Vector3 bottomPosition = SaberBladeBottomPosition(ref saber) = bottomTransform.position;
-                Saber.movementData.AddNewData(topPosition, bottomPosition, TimeHelper.time);
+                Saber.movementDataForLogic.AddNewData(topPosition, bottomPosition, TimeHelper.time);
                 _noteCutter.Cut(Saber);
             }
 

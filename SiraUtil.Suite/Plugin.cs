@@ -1,6 +1,11 @@
 ﻿using IPA;
+using SiraUtil.Extras;
+using SiraUtil.Objects.Beatmap;
+using SiraUtil.Sabers;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
+using SiraUtil.Suite.Tests.Sabers;
+using SiraUtil.Suite.Tests.Web;
 using SiraUtil.Zenject;
 using UnityEngine;
 using IPALogger = IPA.Logging.Logger;
@@ -32,19 +37,19 @@ namespace SiraUtil.Suite
             zenjector.UseLogger(logger);
             zenjector.UseHttpService();
 
-            //zenjector.UseSiraSync(Web.SiraSync.SiraSyncServiceType.GitHub, "Auros", "SiraUtil");
-            //zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
+            zenjector.UseSiraSync(Web.SiraSync.SiraSyncServiceType.GitHub, "Auros", "SiraUtil");
+            zenjector.Install(Location.Menu, Container => Container.BindInterfacesTo<WebTest>().AsSingle());
 
             zenjector.Install(Location.Player | Location.Tutorial, Container =>
             {
-                //Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
-                //Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
-                //
-                //Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
+                Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
+                Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
+                
+                Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
             });
             zenjector.Install(Location.ConnectedPlayer, Container =>
             {
-                //Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
+                Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
             });
         }
 

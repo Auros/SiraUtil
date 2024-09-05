@@ -11,8 +11,8 @@ namespace SiraUtil.Suite.Installers
         {
             _gameplayCoreSceneSetupData = gameplayCoreSceneSetupData;
             Assert.IsNotNull(_gameplayCoreSceneSetupData);
-            Assert.IsNotNull(_gameplayCoreSceneSetupData.difficultyBeatmap);
-            Plugin.Log.Info(_gameplayCoreSceneSetupData.difficultyBeatmap.SerializedName());
+            Assert.IsNotNull(_gameplayCoreSceneSetupData.beatmapKey);
+            Plugin.Log.Info(_gameplayCoreSceneSetupData.beatmapKey.SerializedName());
         }
 
         public override void InstallBindings()
