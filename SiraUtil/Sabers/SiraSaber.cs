@@ -24,7 +24,7 @@ namespace SiraUtil.Sabers
         private SaberTypeObject _saberTypeObject = null!;
         private SaberModelProvider _saberModelProvider = null!;
         private SaberModelController _saberModelController = null!;
-        private SaberModelContainer.InitData _saberModelControllerInitData = new SaberModelContainer.InitData();
+        private SaberModelContainer.InitData _saberModelContainerInitData = new SaberModelContainer.InitData();
         private readonly Queue<Action> _colorProcessNextFrame = new();
         private bool _constructedThisFrame = false;
 
@@ -40,14 +40,14 @@ namespace SiraUtil.Sabers
             NoteCutter noteCutter,
             ColorManager colorManager,
             SaberModelProvider saberModelProvider,
-            [InjectOptional] SaberModelContainer.InitData saberModelControllerInitData)
+            [InjectOptional] SaberModelContainer.InitData saberModelContainerInitData)
         {
             _noteCutter = noteCutter;
             _colorManager = colorManager;
             _saberModelProvider = saberModelProvider;
 
-            if (saberModelControllerInitData != null)
-                _saberModelControllerInitData = saberModelControllerInitData;
+            if (saberModelContainerInitData != null)
+                _saberModelContainerInitData = saberModelContainerInitData;
         }
 
         internal void Setup<T>(SaberType saberType) where T : Saber
@@ -71,7 +71,7 @@ namespace SiraUtil.Sabers
 
             _saberTypeObject.SetField("_saberType", saberType);
             _saberModelController = _saberModelProvider.NewModel(saberType);
-            _saberModelController.Init(transform, Saber, _saberModelControllerInitData.trailTintColor);
+            _saberModelController.Init(transform, Saber, _saberModelContainerInitData.trailTintColor);
             _constructedThisFrame = true;
         }
 
