@@ -45,7 +45,9 @@ namespace SiraUtil.Sabers
             _noteCutter = noteCutter;
             _colorManager = colorManager;
             _saberModelProvider = saberModelProvider;
-            _saberModelControllerInitData = saberModelControllerInitData;
+
+            if (saberModelControllerInitData != null)
+                _saberModelControllerInitData = saberModelControllerInitData;
         }
 
         internal void Setup<T>(SaberType saberType) where T : Saber
