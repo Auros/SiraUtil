@@ -51,7 +51,7 @@ namespace SiraUtil.Sabers.Effects
 
         public bool AreSabersClashing(ref bool sabersAreClashing, ref Vector3 localClashingPoint, ref int prevGetFrameNum, out Vector3 clashingPoint)
         {
-            if (_leftSaber.movementData.lastAddedData.time < 0.1f)
+            if (_leftSaber.movementDataForLogic.lastAddedData.time < 0.1f)
             {
                 clashingPoint = localClashingPoint;
                 return false;
