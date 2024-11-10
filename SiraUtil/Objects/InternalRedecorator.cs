@@ -42,6 +42,58 @@ namespace SiraUtil.Objects
             }
         }
 
+        // The normal transpiler can't handle this, so we have to use a prefix/postfix.
+        // This was mostly taken from Lapiz, so...
+        [HarmonyPatch(typeof(NoteDebrisPoolInstaller), nameof(NoteDebrisPoolInstaller.InstallBindings))]
+        internal class NoteDebrisPool
+        {
+            static NoteDebris? _normalNoteDebrisHDPrefabOrig;
+            static NoteDebris? _normalNoteDebrisLWPrefabOrig;
+            static NoteDebris? _burstSliderHeadNoteDebrisHDPrefabOrig;
+            static NoteDebris? _burstSliderHeadNoteDebrisLWPrefabOrig;
+            static NoteDebris? _burstSliderElementNoteHDPrefabOrig;
+            static NoteDebris? _burstSliderElementNoteLWPrefabOrig;
+
+            [HarmonyPrefix]
+            protected static void RedecoratePrefix(NoteDebrisPoolInstaller __instance)
+            {
+                DiContainer container = __instance.Container;
+                Type type = __instance.GetType();
+                bool isHD = __instance._noteDebrisHDConditionVariable.value;
+
+                _normalNoteDebrisHDPrefabOrig = __instance._normalNoteDebrisHDPrefab;
+                _normalNoteDebrisLWPrefabOrig = __instance._normalNoteDebrisLWPrefab;
+                _burstSliderHeadNoteDebrisHDPrefabOrig = __instance._burstSliderHeadNoteDebrisHDPrefab;
+                _burstSliderHeadNoteDebrisLWPrefabOrig = __instance._burstSliderHeadNoteDebrisLWPrefab;
+                _burstSliderElementNoteHDPrefabOrig = __instance._burstSliderElementNoteHDPrefab;
+                _burstSliderElementNoteLWPrefabOrig = __instance._burstSliderElementNoteLWPrefab;
+
+                if (isHD)
+                {
+                    __instance._normalNoteDebrisHDPrefab = (NoteDebris)PrefabInitializing(__instance._normalNoteDebrisHDPrefab, container, "_normalNoteDebrisHDPrefab", type);
+                    __instance._burstSliderHeadNoteDebrisHDPrefab = (NoteDebris)PrefabInitializing(__instance._burstSliderHeadNoteDebrisHDPrefab, container, "_burstSliderHeadNoteDebrisHDPrefab", type);
+                    __instance._burstSliderElementNoteHDPrefab = (NoteDebris)PrefabInitializing(__instance._burstSliderElementNoteHDPrefab, container, "_burstSliderElementNoteHDPrefab", type);
+                }
+                else
+                {
+                    __instance._normalNoteDebrisLWPrefab = (NoteDebris)PrefabInitializing(__instance._normalNoteDebrisLWPrefab, container, "_normalNoteDebrisLWPrefab", type);
+                    __instance._burstSliderHeadNoteDebrisLWPrefab = (NoteDebris)PrefabInitializing(__instance._burstSliderHeadNoteDebrisLWPrefab, container, "_burstSliderHeadNoteDebrisLWPrefab", type);
+                    __instance._burstSliderElementNoteLWPrefab = (NoteDebris)PrefabInitializing(__instance._burstSliderElementNoteLWPrefab, container, "_burstSliderElementNoteLWPrefab", type);
+                }
+            }
+
+            [HarmonyPostfix]
+            protected static void RedecoratePostfix(NoteDebrisPoolInstaller __instance)
+            {
+                __instance._normalNoteDebrisHDPrefab = _normalNoteDebrisHDPrefabOrig;
+                __instance._normalNoteDebrisLWPrefab = _normalNoteDebrisLWPrefabOrig;
+                __instance._burstSliderHeadNoteDebrisHDPrefab = _burstSliderHeadNoteDebrisHDPrefabOrig;
+                __instance._burstSliderHeadNoteDebrisLWPrefab = _burstSliderHeadNoteDebrisLWPrefabOrig;
+                __instance._burstSliderElementNoteHDPrefab = _burstSliderElementNoteHDPrefabOrig;
+                __instance._burstSliderElementNoteLWPrefab = _burstSliderElementNoteLWPrefabOrig;
+            }
+        }
+
         [HarmonyPatch(typeof(MultiplayerConnectedPlayerInstaller), nameof(MultiplayerConnectedPlayerInstaller.InstallBindings))]
         internal class MultiplayerConnectedPlayer
         {

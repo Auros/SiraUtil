@@ -210,6 +210,7 @@
         </Reference>
         <Reference Include="Zenject">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Zenject.dll</HintPath>
+            <Publicize>True</Publicize>
             <Private>False</Private>
         </Reference>
         <Reference Include="Zenject-usage">
