@@ -47,12 +47,12 @@ namespace SiraUtil.Objects
         [HarmonyPatch(typeof(NoteDebrisPoolInstaller), nameof(NoteDebrisPoolInstaller.InstallBindings))]
         internal class NoteDebrisPool
         {
-            static NoteDebris? _normalNoteDebrisHDPrefabOrig;
-            static NoteDebris? _normalNoteDebrisLWPrefabOrig;
-            static NoteDebris? _burstSliderHeadNoteDebrisHDPrefabOrig;
-            static NoteDebris? _burstSliderHeadNoteDebrisLWPrefabOrig;
-            static NoteDebris? _burstSliderElementNoteHDPrefabOrig;
-            static NoteDebris? _burstSliderElementNoteLWPrefabOrig;
+            private static NoteDebris? _normalNoteDebrisHDPrefabOrig;
+            private static NoteDebris? _normalNoteDebrisLWPrefabOrig;
+            private static NoteDebris? _burstSliderHeadNoteDebrisHDPrefabOrig;
+            private static NoteDebris? _burstSliderHeadNoteDebrisLWPrefabOrig;
+            private static NoteDebris? _burstSliderElementNoteHDPrefabOrig;
+            private static NoteDebris? _burstSliderElementNoteLWPrefabOrig;
 
             [HarmonyPrefix]
             protected static void RedecoratePrefix(NoteDebrisPoolInstaller __instance)
