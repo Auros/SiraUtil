@@ -1,6 +1,7 @@
 ﻿using IPA;
 using SiraUtil.Extras;
 using SiraUtil.Objects.Beatmap;
+using SiraUtil.Objects.Beatmap.Debris;
 using SiraUtil.Sabers;
 using SiraUtil.Suite.Installers;
 using SiraUtil.Suite.Tests.Installers;
@@ -46,11 +47,25 @@ namespace SiraUtil.Suite
                 Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
                 
                 Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
+                Container.RegisterRedecorator(new NormalNoteDebrisHDRegistration(Create3, 20));
+                Container.RegisterRedecorator(new NormalNoteDebrisLWRegistration(Create3, 20));
             });
             zenjector.Install(Location.ConnectedPlayer, Container =>
             {
                 Container.RegisterRedecorator(new ConnectedPlayerNoteRegistration(Create));
             });
+        }
+
+        private NoteDebris Create3(NoteDebris before)
+        {
+            Log.Info("hii :3");
+
+            GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            g.transform.SetParent(before.transform.GetChild(0));
+            g.transform.localPosition = Vector3.zero;
+            g.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+            return before;
         }
 
         private GameNoteController Create2(GameNoteController before)
