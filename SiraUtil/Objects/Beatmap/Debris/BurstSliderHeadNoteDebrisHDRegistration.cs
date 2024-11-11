@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace SiraUtil.Objects.Debris
+namespace SiraUtil.Objects.Beatmap.Debris
 {
     /// <summary>
-    /// Registers a redecorator for the high-quality normal note debris.
+    /// Registers a redecorator for the high-quality burst slider head (i.e. head in the chain) debris.
     /// </summary>
-    public sealed class NormalNoteDebrisHDRegistration : TemplateRedecoratorRegistration<NoteDebris, NoteDebrisPoolInstaller>
+    public sealed class BurstSliderHeadNoteDebrisHDRegistration : TemplateRedecoratorRegistration<NoteDebris, NoteDebrisPoolInstaller>
     {
         /// <summary>
         /// Creates a new redecorator registration.
@@ -15,6 +15,6 @@ namespace SiraUtil.Objects.Debris
         /// <param name="chain">Whether to chain this redecoration with others. Every redecoration is now aggregated.
         /// The chain will start if the highest priority object has chaining enabled and will stop once a registration
         /// in the aggregate has chaining disabled.</param>
-        public NormalNoteDebrisHDRegistration(Func<NoteDebris, NoteDebris> redecorateCall, int priority = 0, bool chain = true) : base("_normalNoteDebrisHDPrefab", redecorateCall, priority, chain) { }
+        public BurstSliderHeadNoteDebrisHDRegistration(Func<NoteDebris, NoteDebris> redecorateCall, int priority = 0, bool chain = true) : base("_burstSliderHeadNoteDebrisHDPrefab", redecorateCall, priority, chain) { }
     }
 }

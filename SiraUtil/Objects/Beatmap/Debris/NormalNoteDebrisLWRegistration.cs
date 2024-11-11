@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SiraUtil.Objects.Debris
+namespace SiraUtil.Objects.Beatmap.Debris
 {
     /// <summary>
     /// Registers a redecorator for the low-quality normal note debris.
