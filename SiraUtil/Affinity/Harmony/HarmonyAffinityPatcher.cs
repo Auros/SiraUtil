@@ -1,6 +1,5 @@
 ﻿using IPA.Loader;
 using SiraUtil.Affinity.Harmony.Generator;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -69,11 +68,18 @@ namespace SiraUtil.Affinity.Harmony
 
                     if (!attribute.Complete && classAffinityPatch is null)
                     {
-                        throw new Exception("No patches?? Could not find completed [AffinityPatch(...)] attribute for this method. Make sure that the method or the class that it inherits has a non-parameterless AffinityPatch attribute.");
+                        throw new AffinityException("No patches?? Could not find completed [AffinityPatch(...)] attribute for this method. Make sure that the method or the class that it inherits has a non-parameterless AffinityPatch attribute.");
                     }
 
-                    MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute.Complete ? attribute : classAffinityPatch, priority, before, after);
-                    methods.Add(contract);
+                    try
+                    {
+                        MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute.Complete ? attribute : classAffinityPatch, priority, before, after);
+                        methods.Add(contract);
+                    }
+                    catch (HarmonyLib.HarmonyException ex)
+                    {
+                        throw new AffinityException($"Failed to execute patch for method '{affinityMethod}' on '{affinityMethod.DeclaringType.FullName}'", ex);
+                    }
                 }
             }
         }
