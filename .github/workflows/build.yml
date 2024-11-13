@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+    paths:
+      - 'SiraUtil/**'
+      - 'SiraUtil.sln'
+      - '.github/workflows/build.yml'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Beat Saber
+      uses: nicoco007/setup-beat-saber@v0.1
+      with:
+        access-token: ${{ secrets.BEAT_SABER_REFERENCE_ASSEMBLIES_TOKEN }}
+        manifest: ${{ github.workspace }}/SiraUtil/manifest.json
+    - name: Build
+      id: build
+      env:
+        FrameworkPathOverride: /usr/lib/mono/4.8-api
+      run: dotnet build SiraUtil/SiraUtil.csproj --configuration Release
+    - name: Git Status
+      run: git status
+    - name: Echo File Name
+      run: echo $BUILDTEXT \($ASSEMBLYNAME\)
+      env:
+        BUILDTEXT: Filename=${{ steps.build.outputs.filename }}
+        ASSEMBLYNAME: AssemblyName=${{ steps.build.outputs.assemblyname }}
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SiraUtil
+        path: ${{ steps.build.outputs.artifactpath }}
