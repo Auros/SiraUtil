@@ -151,14 +151,14 @@
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
-		<Reference Include="UnityEngine.SpatialTracking">
-			<HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.SpatialTracking.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine.SubsystemsModule">
-			<HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+        <Reference Include="UnityEngine.SpatialTracking">
+            <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.SpatialTracking.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.SubsystemsModule">
+            <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.SubsystemsModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
         <Reference Include="UnityEngine.UI">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.UI.dll</HintPath>
             <Private>False</Private>
@@ -190,7 +190,7 @@
         </Reference>
         <Reference Include="HMLib">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\HMLib.dll</HintPath>
-			<Publicize>True</Publicize>
+            <Publicize>True</Publicize>
             <Private>False</Private>
         </Reference>
         <Reference Include="HMUI">
