@@ -17,17 +17,12 @@ namespace SiraUtil.Tweaks
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            CodeMatcher codeMatcher = new(instructions, generator);
-            codeMatcher
+            return new CodeMatcher(instructions, generator)
                 .MatchForward(false, new CodeMatch(OpCodes.Call, _rootMethod), new CodeMatch(OpCodes.Throw))
-                .ThrowIfInvalid($"Call to {nameof(ModestTree.Assert.CreateException)} & throw not found");
-
-            List<ExceptionBlock> blocks = codeMatcher.InstructionAt(1).blocks;
-            codeMatcher
-                .RemoveInstructions(2)
-                .Insert(new CodeInstruction(OpCodes.Call, _newFail) { blocks = blocks });
-
-            return codeMatcher.InstructionEnumeration();
+                .ThrowIfInvalid($"Call to {nameof(ModestTree.Assert.CreateException)} & throw not found")
+                .RemoveInstruction()
+                .SetAndAdvance(OpCodes.Call, _newFail)
+                .InstructionEnumeration();
         }
 
         public static IEnumerable<MethodInfo> TargetMethods()
