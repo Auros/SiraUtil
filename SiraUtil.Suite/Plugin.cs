@@ -44,7 +44,7 @@ namespace SiraUtil.Suite
             zenjector.Install(Location.Player | Location.Tutorial, Container =>
             {
                 Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
-                Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100)).AsSingle();
+                Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100));
                 
                 Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
                 Container.RegisterRedecorator(new NormalNoteDebrisHDRegistration(Create3, 20));
