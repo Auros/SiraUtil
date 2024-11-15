@@ -12,11 +12,11 @@ namespace SiraUtil.Objects
     internal class InternalRedecorator
     {
         private const string NewContextPrefabMethodName = "ByNewContextPrefab";
+        private const string GetContainerMethodName = "get_Container";
         private const string ContainerFieldName = "_container";
         private static readonly MethodInfo _getType = typeof(object).GetMethod(nameof(object.GetType));
         private static readonly MethodInfo _prefabInitializingField = SymbolExtensions.GetMethodInfo(() => PrefabInitializing(null!, null!, null!, null!));
         private static readonly MethodInfo _newPrefabMethod = typeof(FactoryFromBinderBase).GetMethod(nameof(FactoryFromBinderBase.FromComponentInNewPrefab));
-        private static readonly MethodInfo _getContainerMethod = typeof(MonoInstallerBase).GetProperty("Container", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).GetGetMethod();
 
         [HarmonyPatch(typeof(BeatmapObjectsInstaller), nameof(BeatmapObjectsInstaller.InstallBindings))]
         internal class BeatmapObjects
@@ -32,6 +32,18 @@ namespace SiraUtil.Objects
 
         [HarmonyPatch(typeof(EffectPoolsManualInstaller), nameof(EffectPoolsManualInstaller.ManualInstallBindings))]
         internal class EffectPools
+        {
+            [HarmonyTranspiler]
+            protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
+            {
+                List<CodeInstruction> codes = instructions.ToList();
+                InternalRedecorator.Redecorate(ref codes);
+                return codes;
+            }
+        }
+
+        [HarmonyPatch(typeof(NoteDebrisPoolInstaller), nameof(NoteDebrisPoolInstaller.InstallBindings))]
+        internal class NoteDebrisPool
         {
             [HarmonyTranspiler]
             protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
@@ -115,8 +127,8 @@ namespace SiraUtil.Objects
                     {
                         for (int c = i; c >= 0; c--)
                         {
-                            // We are in a MonoInstallerBase
-                            if (codes[c].opcode == OpCodes.Call)
+                            // We are in a MonoInstallerBase/ScriptableObjectInstallerBase
+                            if (codes[c].opcode == OpCodes.Call && ((MethodInfo)codes[c].operand).Name == GetContainerMethodName)
                             {
                                 containerOpcode = OpCodes.Callvirt;
                                 containerOperand = codes[c].operand;
