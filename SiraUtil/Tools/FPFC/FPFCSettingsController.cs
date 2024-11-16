@@ -41,7 +41,6 @@ namespace SiraUtil.Tools.FPFC
         {
             _fpfcOptions = fpfcOptions;
             _siraLog = siraLog;
-            Enabled = !_fpfcOptions.Ignore;
         }
 
         public void Tick()
@@ -56,7 +55,7 @@ namespace SiraUtil.Tools.FPFC
         public void Initialize()
         {
             _fpfcOptions.Updated += ConfigUpdated;
-            DeinitializeXRLoader();
+            Enabled = !_fpfcOptions.Ignore;
         }
 
         private void ConfigUpdated(FPFCOptions _)
@@ -67,7 +66,6 @@ namespace SiraUtil.Tools.FPFC
         public void Dispose()
         {
             _fpfcOptions.Updated -= ConfigUpdated;
-            InitializeXRLoader();
         }
 
         // we unfortunately need to fully deinitialize/initialize the XR loader since OpenXR doesn't simply stop/start properly
