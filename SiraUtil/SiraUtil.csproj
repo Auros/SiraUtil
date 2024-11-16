@@ -50,6 +50,7 @@
     <ItemGroup>
         <Reference Include="0Harmony">
             <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
+			<Private>False</Private>
         </Reference>
         <Reference Include="BeatSaber.Init">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\BeatSaber.Init.dll</HintPath>
@@ -130,6 +131,10 @@
         <Reference Include="Unity.XR.Management">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Unity.XR.Management.dll</HintPath>
             <Private>False</Private>
+        </Reference>
+        <Reference Include="Unity.XR.OpenXR">
+            <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Unity.XR.OpenXR.dll</HintPath>
+			<Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.dll</HintPath>
