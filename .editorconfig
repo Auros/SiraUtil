@@ -1,0 +1,7 @@
+root = true
+
+[*.{csproj,csproj.user,props,targets}]
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+tab_width = 4
