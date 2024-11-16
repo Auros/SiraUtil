@@ -1,5 +1,6 @@
 ﻿using IPA.Loader;
 using SiraUtil.Affinity.Harmony.Generator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -76,9 +77,9 @@ namespace SiraUtil.Affinity.Harmony
                         MethodInfo contract = dynamicHarmonyPatchGenerator.Patch(affinity, affinityMethod, patchType, attribute.Complete ? attribute : classAffinityPatch, priority, before, after);
                         methods.Add(contract);
                     }
-                    catch (HarmonyLib.HarmonyException ex)
+                    catch (Exception ex)
                     {
-                        throw new AffinityException($"Failed to execute patch for method '{affinityMethod}' on '{affinityMethod.DeclaringType.FullName}'", ex);
+                        throw new AffinityException($"Failed to execute patch for method '{affinityMethod}' on '{affinityMethod.DeclaringType.FullName}' (assembly '{affinityMethod.DeclaringType.Assembly.GetName().Name}')", ex);
                     }
                 }
             }
