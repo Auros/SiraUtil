@@ -7,7 +7,6 @@ using SiraUtil.Web.SiraSync;
 using SiraUtil.Web.SiraSync.Zenject;
 using SiraUtil.Web.Zenject;
 using SiraUtil.Zenject;
-using System;
 using Zenject;
 
 namespace SiraUtil.Installers
@@ -63,7 +62,6 @@ namespace SiraUtil.Installers
             // Bind any global services
             Container.BindInterfacesTo<FinishEventDispatcher>().AsSingle();
             Container.Bind<SubmissionDataContainer>().AsSingle();
-            Container.Bind<Random>().AsSingle().IfNotBound();
         }
 
         private void SiraLogCreated(InjectContext ctx, SiraLog siraLog)
