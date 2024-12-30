@@ -11,7 +11,7 @@ namespace SiraUtil.Tools.SongControl
             _pauseController = pauseController;
         }
 
-        public bool IsPaused => _pauseController.GetField<bool, PauseController>("_paused");
+        public bool IsPaused => _pauseController._paused == PauseController.PauseState.Paused;
 
         public void Continue()
         {
