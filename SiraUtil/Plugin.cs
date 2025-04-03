@@ -9,6 +9,7 @@ using SiraUtil.Affinity.Harmony.Generator;
 using SiraUtil.Attributes;
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
+using SiraUtil.Tweaks;
 using SiraUtil.Zenject;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -66,6 +67,7 @@ namespace SiraUtil
         {
             _harmony.PatchAll(_pluginMetadata.Assembly);
             _zenjectManager.Enable();
+            DisableOpenXRRecentering.DisableIfLoaded();
         }
 
         [OnDisable]

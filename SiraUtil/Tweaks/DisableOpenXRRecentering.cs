@@ -1,4 +1,7 @@
 ﻿using HarmonyLib;
+using System;
+using System.Linq;
+using UnityEngine.XR.Management;
 using UnityEngine.XR.OpenXR;
 
 namespace SiraUtil.Tweaks
@@ -14,9 +17,28 @@ namespace SiraUtil.Tweaks
     [HarmonyPatch(typeof(OpenXRLoaderBase), nameof(OpenXRLoaderBase.Initialize))]
     internal static class DisableOpenXRRecentering
     {
+        // XR_EXT_local_floor is built into the 1.1 spec: https://www.khronos.org/blog/stepping-up-the-floor-is-yours-with-promotion-of-the-xr-ext-local-floor-extension-to-openxr-1.1-core
+        private static readonly Version OpenXRApiLocalFloorMinVersion = new(1, 1, 0);
+
+        internal static void DisableIfLoaded()
+        {
+            if (XRGeneralSettings.Instance.Manager.activeLoader is OpenXRLoaderBase)
+            {
+                DisableIfNecessary();
+            }
+        }
+
         private static void Postfix(ref bool __result)
         {
-            if (__result && OpenXRRuntime.name == "SteamVR/OpenXR")
+            if (__result)
+            {
+                DisableIfNecessary();
+            }
+        }
+
+        private static void DisableIfNecessary()
+        {
+            if (new Version(OpenXRRuntime.apiVersion) < OpenXRApiLocalFloorMinVersion && !OpenXRRuntime.GetEnabledExtensions().Contains("XR_EXT_local_floor"))
             {
                 Plugin.Log.Info("Disabling recentering");
                 OpenXRSettings.SetAllowRecentering(false, 0);
