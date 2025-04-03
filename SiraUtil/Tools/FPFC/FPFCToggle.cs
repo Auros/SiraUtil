@@ -124,6 +124,11 @@ namespace SiraUtil.Tools.FPFC
                 Cursor.visible = false;
             }
 
+            if (_fpfcSettings.LimitFrameRate)
+            {
+                Application.targetFrameRate = (int)Math.Round(Screen.currentResolution.refreshRateRatio.value);
+            }
+
             if (_mainCamera != null)
             {
                 var poseDriver = _mainCamera.GetComponent<TrackedPoseDriver>();
@@ -172,6 +177,11 @@ namespace SiraUtil.Tools.FPFC
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            if (_fpfcSettings.LimitFrameRate)
+            {
+                Application.targetFrameRate = -1;
+            }
 
             foreach (var listener in _fpfcListeners)
                 listener.Disabled();

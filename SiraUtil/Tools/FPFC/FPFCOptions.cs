@@ -13,7 +13,9 @@ namespace SiraUtil.Tools.FPFC
         public Action<FPFCOptions>? Updated;
 
         public virtual float CameraFOV { get; set; } = 100f;
+
         public virtual float MoveSensitivity { get; set; } = 3f;
+
         public virtual float MouseSensitivity { get; set; } = 5f;
 
         [UseConverter(typeof(EnumConverter<KeyCode>))]
@@ -22,6 +24,8 @@ namespace SiraUtil.Tools.FPFC
         public virtual bool Ignore { get; set; } = false;
 
         public virtual bool LockViewOnDisable { get; set; }
+
+        public virtual bool LimitFrameRate { get; set; } = true;
 
         public void Changed()
         {

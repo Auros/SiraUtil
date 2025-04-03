@@ -38,6 +38,11 @@ namespace SiraUtil.Tools.FPFC
         bool LockViewOnDisable { get; }
 
         /// <summary>
+        /// Limit the frame rate to the current screen's refresh rate when FPFC is enabled. Can help prevent GPU coil whine.
+        /// </summary>
+        bool LimitFrameRate { get; }
+
+        /// <summary>
         /// Called when the object is changed.
         /// </summary>
         event Action<IFPFCSettings> Changed;

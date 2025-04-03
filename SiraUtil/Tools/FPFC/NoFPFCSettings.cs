@@ -9,7 +9,7 @@ namespace SiraUtil.Tools.FPFC
         public bool Enabled
         {
             get => default;
-            set => _ = false;
+            set { }
         }
 
         public float MoveSensitivity => default;
@@ -19,6 +19,8 @@ namespace SiraUtil.Tools.FPFC
         public bool Ignore => default;
 
         public bool LockViewOnDisable => false;
+
+        public bool LimitFrameRate => false;
 
         public event Action<IFPFCSettings>? Changed;
 
