@@ -67,7 +67,6 @@ namespace SiraUtil
         {
             _harmony.PatchAll(_pluginMetadata.Assembly);
             _zenjectManager.Enable();
-            DisableOpenXRRecentering.DisableIfLoaded();
         }
 
         [OnDisable]

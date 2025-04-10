@@ -1,8 +1,8 @@
 ﻿using HarmonyLib;
-using System;
-using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine.XR.Management;
 using UnityEngine.XR.OpenXR;
+using Zenject;
 
 namespace SiraUtil.Tweaks
 {
@@ -14,35 +14,56 @@ namespace SiraUtil.Tweaks
     /// <remarks>
     /// This post explains the various possible OpenXR tracking spaces: <see href="https://discussions.unity.com/t/how-to-recenter-in-openxr/935209/9"/>
     /// </remarks>
-    [HarmonyPatch(typeof(OpenXRLoaderBase), nameof(OpenXRLoaderBase.Initialize))]
+    [HarmonyPatch]
     internal static class DisableOpenXRRecentering
     {
-        // XR_EXT_local_floor is built into the 1.1 spec: https://www.khronos.org/blog/stepping-up-the-floor-is-yours-with-promotion-of-the-xr-ext-local-floor-extension-to-openxr-1.1-core
-        private static readonly Version OpenXRApiLocalFloorMinVersion = new(1, 1, 0);
+        private static bool ShouldDisableRecentering => OpenXRRuntime.name == "SteamVR/OpenXR" && OpenXRSettings.AllowRecentering;
 
-        internal static void DisableIfLoaded()
+        [HarmonyPatch(typeof(SceneContext), nameof(SceneContext.Awake))]
+        [HarmonyPostfix]
+        internal static async void RestartXRLoaderIfNecessary()
         {
-            if (XRGeneralSettings.Instance.Manager.activeLoader is OpenXRLoaderBase)
+            if (XRGeneralSettings.Instance.Manager.activeLoader is not OpenXRLoaderBase || !ShouldDisableRecentering)
             {
-                DisableIfNecessary();
+                return;
+            }
+
+            Plugin.Log.Notice("Restarting XR loader");
+
+            XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
+
+            if (manager.activeLoader != null)
+            {
+                Plugin.Log.Info($"Deinitializing XR loader '{manager.activeLoader.name}'");
+                manager.DeinitializeLoader();
+
+                await Task.Yield();
+            }
+
+            manager.InitializeLoaderSync();
+            manager.StartSubsystems();
+
+            if (manager.activeLoader != null)
+            {
+                Plugin.Log.Info($"Initialized XR loader '{manager.activeLoader.name}'");
+            }
+            else
+            {
+                Plugin.Log.Error("Failed to initialize any XR loader");
             }
         }
 
-        private static void Postfix(ref bool __result)
+        [HarmonyPatch(typeof(OpenXRLoaderBase), nameof(OpenXRLoaderBase.Initialize))]
+        [HarmonyPostfix]
+        private static void OpenXRLoaderBase_Initialize(ref bool __result)
         {
-            if (__result)
+            if (!__result || !ShouldDisableRecentering)
             {
-                DisableIfNecessary();
+                return;
             }
-        }
 
-        private static void DisableIfNecessary()
-        {
-            if (new Version(OpenXRRuntime.apiVersion) < OpenXRApiLocalFloorMinVersion && !OpenXRRuntime.GetEnabledExtensions().Contains("XR_EXT_local_floor"))
-            {
-                Plugin.Log.Info("Disabling recentering");
-                OpenXRSettings.SetAllowRecentering(false, 0);
-            }
+            Plugin.Log.Info("Disabling recentering");
+            OpenXRSettings.SetAllowRecentering(false, 0);
         }
     }
 }
