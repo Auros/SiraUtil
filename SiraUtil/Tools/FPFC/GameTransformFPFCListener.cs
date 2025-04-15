@@ -23,8 +23,8 @@ namespace SiraUtil.Tools.FPFC
 
         public void Enabled()
         {
-            _leftHand = _saberManager.leftSaber.GetComponentInParent<VRController>();
-            _rightHand = _saberManager.rightSaber.GetComponentInParent<VRController>();
+            _leftHand = _saberManager.leftSaber.GetComponentInParent<VRController>(true);
+            _rightHand = _saberManager.rightSaber.GetComponentInParent<VRController>(true);
             _originalSaberParent = _rightHand.transform.parent;
 
             _leftHand.transform.SetParent(null);
