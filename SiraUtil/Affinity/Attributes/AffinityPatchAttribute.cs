@@ -27,7 +27,7 @@ namespace SiraUtil.Affinity
         /// <param name="methodType">The type of the method.</param>
         /// <param name="argumentVariations">The argument variations of the method.</param>
         /// <param name="argumentTypes">The argument types of the method (for overloads).</param>
-        public AffinityPatchAttribute(Type declaringType, string methodName, AffinityMethodType methodType = AffinityMethodType.Normal, AffinityArgumentType[]? argumentVariations = null, params Type[]? argumentTypes)
+        public AffinityPatchAttribute(Type declaringType, string? methodName = null, AffinityMethodType methodType = AffinityMethodType.Normal, AffinityArgumentType[]? argumentVariations = null, params Type[]? argumentTypes)
         {
             MethodName = methodName;
             DeclaringType = declaringType;

@@ -73,7 +73,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
                 ParseSpecialArguments(types, patch.ArgumentVariations);
             }
 
-            MethodBase originalMethod = patch.MethodType switch
+            MethodBase? originalMethod = patch.MethodType switch
             {
                 // For a normal method, it'll first check the delcared type for the method. If it can't find it, it'll look to the types in the bases,
                 MethodType.Normal => AccessTools.DeclaredMethod(patch.DeclaringType, patch.MethodName, types) ?? AccessTools.Method(patch.DeclaringType, patch.MethodName, types),
@@ -83,6 +83,21 @@ namespace SiraUtil.Affinity.Harmony.Generator
                 MethodType.StaticConstructor => AccessTools.Constructor(patch.DeclaringType, types, true),
                 _ => throw new NotImplementedException($"MethodType '{patch.MethodType}' is unrecognized.")
             };
+
+            if (originalMethod == null)
+            {
+                throw new ArgumentException($"{patch.MethodType} method '{patch.MethodName}' not found on '{patch.DeclaringType?.FullName}'");
+            }
+
+            if (originalMethod.IsConstructor && originalMethod.DeclaringType == typeof(object))
+            {
+                throw new InvalidOperationException($"Patching the constructor of {nameof(System)}.{nameof(Object)} is not supported");
+            }
+
+            if (originalMethod.DeclaringType != patch.DeclaringType)
+            {
+                Plugin.Log.Warn($"Patching '{originalMethod.Name}' on '{originalMethod.DeclaringType.FullName}' but target class is '{patch.DeclaringType?.FullName}'. This is deprecated behaviour and will be removed in a future release.");
+            }
 
             // Create the delegate used to invoke the affinity instance method.
             var delegateType = CreateDelegateType(affinityMethod);
