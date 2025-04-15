@@ -77,10 +77,10 @@ namespace SiraUtil.Affinity.Harmony.Generator
             {
                 // For a normal method, it'll first check the delcared type for the method. If it can't find it, it'll look to the types in the bases,
                 MethodType.Normal => AccessTools.DeclaredMethod(patch.DeclaringType, patch.MethodName, types) ?? AccessTools.Method(patch.DeclaringType, patch.MethodName, types),
-                MethodType.Getter => AccessTools.PropertyGetter(patch.DeclaringType, patch.MethodName),
-                MethodType.Setter => AccessTools.PropertySetter(patch.DeclaringType, patch.MethodName),
-                MethodType.Constructor => AccessTools.Constructor(patch.DeclaringType, types, false),
-                MethodType.StaticConstructor => AccessTools.Constructor(patch.DeclaringType, types, true),
+                MethodType.Getter => AccessTools.DeclaredPropertyGetter(patch.DeclaringType, patch.MethodName) ?? AccessTools.PropertyGetter(patch.DeclaringType, patch.MethodName),
+                MethodType.Setter => AccessTools.DeclaredPropertySetter(patch.DeclaringType, patch.MethodName) ?? AccessTools.PropertySetter(patch.DeclaringType, patch.MethodName),
+                MethodType.Constructor => AccessTools.DeclaredConstructor(patch.DeclaringType, types, false) ?? AccessTools.Constructor(patch.DeclaringType, types, false),
+                MethodType.StaticConstructor => AccessTools.DeclaredConstructor(patch.DeclaringType, types, true) ?? AccessTools.Constructor(patch.DeclaringType, types, true),
                 _ => throw new NotImplementedException($"MethodType '{patch.MethodType}' is unrecognized.")
             };
 
