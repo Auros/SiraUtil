@@ -1,4 +1,5 @@
-﻿using IPA.Loader;
+﻿using HarmonyLib;
+using IPA.Loader;
 using SiraUtil.Affinity.Harmony.Generator;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace SiraUtil.Affinity.Harmony
             MethodInfo[] affinityMethods = affinityType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
             if (affinityMethods.Length == 0)
             {
-                Plugin.Log.Warn($"'{affinity.GetType().Name}' doesn't have any affinity patches! The IAffinity interface is unecessary.");
+                Plugin.Log.Warn($"'{affinity.GetType().FullDescription()}' doesn't have any affinity patches! The IAffinity interface is unecessary.");
             }
 
             var classAffinityPatch = affinityType.GetCustomAttribute<AffinityPatchAttribute>();

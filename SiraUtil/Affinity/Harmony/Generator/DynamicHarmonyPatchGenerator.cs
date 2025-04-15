@@ -86,7 +86,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
             if (originalMethod == null)
             {
-                throw new ArgumentException($"{patch.MethodType} method '{patch.MethodName}' not found on '{patch.DeclaringType?.FullName}'");
+                throw new ArgumentException($"{patch.MethodType} method '{patch.MethodName}' not found on '{patch.DeclaringType.FullDescription()}'");
             }
 
             if (originalMethod.IsConstructor && originalMethod.DeclaringType == typeof(object))
@@ -96,7 +96,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
             if (originalMethod.DeclaringType != patch.DeclaringType)
             {
-                Plugin.Log.Warn($"Patching '{originalMethod.Name}' on '{originalMethod.DeclaringType.FullName}' but target class is '{patch.DeclaringType?.FullName}'. This is deprecated behaviour and will be removed in a future release.");
+                Plugin.Log.Warn($"'{affinityMethod.FullDescription()}' is patching '{originalMethod.FullDescription()}' but target class is '{patch.DeclaringType.FullDescription()}'. This is deprecated behaviour and will be removed in a future release.");
             }
 
             // Create the delegate used to invoke the affinity instance method.
