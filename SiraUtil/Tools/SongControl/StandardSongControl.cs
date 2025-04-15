@@ -1,6 +1,4 @@
-﻿using IPA.Utilities;
-
-namespace SiraUtil.Tools.SongControl
+﻿namespace SiraUtil.Tools.SongControl
 {
     internal class StandardSongControl : ISongControl
     {

@@ -1,5 +1,4 @@
-﻿using IPA.Utilities;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR;
 
 namespace SiraUtil.Tools.FPFC
@@ -14,14 +13,12 @@ namespace SiraUtil.Tools.FPFC
         private VRController _rightHand = null!;
         private VRController _leftHand = null!;
 
-        private const string _headTransform = "_headTransform";
-
         public GameTransformFPFCListener(SaberManager saberManager, PlayerTransforms playerTransforms)
         {
             _saberManager = saberManager;
             _playerTransforms = playerTransforms;
             _fpfcHeadTransform = new GameObject("FPFC Player Head").transform;
-            _originalHeadTransform = _playerTransforms.GetField<Transform, PlayerTransforms>(_headTransform);
+            _originalHeadTransform = _playerTransforms._headTransform;
         }
 
         public void Enabled()
@@ -32,7 +29,7 @@ namespace SiraUtil.Tools.FPFC
 
             _leftHand.transform.SetParent(null);
             _rightHand.transform.SetParent(null);
-            _playerTransforms.SetField(_headTransform, _fpfcHeadTransform);
+            _playerTransforms._headTransform = _fpfcHeadTransform;
         }
 
         public void Disabled()
@@ -41,7 +38,7 @@ namespace SiraUtil.Tools.FPFC
             {
                 _leftHand.transform.SetParent(_originalSaberParent);
                 _rightHand.transform.SetParent(_originalSaberParent);
-                _playerTransforms.SetField(_headTransform, _originalHeadTransform);
+                _playerTransforms._headTransform = _originalHeadTransform;
             }
         }
     }

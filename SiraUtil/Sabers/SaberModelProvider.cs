@@ -1,5 +1,4 @@
-﻿using IPA.Utilities;
-using SiraUtil.Affinity;
+﻿using SiraUtil.Affinity;
 using SiraUtil.Extras;
 using SiraUtil.Interfaces;
 using SiraUtil.Logging;
@@ -25,7 +24,6 @@ namespace SiraUtil.Sabers
         private readonly SaberModelRegistration _defaultSaberModelRegistration;
         private readonly HashSet<SetSaberGlowColor> _earlyInittingGlowColors = new();
         private readonly HashSet<SetSaberFakeGlowColor> _earlyInittingFakeGlowColors = new();
-        private static readonly FieldAccessor<SaberModelContainer, SaberModelController>.Accessor SaberModelContainer_SaberModelController = FieldAccessor<SaberModelContainer, SaberModelController>.GetAccessor("_saberModelControllerPrefab");
 
         internal SaberModelProvider(SiraLog siraLog, DiContainer container, SaberManager saberManager, List<SaberModelRegistration> saberModelRegistrations)
         {
@@ -35,7 +33,7 @@ namespace SiraUtil.Sabers
 
             _localLeftContainer = _saberManager.leftSaber.GetComponent<SaberModelContainer>();
             _localRightContainer = _saberManager.rightSaber.GetComponent<SaberModelContainer>();
-            _defaultSaberModelRegistration = new(SaberModelContainer_SaberModelController(ref _localLeftContainer), SaberModelContainer_SaberModelController(ref _localRightContainer), -1);
+            _defaultSaberModelRegistration = new(_localLeftContainer._saberModelControllerPrefab, _localRightContainer._saberModelControllerPrefab);
 
             List<SaberModelRegistration> registrations = new();
             registrations.Add(_defaultSaberModelRegistration);
@@ -81,22 +79,21 @@ namespace SiraUtil.Sabers
                     GameObject gameObject = new(type.Name);
                     gameObject.SetActive(false);
 
-                    SaberTrail defaultTrail = SaberExtensions.SaberModelController_SaberTrail(ref defaultPrefab);
+                    SaberTrail defaultTrail = defaultPrefab._saberTrail;
                     SaberTrail pseudoTrail = gameObject.AddComponent<SaberTrail>();
 
-                    // TODO: Convert to accessors
                     // Give a new trail that doesn't really do anything. However, by default the SaberModelController needs a trail, so...
-                    pseudoTrail.SetField("_granularity", defaultTrail.GetField<int, SaberTrail>("_granularity"));
-                    pseudoTrail.SetField("_trailDuration", defaultTrail.GetField<float, SaberTrail>("_trailDuration"));
-                    pseudoTrail.SetField("_samplingFrequency", defaultTrail.GetField<int, SaberTrail>("_samplingFrequency"));
-                    pseudoTrail.SetField("_whiteSectionMaxDuration", defaultTrail.GetField<float, SaberTrail>("_whiteSectionMaxDuration"));
-                    pseudoTrail.SetField("_trailRendererPrefab", defaultTrail.GetField<SaberTrailRenderer, SaberTrail>("_trailRendererPrefab"));
+                    pseudoTrail._granularity = defaultTrail._granularity;
+                    pseudoTrail._trailDuration = defaultTrail._trailDuration;
+                    pseudoTrail._samplingFrequency = defaultTrail._samplingFrequency;
+                    pseudoTrail._whiteSectionMaxDuration = defaultTrail._whiteSectionMaxDuration;
+                    pseudoTrail._trailRendererPrefab = defaultTrail._trailRendererPrefab;
                     pseudoTrail.enabled = false;
 
                     newModel = (_container.InstantiateComponent(type, gameObject) as SaberModelController)!;
-                    SaberExtensions.SaberModelController_SaberTrail(ref newModel) = pseudoTrail;
-                    SaberExtensions.SaberModelController_SetSaberGlowColors(ref newModel) = Array.Empty<SetSaberGlowColor>();
-                    SaberExtensions.SaberModelController_SetSaberFakeGlowColors(ref newModel) = Array.Empty<SetSaberFakeGlowColor>();
+                    newModel._saberTrail = pseudoTrail;
+                    newModel._setSaberGlowColors = Array.Empty<SetSaberGlowColor>();
+                    newModel._setSaberFakeGlowColors = Array.Empty<SetSaberFakeGlowColor>();
                     gameObject.SetActive(true);
                 }
                 else if (_activeSaberModelRegistration.LeftTemplate != null && _activeSaberModelRegistration.RightTemplate != null)

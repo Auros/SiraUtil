@@ -36,8 +36,9 @@ namespace SiraUtil.Submissions
                 }
                 else if (_inMission)
                 {
-                    __result.SetField("levelEndStateType", LevelCompletionResults.LevelEndStateType.Failed);
-                    __result.SetField("levelEndAction", LevelCompletionResults.LevelEndAction.None);
+                    // TODO: These are both readonly fields. Figure out if there's a way to get around that.
+                    __result.SetField(nameof(LevelCompletionResults.levelEndStateType), LevelCompletionResults.LevelEndStateType.Failed);
+                    __result.SetField(nameof(LevelCompletionResults.levelEndAction), LevelCompletionResults.LevelEndAction.None);
                 }
                 __result = new SiraLevelCompletionResults(__result, !_submission.Activated);
             }

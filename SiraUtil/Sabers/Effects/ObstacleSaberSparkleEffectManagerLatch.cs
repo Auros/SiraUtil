@@ -13,9 +13,9 @@ namespace SiraUtil.Sabers.Effects
         private readonly Queue<SiraSaber> _earlySabers = new();
         private ObstacleSaberSparkleEffectManager? _obstacleSaberSparkleEffectManager;
 
-        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, Saber[]>.Accessor Sabers = FieldAccessor<ObstacleSaberSparkleEffectManager, Saber[]>.GetAccessor("_sabers");
-        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect[]>.Accessor Effects = FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect[]>.GetAccessor("_effects");
-        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect>.Accessor SparkleEffectPrefab = FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect>.GetAccessor("_obstacleSaberSparkleEffectPrefab");
+        // TODO: These are both readonly fields. Figure out if there's a way to get around that.
+        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, Saber[]>.Accessor Sabers = FieldAccessor<ObstacleSaberSparkleEffectManager, Saber[]>.GetAccessor(nameof(ObstacleSaberSparkleEffectManager._sabers));
+        private static readonly FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect[]>.Accessor Effects = FieldAccessor<ObstacleSaberSparkleEffectManager, ObstacleSaberSparkleEffect[]>.GetAccessor(nameof(ObstacleSaberSparkleEffectManager._effects));
 
         public ObstacleSaberSparkleEffectManagerLatch(ColorManager colorManager, SiraSaberFactory siraSaberFactory)
         {
@@ -50,7 +50,7 @@ namespace SiraUtil.Sabers.Effects
 
         private ObstacleSaberSparkleEffect CreateNewObstacleSaberSparkleEffect()
         {
-            ObstacleSaberSparkleEffect obstacleSaberSparkleEffect = UnityEngine.Object.Instantiate(SparkleEffectPrefab(ref _obstacleSaberSparkleEffectManager!));
+            ObstacleSaberSparkleEffect obstacleSaberSparkleEffect = UnityEngine.Object.Instantiate(_obstacleSaberSparkleEffectManager!._obstacleSaberSparkleEffectPrefab);
             obstacleSaberSparkleEffect.name = $"SiraUtil | {obstacleSaberSparkleEffect.name}";
             obstacleSaberSparkleEffect.color = _colorManager.GetObstacleEffectColor();
             return obstacleSaberSparkleEffect;

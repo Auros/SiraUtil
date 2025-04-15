@@ -1,5 +1,4 @@
-﻿using IPA.Utilities;
-using ModestTree;
+﻿using ModestTree;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,8 +8,6 @@ namespace SiraUtil.Zenject.Internal.Exposers
 {
     internal class ExposerManager
     {
-        private static readonly FieldAccessor<SceneDecoratorContext, List<MonoBehaviour>>.Accessor SceneDecoratorInjectables = FieldAccessor<SceneDecoratorContext, List<MonoBehaviour>>.GetAccessor("_injectableMonoBehaviours");
-
         public void Install(ExposeSet exposeSet, Context context, ref IEnumerable<MonoBehaviour>? iterList)
         {
             Assert.DerivesFromOrEqual<SceneDecoratorContext>(context.GetType());
@@ -24,7 +21,7 @@ namespace SiraUtil.Zenject.Internal.Exposers
             if (iterList is null)
             {
                 List<MonoBehaviour> injectableList = new();
-                injectableList.AddRange(SceneDecoratorInjectables(ref sceneDecoratorContext));               
+                injectableList.AddRange(sceneDecoratorContext._injectableMonoBehaviours);               
                 iterList = injectableList;
             }
             MonoBehaviour toExpose = iterList.FirstOrDefault(i => i.GetType() == exposeSet.typeToExpose);

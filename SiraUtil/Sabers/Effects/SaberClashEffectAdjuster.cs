@@ -1,5 +1,4 @@
-﻿using IPA.Utilities;
-using SiraUtil.Affinity;
+﻿using SiraUtil.Affinity;
 using System;
 using UnityEngine;
 using Zenject;
@@ -13,9 +12,6 @@ namespace SiraUtil.Sabers.Effects
         private ParticleSystem? _sparkleParticleSystem;
         private readonly SaberModelManager _saberModelManager;
         private readonly SiraSaberClashChecker _saberClashChecker;
-
-        private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor GlowParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_glowParticleSystem");
-        private static readonly FieldAccessor<SaberClashEffect, ParticleSystem>.Accessor SparkleParticles = FieldAccessor<SaberClashEffect, ParticleSystem>.GetAccessor("_sparkleParticleSystem");
 
         public SaberClashEffectAdjuster(SaberModelManager saberModelManager, SaberClashChecker saberClashChecker)
         {

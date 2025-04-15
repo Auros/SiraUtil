@@ -1,5 +1,4 @@
 ﻿using HarmonyLib;
-using IPA.Utilities;
 using SiraUtil.Affinity;
 using System;
 using System.Collections.Generic;
@@ -9,13 +8,6 @@ namespace SiraUtil.Sabers.Effects
 {
     internal class SaberBurnMarkSparklesLatch : IDisposable, IAffinity
     {
-        private static readonly FieldAccessor<SaberBurnMarkSparkles, Saber[]>.Accessor Sabers = FieldAccessor<SaberBurnMarkSparkles, Saber[]>.GetAccessor("_sabers");
-        private static readonly FieldAccessor<SaberBurnMarkSparkles, Vector3[]>.Accessor PreviousMarks = FieldAccessor<SaberBurnMarkSparkles, Vector3[]>.GetAccessor("_prevBurnMarkPos");
-        private static readonly FieldAccessor<SaberBurnMarkSparkles, bool[]>.Accessor PreviousMarksValid = FieldAccessor<SaberBurnMarkSparkles, bool[]>.GetAccessor("_prevBurnMarkPosValid");
-        private static readonly FieldAccessor<SaberBurnMarkSparkles, ParticleSystem[]>.Accessor Particles = FieldAccessor<SaberBurnMarkSparkles, ParticleSystem[]>.GetAccessor("_burnMarksPS");
-        private static readonly FieldAccessor<SaberBurnMarkSparkles, ParticleSystem>.Accessor ParticlesPrefab = FieldAccessor<SaberBurnMarkSparkles, ParticleSystem>.GetAccessor("_burnMarksPSPrefab");
-        private static readonly FieldAccessor<SaberBurnMarkSparkles, ParticleSystem.EmissionModule[]>.Accessor Emissions = FieldAccessor<SaberBurnMarkSparkles, ParticleSystem.EmissionModule[]>.GetAccessor("_burnMarksEmissionModules");
-
         private readonly SiraSaberFactory _siraSaberFactory;
         private readonly SaberModelManager _saberModelManager;
         private readonly Queue<SiraSaber> _earlySabers = new();
@@ -49,20 +41,20 @@ namespace SiraUtil.Sabers.Effects
             if (_saberBurnMarkSparkles is null)
                 return;
 
-            Sabers(ref _saberBurnMarkSparkles) = Sabers(ref _saberBurnMarkSparkles).AddToArray(saber);
-            PreviousMarks(ref _saberBurnMarkSparkles) = PreviousMarks(ref _saberBurnMarkSparkles).AddToArray(default);
-            PreviousMarksValid(ref _saberBurnMarkSparkles) = PreviousMarksValid(ref _saberBurnMarkSparkles).AddToArray(default);
+            _saberBurnMarkSparkles._sabers = _saberBurnMarkSparkles._sabers.AddToArray(saber);
+            _saberBurnMarkSparkles._prevBurnMarkPos = _saberBurnMarkSparkles._prevBurnMarkPos.AddToArray(default);
+            _saberBurnMarkSparkles._prevBurnMarkPosValid = _saberBurnMarkSparkles._prevBurnMarkPosValid.AddToArray(default);
 
             ParticleSystem newPs = CreateNewBurnMarkParticles();
-            Particles(ref _saberBurnMarkSparkles) = Particles(ref _saberBurnMarkSparkles).AddToArray(newPs);
-            Emissions(ref _saberBurnMarkSparkles) = Emissions(ref _saberBurnMarkSparkles).AddToArray(newPs.emission);
+            _saberBurnMarkSparkles._burnMarksPS = _saberBurnMarkSparkles._burnMarksPS.AddToArray(newPs);
+            _saberBurnMarkSparkles._burnMarksEmissionModules = _saberBurnMarkSparkles._burnMarksEmissionModules.AddToArray(newPs.emission);
         }
 
         private ParticleSystem CreateNewBurnMarkParticles()
         {
             Quaternion rotation = default;
             rotation.eulerAngles = new Vector3(-90f, 0f, 0f);
-            ParticleSystem ps = UnityEngine.Object.Instantiate(ParticlesPrefab(ref _saberBurnMarkSparkles!), Vector3.zero, rotation, null!);
+            ParticleSystem ps = UnityEngine.Object.Instantiate(_saberBurnMarkSparkles!._burnMarksPSPrefab, Vector3.zero, rotation, null!);
             ps.name = $"SiraUtil | {ps.name}";
             return ps;
         }
@@ -101,7 +93,7 @@ namespace SiraUtil.Sabers.Effects
             if (!_sisterLoopActive || _saberBurnMarkSparkles is null)
                 return true;
 
-            Saber[] sabers = Sabers(ref _saberBurnMarkSparkles);
+            Saber[] sabers = _saberBurnMarkSparkles._sabers;
             if (_activeSaberIndex >= sabers.Length)
                 return true;
 

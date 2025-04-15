@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using IPA.Loader;
 using IPA.Utilities;
-using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.IO;

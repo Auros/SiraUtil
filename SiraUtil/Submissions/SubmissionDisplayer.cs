@@ -1,5 +1,4 @@
 ﻿using HMUI;
-using IPA.Utilities;
 using System;
 using Zenject;
 
@@ -32,7 +31,7 @@ namespace SiraUtil.Submissions
         {
             if (_submissionDataContainer.Disabled)
             {
-                _targetFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", _siraSubmissionViewController, ViewController.AnimationType.In);
+                _targetFlowCoordinator.SetBottomScreenViewController(_siraSubmissionViewController, ViewController.AnimationType.In);
                 _siraSubmissionViewController.Enabled(true);
                 _siraSubmissionViewController.SetText($"<size=115%><color=#f03030>Score Submission Disabled By</color></size>\n{_submissionDataContainer.Read()}");
             }
@@ -43,7 +42,7 @@ namespace SiraUtil.Submissions
             _submissionDataContainer.Disabled = false;
             _siraSubmissionViewController.Enabled(false);
             if (_siraSubmissionViewController.isInViewControllerHierarchy)
-                _targetFlowCoordinator.InvokeMethod<object, FlowCoordinator>("SetBottomScreenViewController", null, ViewController.AnimationType.Out);
+                _targetFlowCoordinator.SetBottomScreenViewController(null, ViewController.AnimationType.Out);
         }
 
         public void Dispose()

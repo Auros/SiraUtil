@@ -1,5 +1,4 @@
-﻿using IPA.Utilities;
-using SiraUtil.Extras;
+﻿using SiraUtil.Extras;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,13 +27,6 @@ namespace SiraUtil.Sabers
         private readonly Queue<Action> _colorProcessNextFrame = new();
         private bool _constructedThisFrame = false;
 
-        private static readonly FieldAccessor<Saber, Vector3>.Accessor SaberBladeTopPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeTopPos");
-        private static readonly FieldAccessor<Saber, Vector3>.Accessor SaberBladeBottomPosition = FieldAccessor<Saber, Vector3>.GetAccessor("_saberBladeBottomPos");
-
-        private static readonly FieldAccessor<Saber, Transform>.Accessor SaberHandleTransform = FieldAccessor<Saber, Transform>.GetAccessor("_handleTransform");
-        private static readonly FieldAccessor<Saber, Transform>.Accessor SaberBladeTopTransform = FieldAccessor<Saber, Transform>.GetAccessor("_saberBladeTopTransform");
-        private static readonly FieldAccessor<Saber, Transform>.Accessor SaberBladeBottomTransform = FieldAccessor<Saber, Transform>.GetAccessor("_saberBladeBottomTransform");
-
         [Inject]
         internal void Construct(
             NoteCutter noteCutter,
@@ -55,7 +47,7 @@ namespace SiraUtil.Sabers
             _saberTypeObject = gameObject.AddComponent<SaberTypeObject>();
             Saber saber = Saber = gameObject.AddComponent<T>();
             gameObject.layer = LayerMask.NameToLayer("Saber");
-            Saber.SetField("_saberType", _saberTypeObject);
+            Saber._saberType = _saberTypeObject;
 
             GameObject top = new("Top");
             GameObject bottom = new("Bottom");
@@ -63,13 +55,13 @@ namespace SiraUtil.Sabers
             bottom.transform.SetParent(transform);
             top.transform.position = new Vector3(0f, 0f, 1f);
 
-            SaberBladeTopTransform(ref saber) = top.transform;
-            SaberHandleTransform(ref saber) = bottom.transform;
-            SaberBladeBottomTransform(ref saber) = bottom.transform;
-            SaberBladeTopPosition(ref saber) = top.transform.position;
-            SaberBladeBottomPosition(ref saber) = bottom.transform.position;
+            saber._saberBladeTopTransform = top.transform;
+            saber._handleTransform = bottom.transform;
+            saber._saberBladeBottomTransform = bottom.transform;
+            saber._saberBladeTopPos = top.transform.position;
+            saber._saberBladeBottomPos = bottom.transform.position;
 
-            _saberTypeObject.SetField("_saberType", saberType);
+            _saberTypeObject._saberType = saberType;
             _saberModelController = _saberModelProvider.NewModel(saberType);
             _saberModelController.Init(transform, Saber, _saberModelContainerInitData.trailTintColor);
             _constructedThisFrame = true;
@@ -80,10 +72,10 @@ namespace SiraUtil.Sabers
             if (Saber != null && Saber.gameObject.activeInHierarchy && Saber.enabled)
             {
                 Saber saber = Saber;
-                Transform topTransform = SaberBladeTopTransform(ref saber);
-                Transform bottomTransform = SaberBladeBottomTransform(ref saber);
-                Vector3 topPosition = SaberBladeTopPosition(ref saber) = topTransform.position;
-                Vector3 bottomPosition = SaberBladeBottomPosition(ref saber) = bottomTransform.position;
+                Transform topTransform = saber._saberBladeTopTransform;
+                Transform bottomTransform = saber._saberBladeBottomTransform;
+                Vector3 topPosition = saber._saberBladeTopPos = topTransform.position;
+                Vector3 bottomPosition = saber._saberBladeBottomPos = bottomTransform.position;
                 Saber.movementDataForLogic.AddNewData(topPosition, bottomPosition, TimeHelper.time);
                 _noteCutter.Cut(Saber);
             }
@@ -102,7 +94,7 @@ namespace SiraUtil.Sabers
         /// </summary>
         public void SetType(SaberType newSaberType)
         {
-            _saberTypeObject.SetField("_saberType", newSaberType);
+            _saberTypeObject._saberType = newSaberType;
             _saberModelController.SetColor(_colorManager.ColorForSaberType(newSaberType));
         }
 

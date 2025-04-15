@@ -1,7 +1,4 @@
-﻿using IPA.Loader;
-using IPA.Utilities;
-using SiraUtil.Zenject;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
