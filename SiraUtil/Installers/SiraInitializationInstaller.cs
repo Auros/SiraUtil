@@ -1,4 +1,5 @@
-﻿using SiraUtil.Logging;
+﻿using IPA.Logging;
+using SiraUtil.Logging;
 using SiraUtil.Services.Events;
 using SiraUtil.Submissions;
 using SiraUtil.Tools.FPFC;
@@ -44,6 +45,7 @@ namespace SiraUtil.Installers
                 if (zenjector.Logger is not null)
                     _siraLogManager.AddLogger(zenjector.Metadata.Assembly, zenjector.Logger);
             Container.Bind<SiraLog>().AsTransient().OnInstantiated<SiraLog>(SiraLogCreated);
+            Container.Bind<Logger>().FromMethod(CreateIPAChildLogger).AsTransient();
 
             // Takes every active zenjector and adds them to the http service.
             _httpServiceManager.Clear();
@@ -69,6 +71,12 @@ namespace SiraUtil.Installers
             // When a SiraLog is instantiated, add its backing logger and its default value for debug mode.
             SiraLogManager.LoggerContext loggerContext = _siraLogManager.LoggerFromAssembly(ctx.ObjectType.Assembly);
             siraLog.Setup(loggerContext.logger, ctx.ObjectType.Name, loggerContext.debugMode);
+        }
+
+        private Logger CreateIPAChildLogger(InjectContext ctx)
+        {
+            SiraLogManager.LoggerContext loggerContext = _siraLogManager.LoggerFromAssembly(ctx.ObjectType.Assembly);
+            return loggerContext.logger.GetChildLogger(ctx.ObjectType.Name);
         }
 
         private void HttpServiceCreated(InjectContext ctx, IHttpService httpService)
