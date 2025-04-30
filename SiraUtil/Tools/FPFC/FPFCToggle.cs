@@ -1,5 +1,4 @@
-﻿using SiraUtil.Logging;
-using SiraUtil.Services;
+﻿using SiraUtil.Services;
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly FPFCState _initialState = new();
         private SimpleCameraController _simpleCameraController = null!;
 
-        private readonly SiraLog _siraLog;
+        private readonly DiContainer _container;
         private readonly MainCamera _mainCamera;
         private readonly EventSystem _eventSystem;
         private readonly IFPFCSettings _fpfcSettings;
@@ -31,9 +30,9 @@ namespace SiraUtil.Tools.FPFC
         private readonly Transform _previousEventSystemTransformParent;
         private bool _didFirstFocus = false;
 
-        public FPFCToggle(SiraLog siraLog, MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
+        public FPFCToggle(DiContainer container, MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
         {
-            _siraLog = siraLog;
+            _container = container;
             _mainCamera = mainCamera;
             _fpfcSettings = fpfcSettings;
             _fpfcListeners = fpfcListeners;
@@ -57,7 +56,7 @@ namespace SiraUtil.Tools.FPFC
             _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
             _initialState.StereroTarget = _mainCamera.camera.stereoTargetEye;
 
-            _simpleCameraController = _mainCamera.camera.transform.parent.gameObject.AddComponent<SimpleCameraController>();
+            _simpleCameraController = _container.InstantiateComponent<SimpleCameraController>(_mainCamera.camera.gameObject);
             if (_fpfcSettings.Enabled)
                 EnableFPFC();
         }
@@ -96,25 +95,33 @@ namespace SiraUtil.Tools.FPFC
                 _simpleCameraController.transform.rotation = _lastPose.Value.rotation;
             }
 
-            if (_mainCamera != null && _mainCamera.camera != null)
+            if (_mainCamera != null)
             {
-                _mainCamera.camera.stereoTargetEye = StereoTargetEyeMask.None;
-                _mainCamera.camera.aspect = Screen.width / (float)Screen.height;
-                _mainCamera.camera.fieldOfView = _fpfcSettings.FOV;
+                Camera camera = _mainCamera.camera;
+
+                if (camera != null)
+                {
+                    camera.stereoTargetEye = StereoTargetEyeMask.None;
+                    camera.aspect = Screen.width / (float)Screen.height;
+                    camera.fieldOfView = _fpfcSettings.FOV;
+                }
+
+                if (_mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
+                {
+                    trackedPoseDriver.enabled = false;
+                }
             }
 
             if (_eventSystem != null)
                 _eventSystem.gameObject.transform.SetParent(_simpleCameraController.transform);
 
-            if (_menuControllerAccessor.LeftController != null && _menuControllerAccessor.RightController != null)
+            if (_menuControllerAccessor.LeftController != null)
             {
-                _menuControllerAccessor.LeftController.transform.SetParent(_simpleCameraController.transform);
-                _menuControllerAccessor.RightController.transform.SetParent(_simpleCameraController.transform);
-                _menuControllerAccessor.LeftController.transform.localPosition = Vector3.zero;
-                _menuControllerAccessor.RightController.transform.localPosition = Vector3.zero;
-                _menuControllerAccessor.LeftController.transform.localRotation = Quaternion.identity;
-                _menuControllerAccessor.RightController.transform.localRotation = Quaternion.identity;
                 _menuControllerAccessor.LeftController.enabled = false;
+            }
+
+            if (_menuControllerAccessor.RightController != null)
+            {
                 _menuControllerAccessor.RightController.enabled = false;
             }
 
@@ -145,11 +152,18 @@ namespace SiraUtil.Tools.FPFC
             if (_eventSystem != null)
                 _eventSystem.gameObject.transform.SetParent(_previousEventSystemTransformParent);
 
-            if (_menuControllerAccessor.LeftController != null && _menuControllerAccessor.RightController != null)
+            if (_mainCamera != null && _mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
             {
-                _menuControllerAccessor.LeftController!.transform.SetParent(_menuControllerAccessor.Parent);
-                _menuControllerAccessor.RightController.transform.SetParent(_menuControllerAccessor.Parent);
+                trackedPoseDriver.enabled = true;
+            }
+
+            if (_menuControllerAccessor.LeftController != null)
+            {
                 _menuControllerAccessor.LeftController.enabled = true;
+            }
+
+            if (_menuControllerAccessor.RightController != null)
+            {
                 _menuControllerAccessor.RightController.enabled = true;
             }
 

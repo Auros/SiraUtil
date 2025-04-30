@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using SiraUtil.Services;
+using UnityEngine;
+using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -9,6 +11,8 @@ namespace SiraUtil.Tools.FPFC
 
         private readonly bool invertY = true;
         private readonly AnimationCurve mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
+
+        private IMenuControllerAccessor? menuControllerAccessor;
 
         public float MouseSensitivity { get; set; } = 5f;
 
@@ -38,6 +42,22 @@ namespace SiraUtil.Tools.FPFC
             targetCameraState.Position += translation;
 
             targetCameraState.UpdateTransform(transform);
+
+            if (menuControllerAccessor?.LeftController != null)
+            {
+                targetCameraState.UpdateTransform(menuControllerAccessor.LeftController.transform);
+            }
+
+            if (menuControllerAccessor?.RightController != null)
+            {
+                targetCameraState.UpdateTransform(menuControllerAccessor.RightController.transform);
+            }
+        }
+
+        [Inject]
+        private void Construct(IMenuControllerAccessor menuControllerAccessor)
+        {
+            this.menuControllerAccessor = menuControllerAccessor;
         }
 
         private Vector3 GetInputTranslationDirection(Quaternion rotation)
