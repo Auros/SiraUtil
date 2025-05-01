@@ -1,4 +1,5 @@
-﻿using SiraUtil.Services;
+﻿using SiraUtil.Affinity;
+using SiraUtil.Services;
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using UnityEngine.SpatialTracking;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCToggle : IAsyncInitializable, IDisposable
+    internal class FPFCToggle : IAffinity, IAsyncInitializable, IDisposable
     {
         public const string EnableArgument = "fpfc";
         public const string DisableArgument = "--no-sirautil-fpfc";
@@ -36,6 +37,15 @@ namespace SiraUtil.Tools.FPFC
 
             _leftControllerConstraint = menuControllerAccessor.LeftController.gameObject.AddComponent<ParentConstraint>();
             _rightControllerConstraint = menuControllerAccessor.RightController.gameObject.AddComponent<ParentConstraint>();
+        }
+
+        [AffinityPatch(typeof(SettingsApplicatorSO), nameof(SettingsApplicatorSO.ApplyGraphicSettings))]
+        private void ApplyGraphicSettings()
+        {
+            if (_fpfcSettings.Enabled)
+            {
+                Application.targetFrameRate = (int)Math.Round(Screen.currentResolution.refreshRateRatio.value);
+            }
         }
 
         public async Task InitializeAsync(CancellationToken token)
