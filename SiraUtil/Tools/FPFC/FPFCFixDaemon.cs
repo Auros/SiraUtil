@@ -21,7 +21,7 @@ namespace SiraUtil.Tools.FPFC
         }
 
         [AffinityPatch(typeof(UnityXRHelper), nameof(UnityXRHelper.GetThumbstickValue))]
-        protected void ForceInputFocus(ref Vector2 __result)
+        protected void GetThumbstickValue(ref Vector2 __result)
         {
             if (_fpfcSettings.Enabled)
                 __result = new Vector2(Input.GetAxis("Mouse ScrollWheel"), Input.GetAxis("Mouse ScrollWheel"));
