@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Zenject;
+﻿using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -9,7 +7,6 @@ namespace SiraUtil.Tools.FPFC
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<FPFCToggle>().AsSingle();
-            Container.BindInterfacesTo<MenuFPFCListener>().AsSingle();
             Container.BindInterfacesTo<SmoothCameraListener>().AsSingle();
         }
     }

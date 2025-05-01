@@ -5,43 +5,37 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.Animations;
 using UnityEngine.SpatialTracking;
-using VRUIControls;
-using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCToggle : IAsyncInitializable, ITickable, IDisposable
+    internal class FPFCToggle : IAsyncInitializable, IDisposable
     {
         public const string EnableArgument = "fpfc";
         public const string DisableArgument = "--no-sirautil-fpfc";
 
         private Pose? _lastPose = new();
-        private readonly FPFCState _initialState = new();
+        private StereoTargetEyeMask _lastStereoTargetEyeMask;
         private SimpleCameraController _simpleCameraController = null!;
 
-        private readonly DiContainer _container;
         private readonly MainCamera _mainCamera;
-        private readonly EventSystem _eventSystem;
         private readonly IFPFCSettings _fpfcSettings;
         private readonly List<IFPFCListener> _fpfcListeners;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
-        private readonly Transform _previousEventSystemTransformParent;
-        private bool _didFirstFocus = false;
 
-        public FPFCToggle(DiContainer container, MainCamera mainCamera, IFPFCSettings fpfcSettings, VRInputModule vrInputModule, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
+        private readonly ParentConstraint _leftControllerConstraint;
+        private readonly ParentConstraint _rightControllerConstraint;
+
+        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
         {
-            _container = container;
             _mainCamera = mainCamera;
             _fpfcSettings = fpfcSettings;
             _fpfcListeners = fpfcListeners;
             _menuControllerAccessor = menuControllerAccessor;
 
-            _eventSystem = vrInputModule.GetComponent<EventSystem>();
-            _previousEventSystemTransformParent = _eventSystem.transform.parent;
-
-            _didFirstFocus = Application.isFocused;
+            _leftControllerConstraint = menuControllerAccessor.LeftController.gameObject.AddComponent<ParentConstraint>();
+            _rightControllerConstraint = menuControllerAccessor.RightController.gameObject.AddComponent<ParentConstraint>();
         }
 
         public async Task InitializeAsync(CancellationToken token)
@@ -49,36 +43,41 @@ namespace SiraUtil.Tools.FPFC
             _fpfcSettings.Changed += FPFCSettings_Changed;
 
             if (_mainCamera.camera == null)
+            {
                 while (_mainCamera.camera == null)
+                {
                     await Task.Yield();
+                }
+            }
 
-            _initialState.Aspect = _mainCamera.camera.aspect;
-            _initialState.CameraFOV = _mainCamera.camera.fieldOfView;
-            _initialState.StereroTarget = _mainCamera.camera.stereoTargetEye;
+            _lastStereoTargetEyeMask = _mainCamera.camera.stereoTargetEye;
 
-            _simpleCameraController = _container.InstantiateComponent<SimpleCameraController>(_mainCamera.camera.gameObject);
-            if (_fpfcSettings.Enabled)
-                EnableFPFC();
+            _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
+
+            Transform cameraTransform = _mainCamera.transform;
+            _leftControllerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
+            _rightControllerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
+
+            FPFCSettings_Changed(_fpfcSettings);
+        }
+
+        public void Dispose()
+        {
+            _fpfcSettings.Changed -= FPFCSettings_Changed;
         }
 
         private void FPFCSettings_Changed(IFPFCSettings fpfcSettings)
         {
-            if (_simpleCameraController == null || !_simpleCameraController.enabled)
+            if (_simpleCameraController == null)
+            {
                 return;
+            }
 
             if (fpfcSettings.Enabled)
             {
-                if (!_simpleCameraController.AllowInput)
-                    EnableFPFC();
-                else
-                {
-                    if (_mainCamera != null && _mainCamera.camera != null)
-                        _mainCamera.camera.fieldOfView = fpfcSettings.FOV;
-                    _simpleCameraController.MoveSensitivity = _fpfcSettings.MoveSensitivity;
-                    _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
-                }
+                EnableFPFC();
             }
-            else if (_simpleCameraController.AllowInput)
+            else
             {
                 DisableFPFC();
             }
@@ -86,9 +85,11 @@ namespace SiraUtil.Tools.FPFC
 
         private void EnableFPFC()
         {
-            _simpleCameraController.AllowInput = true;
+            _simpleCameraController.enabled = true;
+
             _simpleCameraController.MoveSensitivity = _fpfcSettings.MoveSensitivity;
             _simpleCameraController.MouseSensitivity = _fpfcSettings.MouseSensitivity;
+
             if (_lastPose.HasValue)
             {
                 _simpleCameraController.transform.position = _lastPose.Value.position;
@@ -101,9 +102,11 @@ namespace SiraUtil.Tools.FPFC
 
                 if (camera != null)
                 {
+                    _lastStereoTargetEyeMask = camera.stereoTargetEye;
+
                     camera.stereoTargetEye = StereoTargetEyeMask.None;
-                    camera.aspect = Screen.width / (float)Screen.height;
                     camera.fieldOfView = _fpfcSettings.FOV;
+                    camera.ResetAspect();
                 }
 
                 if (_mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
@@ -112,81 +115,48 @@ namespace SiraUtil.Tools.FPFC
                 }
             }
 
-            if (_eventSystem != null)
-                _eventSystem.gameObject.transform.SetParent(_simpleCameraController.transform);
+            SetControllerEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, false);
+            SetControllerEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, false);
 
-            if (_menuControllerAccessor.LeftController != null)
-            {
-                _menuControllerAccessor.LeftController.enabled = false;
-            }
-
-            if (_menuControllerAccessor.RightController != null)
-            {
-                _menuControllerAccessor.RightController.enabled = false;
-            }
-
-            if (_didFirstFocus)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
             if (_fpfcSettings.LimitFrameRate)
             {
                 Application.targetFrameRate = (int)Math.Round(Screen.currentResolution.refreshRateRatio.value);
             }
 
-            if (_mainCamera != null)
-            {
-                var poseDriver = _mainCamera.GetComponent<TrackedPoseDriver>();
-                if (poseDriver != null)
-                    poseDriver.enabled = false;
-            }
-
             foreach (var listener in _fpfcListeners)
+            {
                 listener.Enabled();
+            }
         }
 
         private void DisableFPFC()
         {
-            if (_eventSystem != null)
-                _eventSystem.gameObject.transform.SetParent(_previousEventSystemTransformParent);
+            _simpleCameraController.enabled = false;
 
-            if (_mainCamera != null && _mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
-            {
-                trackedPoseDriver.enabled = true;
-            }
-
-            if (_menuControllerAccessor.LeftController != null)
-            {
-                _menuControllerAccessor.LeftController.enabled = true;
-            }
-
-            if (_menuControllerAccessor.RightController != null)
-            {
-                _menuControllerAccessor.RightController.enabled = true;
-            }
-
-            _simpleCameraController.AllowInput = false;
+            SetControllerEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, true);
+            SetControllerEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, true);
 
             if (!_fpfcSettings.LockViewOnDisable)
             {
                 _lastPose = new Pose(_simpleCameraController.transform.position, _simpleCameraController.transform.rotation);
-                _simpleCameraController.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-                if (_mainCamera != null && _mainCamera.camera != null)
+                if (_mainCamera != null)
                 {
-                    _mainCamera.camera.aspect = _initialState.Aspect;
-                    _mainCamera.camera.fieldOfView = _initialState.CameraFOV;
-                    _mainCamera.camera.stereoTargetEye = _initialState.StereroTarget;
-                }
-            }
+                    Camera camera = _mainCamera.camera;
 
-            if (_mainCamera != null)
-            {
-                var poseDriver = _mainCamera.GetComponent<TrackedPoseDriver>();
-                if (poseDriver != null)
-                    poseDriver.enabled = true;
+                    if (camera != null)
+                    {
+                        camera.stereoTargetEye = _lastStereoTargetEyeMask;
+                    }
+
+                    if (_mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
+                    {
+                        trackedPoseDriver.enabled = true;
+                    }
+                }
             }
 
             Cursor.lockState = CursorLockMode.None;
@@ -198,22 +168,16 @@ namespace SiraUtil.Tools.FPFC
             }
 
             foreach (var listener in _fpfcListeners)
-                listener.Disabled();
-        }
-
-        public void Dispose()
-        {
-            _fpfcSettings.Changed -= FPFCSettings_Changed;
-        }
-
-        public void Tick()
-        {
-            if (!_didFirstFocus && Application.isFocused && _fpfcSettings.Enabled)
             {
-                _didFirstFocus = true;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                listener.Disabled();
             }
+        }
+
+        private void SetControllerEnabled(VRController vrController, ParentConstraint parentConstraint, bool enabled)
+        {
+            vrController.enabled = enabled;
+            vrController.mouseMode = !enabled;
+            parentConstraint.constraintActive = !enabled;
         }
     }
 }
