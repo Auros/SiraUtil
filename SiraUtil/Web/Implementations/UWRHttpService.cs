@@ -46,32 +46,61 @@ namespace SiraUtil.Web.Implementations
 
         public int Timeout { get; set; } = 60;
 
-        public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null, int? timeout = null)
+        public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null)
         {
-            return SendAsync(HTTPMethod.GET, url, null, null, progress, cancellationToken, timeout);
+            return SendAsync(HTTPMethod.GET, url, null, null, progress, cancellationToken);
+        }
+        public Task<IHttpResponse> GetAsync(string url, int timeout, IProgress<float>? progress = null, CancellationToken? cancellationToken = null)
+        {
+            return SendAsync(HTTPMethod.GET, url, timeout, null, null, progress, cancellationToken);
         }
 
-        public Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
+        public Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
         {
-            return SendAsync(HTTPMethod.POST, url, JsonConvert.SerializeObject(body), null, null, cancellationToken, timeout);
+            return SendAsync(HTTPMethod.POST, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
+        }
+        public Task<IHttpResponse> PostAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
+        {
+            return SendAsync(HTTPMethod.POST, url, timeout, JsonConvert.SerializeObject(body), null, null, cancellationToken);
         }
 
-        public Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
+        public Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
         {
-            return SendAsync(HTTPMethod.PUT, url, JsonConvert.SerializeObject(body), null, null, cancellationToken, timeout);
+            return SendAsync(HTTPMethod.PUT, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
+        }
+        public Task<IHttpResponse> PutAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
+        {
+            return SendAsync(HTTPMethod.PUT, url, timeout, JsonConvert.SerializeObject(body), null, null, cancellationToken);
         }
 
-        public Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
+        public Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
         {
-            return SendAsync(HTTPMethod.PATCH, url, JsonConvert.SerializeObject(body), null, null, cancellationToken, timeout);
+            return SendAsync(HTTPMethod.PATCH, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
+        }
+        public Task<IHttpResponse> PatchAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
+        {
+            return SendAsync(HTTPMethod.PATCH, url, timeout, JsonConvert.SerializeObject(body), null, null, cancellationToken);
         }
 
-        public Task<IHttpResponse> DeleteAsync(string url, CancellationToken? cancellationToken = null, int? timeout = null)
+        public Task<IHttpResponse> DeleteAsync(string url, CancellationToken? cancellationToken = null)
         {
-            return SendAsync(HTTPMethod.DELETE, url, null, null, null, cancellationToken, timeout);
+            return SendAsync(HTTPMethod.DELETE, url, null, null, null, cancellationToken);
+        }
+        public Task<IHttpResponse> DeleteAsync(string url, int timeout, CancellationToken? cancellationToken = null)
+        {
+            return SendAsync(HTTPMethod.DELETE, url, timeout, null, null, null, cancellationToken);
         }
 
-        public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null, int? timeout = null)
+        public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
+        {
+            if (body is not null)
+            {
+                withHeaders ??= new Dictionary<string, string>();
+                withHeaders.Add("Content-Type", "application/json");
+            }
+            return await SendRawAsync(method, url, body is not null ? Encoding.UTF8.GetBytes(body) : null, withHeaders, downloadProgress, cancellationToken);
+        }
+        public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, int timeout, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
         {
             if (body is not null)
             {
