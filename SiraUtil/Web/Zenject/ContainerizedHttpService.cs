@@ -26,7 +26,7 @@ namespace SiraUtil.Web.Zenject
             set => _childService.UserAgent = value;
         }
 
-        public int? Timeout
+        public int Timeout
         {
             get => _childService.Timeout;
             set => _childService.Timeout = value;

@@ -33,7 +33,7 @@ namespace SiraUtil.Web
         /// <summary>
         /// The default delay (in seconds) until a timeout is reached. Defaults to 60.
         /// </summary>
-        int? Timeout { get; set; }
+        int Timeout { get; set; }
 
         /// <summary>
         /// The default headers for your requests. Token and UserAgent are synchronized with this.

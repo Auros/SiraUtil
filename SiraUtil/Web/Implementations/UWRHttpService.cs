@@ -44,7 +44,7 @@ namespace SiraUtil.Web.Implementations
             }
         }
 
-        public int? Timeout { get; set; } = 60;
+        public int Timeout { get; set; } = 60;
 
         public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
@@ -96,7 +96,7 @@ namespace SiraUtil.Web.Implementations
                     method = HTTPMethod.PUT;
 
                 using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(body));
-                request.timeout = timeout ?? Timeout ?? 60;
+                request.timeout = timeout ?? Timeout;
 
                 foreach (var header in Headers)
                     request.SetRequestHeader(header.Key, header.Value);
