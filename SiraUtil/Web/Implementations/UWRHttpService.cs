@@ -44,42 +44,44 @@ namespace SiraUtil.Web.Implementations
             }
         }
 
-        public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null)
+        public int? Timeout { get; set; } = 60;
+
+        public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return SendAsync(HTTPMethod.GET, url, null, null, progress, cancellationToken);
+            return SendAsync(HTTPMethod.GET, url, null, null, progress, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return SendAsync(HTTPMethod.POST, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
+            return SendAsync(HTTPMethod.POST, url, JsonConvert.SerializeObject(body), null, null, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return SendAsync(HTTPMethod.PUT, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
+            return SendAsync(HTTPMethod.PUT, url, JsonConvert.SerializeObject(body), null, null, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return SendAsync(HTTPMethod.PATCH, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
+            return SendAsync(HTTPMethod.PATCH, url, JsonConvert.SerializeObject(body), null, null, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> DeleteAsync(string url, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> DeleteAsync(string url, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return SendAsync(HTTPMethod.DELETE, url, null, null, null, cancellationToken);
+            return SendAsync(HTTPMethod.DELETE, url, null, null, null, cancellationToken, timeout);
         }
 
-        public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
+        public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
             if (body is not null)
             {
                 withHeaders ??= new Dictionary<string, string>();
                 withHeaders.Add("Content-Type", "application/json");
             }
-            return await SendRawAsync(method, url, body is not null ? Encoding.UTF8.GetBytes(body) : null, withHeaders, downloadProgress, cancellationToken);
+            return await SendRawAsync(method, url, body is not null ? Encoding.UTF8.GetBytes(body) : null, withHeaders, downloadProgress, cancellationToken, timeout);
         }
 
-        public async Task<IHttpResponse> SendRawAsync(HTTPMethod method, string url, byte[]? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
+        public async Task<IHttpResponse> SendRawAsync(HTTPMethod method, string url, byte[]? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
             // I HATE UNITY I HATE UNITY I HATE UNITY
             var response = await await UnityMainThreadTaskScheduler.Factory.StartNew(async () =>
@@ -94,7 +96,7 @@ namespace SiraUtil.Web.Implementations
                     method = HTTPMethod.PUT;
 
                 using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(body));
-                request.timeout = 60;
+                request.timeout = timeout ?? Timeout ?? 60;
 
                 foreach (var header in Headers)
                     request.SetRequestHeader(header.Key, header.Value);

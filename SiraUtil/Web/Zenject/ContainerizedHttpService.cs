@@ -26,6 +26,12 @@ namespace SiraUtil.Web.Zenject
             set => _childService.UserAgent = value;
         }
 
+        public int? Timeout
+        {
+            get => _childService.Timeout;
+            set => _childService.Timeout = value;
+        }
+
         public IDictionary<string, string> Headers => _childService.Headers;
 
         public void Setup(IHttpService childService)
@@ -33,34 +39,34 @@ namespace SiraUtil.Web.Zenject
             _childService = childService;
         }
 
-        public Task<IHttpResponse> DeleteAsync(string url, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> DeleteAsync(string url, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return _childService.DeleteAsync(url, cancellationToken);
+            return _childService.DeleteAsync(url, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return _childService.GetAsync(url, progress, cancellationToken);
+            return _childService.GetAsync(url, progress, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return _childService.PatchAsync(url, body, cancellationToken);
+            return _childService.PatchAsync(url, body, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return _childService.PostAsync(url, body, cancellationToken);
+            return _childService.PostAsync(url, body, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return _childService.PutAsync(url, body, cancellationToken);
+            return _childService.PutAsync(url, body, cancellationToken, timeout);
         }
 
-        public Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
+        public Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            return _childService.SendAsync(method, url, body, withHeaders, downloadProgress, cancellationToken);
+            return _childService.SendAsync(method, url, body, withHeaders, downloadProgress, cancellationToken, timeout);
         }
     }
 }
