@@ -50,6 +50,7 @@ namespace SiraUtil.Web.Implementations
         {
             return SendAsync(HTTPMethod.GET, url, null, null, progress, cancellationToken);
         }
+
         public Task<IHttpResponse> GetAsync(string url, int timeout, IProgress<float>? progress = null, CancellationToken? cancellationToken = null)
         {
             return SendAsync(HTTPMethod.GET, url, timeout, null, null, progress, cancellationToken);
@@ -59,6 +60,7 @@ namespace SiraUtil.Web.Implementations
         {
             return SendAsync(HTTPMethod.POST, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
         }
+
         public Task<IHttpResponse> PostAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
         {
             return SendAsync(HTTPMethod.POST, url, timeout, JsonConvert.SerializeObject(body), null, null, cancellationToken);
@@ -68,6 +70,7 @@ namespace SiraUtil.Web.Implementations
         {
             return SendAsync(HTTPMethod.PUT, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
         }
+
         public Task<IHttpResponse> PutAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
         {
             return SendAsync(HTTPMethod.PUT, url, timeout, JsonConvert.SerializeObject(body), null, null, cancellationToken);
@@ -77,6 +80,7 @@ namespace SiraUtil.Web.Implementations
         {
             return SendAsync(HTTPMethod.PATCH, url, JsonConvert.SerializeObject(body), null, null, cancellationToken);
         }
+
         public Task<IHttpResponse> PatchAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
         {
             return SendAsync(HTTPMethod.PATCH, url, timeout, JsonConvert.SerializeObject(body), null, null, cancellationToken);
@@ -86,6 +90,7 @@ namespace SiraUtil.Web.Implementations
         {
             return SendAsync(HTTPMethod.DELETE, url, null, null, null, cancellationToken);
         }
+
         public Task<IHttpResponse> DeleteAsync(string url, int timeout, CancellationToken? cancellationToken = null)
         {
             return SendAsync(HTTPMethod.DELETE, url, timeout, null, null, null, cancellationToken);
@@ -100,6 +105,7 @@ namespace SiraUtil.Web.Implementations
             }
             return await SendRawAsync(method, url, body is not null ? Encoding.UTF8.GetBytes(body) : null, withHeaders, downloadProgress, cancellationToken);
         }
+
         public async Task<IHttpResponse> SendAsync(HTTPMethod method, string url, int timeout, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
         {
             if (body is not null)

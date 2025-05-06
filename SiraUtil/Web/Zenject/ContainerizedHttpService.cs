@@ -43,6 +43,7 @@ namespace SiraUtil.Web.Zenject
         {
             return _childService.DeleteAsync(url, cancellationToken);
         }
+
         public Task<IHttpResponse> DeleteAsync(string url, int timeout, CancellationToken? cancellationToken = null)
         {
             return _childService.DeleteAsync(url, timeout, cancellationToken);
@@ -52,6 +53,7 @@ namespace SiraUtil.Web.Zenject
         {
             return _childService.GetAsync(url, progress, cancellationToken);
         }
+
         public Task<IHttpResponse> GetAsync(string url, int timeout, IProgress<float>? progress = null, CancellationToken? cancellationToken = null)
         {
             return _childService.GetAsync(url, timeout, progress, cancellationToken);
@@ -61,6 +63,7 @@ namespace SiraUtil.Web.Zenject
         {
             return _childService.PatchAsync(url, body, cancellationToken);
         }
+
         public Task<IHttpResponse> PatchAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
         {
             return _childService.PatchAsync(url, timeout, body, cancellationToken);
@@ -70,6 +73,7 @@ namespace SiraUtil.Web.Zenject
         {
             return _childService.PostAsync(url, body, cancellationToken);
         }
+
         public Task<IHttpResponse> PostAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
         {
             return _childService.PostAsync(url, timeout, body, cancellationToken);
@@ -79,6 +83,7 @@ namespace SiraUtil.Web.Zenject
         {
             return _childService.PutAsync(url, body, cancellationToken);
         }
+
         public Task<IHttpResponse> PutAsync(string url, int timeout, object? body = null, CancellationToken? cancellationToken = null)
         {
             return _childService.PutAsync(url, timeout, body, cancellationToken);
@@ -88,6 +93,7 @@ namespace SiraUtil.Web.Zenject
         {
             return _childService.SendAsync(method, url, body, withHeaders, downloadProgress, cancellationToken);
         }
+
         public Task<IHttpResponse> SendAsync(HTTPMethod method, string url, int timeout, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null)
         {
             return _childService.SendAsync(method, url, timeout, body, withHeaders, downloadProgress, cancellationToken);
