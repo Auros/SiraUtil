@@ -119,11 +119,8 @@ namespace SiraUtil.Web.Implementations
 
         public async Task<IHttpResponse> SendRawAsync(HTTPMethod method, string url, byte[]? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null, int? timeout = null)
         {
-            // I HATE UNITY I HATE UNITY I HATE UNITY
-            if (!UnityGame.OnMainThread)
-            {
-                return await UnityMainThreadTaskScheduler.Factory.StartNew(() => SendRawAsync(method, url, body, withHeaders, downloadProgress, cancellationToken, timeout)).Unwrap();
-            }
+            // UnityWebRequest must be created & executed on the main thread
+            await UnityGame.SwitchToMainThreadAsync();
 
             var newURL = url;
             if (BaseURL != null)
