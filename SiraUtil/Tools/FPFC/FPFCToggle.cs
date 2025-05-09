@@ -66,7 +66,9 @@ namespace SiraUtil.Tools.FPFC
 
             Transform cameraTransform = _mainCamera.transform;
             _leftControllerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
+            _leftControllerConstraint.constraintActive = true;
             _rightControllerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
+            _rightControllerConstraint.constraintActive = true;
 
             FPFCSettings_Changed(_fpfcSettings);
         }
@@ -187,7 +189,7 @@ namespace SiraUtil.Tools.FPFC
         {
             vrController.enabled = enabled;
             vrController.mouseMode = !enabled;
-            parentConstraint.constraintActive = !enabled;
+            parentConstraint.enabled = !enabled;
         }
     }
 }
