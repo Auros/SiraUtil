@@ -29,6 +29,11 @@ namespace SiraUtil.Affinity
         /// <param name="argumentTypes">The argument types of the method (for overloads).</param>
         public AffinityPatchAttribute(Type declaringType, string? methodName = null, AffinityMethodType methodType = AffinityMethodType.Normal, AffinityArgumentType[]? argumentVariations = null, params Type[]? argumentTypes)
         {
+            if (methodType is not AffinityMethodType.Constructor and not AffinityMethodType.StaticConstructor && string.IsNullOrEmpty(methodName))
+            {
+                throw new ArgumentException($"Method name cannot be null or empty if the method type is not a constructor.", nameof(methodName));
+            }
+
             MethodName = methodName;
             DeclaringType = declaringType;
             MethodType = (MethodType)methodType;
