@@ -47,7 +47,7 @@ namespace SiraUtil.Tools.FPFC
         [AffinityPatch(typeof(SettingsApplicatorSO), nameof(SettingsApplicatorSO.ApplyGraphicSettings))]
         private void ApplyGraphicSettings()
         {
-            if (_fpfcSettings.Enabled)
+            if (_fpfcSettings.Enabled && _fpfcSettings.LimitFrameRate)
             {
                 Application.targetFrameRate = (int)Math.Round(Screen.currentResolution.refreshRateRatio.value);
             }
