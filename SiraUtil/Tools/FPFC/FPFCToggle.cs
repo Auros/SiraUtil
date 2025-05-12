@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.SpatialTracking;
 using VRUIControls;
+using Object = UnityEngine.Object;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -69,12 +70,9 @@ namespace SiraUtil.Tools.FPFC
             _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
 
             Transform cameraTransform = _mainCamera.transform;
-            _leftControllerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
-            _leftControllerConstraint.constraintActive = true;
-            _rightControllerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
-            _rightControllerConstraint.constraintActive = true;
-            _vrPointerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
-            _vrPointerConstraint.constraintActive = true;
+            ConfigureConstraint(_leftControllerConstraint, cameraTransform);
+            ConfigureConstraint(_rightControllerConstraint, cameraTransform);
+            ConfigureConstraint(_vrPointerConstraint, cameraTransform);
 
             FPFCSettings_Changed(_fpfcSettings);
         }
@@ -82,6 +80,10 @@ namespace SiraUtil.Tools.FPFC
         public void Dispose()
         {
             _fpfcSettings.Changed -= FPFCSettings_Changed;
+
+            Object.Destroy(_leftControllerConstraint);
+            Object.Destroy(_rightControllerConstraint);
+            Object.Destroy(_vrPointerConstraint);
         }
 
         private void FPFCSettings_Changed(IFPFCSettings fpfcSettings)
@@ -110,8 +112,7 @@ namespace SiraUtil.Tools.FPFC
 
             if (_lastPose.HasValue)
             {
-                _simpleCameraController.transform.position = _lastPose.Value.position;
-                _simpleCameraController.transform.rotation = _lastPose.Value.rotation;
+                _simpleCameraController.transform.SetPositionAndRotation(_lastPose.Value.position, _lastPose.Value.rotation);
             }
 
             if (_mainCamera != null)
@@ -194,7 +195,14 @@ namespace SiraUtil.Tools.FPFC
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SetConstraintEnabled(VRController vrController, ParentConstraint parentConstraint, bool enabled)
+        private static void ConfigureConstraint(ParentConstraint constraint, Transform sourceTransform)
+        {
+            constraint.AddSource(new ConstraintSource { sourceTransform = sourceTransform, weight = 1 });
+            constraint.constraintActive = true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void SetConstraintEnabled(VRController vrController, ParentConstraint parentConstraint, bool enabled)
         {
             vrController.enabled = !enabled;
             vrController.mouseMode = enabled;
@@ -202,7 +210,7 @@ namespace SiraUtil.Tools.FPFC
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SetConstraintEnabled(ParentConstraint parentConstraint, bool enabled)
+        private static void SetConstraintEnabled(ParentConstraint parentConstraint, bool enabled)
         {
             parentConstraint.enabled = enabled;
             parentConstraint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
