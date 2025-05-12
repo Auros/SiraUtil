@@ -3,11 +3,13 @@ using SiraUtil.Services;
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.SpatialTracking;
+using VRUIControls;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -27,8 +29,9 @@ namespace SiraUtil.Tools.FPFC
 
         private readonly ParentConstraint _leftControllerConstraint;
         private readonly ParentConstraint _rightControllerConstraint;
+        private readonly ParentConstraint _vrPointerConstraint;
 
-        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
+        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor, VRInputModule vrInputModule)
         {
             _mainCamera = mainCamera;
             _fpfcSettings = fpfcSettings;
@@ -37,6 +40,7 @@ namespace SiraUtil.Tools.FPFC
 
             _leftControllerConstraint = menuControllerAccessor.LeftController.gameObject.AddComponent<ParentConstraint>();
             _rightControllerConstraint = menuControllerAccessor.RightController.gameObject.AddComponent<ParentConstraint>();
+            _vrPointerConstraint = vrInputModule.vrPointer.gameObject.AddComponent<ParentConstraint>();
         }
 
         [AffinityPatch(typeof(SettingsApplicatorSO), nameof(SettingsApplicatorSO.ApplyGraphicSettings))]
@@ -69,6 +73,8 @@ namespace SiraUtil.Tools.FPFC
             _leftControllerConstraint.constraintActive = true;
             _rightControllerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
             _rightControllerConstraint.constraintActive = true;
+            _vrPointerConstraint.AddSource(new ConstraintSource { sourceTransform = cameraTransform, weight = 1 });
+            _vrPointerConstraint.constraintActive = true;
 
             FPFCSettings_Changed(_fpfcSettings);
         }
@@ -127,8 +133,9 @@ namespace SiraUtil.Tools.FPFC
                 }
             }
 
-            SetControllerEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, false);
-            SetControllerEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, false);
+            SetConstraintEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, true);
+            SetConstraintEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, true);
+            SetConstraintEnabled(_vrPointerConstraint, true);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -148,8 +155,9 @@ namespace SiraUtil.Tools.FPFC
         {
             _simpleCameraController.enabled = false;
 
-            SetControllerEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, true);
-            SetControllerEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, true);
+            SetConstraintEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, false);
+            SetConstraintEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, false);
+            SetConstraintEnabled(_vrPointerConstraint, false);
 
             if (!_fpfcSettings.LockViewOnDisable)
             {
@@ -185,11 +193,19 @@ namespace SiraUtil.Tools.FPFC
             }
         }
 
-        private void SetControllerEnabled(VRController vrController, ParentConstraint parentConstraint, bool enabled)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void SetConstraintEnabled(VRController vrController, ParentConstraint parentConstraint, bool enabled)
         {
-            vrController.enabled = enabled;
-            vrController.mouseMode = !enabled;
-            parentConstraint.enabled = !enabled;
+            vrController.enabled = !enabled;
+            vrController.mouseMode = enabled;
+            SetConstraintEnabled(parentConstraint, enabled);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void SetConstraintEnabled(ParentConstraint parentConstraint, bool enabled)
+        {
+            parentConstraint.enabled = enabled;
+            parentConstraint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
     }
 }
