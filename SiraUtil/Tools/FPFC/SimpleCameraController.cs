@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -10,11 +12,23 @@ namespace SiraUtil.Tools.FPFC
         private readonly bool invertY = true;
         private readonly AnimationCurve mouseSensitivityCurve = new(new Keyframe(0.75f, 0.75f, 0f, 0f), new Keyframe(0.75f, 0.75f, 0f, 0f));
 
+        internal event Action<Vector3, Quaternion>? StateChanged;
+
         public float MouseSensitivity { get; set; } = 5f;
 
         public float MoveSensitivity { get; set; } = 3f;
 
-        protected void Update()
+        protected void OnEnable()
+        {
+            InputSystem.onBeforeUpdate += OnBeforeUpdate;
+        }
+
+        protected void OnDisable()
+        {
+            InputSystem.onBeforeUpdate -= OnBeforeUpdate;
+        }
+
+        private void OnBeforeUpdate()
         {
             Vector2 mouseMovement = GetInputLookRotation() * 0.05f * MouseSensitivity;
 
@@ -31,6 +45,9 @@ namespace SiraUtil.Tools.FPFC
             targetCameraState.Position += translation;
 
             targetCameraState.UpdateTransform(transform);
+
+            transform.GetPositionAndRotation(out Vector3 position, out Quaternion rotation);
+            StateChanged?.Invoke(position, rotation);
         }
 
         private Vector3 GetInputTranslationDirection(Quaternion rotation)

@@ -7,9 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Animations;
 using UnityEngine.SpatialTracking;
-using VRUIControls;
 using Object = UnityEngine.Object;
 
 namespace SiraUtil.Tools.FPFC
@@ -28,20 +26,12 @@ namespace SiraUtil.Tools.FPFC
         private readonly List<IFPFCListener> _fpfcListeners;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
 
-        private readonly ParentConstraint _leftControllerConstraint;
-        private readonly ParentConstraint _rightControllerConstraint;
-        private readonly ParentConstraint _vrPointerConstraint;
-
-        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor, VRInputModule vrInputModule)
+        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
         {
             _mainCamera = mainCamera;
             _fpfcSettings = fpfcSettings;
             _fpfcListeners = fpfcListeners;
             _menuControllerAccessor = menuControllerAccessor;
-
-            _leftControllerConstraint = menuControllerAccessor.LeftController.gameObject.AddComponent<ParentConstraint>();
-            _rightControllerConstraint = menuControllerAccessor.RightController.gameObject.AddComponent<ParentConstraint>();
-            _vrPointerConstraint = vrInputModule.vrPointer.gameObject.AddComponent<ParentConstraint>();
         }
 
         [AffinityPatch(typeof(SettingsApplicatorSO), nameof(SettingsApplicatorSO.ApplyGraphicSettings))]
@@ -68,11 +58,7 @@ namespace SiraUtil.Tools.FPFC
             _lastStereoTargetEyeMask = _mainCamera.camera.stereoTargetEye;
 
             _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
-
-            Transform cameraTransform = _mainCamera.transform;
-            ConfigureConstraint(_leftControllerConstraint, cameraTransform);
-            ConfigureConstraint(_rightControllerConstraint, cameraTransform);
-            ConfigureConstraint(_vrPointerConstraint, cameraTransform);
+            _simpleCameraController.StateChanged += OnCameraControllerStateChanged;
 
             FPFCSettings_Changed(_fpfcSettings);
         }
@@ -81,9 +67,11 @@ namespace SiraUtil.Tools.FPFC
         {
             _fpfcSettings.Changed -= FPFCSettings_Changed;
 
-            Object.Destroy(_leftControllerConstraint);
-            Object.Destroy(_rightControllerConstraint);
-            Object.Destroy(_vrPointerConstraint);
+            if (_simpleCameraController != null)
+            {
+                _simpleCameraController.StateChanged -= OnCameraControllerStateChanged;
+                Object.Destroy(_simpleCameraController);
+            }
         }
 
         private void FPFCSettings_Changed(IFPFCSettings fpfcSettings)
@@ -134,9 +122,8 @@ namespace SiraUtil.Tools.FPFC
                 }
             }
 
-            SetConstraintEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, true);
-            SetConstraintEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, true);
-            SetConstraintEnabled(_vrPointerConstraint, true);
+            SetControllerEnabled(_menuControllerAccessor.LeftController, false);
+            SetControllerEnabled(_menuControllerAccessor.RightController, false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -156,9 +143,8 @@ namespace SiraUtil.Tools.FPFC
         {
             _simpleCameraController.enabled = false;
 
-            SetConstraintEnabled(_menuControllerAccessor.LeftController, _leftControllerConstraint, false);
-            SetConstraintEnabled(_menuControllerAccessor.RightController, _rightControllerConstraint, false);
-            SetConstraintEnabled(_vrPointerConstraint, false);
+            SetControllerEnabled(_menuControllerAccessor.LeftController, true);
+            SetControllerEnabled(_menuControllerAccessor.RightController, true);
 
             if (!_fpfcSettings.LockViewOnDisable)
             {
@@ -194,26 +180,17 @@ namespace SiraUtil.Tools.FPFC
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void ConfigureConstraint(ParentConstraint constraint, Transform sourceTransform)
+        private void OnCameraControllerStateChanged(Vector3 position, Quaternion rotation)
         {
-            constraint.AddSource(new ConstraintSource { sourceTransform = sourceTransform, weight = 1 });
-            constraint.constraintActive = true;
+            _menuControllerAccessor.LeftController.transform.SetPositionAndRotation(position, rotation);
+            _menuControllerAccessor.RightController.transform.SetPositionAndRotation(position, rotation);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void SetConstraintEnabled(VRController vrController, ParentConstraint parentConstraint, bool enabled)
+        private static void SetControllerEnabled(VRController vrController, bool enabled)
         {
-            vrController.enabled = !enabled;
-            vrController.mouseMode = enabled;
-            SetConstraintEnabled(parentConstraint, enabled);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static void SetConstraintEnabled(ParentConstraint parentConstraint, bool enabled)
-        {
-            parentConstraint.enabled = enabled;
-            parentConstraint.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            vrController.enabled = enabled;
+            vrController.mouseMode = !enabled;
         }
     }
 }
