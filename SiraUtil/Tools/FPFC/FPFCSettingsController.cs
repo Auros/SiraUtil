@@ -20,6 +20,11 @@ namespace SiraUtil.Tools.FPFC
             get => _enabled;
             set
             {
+                if (value == _enabled)
+                {
+                    return;
+                }
+
                 _enabled = value;
 
                 if (value)
@@ -50,7 +55,6 @@ namespace SiraUtil.Tools.FPFC
             if (Input.GetKeyDown(_fpfcOptions.ToggleKeyCode))
             {
                 Enabled = !Enabled;
-                Changed?.Invoke(this);
             }
         }
 
