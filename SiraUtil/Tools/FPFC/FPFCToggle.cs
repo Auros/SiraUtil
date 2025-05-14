@@ -18,7 +18,7 @@ namespace SiraUtil.Tools.FPFC
         public const string DisableArgument = "--no-sirautil-fpfc";
 
         private Pose? _lastPose = new();
-        private StereoTargetEyeMask _lastStereoTargetEyeMask;
+        private StereoTargetEyeMask _initialStereoTargetEyeMask;
         private SimpleCameraController _simpleCameraController = null!;
 
         private readonly MainCamera _mainCamera;
@@ -55,7 +55,7 @@ namespace SiraUtil.Tools.FPFC
                 }
             }
 
-            _lastStereoTargetEyeMask = _mainCamera.camera.stereoTargetEye;
+            _initialStereoTargetEyeMask = _mainCamera.camera.stereoTargetEye;
 
             _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
             _simpleCameraController.StateChanged += OnCameraControllerStateChanged;
@@ -109,8 +109,6 @@ namespace SiraUtil.Tools.FPFC
 
                 if (camera != null)
                 {
-                    _lastStereoTargetEyeMask = camera.stereoTargetEye;
-
                     camera.stereoTargetEye = StereoTargetEyeMask.None;
                     camera.fieldOfView = _fpfcSettings.FOV;
                     camera.ResetAspect();
@@ -156,7 +154,7 @@ namespace SiraUtil.Tools.FPFC
 
                     if (camera != null)
                     {
-                        camera.stereoTargetEye = _lastStereoTargetEyeMask;
+                        camera.stereoTargetEye = _initialStereoTargetEyeMask;
                     }
 
                     if (_mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
