@@ -43,6 +43,11 @@ namespace SiraUtil.Tools.FPFC
         bool LimitFrameRate { get; }
 
         /// <summary>
+        /// Enable VSync when FPFC is enabled. Can help prevent GPU coil whine.
+        /// </summary>
+        int VSyncCount { get; }
+
+        /// <summary>
         /// Called when the object is changed.
         /// </summary>
         event Action<IFPFCSettings> Changed;

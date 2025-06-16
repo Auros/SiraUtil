@@ -22,6 +22,8 @@ namespace SiraUtil.Tools.FPFC
 
         public bool LimitFrameRate => false;
 
+        public int VSyncCount => 0;
+
         public event Action<IFPFCSettings>? Changed;
 
         public void CallEvent()

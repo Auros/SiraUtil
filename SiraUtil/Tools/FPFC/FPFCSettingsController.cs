@@ -35,6 +35,8 @@ namespace SiraUtil.Tools.FPFC
 
         public bool LimitFrameRate => _fpfcOptions.LimitFrameRate;
 
+        public int VSyncCount => _fpfcOptions.VSyncCount;
+
         public event Action<IFPFCSettings>? Changed;
         private readonly FPFCOptions _fpfcOptions;
         private readonly SiraLog _siraLog;

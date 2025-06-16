@@ -37,9 +37,14 @@ namespace SiraUtil.Tools.FPFC
         [AffinityPatch(typeof(SettingsApplicatorSO), nameof(SettingsApplicatorSO.ApplyGraphicSettings))]
         private void ApplyGraphicSettings()
         {
-            if (_fpfcSettings.Enabled && _fpfcSettings.LimitFrameRate)
+            if (_fpfcSettings.Enabled)
             {
-                Application.targetFrameRate = (int)Math.Round(Screen.currentResolution.refreshRateRatio.value);
+                if (_fpfcSettings.LimitFrameRate)
+                {
+                    Application.targetFrameRate = (int)Math.Round(Screen.currentResolution.refreshRateRatio.value);
+                }
+
+                QualitySettings.vSyncCount = _fpfcSettings.VSyncCount;
             }
         }
 
@@ -126,10 +131,8 @@ namespace SiraUtil.Tools.FPFC
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            if (_fpfcSettings.LimitFrameRate)
-            {
-                Application.targetFrameRate = (int)Math.Round(Screen.currentResolution.refreshRateRatio.value);
-            }
+            Application.targetFrameRate = _fpfcSettings.LimitFrameRate ? (int)Math.Round(Screen.currentResolution.refreshRateRatio.value) : -1;
+            QualitySettings.vSyncCount = _fpfcSettings.VSyncCount;
 
             foreach (var listener in _fpfcListeners)
             {
@@ -167,10 +170,8 @@ namespace SiraUtil.Tools.FPFC
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            if (_fpfcSettings.LimitFrameRate)
-            {
-                Application.targetFrameRate = -1;
-            }
+            Application.targetFrameRate = -1;
+            QualitySettings.vSyncCount = 0;
 
             foreach (var listener in _fpfcListeners)
             {

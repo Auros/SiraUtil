@@ -27,6 +27,8 @@ namespace SiraUtil.Tools.FPFC
 
         public virtual bool LimitFrameRate { get; set; } = true;
 
+        public virtual int VSyncCount { get; set; } = 0;
+
         public void Changed()
         {
             Updated?.Invoke(this);
