@@ -20,11 +20,6 @@ namespace SiraUtil.Tools.FPFC
             get => _enabled;
             set
             {
-                if (value == _enabled)
-                {
-                    return;
-                }
-
                 _enabled = value;
 
                 if (value)
