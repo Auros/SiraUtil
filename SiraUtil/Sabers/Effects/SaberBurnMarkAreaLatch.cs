@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using IPA.Utilities;
 using SiraUtil.Affinity;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,12 @@ namespace SiraUtil.Sabers.Effects
         private readonly SiraSaberFactory _siraSaberFactory;
         private readonly SaberModelManager _saberModelManager;
         private readonly Queue<SiraSaber> _earlySabers = new();
+
+        // TODO: These are all readonly fields. Figure out if there's a way to get around that.
+        private static readonly FieldAccessor<SaberBurnMarkArea, Saber[]>.Accessor Sabers = FieldAccessor<SaberBurnMarkArea, Saber[]>.GetAccessor(nameof(SaberBurnMarkArea._sabers));
+        private static readonly FieldAccessor<SaberBurnMarkArea, Vector3[]>.Accessor PrevBurnMarkPos = FieldAccessor<SaberBurnMarkArea, Vector3[]>.GetAccessor(nameof(SaberBurnMarkArea._prevBurnMarkPos));
+        private static readonly FieldAccessor<SaberBurnMarkArea, bool[]>.Accessor PrevBurnMarkPosValid = FieldAccessor<SaberBurnMarkArea, bool[]>.GetAccessor(nameof(SaberBurnMarkArea._prevBurnMarkPosValid));
+        private static readonly FieldAccessor<SaberBurnMarkArea, LineRenderer[]>.Accessor LineRenderers = FieldAccessor<SaberBurnMarkArea, LineRenderer[]>.GetAccessor(nameof(SaberBurnMarkArea._lineRenderers));
 
         public SaberBurnMarkAreaLatch(SiraSaberFactory siraSaberFactory, SaberModelManager saberModelManager)
         {
@@ -60,12 +67,12 @@ namespace SiraUtil.Sabers.Effects
             if (_saberBurnMarkArea is null)
                 return;
 
-            Saber[] sabers = _saberBurnMarkArea._sabers = _saberBurnMarkArea._sabers.AddToArray(saber);
-            _saberBurnMarkArea._prevBurnMarkPos = _saberBurnMarkArea._prevBurnMarkPos.AddToArray(default);
-            _saberBurnMarkArea._prevBurnMarkPosValid = _saberBurnMarkArea._prevBurnMarkPosValid.AddToArray(default);
+            Sabers(ref _saberBurnMarkArea) = _saberBurnMarkArea._sabers.AddToArray(saber);
+            PrevBurnMarkPos(ref _saberBurnMarkArea) = _saberBurnMarkArea._prevBurnMarkPos.AddToArray(default);
+            PrevBurnMarkPosValid(ref _saberBurnMarkArea) = _saberBurnMarkArea._prevBurnMarkPosValid.AddToArray(default);
 
             LineRenderer line = CreateNewLineRenderer(_saberModelManager.GetPhysicalSaberColor(saber));
-            _saberBurnMarkArea._lineRenderers = _saberBurnMarkArea._lineRenderers.AddToArray(line);
+            LineRenderers(ref _saberBurnMarkArea) = _saberBurnMarkArea._lineRenderers.AddToArray(line);
         }
 
         private LineRenderer CreateNewLineRenderer(Color initialColor)
@@ -79,10 +86,11 @@ namespace SiraUtil.Sabers.Effects
         }
 
         [AffinityPostfix]
-        [AffinityPatch(typeof(SaberBurnMarkArea), nameof(SaberBurnMarkArea.Start))]
+        [AffinityPatch(typeof(SaberBurnMarkArea), nameof(SaberBurnMarkArea.Initialize))]
         internal void BurnAreaStarting(SaberBurnMarkArea __instance)
         {
             _saberBurnMarkArea = __instance;
+            // TODO: This allocates a new array on every iteration. This could be more efficient.
             foreach (var siraSaber in _earlySabers)
                 AddSaber(siraSaber.Saber);
             _earlySabers.Clear();

@@ -5,16 +5,20 @@ using System.Reflection;
 using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.XR.Management;
 
 namespace SiraUtil.Tweaks
 {
+    /// <summary>
+    /// This patch prevents <see cref="UnityXRHelper.Start"/> from throwing an exception when no <see cref="XRInputSubsystem"/> is available (e.g. when in FPFC with no <see cref="XRLoader"/> actively loaded).
+    /// </summary>
     [HarmonyPatch(typeof(UnityXRHelper), nameof(UnityXRHelper.Start))]
     internal static class UnityXRHelperExceptionFixer
     {
         private static readonly MethodInfo XRInputSubsystemListIndexer = AccessTools.DeclaredMethod(typeof(List<XRInputSubsystem>), "get_Item");
         private static readonly MethodInfo XRInputSubsystemListCountGetter = AccessTools.DeclaredPropertyGetter(typeof(List<XRInputSubsystem>), nameof(List<XRInputSubsystem>.Count));
         private static readonly MethodInfo AddTrackingOriginUpdatedMethod = typeof(XRInputSubsystem).GetEvent(nameof(XRInputSubsystem.trackingOriginUpdated)).GetAddMethod();
-        private static readonly MethodInfo SubsystemManagerGetInstancesMethod = AccessTools.DeclaredMethod(typeof(SubsystemManager), nameof(SubsystemManager.GetInstances), generics: new Type[] { typeof(XRInputSubsystem) });
+        private static readonly MethodInfo SubsystemManagerGetSubsystemsMethod = AccessTools.DeclaredMethod(typeof(SubsystemManager), nameof(SubsystemManager.GetSubsystems), generics: new Type[] { typeof(XRInputSubsystem) });
 
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator)
         {
@@ -32,12 +36,12 @@ namespace SiraUtil.Tweaks
                 .MatchBack(
                     false,
                     new CodeMatch(OpCodes.Dup),
-                    new CodeMatch(i => i.Calls(SubsystemManagerGetInstancesMethod)))
-                .ThrowIfInvalid("`SubsystemManager.GetInstances` not found")
+                    new CodeMatch(i => i.Calls(SubsystemManagerGetSubsystemsMethod)))
+                .ThrowIfInvalid("`SubsystemManager.GetSubsystems` not found")
                 // Replace `dup` with storing to & loading from our local variable
                 .SetAndAdvance(OpCodes.Stloc, localBuilder)
                 .InsertAndAdvance(new CodeInstruction(OpCodes.Ldloc, localBuilder))
-                // Move to after `SubsystemManager.GetInstances` call, right before `XRInputSubsystem xrInputSubsystem = list[0]`
+                // Move to after `SubsystemManager.GetSubsystems` call, right before `XRInputSubsystem xrInputSubsystem = list[0]`
                 .Advance(1)
                 // Insert the branching logic `if (list.Count > 0) { ... }`
                 .InsertAndAdvance(
@@ -45,7 +49,7 @@ namespace SiraUtil.Tweaks
                     new CodeInstruction(OpCodes.Callvirt, XRInputSubsystemListCountGetter),
                     new CodeInstruction(OpCodes.Ldc_I4_0),
                     new CodeInstruction(OpCodes.Ble, doneUsingInputSystemLabel),
-                    new CodeInstruction(OpCodes.Ldloc, localBuilder)) // This last ldloc be used by `XRInputSubsystem xrInputSubsystem = list[0]`
+                    new CodeInstruction(OpCodes.Ldloc, localBuilder)) // This last ldloc is used by `XRInputSubsystem xrInputSubsystem = list[0]`
                 .InstructionEnumeration();
         }
     }
