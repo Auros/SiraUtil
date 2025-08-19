@@ -3,17 +3,19 @@
     internal class StandardSongControl : ISongControl
     {
         private readonly PauseController _pauseController;
+        private readonly PauseMenuManager _pauseMenuManager;
 
-        public StandardSongControl(PauseController pauseController)
+        public StandardSongControl(PauseController pauseController, PauseMenuManager pauseMenuManager)
         {
             _pauseController = pauseController;
+            _pauseMenuManager = pauseMenuManager;
         }
 
         public bool IsPaused => _pauseController._paused == PauseController.PauseState.Paused;
 
         public void Continue()
         {
-            _pauseController.HandlePauseMenuManagerDidPressContinueButton();
+            _pauseMenuManager.ContinueButtonPressed();
         }
 
         public void Pause()
@@ -23,12 +25,12 @@
 
         public void Quit()
         {
-            _pauseController.HandlePauseMenuManagerDidPressMenuButton();
+            _pauseMenuManager.MenuButtonPressed();
         }
 
         public void Restart()
         {
-            _pauseController.HandlePauseMenuManagerDidPressRestartButton();
+            _pauseMenuManager.RestartButtonPressed();
         }
     }
 }
