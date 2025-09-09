@@ -22,7 +22,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <DependsOn Include="BSIPA" Version="^4.3.0" />
+        <DependsOn Include="BSIPA" Version="^4.3.6" />
     </ItemGroup>
 
     <ItemGroup>
