@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
+using Zenject;
 using Object = UnityEngine.Object;
 
 namespace SiraUtil.Tools.FPFC
@@ -25,13 +26,15 @@ namespace SiraUtil.Tools.FPFC
         private readonly IFPFCSettings _fpfcSettings;
         private readonly List<IFPFCListener> _fpfcListeners;
         private readonly IMenuControllerAccessor _menuControllerAccessor;
+        private readonly PauseController? _pauseController;
 
-        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor)
+        public FPFCToggle(MainCamera mainCamera, IFPFCSettings fpfcSettings, List<IFPFCListener> fpfcListeners, IMenuControllerAccessor menuControllerAccessor, [InjectOptional] PauseController? pauseController)
         {
             _mainCamera = mainCamera;
             _fpfcSettings = fpfcSettings;
             _fpfcListeners = fpfcListeners;
             _menuControllerAccessor = menuControllerAccessor;
+            _pauseController = pauseController;
         }
 
         [AffinityPatch(typeof(SettingsApplicatorSO), nameof(SettingsApplicatorSO.ApplyGraphicSettings))]
@@ -128,6 +131,11 @@ namespace SiraUtil.Tools.FPFC
             SetControllerEnabled(_menuControllerAccessor.LeftController, false);
             SetControllerEnabled(_menuControllerAccessor.RightController, false);
 
+            if (_pauseController != null)
+            {
+                _pauseController.ignoreHMDUUnmountEvets = true;
+            }
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
@@ -143,9 +151,14 @@ namespace SiraUtil.Tools.FPFC
         private void DisableFPFC()
         {
             _simpleCameraController.enabled = false;
-
+            
             SetControllerEnabled(_menuControllerAccessor.LeftController, true);
             SetControllerEnabled(_menuControllerAccessor.RightController, true);
+
+            if (_pauseController != null)
+            {
+                _pauseController.ignoreHMDUUnmountEvets = false;
+            }
 
             if (!_fpfcSettings.LockViewOnDisable)
             {
