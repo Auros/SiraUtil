@@ -14,7 +14,7 @@ namespace SiraUtil.Zenject
         None = 0,
 
         /// <summary>
-        /// Installs your bindings in the app context. Anything installed here will be available in every container. The current backing installer is <see cref="PCAppInit" />
+        /// Installs your bindings in the app context. Anything installed here will be available in every container. The current backing installer is <see cref="BeatSaberInit" />
         /// </summary>
         App = 1,
 

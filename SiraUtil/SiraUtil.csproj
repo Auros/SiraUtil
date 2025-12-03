@@ -15,9 +15,9 @@
         <PackageId>SiraUtil</PackageId>
         <Title>SiraUtil</Title>
         <Authors>Auros</Authors>
-        <Version>3.3.0</Version>
+        <Version>3.3.1</Version>
         <Description>A powerful utility mod which provides more tools to Beat Saber modders.</Description>
-        <GameVersion>1.40.9</GameVersion>
+        <GameVersion>1.41.1</GameVersion>
         <Icon>SiraUtil.Resources.logo.png</Icon>
     </PropertyGroup>
 
@@ -28,6 +28,7 @@
     <ItemGroup>
         <Reference Include="0Harmony" />
         <Reference Include="BeatSaber.Init" />
+        <Reference Include="BeatSaber.Multiplayer.Core" />
         <Reference Include="BeatSaber.ViewSystem" Publicize="True" />
         <Reference Include="BGLib.AppFlow" Publicize="True" />
         <Reference Include="BGLib.DotnetExtension" />

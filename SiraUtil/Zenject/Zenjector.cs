@@ -113,7 +113,7 @@ namespace SiraUtil.Zenject
         {
             HashSet<Type> installerTypes = new();
             if (location.HasFlag(Location.App))
-                installerTypes.Add(typeof(PCAppInit));
+                installerTypes.Add(typeof(BeatSaberInit));
             if (location.HasFlag(Location.Menu))
                 installerTypes.Add(typeof(MainSettingsMenuViewControllersInstaller));
             if (location.HasFlag(Location.StandardPlayer))
