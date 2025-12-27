@@ -12,7 +12,7 @@ namespace SiraUtil.Zenject.Internal
         public readonly List<InstallerBase> normalInstallers;
         public readonly List<Type> normalInstallerTypes;
 
-        public ZenjectInstallationAccessor(ref List<InstallerBase> normalInstallers, ref List<Type> normalInstallerTypes, ref List<MonoInstaller> installers)
+        public ZenjectInstallationAccessor(List<InstallerBase> normalInstallers, List<Type> normalInstallerTypes, List<MonoInstaller> installers)
         {
             this.installers = installers;
             this.normalInstallers = normalInstallers;

@@ -16,7 +16,7 @@ namespace SiraUtil.Zenject.Harmony
         private static readonly HashSet<Context> _recentlyInstalledDecorators = new();
         internal static Action<Context, IEnumerable<ContextBinding>>? ContextInstalling;
 
-        internal static void Prefix(ref Context __instance, ref List<InstallerBase> normalInstallers, ref List<Type> normalInstallerTypes, ref List<ScriptableObjectInstaller> scriptableObjectInstallers, ref List<MonoInstaller> installers, ref List<MonoInstaller> installerPrefabs)
+        internal static void Prefix(Context __instance, List<InstallerBase> normalInstallers, List<Type> normalInstallerTypes, List<ScriptableObjectInstaller> scriptableObjectInstallers, List<MonoInstaller> installers, List<MonoInstaller> installerPrefabs)
         {
             // Check if this is a late bound decorator installation.
             if (_recentlyInstalledDecorators.Contains(__instance))
@@ -25,7 +25,7 @@ namespace SiraUtil.Zenject.Harmony
                 return;
             }
 
-            ZenjectInstallationAccessor accessor = new(ref normalInstallers, ref normalInstallerTypes, ref installers);
+            ZenjectInstallationAccessor accessor = new(normalInstallers, normalInstallerTypes, installers);
 
             // Adds every installer that's being installed to the type registrator.
             HashSet<ContextBinding> bindings = new();
