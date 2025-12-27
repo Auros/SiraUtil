@@ -60,9 +60,12 @@ namespace SiraUtil.Zenject
         /// </param>
         public void Install<T>(Location location, params object[] parameters) where T : IInstaller
         {
-            IEnumerable<Type> installerTypes = InstallerForLocation(location);
-            IInstallFilter filter = new MultiTypedInstallFilter(installerTypes);
-            _installSets.Add(new InstallSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
+            IEnumerable<IInstallFilter> filters = FiltersForLocation(location);
+
+            foreach (IInstallFilter filter in filters)
+            {
+                _installSets.Add(new InstallSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
+            }
         }
 
         /// <summary>
@@ -101,40 +104,52 @@ namespace SiraUtil.Zenject
             _installInstructions.Add(new InstallInstruction(typeof(TBaseInstaller), installCallback));
         }
 
-        internal void Install<T, TContext>(string sceneName, params object[] parameters) where T : IInstaller where TContext : Context
+        private IEnumerable<IInstallFilter> FiltersForLocation(Location location)
         {
-            IInstallFilter filter = new ContextedNamedSceneInstallFilter<TContext>(sceneName);
-            _installSets.Add(new InstallSet(typeof(T), filter, parameters.Length != 0 ? parameters : null));
-        } 
+            IEnumerable<Type> installerTypes = InstallerForLocation(location);
+
+            if (installerTypes.Any())
+            {
+                yield return new MultiTypedInstallFilter(installerTypes);
+            }
+
+            if (location.HasFlag(Location.HealthWarning))
+            {
+                yield return new ContextedNamedSceneInstallFilter<SceneContext>("HealthWarning");
+            }
+
+            if (location.HasFlag(Location.Credits))
+            {
+                yield return new ContextedNamedSceneInstallFilter<SceneContext>("Credits");
+            }
+        }
 
         // This converts the Location to an actual installer type usable by the Zenjector system.
         // These need to be updated if some game update drastically changes, renames, or deletes one of these installers.
         private IEnumerable<Type> InstallerForLocation(Location location)
         {
-            HashSet<Type> installerTypes = new();
             if (location.HasFlag(Location.App))
-                installerTypes.Add(typeof(BeatSaberInit));
+                yield return typeof(BeatSaberInit);
             if (location.HasFlag(Location.Menu))
-                installerTypes.Add(typeof(MainSettingsMenuViewControllersInstaller));
+                yield return typeof(MainSettingsMenuViewControllersInstaller);
             if (location.HasFlag(Location.StandardPlayer))
-                installerTypes.Add(typeof(StandardGameplayInstaller));
+                yield return typeof(StandardGameplayInstaller);
             if (location.HasFlag(Location.CampaignPlayer))
-                installerTypes.Add(typeof(MissionGameplayInstaller));
+                yield return typeof(MissionGameplayInstaller);
             if (location.HasFlag(Location.MultiPlayer))
-                installerTypes.Add(typeof(MultiplayerLocalActivePlayerInstaller));
+                yield return typeof(MultiplayerLocalActivePlayerInstaller);
             if (location.HasFlag(Location.Tutorial))
-                installerTypes.Add(typeof(TutorialInstaller));
+                yield return typeof(TutorialInstaller);
             if (location.HasFlag(Location.GameCore))
-                installerTypes.Add(typeof(GameCoreSceneSetup));
+                yield return typeof(GameCoreSceneSetup);
             if (location.HasFlag(Location.MultiplayerCore))
-                installerTypes.Add(typeof(MultiplayerCoreInstaller));
+                yield return typeof(MultiplayerCoreInstaller);
             if (location.HasFlag(Location.ConnectedPlayer))
-                installerTypes.Add(typeof(MultiplayerConnectedPlayerInstaller));
+                yield return typeof(MultiplayerConnectedPlayerInstaller);
             if (location.HasFlag(Location.AlwaysMultiPlayer))
-                installerTypes.Add(typeof(MultiplayerLocalPlayerInstaller));
+                yield return typeof(MultiplayerLocalPlayerInstaller);
             if (location.HasFlag(Location.InactiveMultiPlayer))
-                installerTypes.Add(typeof(MultiplayerLocalInactivePlayerInstaller));
-            return installerTypes;
+                yield return typeof(MultiplayerLocalInactivePlayerInstaller);
         }
 
         /// <summary>

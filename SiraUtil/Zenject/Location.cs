@@ -81,5 +81,15 @@ namespace SiraUtil.Zenject
         /// Installs your bindings onto the local inactive player in multiplayer. Think of this as when the local user is spectating in multiplayer. The current backing installer is <see cref="MultiplayerLocalInactivePlayerInstaller" />
         /// </summary>
         InactiveMultiPlayer = 1024,
+
+        /// <summary>
+        /// Installs your bindings onto health warning scene.
+        /// </summary>
+        HealthWarning = 2048,
+
+        /// <summary>
+        /// Installs your bindings onto the credits scene.
+        /// </summary>
+        Credits = 4096,
     }
 }
