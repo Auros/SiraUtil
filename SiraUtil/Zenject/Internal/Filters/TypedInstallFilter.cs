@@ -1,5 +1,7 @@
 ﻿using ModestTree;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Zenject;
 
 namespace SiraUtil.Zenject.Internal.Filters
@@ -14,9 +16,9 @@ namespace SiraUtil.Zenject.Internal.Filters
             _installerType = installerType;
         }
 
-        public bool ShouldInstall(ContextBinding binding)
+        public bool ShouldInstall(Context context, IEnumerable<Type> bindings)
         {
-            return _installerType == binding.installerType;
+            return bindings.Any(b => b == _installerType);
         }
     }
 }

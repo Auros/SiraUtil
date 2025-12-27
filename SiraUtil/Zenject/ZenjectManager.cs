@@ -1,8 +1,9 @@
-﻿using IPA.Loader;
-using SiraUtil.Zenject.Internal;
+﻿using HarmonyLib;
+using IPA.Loader;
 using SiraUtil.Zenject.Internal.Exposers;
 using SiraUtil.Zenject.Internal.Instructors;
 using SiraUtil.Zenject.Internal.Mutators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -52,16 +53,16 @@ namespace SiraUtil.Zenject
                 zenDatum.Enabled = PluginManager.GetPluginFromId(zenDatum.Zenjector.Metadata.Id) != null;
         }
 
-        private void ContextDecorator_ContextInstalling(Context mainContext, IEnumerable<ContextBinding> installerBindings)
+        private void ContextDecorator_ContextInstalling(Context context, IEnumerable<Type> installerBindings)
         {
-            if (mainContext.name == _initialContextName)
+            if (context.name == _initialContextName)
                 InitialSceneConstructionRegistered = true;
 
             if (!InitialSceneConstructionRegistered)
                 return;
 
             IEnumerable<MonoBehaviour>? injectableList = null;
-            bool isDecorator = mainContext is SceneDecoratorContext;
+            bool isDecorator = context is SceneDecoratorContext;
 
             foreach (var zenDatum in _zenjectors)
             {
@@ -75,42 +76,36 @@ namespace SiraUtil.Zenject
                 {
                     foreach (var set in zenjector.MutateSets)
                     {
-                        _mutatorManager.Install(set, mainContext, ref injectableList);
+                        _mutatorManager.Install(set, context, ref injectableList);
                     }
                     foreach (var set in zenjector.ExposeSets)
                     {
-                        _exposerManager.Install(set, mainContext, ref injectableList);
+                        _exposerManager.Install(set, context, ref injectableList);
                     }
                 }
 
                 // Install every normal install set.
                 foreach (var set in zenjector.InstallSets)
                 {
-                    foreach (var binding in installerBindings)
+                    if (set.installFilter.ShouldInstall(context, installerBindings))
                     {
-                        if (set.installFilter.ShouldInstall(binding))
+                        Plugin.Log.Debug($"Installing: {set.installerType.FullName} onto '{context.name}' ({context.GetType().FullDescription()})");
+                        IInstructor? instructor = _instructorManager.InstructorForSet(set);
+                        if (instructor is null)
                         {
-                            Plugin.Log.Debug($"Installing: {set.installerType.FullName} onto {binding.installerType}");
-                            IInstructor? instructor = _instructorManager.InstructorForSet(set);
-                            if (instructor is null)
-                            {
-                                Plugin.Log.Warn($"Could not find instatiation instructor for the type ${set.installerType}");
-                                continue;
-                            }
-                            instructor.Install(set, binding);
+                            Plugin.Log.Warn($"Could not find instatiation instructor for the type {set.installerType}");
+                            continue;
                         }
+                        instructor.Install(set, context);
                     }
                 }
 
                 // Install every installerless binding set.
                 foreach (var instruction in zenjector.InstallInstructions)
                 {
-                    foreach (var binding in installerBindings)
+                    if (installerBindings.Any(b => b == instruction.baseInstaller))
                     {
-                        if (instruction.baseInstaller == binding.installerType)
-                        {
-                            instruction.onInstall(binding.context.Container);
-                        }
+                        instruction.onInstall(context.Container);
                     }
                 }
             }

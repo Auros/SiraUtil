@@ -1,14 +1,15 @@
 ﻿using ModestTree;
 using UnityEngine;
+using Zenject;
 
 namespace SiraUtil.Zenject.Internal.Instructors
 {
     internal class TypedInstructor : IInstructor
     {
-        public void Install(InstallSet installSet, ContextBinding contextBinding)
+        public void Install(InstallSet installSet, Context context)
         {
             Assert.That(!installSet.installerType.IsSubclassOf(typeof(Component)));
-            contextBinding.AddInstaller(installSet.installerType);
+            context._normalInstallerTypes.Add(installSet.installerType);
         }
     }
 }

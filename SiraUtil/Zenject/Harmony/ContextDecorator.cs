@@ -1,6 +1,5 @@
 ﻿using BGLib.AppFlow.Initialization;
 using HarmonyLib;
-using SiraUtil.Zenject.Internal;
 using System;
 using System.Collections.Generic;
 using Zenject;
@@ -14,7 +13,7 @@ namespace SiraUtil.Zenject.Harmony
     {
         // This set is used to catch any late installing decorators.
         private static readonly HashSet<Context> _recentlyInstalledDecorators = new();
-        internal static Action<Context, IEnumerable<ContextBinding>>? ContextInstalling;
+        internal static Action<Context, IEnumerable<Type>>? ContextInstalling;
 
         internal static void Prefix(Context __instance, List<InstallerBase> normalInstallers, List<Type> normalInstallerTypes, List<ScriptableObjectInstaller> scriptableObjectInstallers, List<MonoInstaller> installers, List<MonoInstaller> installerPrefabs)
         {
@@ -25,29 +24,27 @@ namespace SiraUtil.Zenject.Harmony
                 return;
             }
 
-            ZenjectInstallationAccessor accessor = new(normalInstallers, normalInstallerTypes, installers);
-
             // Adds every installer that's being installed to the type registrator.
-            HashSet<ContextBinding> bindings = new();
+            HashSet<Type> installerBindings = new();
             foreach (var normalInstaller in normalInstallers)
-                bindings.Add(new ContextBinding(__instance, normalInstaller.GetType(), accessor));
+                installerBindings.Add(normalInstaller.GetType());
             foreach (var normalInstallerType in normalInstallerTypes)
-                bindings.Add(new ContextBinding(__instance, normalInstallerType, accessor));
+                installerBindings.Add(normalInstallerType);
             foreach (var scriptableObjectInstaller in scriptableObjectInstallers)
-                bindings.Add(new ContextBinding(__instance, scriptableObjectInstaller.GetType(), accessor));
+                installerBindings.Add(scriptableObjectInstaller.GetType());
             foreach (var installer in installers)
-                bindings.Add(new ContextBinding(__instance, installer.GetType(), accessor));
+                installerBindings.Add(installer.GetType());
             foreach (var installerPrefab in installerPrefabs)
-                bindings.Add(new ContextBinding(__instance, installerPrefab.GetType(), accessor));
+                installerBindings.Add(installerPrefab.GetType());
 
             if (__instance is AsyncSceneContext asyncSceneContext)
                 foreach (var asyncInstaller in asyncSceneContext._asyncInstallers)
-                    bindings.Add(new ContextBinding(__instance, asyncInstaller.GetType(), accessor));
+                    installerBindings.Add(asyncInstaller.GetType());
 
             if (__instance is SceneDecoratorContext decorator)
                 _recentlyInstalledDecorators.Add(decorator);
 
-            ContextInstalling?.Invoke(__instance, bindings);
+            ContextInstalling?.Invoke(__instance, installerBindings);
         }
     }
 }

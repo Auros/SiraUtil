@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using System;
+using System.Collections.Generic;
+using Zenject;
 
 namespace SiraUtil.Zenject.Internal.Filters
 {
@@ -11,9 +13,9 @@ namespace SiraUtil.Zenject.Internal.Filters
             _sceneName = sceneName;
         }
 
-        public bool ShouldInstall(ContextBinding binding)
+        public bool ShouldInstall(Context context, IEnumerable<Type> installerBindings)
         {
-            return binding.context.GetType() == typeof(T) && binding.context.gameObject.scene.name == _sceneName;
+            return context.GetType() == typeof(T) && context.gameObject.scene.name == _sceneName;
         }
     }
 }

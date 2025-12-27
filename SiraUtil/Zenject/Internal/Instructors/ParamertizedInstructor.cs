@@ -6,12 +6,12 @@ namespace SiraUtil.Zenject.Internal.Instructors
 {
     internal class ParameterizedInstructor : IInstructor
     {
-        public void Install(InstallSet installSet, ContextBinding contextBinding)
+        public void Install(InstallSet installSet, Context context)
         {
             Assert.That(!installSet.installerType.IsSubclassOf(typeof(Component)));
-            InstallerBase? installerBase = contextBinding.context.Container.Instantiate(installSet.installerType, installSet.initialParameters) as InstallerBase;
+            InstallerBase? installerBase = context.Container.Instantiate(installSet.installerType, installSet.initialParameters) as InstallerBase;
             if (installerBase is not null)
-                contextBinding.AddInstaller(installerBase);
+                context._normalInstallers.Add(installerBase);
         }
     }
 }

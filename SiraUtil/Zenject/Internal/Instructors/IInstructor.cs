@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Zenject;
 
 namespace SiraUtil.Zenject.Internal.Instructors
 {
     internal interface IInstructor
     {
-        void Install(InstallSet installSet, ContextBinding contextBinding);
+        void Install(InstallSet installSet, Context context);
     }
 }

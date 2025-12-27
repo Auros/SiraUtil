@@ -19,9 +19,9 @@ namespace SiraUtil.Zenject.Internal.Filters
             _installerTypes = installerTypes.ToArray();
         }
 
-        public bool ShouldInstall(ContextBinding binding)
+        public bool ShouldInstall(Context context, IEnumerable<Type> installerBindings)
         {
-            return _installerTypes.Any(type => type == binding.installerType);
+            return _installerTypes.Intersect(installerBindings).Any();
         }
     }
 }

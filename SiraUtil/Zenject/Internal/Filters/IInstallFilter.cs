@@ -1,7 +1,11 @@
-﻿namespace SiraUtil.Zenject.Internal.Filters
+﻿using System;
+using System.Collections.Generic;
+using Zenject;
+
+namespace SiraUtil.Zenject.Internal.Filters
 {
     internal interface IInstallFilter
     {
-        bool ShouldInstall(ContextBinding binding);
+        bool ShouldInstall(Context context, IEnumerable<Type> bindings);
     }
 }   

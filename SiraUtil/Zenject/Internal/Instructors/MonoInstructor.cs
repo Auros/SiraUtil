@@ -5,12 +5,12 @@ namespace SiraUtil.Zenject.Internal.Instructors
 {
     internal class MonoInstructor : IInstructor
     {
-        public void Install(InstallSet installSet, ContextBinding contextBinding)
+        public void Install(InstallSet installSet, Context context)
         {
             Assert.DerivesFrom<MonoInstallerBase>(installSet.installerType);
-            MonoInstaller monoInstaller = (contextBinding.context.gameObject.AddComponent(installSet.installerType) as MonoInstaller)!;
+            MonoInstaller monoInstaller = (context.gameObject.AddComponent(installSet.installerType) as MonoInstaller)!;
             if (monoInstaller != null)
-                contextBinding.AddInstaller(monoInstaller);
+                context._monoInstallers.Add(monoInstaller);
         }
     }
 }
