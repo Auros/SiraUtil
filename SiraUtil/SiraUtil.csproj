@@ -15,7 +15,7 @@
         <PackageId>SiraUtil</PackageId>
         <Title>SiraUtil</Title>
         <Authors>Auros</Authors>
-        <Version>3.3.1</Version>
+        <Version>3.4.0</Version>
         <Description>A powerful utility mod which provides more tools to Beat Saber modders.</Description>
         <GameVersion>1.42.0</GameVersion>
         <Icon>SiraUtil.Resources.logo.png</Icon>
