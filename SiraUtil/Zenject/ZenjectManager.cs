@@ -103,7 +103,7 @@ namespace SiraUtil.Zenject
                 // Install every installerless binding set.
                 foreach (var instruction in zenjector.InstallInstructions)
                 {
-                    if (installerBindings.Any(b => b == instruction.baseInstaller))
+                    if (instruction.installFilter.ShouldInstall(context, installerBindings))
                     {
                         instruction.onInstall(context.Container);
                     }

@@ -50,7 +50,7 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
-        /// Installs a custom installer to a location with a backing installer(s).
+        /// Installs a custom installer to a location.
         /// </summary>
         /// <typeparam name="T">The type of your custom installer.</typeparam>
         /// <param name="location">The location to install it to.</param>
@@ -84,14 +84,16 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
-        /// Install bindings to a custom location with a backing installer(s).
+        /// Install bindings to a custom location.
         /// </summary>
         /// <param name="location">The location to install it to.</param>
         /// <param name="installCallback">The callback which is used to install custom bindings into the container.</param>
         public void Install(Location location, Action<DiContainer> installCallback)
         {
-            foreach (var installlerType in InstallerForLocation(location))
-                _installInstructions.Add(new InstallInstruction(installlerType, installCallback));
+            foreach (IInstallFilter filter in FiltersForLocation(location))
+            {
+                _installInstructions.Add(new InstallInstruction(filter, installCallback));
+            }
         }
 
         /// <summary>
@@ -101,16 +103,64 @@ namespace SiraUtil.Zenject
         /// <param name="installCallback">The callback which is used to install custom bindings into the container.</param>
         public void Install<TBaseInstaller>(Action<DiContainer> installCallback) where TBaseInstaller : IInstaller
         {
-            _installInstructions.Add(new InstallInstruction(typeof(TBaseInstaller), installCallback));
+            _installInstructions.Add(new InstallInstruction(new TypedInstallFilter(typeof(TBaseInstaller)), installCallback));
         }
 
         private IEnumerable<IInstallFilter> FiltersForLocation(Location location)
         {
-            IEnumerable<Type> installerTypes = InstallerForLocation(location);
-
-            if (installerTypes.Any())
+            if (location.HasFlag(Location.App))
             {
-                yield return new MultiTypedInstallFilter(installerTypes);
+                yield return new TypedInstallFilter(typeof(BeatSaberInit));
+            }
+
+            if (location.HasFlag(Location.Menu))
+            {
+                yield return new TypedInstallFilter(typeof(MainSettingsMenuViewControllersInstaller));
+            }
+
+            if (location.HasFlag(Location.StandardPlayer))
+            {
+                yield return new TypedInstallFilter(typeof(StandardGameplayInstaller));
+            }
+
+            if (location.HasFlag(Location.CampaignPlayer))
+            {
+                yield return new TypedInstallFilter(typeof(MissionGameplayInstaller));
+            }
+
+            if (location.HasFlag(Location.MultiPlayer))
+            {
+                yield return new TypedInstallFilter(typeof(MultiplayerLocalActivePlayerInstaller));
+            }
+
+            if (location.HasFlag(Location.Tutorial))
+            {
+                yield return new TypedInstallFilter(typeof(TutorialInstaller));
+            }
+
+            if (location.HasFlag(Location.GameCore))
+            {
+                yield return new TypedInstallFilter(typeof(GameCoreSceneSetup));
+            }
+
+            if (location.HasFlag(Location.MultiplayerCore))
+            {
+                yield return new TypedInstallFilter(typeof(MultiplayerCoreInstaller));
+            }
+
+            if (location.HasFlag(Location.ConnectedPlayer))
+            {
+                yield return new TypedInstallFilter(typeof(MultiplayerConnectedPlayerInstaller));
+            }
+
+            if (location.HasFlag(Location.AlwaysMultiPlayer))
+            {
+                yield return new TypedInstallFilter(typeof(MultiplayerLocalPlayerInstaller));
+            }
+
+            if (location.HasFlag(Location.InactiveMultiPlayer))
+            {
+                yield return new TypedInstallFilter(typeof(MultiplayerLocalInactivePlayerInstaller));
             }
 
             if (location.HasFlag(Location.HealthWarning))
@@ -122,34 +172,6 @@ namespace SiraUtil.Zenject
             {
                 yield return new ContextedNamedSceneInstallFilter<SceneContext>("Credits");
             }
-        }
-
-        // This converts the Location to an actual installer type usable by the Zenjector system.
-        // These need to be updated if some game update drastically changes, renames, or deletes one of these installers.
-        private IEnumerable<Type> InstallerForLocation(Location location)
-        {
-            if (location.HasFlag(Location.App))
-                yield return typeof(BeatSaberInit);
-            if (location.HasFlag(Location.Menu))
-                yield return typeof(MainSettingsMenuViewControllersInstaller);
-            if (location.HasFlag(Location.StandardPlayer))
-                yield return typeof(StandardGameplayInstaller);
-            if (location.HasFlag(Location.CampaignPlayer))
-                yield return typeof(MissionGameplayInstaller);
-            if (location.HasFlag(Location.MultiPlayer))
-                yield return typeof(MultiplayerLocalActivePlayerInstaller);
-            if (location.HasFlag(Location.Tutorial))
-                yield return typeof(TutorialInstaller);
-            if (location.HasFlag(Location.GameCore))
-                yield return typeof(GameCoreSceneSetup);
-            if (location.HasFlag(Location.MultiplayerCore))
-                yield return typeof(MultiplayerCoreInstaller);
-            if (location.HasFlag(Location.ConnectedPlayer))
-                yield return typeof(MultiplayerConnectedPlayerInstaller);
-            if (location.HasFlag(Location.AlwaysMultiPlayer))
-                yield return typeof(MultiplayerLocalPlayerInstaller);
-            if (location.HasFlag(Location.InactiveMultiPlayer))
-                yield return typeof(MultiplayerLocalInactivePlayerInstaller);
         }
 
         /// <summary>

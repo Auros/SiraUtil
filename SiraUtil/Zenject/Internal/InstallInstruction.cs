@@ -1,17 +1,18 @@
-﻿using System;
+﻿using SiraUtil.Zenject.Internal.Filters;
+using System;
 using Zenject;
 
 namespace SiraUtil.Zenject.Internal
 {
     internal struct InstallInstruction
     {
-        public readonly Type baseInstaller;
+        public readonly IInstallFilter installFilter;
         public readonly Action<DiContainer> onInstall;
 
-        public InstallInstruction(Type baseInstaller, Action<DiContainer> onInstall)
+        public InstallInstruction(IInstallFilter installFilter, Action<DiContainer> onInstall)
         {
             this.onInstall = onInstall;
-            this.baseInstaller = baseInstaller;
+            this.installFilter = installFilter;
         }
     }
 }
