@@ -208,6 +208,11 @@ namespace SiraUtil.Zenject
         /// <param name="logger">The logger to use as a source. If nothing is put in here, a logger is generated automatically.</param>
         public void UseLogger(Logger? logger = null)
         {
+            if (logger == null)
+            {
+                Plugin.Log.Warn($"`UseLogger` called by '{Metadata.Name}' without passing a logger instance. Calling `UseLogger` without passing a logger is deprecated and will raise an exception in future releases.");
+            }
+
             // Creates a new logger if no logger is specified.
             Logger = logger ?? AccessTools.Constructor(typeof(StandardLogger), new Type[] { typeof(string) }).Invoke(new object[] { Metadata.Name }) as StandardLogger;
         }
