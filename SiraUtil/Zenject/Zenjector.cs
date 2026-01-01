@@ -214,6 +214,7 @@ namespace SiraUtil.Zenject
             }
 
             // Creates a new logger if no logger is specified.
+            // TODO: Get rid of the StandardLogger instantiation in v4
             Logger = logger ?? AccessTools.Constructor(typeof(StandardLogger), new Type[] { typeof(string) }).Invoke(new object[] { Metadata.Name }) as StandardLogger;
         }
 
