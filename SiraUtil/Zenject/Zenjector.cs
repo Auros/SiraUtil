@@ -32,14 +32,12 @@ namespace SiraUtil.Zenject
         internal IEnumerable<MutateSet> MutateSets => _mutateSets;
         internal IEnumerable<InstallSet> InstallSets => _installSets;
         internal IEnumerable<InstallInstruction> InstallInstructions => _installInstructions;
-        internal IEnumerable<AutobindInstruction> AutobindInstructions => _autobindInstructions;
 
         private bool _autoBinded;
         private readonly HashSet<ExposeSet> _exposeSets = new();
         private readonly HashSet<MutateSet> _mutateSets = new();
         private readonly HashSet<InstallSet> _installSets = new();
         private readonly HashSet<InstallInstruction> _installInstructions = new();
-        private readonly HashSet<AutobindInstruction> _autobindInstructions = new();
 
         internal Zenjector(PluginMetadata metadata)
         {
@@ -282,7 +280,6 @@ namespace SiraUtil.Zenject
                     Plugin.Log.Debug($"Found bind attribute in type '{type.FullName}'");
                     var instruction = new AutobindInstruction(type, bind);
                     Install(instruction.Location, Container => instruction.Bind(Container));
-                    _autobindInstructions.Add(instruction);
                 }
             }
         }
