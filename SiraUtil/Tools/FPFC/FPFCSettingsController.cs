@@ -1,3 +1,5 @@
+using BeatSaber.Init;
+using BGLib.DotnetExtension.CommandLine;
 using IPA.Utilities.Async;
 using SiraUtil.Logging;
 using System;
@@ -25,7 +27,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly InputAction _toggleAction;
         private readonly List<CameraController> _cameraControllers = [];
 
-        public bool Ignore => _fpfcOptions.Ignore;
+        public bool Ignore { [Obsolete] get; private set; }
         public float FOV => _fpfcOptions.CameraFOV;
         public float MoveSensitivity => _fpfcOptions.MoveSensitivity;
         public float MouseSensitivity => _fpfcOptions.MouseSensitivity;
@@ -54,13 +56,13 @@ namespace SiraUtil.Tools.FPFC
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog, IXRSystemState xrSystemState)
+        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog, IXRSystemState xrSystemState, CommandLineParserResult commandLineParserResult)
         {
             _fpfcOptions = fpfcOptions;
             _siraLog = siraLog;
             _unityXRSystemState = (UnityXRSystemState)xrSystemState;
             _toggleAction = new InputAction("FPFC Toggle", binding: $"<Keyboard>/{fpfcOptions.ToggleKeyCode}");
-            Enabled = !_fpfcOptions.Ignore;
+            Ignore = !(Enabled = commandLineParserResult.Contains(InitArguments.kFPFCOption));
 
             MethodInfo invokeAction = typeof(Action<XRSystemEventType>).GetMethod("Invoke");
             ParameterExpression systemStateParam = Expression.Parameter(typeof(UnityXRSystemState), "xrSystemState");
