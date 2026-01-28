@@ -1,16 +1,30 @@
-﻿using SiraUtil.Logging;
+using IPA.Utilities.Async;
+using SiraUtil.Logging;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Management;
 using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCSettingsController : IFPFCSettings, IInitializable, ITickable, IDisposable
+    internal class FPFCSettingsController : IFPFCManager, IFPFCSettings, IInitializable, IDisposable
     {
+        private readonly FPFCOptions _fpfcOptions;
+        private readonly SiraLog _siraLog;
+        private readonly UnityXRSystemState _unityXRSystemState;
+
+        private readonly Action<UnityXRSystemState, XRSystemEventType> invokeOnChangeStateEvent;
+
+        private readonly InputAction _toggleAction;
+        private readonly List<CameraController> _cameraControllers = [];
+
         public bool Ignore => _fpfcOptions.Ignore;
         public float FOV => _fpfcOptions.CameraFOV;
         public float MoveSensitivity => _fpfcOptions.MoveSensitivity;
@@ -23,19 +37,12 @@ namespace SiraUtil.Tools.FPFC
             {
                 field = value;
 
-                if (value)
-                {
-                    DeinitializeXRLoader();
-                }
-                else
-                {
-                    InitializeXRLoader();
-                }
+                ApplyState();
 
                 Changed?.Invoke(this);
                 NotifyPropertyChanged();
             }
-        } = true;
+        }
 
         public bool LockViewOnDisable => _fpfcOptions.LockViewOnDisable;
 
@@ -47,38 +54,94 @@ namespace SiraUtil.Tools.FPFC
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private readonly FPFCOptions _fpfcOptions;
-        private readonly SiraLog _siraLog;
-
-        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog)
+        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog, IXRSystemState xrSystemState)
         {
             _fpfcOptions = fpfcOptions;
             _siraLog = siraLog;
-        }
+            _unityXRSystemState = (UnityXRSystemState)xrSystemState;
+            _toggleAction = new InputAction("FPFC Toggle", binding: $"<Keyboard>/{fpfcOptions.ToggleKeyCode}");
+            Enabled = !_fpfcOptions.Ignore;
 
-        public void Tick()
-        {
-            if (Input.GetKeyDown(_fpfcOptions.ToggleKeyCode))
-            {
-                Enabled = !Enabled;
-            }
+            MethodInfo invokeAction = typeof(Action<XRSystemEventType>).GetMethod("Invoke");
+            ParameterExpression systemStateParam = Expression.Parameter(typeof(UnityXRSystemState), "xrSystemState");
+            ParameterExpression eventTypeParam = Expression.Parameter(typeof(XRSystemEventType), "xrSystemEventType");
+            MemberExpression eventField = Expression.Field(systemStateParam, "_onChangeStateEvent");
+            invokeOnChangeStateEvent = Expression.Lambda<Action<UnityXRSystemState, XRSystemEventType>>(Expression.IfThen(Expression.Not(Expression.Equal(eventField, Expression.Constant(null))), Expression.Call(eventField, invokeAction, eventTypeParam)), systemStateParam, eventTypeParam).Compile();
         }
 
         public void Initialize()
         {
             _fpfcOptions.Updated += ConfigUpdated;
-            Enabled = !_fpfcOptions.Ignore;
-        }
-
-        private void ConfigUpdated(FPFCOptions _)
-        {
-            Changed?.Invoke(this);
-            NotifyPropertyChanged(null);
+            _toggleAction.performed += OnToggleActionPerformed;
         }
 
         public void Dispose()
         {
             _fpfcOptions.Updated -= ConfigUpdated;
+
+            _toggleAction.performed -= OnToggleActionPerformed;
+            _toggleAction.Dispose();
+        }
+
+        public void Add(CameraController cameraController)
+        {
+            if (_cameraControllers.Contains(cameraController))
+            {
+                return;
+            }
+
+            _cameraControllers.Add(cameraController);
+
+            _toggleAction.Enable();
+
+            ApplyState();
+
+            Changed?.Invoke(this);
+        }
+
+        public void Remove(CameraController cameraController)
+        {
+            if (!_cameraControllers.Remove(cameraController))
+            {
+                return;
+            }
+
+            if (_cameraControllers.Count == 0)
+            {
+                _toggleAction.Disable();
+            }
+
+            ApplyState();
+
+            Changed?.Invoke(this);
+        }
+
+        private void ApplyState()
+        {
+            bool active = Enabled && _cameraControllers.Count > 0;
+
+            Cursor.lockState = active ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !active;
+
+            Application.targetFrameRate = Enabled && LimitFrameRate ? (int)Math.Round(Screen.currentResolution.refreshRateRatio.value) : -1;
+            QualitySettings.vSyncCount = Enabled ? VSyncCount : 0;
+
+            if (Enabled)
+            {
+                DeinitializeXRLoader();
+            }
+            else
+            {
+                InitializeXRLoader();
+            }
+        }
+
+        private void ConfigUpdated(FPFCOptions options)
+        {
+            UnityMainThreadTaskScheduler.Factory.StartNew(() => _toggleAction.ApplyBindingOverride($"<Keyboard>/{options.ToggleKeyCode}"));
+
+            Changed?.Invoke(this);
+            NotifyPropertyChanged(null);
         }
 
         // we unfortunately need to fully deinitialize/initialize the XR loader since OpenXR doesn't simply stop/start properly
@@ -114,6 +177,20 @@ namespace SiraUtil.Tools.FPFC
 
             _siraLog.Notice("Disabling XR Loader");
             manager.DeinitializeLoader();
+        }
+
+        private void OnToggleActionPerformed(InputAction.CallbackContext ctx)
+        {
+            bool hadInputFocus = _unityXRSystemState.hasInputFocus;
+
+            Enabled = !Enabled;
+
+            bool hasInputFocus = _unityXRSystemState.hasInputFocus;
+
+            if (hadInputFocus != hasInputFocus)
+            {
+                invokeOnChangeStateEvent(_unityXRSystemState, hasInputFocus ? XRSystemEventType.InputFocusAcquired : XRSystemEventType.InputFocusLost);
+            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
