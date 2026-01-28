@@ -11,6 +11,7 @@ namespace SiraUtil.Tools.FPFC
         /// <summary>
         /// The FOV for the camera. This doesn't work when a VR headset is active.
         /// </summary>
+        [Obsolete("To be removed with no alternative.")]
         float FOV { get; }
 
         /// <summary>
@@ -21,11 +22,13 @@ namespace SiraUtil.Tools.FPFC
         /// <summary>
         /// The arbituary move sensitivity.
         /// </summary>
+        [Obsolete("To be removed with no alternative.")]
         float MoveSensitivity { get; }
 
         /// <summary>
         /// The arbituary mouse sensitivity.
         /// </summary>
+        [Obsolete("To be removed with no alternative.")]
         float MouseSensitivity { get; }
 
         /// <summary>
@@ -36,16 +39,19 @@ namespace SiraUtil.Tools.FPFC
         /// <summary>
         /// Doesn't restore the camera back to the user when they toggle out of FPFC. Requested by Mawntee.
         /// </summary>
+        [Obsolete("To be removed with no alternative.")]
         bool LockViewOnDisable { get; }
 
         /// <summary>
         /// Limit the frame rate to the current screen's refresh rate when FPFC is enabled. Can help prevent GPU coil whine.
         /// </summary>
+        [Obsolete("To be removed with no alternative.")]
         bool LimitFrameRate { get; }
 
         /// <summary>
         /// Enable VSync when FPFC is enabled. Can help prevent GPU coil whine.
         /// </summary>
+        [Obsolete("To be removed with no alternative.")]
         int VSyncCount { get; }
 
         /// <summary>

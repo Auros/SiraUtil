@@ -1,35 +1,56 @@
-﻿using SiraUtil.Affinity;
+﻿using JetBrains.Annotations;
+using System.ComponentModel;
+using UnityEngine;
+using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class SmoothCameraListener : IFPFCListener, IAffinity
+    internal class SmoothCameraListener : MonoBehaviour
     {
-        private SmoothCamera? _smoothCamera;
-        private SmoothCameraController? _smoothCameraController;
+        private IFPFCSettings? _fpfcSettings;
+        private SmoothCameraController _smoothCameraController = null!;
+        private SmoothCamera _smoothCamera = null!;
 
-        [AffinityPatch(typeof(SmoothCameraController), nameof(SmoothCameraController.Start))]
-        protected void AcquireSmoothCamera(SmoothCameraController __instance, SmoothCamera ____smoothCamera)
+        [Inject]
+        [UsedImplicitly]
+        private void Construct(IFPFCSettings fpfcSettings, SmoothCameraController smoothCameraController)
         {
-            if (_smoothCamera != null)
-            {
-                return;
-            }
-
-            _smoothCamera = ____smoothCamera;
-            _smoothCameraController = __instance;
+            _fpfcSettings = fpfcSettings;
+            _smoothCameraController = smoothCameraController;
+            _smoothCamera = smoothCameraController._smoothCamera;
         }
 
-        public void Enabled()
+        protected void OnEnable()
         {
-            if (_smoothCamera != null && _smoothCamera.enabled)
+            if (_fpfcSettings != null)
+            {
+                _fpfcSettings.PropertyChanged += OnFPFCSettingsPropertyChanged;
+                UpdateState();
+            }
+        }
+
+        protected void Start() => OnEnable();
+
+        protected void OnDisable()
+        {
+            _fpfcSettings?.PropertyChanged -= OnFPFCSettingsPropertyChanged;
+        }
+
+        private void OnFPFCSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IFPFCSettings.Enabled))
+            {
+                UpdateState();
+            }
+        }
+
+        private void UpdateState()
+        {
+            if (_fpfcSettings!.Enabled)
             {
                 _smoothCamera.enabled = false;
             }
-        }
-
-        public void Disabled()
-        {
-            if (_smoothCameraController != null)
+            else
             {
                 _smoothCameraController.ActivateSmoothCameraIfNeeded();
             }

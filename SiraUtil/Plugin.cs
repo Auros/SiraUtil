@@ -42,7 +42,6 @@ namespace SiraUtil
 
             Zenjector zenjector = (ConstructZenjector(null!, null!, pluginMetadata) as Zenjector)!;
             zenjector.Install<SiraStandardCampaignMultiplayerInstaller>(Location.StandardPlayer | Location.CampaignPlayer | Location.MultiPlayer);
-            zenjector.Install<SiraFullFPFCInstaller>(Location.Menu | Location.Player | Location.InactiveMultiPlayer | Location.Tutorial | Location.HealthWarning | Location.Credits);
             zenjector.Install<SiraAllPlayersFPFCInstaller>(Location.Player | Location.InactiveMultiPlayer | Location.Tutorial);
             zenjector.Install<SiraInitializationInstaller>(Location.App, _zenjectManager, zenjector);
             zenjector.Install<SiraGameplayInstaller>(Location.Player | Location.Tutorial);
@@ -52,6 +51,9 @@ namespace SiraUtil
             zenjector.Install<SiraGameCoreInstaller>(Location.GameCore);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
             zenjector.Install<SiraCreditsInstaller>(Location.HealthWarning | Location.Credits | Location.StartupError);
+
+            zenjector.Mutate<MainCamera, CameraController>();
+            zenjector.Mutate<SmoothCameraController, SmoothCameraListener>();
 
             zenjector.UseMetadataBinder<Plugin>();
             zenjector.UseLogger(logger);
