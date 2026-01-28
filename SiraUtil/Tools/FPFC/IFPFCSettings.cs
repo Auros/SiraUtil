@@ -34,6 +34,7 @@ namespace SiraUtil.Tools.FPFC
         /// <summary>
         /// Ignores and inverts the default state of FPFC when changed.
         /// </summary>
+        [Obsolete("This value is no longer set by the user. Do not rely on this value to figure out if the game was started with FPFC.")]
         bool Ignore { get; }
 
         /// <summary>
