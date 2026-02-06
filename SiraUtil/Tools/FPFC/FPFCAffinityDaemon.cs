@@ -1,4 +1,5 @@
-﻿using SiraUtil.Affinity;
+﻿using BeatmapEditor3D;
+using SiraUtil.Affinity;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -25,10 +26,14 @@ namespace SiraUtil.Tools.FPFC
 
         [AffinityPrefix]
         [AffinityPatch(typeof(SmoothCameraController), nameof(SmoothCameraController.ActivateSmoothCameraIfNeeded))]
-        protected bool OnlyEnableSmoothCameraIfNeeded()
-        {
-            return !_fpfcSettings.Enabled;
-        }
+        protected bool OnlyEnableSmoothCameraIfNeeded() => !_fpfcSettings.Enabled;
 
+        [AffinityPrefix]
+        [AffinityPatch(typeof(BeatmapEditorGameplayFpfcInit), nameof(BeatmapEditorGameplayFpfcInit.Inject))]
+        protected bool BeatmapEditorGameplayFpfcInitInject(BeatmapEditorGameplayFpfcInit.Init init)
+        {
+            _fpfcSettings.Enabled = init.enableFpfc || init.setTransformHeightOnly;
+            return false;
+        }
     }
 }
