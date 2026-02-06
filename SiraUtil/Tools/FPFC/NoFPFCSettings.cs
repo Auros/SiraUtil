@@ -13,6 +13,8 @@ namespace SiraUtil.Tools.FPFC
             set { }
         }
 
+        public bool Active => false;
+
         public float MoveSensitivity => default;
 
         public float MouseSensitivity => default;
