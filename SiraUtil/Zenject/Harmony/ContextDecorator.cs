@@ -2,20 +2,23 @@
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
 namespace SiraUtil.Zenject.Harmony
 {
     [HarmonyPatch(typeof(Context))]
-    [HarmonyPatch("InstallInstallers")]
-    [HarmonyPatch(new Type[] { typeof(List<InstallerBase>), typeof(List<Type>), typeof(List<ScriptableObjectInstaller>), typeof(List<MonoInstaller>), typeof(List<MonoInstaller>) })]
     internal class ContextDecorator
     {
         // This set is used to catch any late installing decorators.
         private static readonly HashSet<Context> _recentlyInstalledDecorators = new();
         internal static Action<Context, IEnumerable<Type>>? ContextInstalling;
+        internal static Action<Context, List<MonoBehaviour>>? InstalledSceneBindings;
 
-        internal static void Prefix(Context __instance, List<InstallerBase> normalInstallers, List<Type> normalInstallerTypes, List<ScriptableObjectInstaller> scriptableObjectInstallers, List<MonoInstaller> installers, List<MonoInstaller> installerPrefabs)
+        [HarmonyPatch(nameof(Context.InstallInstallers))]
+        [HarmonyPatch(new Type[] { typeof(List<InstallerBase>), typeof(List<Type>), typeof(List<ScriptableObjectInstaller>), typeof(List<MonoInstaller>), typeof(List<MonoInstaller>) })]
+        [HarmonyPrefix]
+        internal static void InstallInstallers(Context __instance, List<InstallerBase> normalInstallers, List<Type> normalInstallerTypes, List<ScriptableObjectInstaller> scriptableObjectInstallers, List<MonoInstaller> installers, List<MonoInstaller> installerPrefabs)
         {
             // Check if this is a late bound decorator installation.
             if (_recentlyInstalledDecorators.Contains(__instance))
@@ -45,6 +48,13 @@ namespace SiraUtil.Zenject.Harmony
                 _recentlyInstalledDecorators.Add(decorator);
 
             ContextInstalling?.Invoke(__instance, installerBindings);
+        }
+
+        [HarmonyPatch(nameof(Context.InstallSceneBindings))]
+        [HarmonyPostfix]
+        internal static void InstallSceneBindings(Context __instance, List<MonoBehaviour> injectableMonoBehaviours)
+        {
+            InstalledSceneBindings?.Invoke(__instance, injectableMonoBehaviours);
         }
     }
 }

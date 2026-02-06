@@ -1,8 +1,6 @@
 ﻿using HarmonyLib;
 using IPA.Loader;
-using SiraUtil.Zenject.Internal.Exposers;
 using SiraUtil.Zenject.Internal.Instructors;
-using SiraUtil.Zenject.Internal.Mutators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +15,6 @@ namespace SiraUtil.Zenject
         public static bool InitialSceneConstructionRegistered { get; private set; }
         private const string _initialContextName = "AppCoreSceneContext";
 
-        private readonly ExposerManager _exposerManager = new();
-        private readonly MutatorManager _mutatorManager = new();
         private readonly HashSet<ZenjectorDatum> _zenjectors = new();
         private readonly InstructorManager _instructorManager = new();
 
@@ -47,6 +43,7 @@ namespace SiraUtil.Zenject
             PluginManager.PluginEnabled += PluginManager_PluginEnabled;
             PluginManager.PluginDisabled += PluginManager_PluginDisabled;
             Harmony.ContextDecorator.ContextInstalling += ContextDecorator_ContextInstalling;
+            Harmony.ContextDecorator.InstalledSceneBindings += ContextDecorator_InstalledSceneBindings;
 
             // This will set the default state for every Zenjector when SiraUtil enables.
             foreach (var zenDatum in _zenjectors)
@@ -61,28 +58,12 @@ namespace SiraUtil.Zenject
             if (!InitialSceneConstructionRegistered)
                 return;
 
-            IEnumerable<MonoBehaviour>? injectableList = null;
-            bool isDecorator = context is SceneDecoratorContext;
-
             foreach (var zenDatum in _zenjectors)
             {
                 if (!zenDatum.Enabled)
                     continue;
 
                 Zenjector zenjector = zenDatum.Zenjector;
-
-                // Mutate and expose anything marked to be mutated and exposed.
-                if (isDecorator)
-                {
-                    foreach (var set in zenjector.MutateSets)
-                    {
-                        _mutatorManager.Install(set, context, ref injectableList);
-                    }
-                    foreach (var set in zenjector.ExposeSets)
-                    {
-                        _exposerManager.Install(set, context, ref injectableList);
-                    }
-                }
 
                 // Install every normal install set.
                 foreach (var set in zenjector.InstallSets)
@@ -111,8 +92,25 @@ namespace SiraUtil.Zenject
             }
         }
 
+        private void ContextDecorator_InstalledSceneBindings(Context context, List<MonoBehaviour> injectableMonoBehaviours)
+        {
+            foreach (var zenDatum in _zenjectors)
+            {
+                Zenjector zenjector = zenDatum.Zenjector;
+
+                foreach (var monoBehaviour in injectableMonoBehaviours)
+                {
+                    foreach (var instruction in zenjector.InjectableMonoBehaviourInstructions)
+                    {
+                        instruction.Apply(context, monoBehaviour);
+                    }
+                }
+            }
+        }
+
         public void Disable()
         {
+            Harmony.ContextDecorator.InstalledSceneBindings -= ContextDecorator_InstalledSceneBindings;
             Harmony.ContextDecorator.ContextInstalling -= ContextDecorator_ContextInstalling;
             PluginManager.PluginDisabled -= PluginManager_PluginDisabled;
             PluginManager.PluginEnabled -= PluginManager_PluginEnabled;

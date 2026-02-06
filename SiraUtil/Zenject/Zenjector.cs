@@ -6,11 +6,14 @@ using SiraUtil.Web;
 using SiraUtil.Web.SiraSync;
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Filters;
+using SiraUtil.Zenject.Internal.Instructors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 using Zenject;
+using Logger = IPA.Logging.Logger;
 
 namespace SiraUtil.Zenject
 {
@@ -28,16 +31,14 @@ namespace SiraUtil.Zenject
         internal object? UBinderValue { get; private set; }
         internal HttpServiceType? HttpServiceType { get; private set; }
         internal SiraSyncServiceType? SiraSyncServiceType { get; private set; }
-        internal IEnumerable<ExposeSet> ExposeSets => _exposeSets;
-        internal IEnumerable<MutateSet> MutateSets => _mutateSets;
         internal IEnumerable<InstallSet> InstallSets => _installSets;
         internal IEnumerable<InstallInstruction> InstallInstructions => _installInstructions;
+        internal IEnumerable<IInjectableMonoBehaviourInstruction> InjectableMonoBehaviourInstructions => _injectableMonoBehaviourInstructions;
 
         private bool _autoBinded;
-        private readonly HashSet<ExposeSet> _exposeSets = new();
-        private readonly HashSet<MutateSet> _mutateSets = new();
         private readonly HashSet<InstallSet> _installSets = new();
         private readonly HashSet<InstallInstruction> _installInstructions = new();
+        private readonly HashSet<IInjectableMonoBehaviourInstruction> _injectableMonoBehaviourInstructions = new();
 
         internal Zenjector(PluginMetadata metadata)
         {
@@ -178,6 +179,15 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
+        /// Registers an instruction to expose a component of the specified type for later processing or access.
+        /// </summary>
+        /// <typeparam name="TExposeType">The type of MonoBehaviour to expose. Must derive from MonoBehaviour.</typeparam>
+        public void Expose<TExposeType>() where TExposeType : MonoBehaviour
+        {
+            _injectableMonoBehaviourInstructions.Add(new ExposeInstruction<TExposeType>());
+        }
+
+        /// <summary>
         /// Searches a decorator context for the first instance that matches a type, then automatically binds them the the active container.
         /// </summary>
         /// <typeparam name="TExposeType">The type to expose.</typeparam>
@@ -187,7 +197,27 @@ namespace SiraUtil.Zenject
             if (contractName is null)
                 throw new ArgumentNullException(contractName);
 
-            _exposeSets.Add(new ExposeSet(typeof(TExposeType), contractName));
+            _injectableMonoBehaviourInstructions.Add(new SceneDecoratorExposeInstruction<TExposeType>(contractName));
+        }
+
+        /// <summary>
+        /// Finds 
+        /// </summary>
+        /// <typeparam name="TMonoBehaviour"></typeparam>
+        /// <param name="action"></param>
+        public void Mutate<TMonoBehaviour>(Action<Context, TMonoBehaviour> action) where TMonoBehaviour : MonoBehaviour
+        {
+            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour>(action));
+        }
+
+        /// <summary>
+        /// Instantiates a <typeparamref name="TNewComponent"/> alongside any existing <typeparamref name="TMonoBehaviour"/> on a context.
+        /// </summary>
+        /// <typeparam name="TMonoBehaviour">The <see cref="MonoBehaviour"/> on which to match</typeparam>
+        /// <typeparam name="TNewComponent"></typeparam>
+        public void Mutate<TMonoBehaviour, TNewComponent>(Action<Context, TMonoBehaviour, TNewComponent>? action = null) where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
+        {
+            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action));
         }
 
         /// <summary>
@@ -198,11 +228,7 @@ namespace SiraUtil.Zenject
         /// <param name="mutationCallback">The callback used to mutate the object instance.</param>
         public void Mutate<TMutateType>(string contractName, Action<SceneDecoratorContext, TMutateType> mutationCallback)
         {
-            // Wraps the action into a class so it can be invoked without a generic.
-            DelegateWrapper wrapper = new();
-            wrapper.Wrap(mutationCallback);
-
-            _mutateSets.Add(new MutateSet(typeof(TMutateType), contractName, wrapper));
+            _injectableMonoBehaviourInstructions.Add(new SceneDecoratorMutateInstruction<TMutateType>(contractName, mutationCallback));
         }
 
         /// <summary>
