@@ -26,12 +26,14 @@ namespace SiraUtil.Zenject.Internal
 
     internal struct MutateInstruction<TMonoBehaviour, TNewComponent> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
     {
-        internal MutateInstruction(Action<Context, TMonoBehaviour, TNewComponent>? action = null)
-        {
-            this.action = action;
-        }
+        private Action<Context, TMonoBehaviour, TNewComponent>? _action;
+        private Func<TMonoBehaviour, GameObject>? _gameObjectGetter;
 
-        internal Action<Context, TMonoBehaviour, TNewComponent>? action { get; }
+        internal MutateInstruction(Action<Context, TMonoBehaviour, TNewComponent>? action, Func<TMonoBehaviour, GameObject>? gameObjectGetter)
+        {
+            _action = action;
+            _gameObjectGetter = gameObjectGetter;
+        }
 
         public void Apply(Context context, MonoBehaviour monoBehaviour)
         {
@@ -40,9 +42,20 @@ namespace SiraUtil.Zenject.Internal
                 return;
             }
 
-            TNewComponent newComponent = monoBehaviour.gameObject.AddComponent<TNewComponent>();
+            GameObject gameObject;
+
+            if (_gameObjectGetter != null)
+            {
+                gameObject = _gameObjectGetter(tMonoBehaviour);
+            }
+            else
+            {
+                gameObject = monoBehaviour.gameObject;
+            }
+
+            TNewComponent newComponent = gameObject.AddComponent<TNewComponent>();
             context.Container.QueueForInject(newComponent);
-            action?.Invoke(context, tMonoBehaviour, newComponent);
+            _action?.Invoke(context, tMonoBehaviour, newComponent);
         }
     }
 

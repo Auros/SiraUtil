@@ -215,9 +215,9 @@ namespace SiraUtil.Zenject
         /// </summary>
         /// <typeparam name="TMonoBehaviour">The <see cref="MonoBehaviour"/> on which to match</typeparam>
         /// <typeparam name="TNewComponent"></typeparam>
-        public void Mutate<TMonoBehaviour, TNewComponent>(Action<Context, TMonoBehaviour, TNewComponent>? action = null) where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
+        public void Mutate<TMonoBehaviour, TNewComponent>(Action<Context, TMonoBehaviour, TNewComponent>? action = null, Func<TMonoBehaviour, GameObject>? gameObjectGetter = null) where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
         {
-            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action));
+            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action, gameObjectGetter));
         }
 
         /// <summary>
