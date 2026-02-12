@@ -4,30 +4,30 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal struct MutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour
+    internal readonly struct MutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour
     {
+        private readonly Action<Context, TMonoBehaviour>? _action;
+
         internal MutateInstruction(Action<Context, TMonoBehaviour> action)
         {
-            this.action = action;
+            _action = action;
         }
 
-        internal Action<Context, TMonoBehaviour>? action { get; }
-
-        public void Apply(Context context, MonoBehaviour monoBehaviour)
+        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (monoBehaviour is not TMonoBehaviour tMonoBehaviour)
             {
                 return;
             }
 
-            action?.Invoke(context, tMonoBehaviour);
+            _action?.Invoke(context, tMonoBehaviour);
         }
     }
 
-    internal struct MutateInstruction<TMonoBehaviour, TNewComponent> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
+    internal readonly struct MutateInstruction<TMonoBehaviour, TNewComponent> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
     {
-        private Action<Context, TMonoBehaviour, TNewComponent>? _action;
-        private Func<TMonoBehaviour, GameObject>? _gameObjectGetter;
+        private readonly Action<Context, TMonoBehaviour, TNewComponent>? _action;
+        private readonly Func<TMonoBehaviour, GameObject>? _gameObjectGetter;
 
         internal MutateInstruction(Action<Context, TMonoBehaviour, TNewComponent>? action, Func<TMonoBehaviour, GameObject>? gameObjectGetter)
         {
@@ -35,7 +35,7 @@ namespace SiraUtil.Zenject.Internal
             _gameObjectGetter = gameObjectGetter;
         }
 
-        public void Apply(Context context, MonoBehaviour monoBehaviour)
+        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (monoBehaviour is not TMonoBehaviour tMonoBehaviour)
             {
@@ -47,6 +47,11 @@ namespace SiraUtil.Zenject.Internal
             if (_gameObjectGetter != null)
             {
                 gameObject = _gameObjectGetter(tMonoBehaviour);
+
+                if (gameObject == null)
+                {
+                    throw new ArgumentException("The provided GameObject getter returned null.");
+                }
             }
             else
             {
@@ -59,26 +64,25 @@ namespace SiraUtil.Zenject.Internal
         }
     }
 
-    internal struct SceneDecoratorMutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction
+    internal readonly struct SceneDecoratorMutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction
     {
-        private string _contractName;
+        private readonly string _contractName;
+        private readonly Action<SceneDecoratorContext, TMonoBehaviour>? _action;
 
         internal SceneDecoratorMutateInstruction(string contractName, Action<SceneDecoratorContext, TMonoBehaviour> action)
         {
             _contractName = contractName;
-            this.action = action;
+            _action = action;
         }
 
-        internal Action<SceneDecoratorContext, TMonoBehaviour>? action { get; }
-
-        public void Apply(Context context, MonoBehaviour monoBehaviour)
+        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (context is not SceneDecoratorContext sceneDecoratorContext || sceneDecoratorContext.DecoratedContractName != _contractName || monoBehaviour is not TMonoBehaviour tMonoBehaviour)
             {
                 return;
             }
 
-            action?.Invoke(sceneDecoratorContext, tMonoBehaviour);
+            _action?.Invoke(sceneDecoratorContext, tMonoBehaviour);
         }
     }
 }
