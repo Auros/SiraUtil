@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
+using Zenject;
 
 namespace SiraUtil.Extras
 {
@@ -94,6 +96,36 @@ namespace SiraUtil.Extras
             byte[] data = new byte[stream.Length];
             stream.Read(data, 0, (int)stream.Length);
             return data;
+        }
+
+        internal static string FullDescription(this Context context) => $"{context.GetType().Name} '{GetTransformPath(context)}'";
+
+        internal static string GetTransformPath(this GameObject gameObject) => GetTransformPath(gameObject.transform);
+
+        internal static string GetTransformPath(this Component component)
+        {
+            if (component is not Transform transform)
+            {
+                transform = component.transform;
+            }
+
+            return GetTransformPath(transform);
+        }
+
+        internal static string GetTransformPath(this Transform transform)
+        {
+            string sceneName = transform.gameObject.scene.name;
+            List<string> parts = new();
+
+            while (transform != null)
+            {
+                parts.Add(transform.name);
+                transform = transform.parent;
+            }
+
+            parts.Reverse();
+
+            return $"{sceneName}/{string.Join("/", parts)}";
         }
     }
 }

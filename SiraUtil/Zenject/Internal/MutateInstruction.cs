@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HarmonyLib;
+using SiraUtil.Extras;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -27,12 +30,16 @@ namespace SiraUtil.Zenject.Internal
     internal readonly struct MutateInstruction<TMonoBehaviour, TNewComponent> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
     {
         private readonly Action<Context, TMonoBehaviour, TNewComponent>? _action;
-        private readonly Func<TMonoBehaviour, GameObject>? _gameObjectGetter;
+        private readonly Func<Context, TMonoBehaviour, GameObject>? _gameObjectGetter;
+        private readonly Func<Context, TMonoBehaviour, bool>? _condition;
+        private readonly IEnumerable<Type>? _bindTypes;
 
-        internal MutateInstruction(Action<Context, TMonoBehaviour, TNewComponent>? action, Func<TMonoBehaviour, GameObject>? gameObjectGetter)
+        internal MutateInstruction(Action<Context, TMonoBehaviour, TNewComponent>? action, Func<Context, TMonoBehaviour, GameObject>? gameObjectGetter, Func<Context, TMonoBehaviour, bool>? condition, IEnumerable<Type>? bindTypes)
         {
             _action = action;
             _gameObjectGetter = gameObjectGetter;
+            _condition = condition;
+            _bindTypes = bindTypes;
         }
 
         public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
@@ -42,15 +49,20 @@ namespace SiraUtil.Zenject.Internal
                 return;
             }
 
+            if (_condition?.Invoke(context, tMonoBehaviour) != true)
+            {
+                return;
+            }
+
             GameObject gameObject;
 
             if (_gameObjectGetter != null)
             {
-                gameObject = _gameObjectGetter(tMonoBehaviour);
+                gameObject = _gameObjectGetter(context, tMonoBehaviour);
 
                 if (gameObject == null)
                 {
-                    throw new ArgumentException("The provided GameObject getter returned null.");
+                    throw new ArgumentException($"The provided GameObject getter for {nameof(MutateInstruction<TMonoBehaviour, TNewComponent>)} returned null.");
                 }
             }
             else
@@ -58,12 +70,21 @@ namespace SiraUtil.Zenject.Internal
                 gameObject = monoBehaviour.gameObject;
             }
 
+            Plugin.Log.Debug($"Adding '{typeof(TNewComponent).FullDescription()}' to '{gameObject.GetTransformPath()}' from {context.FullDescription()}");
+
             TNewComponent newComponent = gameObject.AddComponent<TNewComponent>();
             context.Container.QueueForInject(newComponent);
+
+            if (_bindTypes != null)
+            {
+                context.Container.Bind(_bindTypes).FromInstance(newComponent);
+            }
+
             _action?.Invoke(context, tMonoBehaviour, newComponent);
         }
     }
 
+    [Obsolete]
     internal readonly struct SceneDecoratorMutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction
     {
         private readonly string _contractName;

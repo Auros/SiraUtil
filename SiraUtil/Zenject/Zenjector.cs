@@ -6,7 +6,6 @@ using SiraUtil.Web;
 using SiraUtil.Web.SiraSync;
 using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Filters;
-using SiraUtil.Zenject.Internal.Instructors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -179,12 +178,28 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
-        /// Finds all types that match <typeparamref name="TExposeType"/> in a context and binds them to the context's container if they are not yet bound.
+        /// Finds all types that match <typeparamref name="TMonoBehaviour"/> in a context and binds them to the context's container if they are not yet bound.
         /// </summary>
-        /// <typeparam name="TExposeType">The type of <see cref="MonoBehaviour"/> to expose.</typeparam>
-        public void Expose<TExposeType>() where TExposeType : MonoBehaviour
+        /// <remarks>
+        /// This is similar to having a <see cref="ZenjectBinding"/> that specifies <typeparamref name="TMonoBehaviour"/> wherever it exists.
+        /// </remarks>
+        /// <typeparam name="TMonoBehaviour">The type of <see cref="MonoBehaviour"/> to expose.</typeparam>
+        /// <param name="identifier">The identifier to use when binding the type.</param>
+        /// <param name="useSceneContext">Whether or not to bind to the parent <see cref="SceneContext"/>. This is useful when the component you are targeting is inside a <see cref="GameObjectContext"/>.</param>
+        /// <param name="ifNotBound">Only bind this type if it is not already bound. Zenject will throw an error when trying to resolve a single instance if more than one instance is bound.</param>
+        /// <param name="condition">An optional callback that returns a value indicating whether or not the type should be exposed given the <typeparamref name="TMonoBehaviour"/> and its associated <see cref="Context"/>.</param>
+        /// <param name="bindTypes">An optional enumerable of types against which <typeparamref name="TMonoBehaviour"/> should be bound. If <see langword="null"/>, defaults to just <typeparamref name="TMonoBehaviour"/>.</param>
+        public void Expose<TMonoBehaviour>(object? identifier = null, bool useSceneContext = false, bool ifNotBound = false, Func<Context, TMonoBehaviour, bool>? condition = null, IEnumerable<Type>? bindTypes = null)
+            where TMonoBehaviour : MonoBehaviour
         {
-            _injectableMonoBehaviourInstructions.Add(new ExposeInstruction<TExposeType>());
+            bindTypes ??= new[] { typeof(TMonoBehaviour) };
+
+            if (!bindTypes.Any())
+            {
+                throw new ArgumentException("Must bind to at least one type", nameof(bindTypes));
+            }
+
+            _injectableMonoBehaviourInstructions.Add(new ExposeInstruction<TMonoBehaviour>(identifier, useSceneContext, ifNotBound, condition, bindTypes));
         }
 
         /// <summary>
@@ -192,6 +207,7 @@ namespace SiraUtil.Zenject
         /// </summary>
         /// <typeparam name="TExposeType">The type to expose.</typeparam>
         /// <param name="contractName">The contract name of the <see cref="SceneDecoratorContext"/> to search on.</param>
+        [Obsolete("Use Expose<TMonoBehaviour>() with a condition instead")]
         public void Expose<TExposeType>(string contractName)
         {
             if (contractName is null)
@@ -204,7 +220,7 @@ namespace SiraUtil.Zenject
         /// Calls <paramref name="action"/> on all instances of <typeparamref name="TMonoBehaviour"/> in a context.
         /// </summary>
         /// <typeparam name="TMonoBehaviour">The <see cref="MonoBehaviour"/> to match.</typeparam>
-        /// <param name="action"></param>
+        /// <param name="action">The callback to invoke when <typeparamref name="TMonoBehaviour"/> is encountered.</param>
         public void Mutate<TMonoBehaviour>(Action<Context, TMonoBehaviour> action) where TMonoBehaviour : MonoBehaviour
         {
             _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour>(action));
@@ -217,9 +233,21 @@ namespace SiraUtil.Zenject
         /// <typeparam name="TNewComponent">The new <see cref="Component"/> to instantiate.</typeparam>
         /// <param name="action">An optional callback to invoke with the new component after it's created.</param>
         /// <param name="gameObjectGetter">An optional function to specify on which <see cref="GameObject"/> the <typeparamref name="TNewComponent"/> should be added. If <see langword="null"/>, the new component is added to the same <see cref="GameObject"/> as the <typeparamref name="TMonoBehaviour"/>.</param>
-        public void Mutate<TMonoBehaviour, TNewComponent>(Action<Context, TMonoBehaviour, TNewComponent>? action = null, Func<TMonoBehaviour, GameObject>? gameObjectGetter = null) where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
+        /// <param name="condition">An optional callback that returns a value indicating whether or not <typeparamref name="TNewComponent"/> should be added given the <typeparamref name="TMonoBehaviour"/> and its associated <see cref="Context"/>.</param>
+        /// <param name="bindTypes">An optional enumerable of types against which <typeparamref name="TMonoBehaviour"/> should be bound. If <see langword="null"/>, nothing is bound.</param>
+        public void Mutate<TMonoBehaviour, TNewComponent>(
+            Action<Context, TMonoBehaviour, TNewComponent>? action = null,
+            Func<Context, TMonoBehaviour, GameObject>? gameObjectGetter = null,
+            Func<Context, TMonoBehaviour, bool>? condition = null,
+            IEnumerable<Type>? bindTypes = null)
+            where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
         {
-            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action, gameObjectGetter));
+            if (bindTypes != null && !bindTypes.Any())
+            {
+                throw new ArgumentException("Must bind to at least one type if not null", nameof(bindTypes));
+            }
+
+            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action, gameObjectGetter, condition, bindTypes));
         }
 
         /// <summary>
@@ -228,6 +256,7 @@ namespace SiraUtil.Zenject
         /// <typeparam name="TMutateType">The type to mutate.</typeparam>
         /// <param name="contractName">The contract name of the <see cref="SceneDecoratorContext" /> to search on.</param>
         /// <param name="mutationCallback">The callback used to mutate the object instance.</param>
+        [Obsolete("Use Mutate<TMonoBehaviour>(Action<Context, TMonoBehaviour>) instead")]
         public void Mutate<TMutateType>(string contractName, Action<SceneDecoratorContext, TMutateType> mutationCallback)
         {
             _injectableMonoBehaviourInstructions.Add(new SceneDecoratorMutateInstruction<TMutateType>(contractName, mutationCallback));
