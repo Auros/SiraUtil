@@ -16,8 +16,6 @@ namespace SiraUtil.Tools.FPFC
     {
         private readonly CameraState targetCameraState = new(new Vector3(0, 1.7f, 0), Quaternion.identity);
 
-        private readonly bool invertY = true;
-
         private IFPFCManager? _fpfcManager;
         private List<IFPFCListener> _fpfcListeners = null!;
         private IMenuControllerAccessor? _menuControllerAccessor;
@@ -26,9 +24,9 @@ namespace SiraUtil.Tools.FPFC
         private UniversalAdditionalCameraData _cameraData = null!;
         private TrackedPoseDriver _trackedPoseDriver = null!;
 
-        public float MouseSensitivity { get; set; } = 5f;
-
-        public float MoveSensitivity { get; set; } = 3f;
+        private float mouseSensitivity = 5f;
+        private float moveSensitivity = 3f;
+        private bool invertY = true;
 
         [Inject]
         [UsedImplicitly]
@@ -82,7 +80,7 @@ namespace SiraUtil.Tools.FPFC
                 return;
             }
 
-            Vector2 mouseMovement = 0.05f * MouseSensitivity * GetInputLookRotation();
+            Vector2 mouseMovement = 0.05f * mouseSensitivity * GetInputLookRotation();
 
             if (invertY)
             {
@@ -92,7 +90,7 @@ namespace SiraUtil.Tools.FPFC
             targetCameraState.Yaw += mouseMovement.x;
             targetCameraState.Pitch += mouseMovement.y;
 
-            Vector3 translation = Time.deltaTime * MoveSensitivity * GetInputTranslationDirection(targetCameraState.Rotation);
+            Vector3 translation = Time.deltaTime * moveSensitivity * GetInputTranslationDirection(targetCameraState.Rotation);
             targetCameraState.Position += translation;
 
             ApplyCameraState();
@@ -163,8 +161,9 @@ namespace SiraUtil.Tools.FPFC
 
         private void UpdateSettings()
         {
-            MoveSensitivity = _fpfcManager!.MoveSensitivity;
-            MouseSensitivity = _fpfcManager.MouseSensitivity * 0.75f;
+            moveSensitivity = _fpfcManager!.MoveSensitivity;
+            mouseSensitivity = _fpfcManager.MouseSensitivity * 0.75f;
+            invertY = _fpfcManager.InvertY;
         }
 
         private void UpdateState()

@@ -25,13 +25,13 @@ namespace SiraUtil.Tools.FPFC
         bool Active { get; }
 
         /// <summary>
-        /// The arbituary move sensitivity.
+        /// The arbitrary move sensitivity.
         /// </summary>
         [Obsolete("To be removed with no alternative.")]
         float MoveSensitivity { get; }
 
         /// <summary>
-        /// The arbituary mouse sensitivity.
+        /// The arbitrary mouse sensitivity.
         /// </summary>
         [Obsolete("To be removed with no alternative.")]
         float MouseSensitivity { get; }
