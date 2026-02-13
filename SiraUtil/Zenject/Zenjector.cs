@@ -170,6 +170,11 @@ namespace SiraUtil.Zenject
             {
                 yield return new ContextedNamedSceneInstallFilter<SceneContext>("Credits");
             }
+
+            if (location.HasFlag(Location.StartupError))
+            {
+                yield return new ContextedNamedSceneInstallFilter<SceneContext>("StartupError");
+            }
         }
 
         /// <summary>

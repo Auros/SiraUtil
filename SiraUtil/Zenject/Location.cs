@@ -91,5 +91,10 @@ namespace SiraUtil.Zenject
         /// Installs your bindings onto the credits scene.
         /// </summary>
         Credits = 4096,
+
+        /// <summary>
+        /// Installs your bindings onto the startup error scene.
+        /// </summary>
+        StartupError = 8192,
     }
 }

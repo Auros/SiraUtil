@@ -53,7 +53,7 @@ namespace SiraUtil
             zenjector.Install<SiraSettingsInstaller>(Location.App, config);
             zenjector.Install<SiraGameCoreInstaller>(Location.GameCore);
             zenjector.Install<SiraMenuInstaller>(Location.Menu);
-            zenjector.Install<SiraCreditsInstaller>(Location.HealthWarning | Location.Credits);
+            zenjector.Install<SiraCreditsInstaller>(Location.HealthWarning | Location.Credits | Location.StartupError);
 
             zenjector.UseMetadataBinder<Plugin>();
             zenjector.UseLogger(logger);
