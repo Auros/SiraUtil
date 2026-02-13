@@ -56,7 +56,7 @@
         <Reference Include="UnityEngine.CoreModule" />
         <Reference Include="UnityEngine.InputLegacyModule" />
         <Reference Include="UnityEngine.ParticleSystemModule" />
-        <Reference Include="UnityEngine.SpatialTracking" />
+        <Reference Include="UnityEngine.SpatialTracking" Publicize="True" />
         <Reference Include="UnityEngine.SubsystemsModule" />
         <Reference Include="UnityEngine.UI" />
         <Reference Include="UnityEngine.UIElementsModule" />
