@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -30,6 +31,11 @@ namespace SiraUtil.Tools.FPFC
 
         private void OnBeforeUpdate()
         {
+            if (InputState.currentUpdateType != InputUpdateType.Dynamic)
+            {
+                return;
+            }
+
             Vector2 mouseMovement = GetInputLookRotation() * 0.05f * MouseSensitivity;
 
             if (invertY)
