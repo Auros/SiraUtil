@@ -8,6 +8,8 @@
 
         new float MouseSensitivity { get; }
 
+        bool InvertY { get; }
+
         new bool LockViewOnDisable { get; }
 
         new bool LimitFrameRate { get; }

@@ -19,6 +19,8 @@ namespace SiraUtil.Tools.FPFC
 
         public float MouseSensitivity => default;
 
+        public bool InvertY => default;
+
         public bool Ignore => default;
 
         public bool LockViewOnDisable => false;

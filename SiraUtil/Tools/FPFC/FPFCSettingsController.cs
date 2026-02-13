@@ -25,6 +25,7 @@ namespace SiraUtil.Tools.FPFC
         public float FOV => _fpfcOptions.CameraFOV;
         public float MoveSensitivity => _fpfcOptions.MoveSensitivity;
         public float MouseSensitivity => _fpfcOptions.MouseSensitivity;
+        public bool InvertY => _fpfcOptions.InvertY;
 
         public bool Enabled
         {
