@@ -179,16 +179,16 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
-        /// Registers an instruction to expose a component of the specified type for later processing or access.
+        /// Finds all types that match <typeparamref name="TExposeType"/> in a context and binds them to the context's container if they are not yet bound.
         /// </summary>
-        /// <typeparam name="TExposeType">The type of MonoBehaviour to expose. Must derive from MonoBehaviour.</typeparam>
+        /// <typeparam name="TExposeType">The type of <see cref="MonoBehaviour"/> to expose.</typeparam>
         public void Expose<TExposeType>() where TExposeType : MonoBehaviour
         {
             _injectableMonoBehaviourInstructions.Add(new ExposeInstruction<TExposeType>());
         }
 
         /// <summary>
-        /// Searches a decorator context for the first instance that matches a type, then automatically binds them the the active container.
+        /// Finds all types that match <typeparamref name="TExposeType"/> on the <see cref="SceneDecoratorContext"/> with the given <paramref name="contractName"/> and binds them to the context's container if they are not yet bound.
         /// </summary>
         /// <typeparam name="TExposeType">The type to expose.</typeparam>
         /// <param name="contractName">The contract name of the <see cref="SceneDecoratorContext"/> to search on.</param>
@@ -201,9 +201,9 @@ namespace SiraUtil.Zenject
         }
 
         /// <summary>
-        /// Finds 
+        /// Calls <paramref name="action"/> on all instances of <typeparamref name="TMonoBehaviour"/> in a context.
         /// </summary>
-        /// <typeparam name="TMonoBehaviour"></typeparam>
+        /// <typeparam name="TMonoBehaviour">The <see cref="MonoBehaviour"/> to match.</typeparam>
         /// <param name="action"></param>
         public void Mutate<TMonoBehaviour>(Action<Context, TMonoBehaviour> action) where TMonoBehaviour : MonoBehaviour
         {
@@ -213,15 +213,17 @@ namespace SiraUtil.Zenject
         /// <summary>
         /// Instantiates a <typeparamref name="TNewComponent"/> alongside any existing <typeparamref name="TMonoBehaviour"/> on a context.
         /// </summary>
-        /// <typeparam name="TMonoBehaviour">The <see cref="MonoBehaviour"/> on which to match</typeparam>
-        /// <typeparam name="TNewComponent"></typeparam>
+        /// <typeparam name="TMonoBehaviour">The <see cref="MonoBehaviour"/> to match.</typeparam>
+        /// <typeparam name="TNewComponent">The new <see cref="Component"/> to instantiate.</typeparam>
+        /// <param name="action">An optional callback to invoke with the new component after it's created.</param>
+        /// <param name="gameObjectGetter">An optional function to specify on which <see cref="GameObject"/> the <typeparamref name="TNewComponent"/> should be added. If <see langword="null"/>, the new component is added to the same <see cref="GameObject"/> as the <typeparamref name="TMonoBehaviour"/>.</param>
         public void Mutate<TMonoBehaviour, TNewComponent>(Action<Context, TMonoBehaviour, TNewComponent>? action = null, Func<TMonoBehaviour, GameObject>? gameObjectGetter = null) where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
         {
             _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action, gameObjectGetter));
         }
 
         /// <summary>
-        /// Searches a decorator context for the first instance that matches a type, then invokes a callback with that instance for it to be modified or mutated.
+        /// Calls <paramref name="mutationCallback"/> on all instances of <typeparamref name="TMutateType"/> in a <see cref="SceneDecoratorContext"/>.
         /// </summary>
         /// <typeparam name="TMutateType">The type to mutate.</typeparam>
         /// <param name="contractName">The contract name of the <see cref="SceneDecoratorContext" /> to search on.</param>
