@@ -211,7 +211,7 @@ namespace SiraUtil.Zenject
         public void Expose<TExposeType>(string contractName)
         {
             if (contractName is null)
-                throw new ArgumentNullException(contractName);
+                throw new ArgumentNullException(nameof(contractName));
 
             _injectableMonoBehaviourInstructions.Add(new SceneDecoratorExposeInstruction<TExposeType>(contractName));
         }
