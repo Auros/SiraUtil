@@ -18,6 +18,8 @@ namespace SiraUtil.Tools.FPFC
 
         public virtual float MouseSensitivity { get; set; } = 5f;
 
+        public virtual bool InvertY { get; set; } = true;
+
         [UseConverter(typeof(EnumConverter<KeyCode>))]
         public virtual KeyCode ToggleKeyCode { get; set; } = KeyCode.G;
 
