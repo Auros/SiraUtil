@@ -11,7 +11,7 @@ namespace SiraUtil.Tools.SongControl
             _multiplayerLocalActivePlayerInGameMenuViewController = multiplayerLocalActivePlayerInGameMenuViewController;
         }
 
-        public bool IsPaused => _multiplayerLocalActivePlayerInGameMenuViewController != null ? _multiplayerLocalActivePlayerInGameMenuViewController.isActiveAndEnabled : false;
+        public bool IsPaused => _multiplayerLocalActivePlayerInGameMenuViewController != null && _multiplayerLocalActivePlayerInGameMenuViewController.isActiveAndEnabled;
 
         public void Continue()
         {

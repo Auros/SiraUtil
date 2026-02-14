@@ -30,9 +30,7 @@ namespace SiraUtil.Converters
         /// <returns></returns>
         public override Value? ToValue(Version? obj, object parent)
         {
-            if (obj is null)
-                return Value.Null();
-            return Value.Text(obj.ToString());
+            return obj is null ? Value.Null() : Value.Text(obj.ToString());
         }
     }
 }

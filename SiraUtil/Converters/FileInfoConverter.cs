@@ -30,9 +30,7 @@ namespace SiraUtil.Converters
         /// <returns></returns>
         public override Value? ToValue(FileInfo? obj, object parent)
         {
-            if (obj is null)
-                return Value.Null()!;
-            return Value.Text(obj.FullName);
+            return obj is null ? Value.Null() : Value.Text(obj.FullName);
         }
     }
 }

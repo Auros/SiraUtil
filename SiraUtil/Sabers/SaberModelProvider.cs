@@ -102,14 +102,9 @@ namespace SiraUtil.Sabers
                 }
                 else if (_activeSaberModelRegistration.LeftInstruction != null && _activeSaberModelRegistration.RightInstruction != null)
                 {
-                    if (saberType == SaberType.SaberA)
-                    {
-                        newModel = _activeSaberModelRegistration.LeftInstruction.Invoke();
-                    }
-                    else
-                    {
-                        newModel = _activeSaberModelRegistration.RightInstruction.Invoke();
-                    }
+                    newModel = saberType == SaberType.SaberA
+                        ? _activeSaberModelRegistration.LeftInstruction.Invoke()
+                        : _activeSaberModelRegistration.RightInstruction.Invoke();
                     _container.InjectGameObject(newModel.gameObject);
                 }
                 else

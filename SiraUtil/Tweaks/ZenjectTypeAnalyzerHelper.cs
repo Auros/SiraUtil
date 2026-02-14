@@ -11,12 +11,9 @@ namespace SiraUtil.Tweaks
         [HarmonyFinalizer]
         private static Exception? TypeAnalyzer_TryGetInfo(Type type, Exception __exception)
         {
-            if (__exception != null)
-            {
-                return new TypeAnalyzerException($"Failed to get type info for type {type.FullDescription()}", __exception);
-            }
-
-            return __exception;
+            return __exception != null
+                ? new TypeAnalyzerException($"Failed to get type info for type {type.FullDescription()}", __exception)
+                : __exception;
         }
     }
 

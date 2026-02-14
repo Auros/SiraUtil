@@ -30,9 +30,7 @@ namespace SiraUtil.Extras
         /// <returns>Whether or not score submission was disabled by SiraUtil.</returns>
         public static bool ScoreSubmissionEnabled(this LevelCompletionResults levelCompletionResults)
         {
-            if (levelCompletionResults is SiraLevelCompletionResults siraLevelCompletionResults)
-                return siraLevelCompletionResults.ShouldSubmitScores;
-            return true;
+            return levelCompletionResults is not SiraLevelCompletionResults siraLevelCompletionResults || siraLevelCompletionResults.ShouldSubmitScores;
         }
     }
 }

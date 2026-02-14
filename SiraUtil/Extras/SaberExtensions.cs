@@ -7,9 +7,7 @@ namespace SiraUtil.Extras
     {
         internal static Color GetColor(this SaberModelController saberModelController)
         {
-            if (saberModelController is IColorable colorable)
-                return colorable.Color;
-            return saberModelController._saberTrail._color;
+            return saberModelController is IColorable colorable ? colorable.Color : saberModelController._saberTrail._color;
         }
 
         internal static void SetColor(this SaberModelController saberModelController, Color color)
