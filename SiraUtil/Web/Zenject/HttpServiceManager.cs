@@ -23,7 +23,7 @@ namespace SiraUtil.Web.Zenject
         {
             if (!_services.ContainsKey(assembly))
             {
-                var zenjector = _zenjectManager.ZenjectorFromAssembly(assembly);
+                Zenjector? zenjector = _zenjectManager.ZenjectorFromAssembly(assembly);
                 if (zenjector is not null)
                 {
                     IHttpService service = null!;

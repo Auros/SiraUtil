@@ -24,7 +24,7 @@ namespace SiraUtil.Submissions
         /// </summary>
         public void Dispose()
         {
-            var disabled = _tickets.Count > 0;
+            bool disabled = _tickets.Count > 0;
             _submissionDataContainer.Set(disabled, [.. _tickets]);
         }
 
@@ -45,7 +45,7 @@ namespace SiraUtil.Submissions
         /// <returns>A ticket which can be used to disable the disabling of score submission.</returns>
         public Ticket DisableScoreSubmission(string source, string? subsource = null)
         {
-            var ticket = _tickets.FirstOrDefault(x => x.Source == source);
+            Ticket? ticket = _tickets.FirstOrDefault(x => x.Source == source);
             if (ticket is null)
             {
                 ticket = new Ticket(source, Assembly.GetCallingAssembly());

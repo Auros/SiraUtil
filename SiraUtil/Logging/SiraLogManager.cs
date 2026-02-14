@@ -21,7 +21,7 @@ namespace SiraUtil.Logging
         {
             if (!_loggerAssemblies.ContainsKey(assembly))
             {
-                var zenjector = _zenjectManager.ZenjectorFromAssembly(assembly);
+                Zenjector? zenjector = _zenjectManager.ZenjectorFromAssembly(assembly);
                 if (zenjector is not null)
                 {
                     _loggerAssemblies.Add(assembly, new LoggerContext(logger, zenjector.Slog));

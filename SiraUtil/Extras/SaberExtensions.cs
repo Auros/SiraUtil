@@ -24,9 +24,9 @@ namespace SiraUtil.Extras
 
             float beforeAlpha = trail._color.a;
             trail._color = trail._colorOverwrite ? trail._forcedColor : color.ColorWithAlpha(beforeAlpha);
-            foreach (var glow in glowColors)
+            foreach (SetSaberGlowColor glow in glowColors)
                 glow.SetColors(color);
-            foreach (var fakeGlow in fakeGlowColors)
+            foreach (SetSaberFakeGlowColor fakeGlow in fakeGlowColors)
                 fakeGlow.SetColors(color);
             if (light != null)
                 light.color = color;
@@ -36,17 +36,17 @@ namespace SiraUtil.Extras
             => saberModelController._setSaberGlowColors;
         internal static SetSaberFakeGlowColor[] SaberFakeGlowColors(this SaberModelController saberModelController)
             => saberModelController._setSaberFakeGlowColors;
-        
+
         internal static void SetColors(this SetSaberGlowColor setSaberGlowColor, Color color)
         {
             MeshRenderer meshRenderer = setSaberGlowColor._meshRenderer;
             MaterialPropertyBlock? materialPropertyBlock = setSaberGlowColor._materialPropertyBlock;
             SetSaberGlowColor.PropertyTintColorPair[] propertyTintPairs = setSaberGlowColor._propertyTintColorPairs;
-        
+
             if (materialPropertyBlock is null)
                 materialPropertyBlock = setSaberGlowColor._materialPropertyBlock = new MaterialPropertyBlock();
 
-            foreach (var tintPair in propertyTintPairs)
+            foreach (SetSaberGlowColor.PropertyTintColorPair tintPair in propertyTintPairs)
                 materialPropertyBlock.SetColor(tintPair.property, color * tintPair.tintColor);
 
             meshRenderer.SetPropertyBlock(materialPropertyBlock);

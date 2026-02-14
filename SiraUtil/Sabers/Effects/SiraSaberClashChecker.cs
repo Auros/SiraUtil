@@ -79,7 +79,7 @@ namespace SiraUtil.Sabers.Effects
                         Vector3 saberBladeBottomPos = saberA.saberBladeBottomPos;
                         Vector3 saberBladeBottomPos2 = saberB.saberBladeBottomPos;
 
-                        if (SegmentToSegmentDist(saberBladeBottomPos, saberBladeTopPos, saberBladeBottomPos2, saberBladeTopPos2, out var clashingPoint2) < 0.08f && saberA.isActiveAndEnabled && saberB.isActiveAndEnabled)
+                        if (SegmentToSegmentDist(saberBladeBottomPos, saberBladeTopPos, saberBladeBottomPos2, saberBladeTopPos2, out Vector3 clashingPoint2) < 0.08f && saberA.isActiveAndEnabled && saberB.isActiveAndEnabled)
                         {
                             if (_lastSaberA == null && _lastSaberB == null)
                             {

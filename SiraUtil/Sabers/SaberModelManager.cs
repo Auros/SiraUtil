@@ -141,12 +141,12 @@ namespace SiraUtil.Sabers
             while (_colorUpdateQueue.Count > 0)
                 _colorUpdateQueue.Dequeue().Invoke();
 
-            foreach (var desperator in _desperationList)
+            foreach (DesperationContract desperator in _desperationList)
             {
                 if (desperator.Saber != null)
                     SetColor(desperator.Saber, desperator.color);
             }
-            foreach (var salvation in _salvationList)
+            foreach (DesperationContract salvation in _salvationList)
                 _desperationList.Remove(salvation);
             _salvationList.Clear();
         }

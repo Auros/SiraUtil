@@ -100,7 +100,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
             }
 
             // Create the delegate used to invoke the affinity instance method.
-            var delegateType = CreateDelegateType(affinityMethod);
+            Type delegateType = CreateDelegateType(affinityMethod);
             FieldBuilder affinityDelegate = typeBuilder.DefineField(delegateName, delegateType, FieldAttributes.Public | FieldAttributes.Static);
 
             // Create the method and its parameters.
@@ -184,9 +184,9 @@ namespace SiraUtil.Affinity.Harmony.Generator
                 throw new ArgumentException("argumentVariations contains more elements than argumentTypes", nameof(argumentVariations));
             }
 
-            for (var i = 0; i < argumentTypes.Length; i++)
+            for (int i = 0; i < argumentTypes.Length; i++)
             {
-                var type = argumentTypes[i];
+                Type type = argumentTypes[i];
                 switch (argumentVariations[i])
                 {
                     case ArgumentType.Ref:
@@ -206,24 +206,24 @@ namespace SiraUtil.Affinity.Harmony.Generator
             string nameBase = string.Format("{0}{1}", method.DeclaringType.Name, method.Name);
             string name = GetUniqueName(nameBase);
 
-            var typeBuilder = _moduleBuilder.DefineType(
+            TypeBuilder typeBuilder = _moduleBuilder.DefineType(
                 name, TypeAttributes.Sealed | TypeAttributes.Public, typeof(MulticastDelegate));
 
-            var constructor = typeBuilder.DefineConstructor(
+            ConstructorBuilder constructor = typeBuilder.DefineConstructor(
                 MethodAttributes.RTSpecialName | MethodAttributes.HideBySig | MethodAttributes.Public,
                 CallingConventions.Standard, [typeof(object), typeof(IntPtr)]);
             constructor.SetImplementationFlags(MethodImplAttributes.CodeTypeMask);
 
-            var parameters = method.GetParameters();
+            ParameterInfo[] parameters = method.GetParameters();
 
-            var invokeMethod = typeBuilder.DefineMethod(
+            MethodBuilder invokeMethod = typeBuilder.DefineMethod(
                 "Invoke", MethodAttributes.HideBySig | MethodAttributes.Virtual | MethodAttributes.Public,
                 method.ReturnType, [.. parameters.Select(p => p.ParameterType)]);
             invokeMethod.SetImplementationFlags(MethodImplAttributes.CodeTypeMask);
 
             for (int i = 0; i < parameters.Length; i++)
             {
-                var parameter = parameters[i];
+                ParameterInfo parameter = parameters[i];
                 invokeMethod.DefineParameter(i + 1, ParameterAttributes.None, parameter.Name);
             }
             return typeBuilder.CreateType();
@@ -240,7 +240,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
         public void Dispose()
         {
-            foreach (var contract in _patchCache)
+            foreach (KeyValuePair<MethodInfo, (MethodBase, FieldInfo)> contract in _patchCache)
             {
                 _harmony.Unpatch(contract.Value.Item1, contract.Key);
                 contract.Value.Item2.SetValue(null, null);
@@ -257,7 +257,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
             _assemblyBuilder.Save(fileName);
             File.Delete(fileName);
 
-            foreach (var file in new DirectoryInfo(UnityGame.InstallPath).EnumerateFiles())
+            foreach (FileInfo? file in new DirectoryInfo(UnityGame.InstallPath).EnumerateFiles())
             {
                 if (file.Name.Contains("_(Generated).Affinity"))
                 {

@@ -334,13 +334,13 @@ namespace SiraUtil.Zenject
                 return;
 
             _autoBinded = true;
-            foreach (var type in Metadata.Assembly.GetTypes())
+            foreach (Type? type in Metadata.Assembly.GetTypes())
             {
                 BindAttribute? bind = type.GetCustomAttribute<BindAttribute>();
                 if (bind is not null)
                 {
                     Plugin.Log.Debug($"Found bind attribute in type '{type.FullName}'");
-                    var instruction = new AutobindInstruction(type, bind);
+                    AutobindInstruction instruction = new(type, bind);
                     Install(instruction.Location, Container => instruction.Bind(Container));
                 }
             }

@@ -21,7 +21,7 @@ namespace SiraUtil.Zenject.Internal
 
         public void Initialize()
         {
-            foreach (var initter in _asyncInitializables)
+            foreach (IAsyncInitializable initter in _asyncInitializables)
             {
                 UnityMainThreadTaskScheduler.Factory.StartNew(async () =>
                 {

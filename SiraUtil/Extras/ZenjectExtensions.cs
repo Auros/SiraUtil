@@ -1,5 +1,6 @@
 ﻿using HMUI;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using VRUIControls;
@@ -19,7 +20,7 @@ namespace Zenject
         /// <returns></returns>
         public static ScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentAsViewController(this FromBinder binder, Action<InjectContext, object> onInstantiated = null!)
         {
-            var go = new GameObject(binder.ConcreteTypes.FirstOrDefault(t => typeof(ViewController).IsAssignableFrom(t))?.Name)
+            GameObject go = new(binder.ConcreteTypes.FirstOrDefault(t => typeof(ViewController).IsAssignableFrom(t))?.Name)
             {
                 layer = 5,
             };
@@ -31,11 +32,11 @@ namespace Zenject
             rt.anchorMax = rt.localScale = Vector3.one;
             rt.anchorMin = rt.sizeDelta = Vector2.zero;
 
-            var canvas = go.AddComponent<Canvas>();
+            Canvas canvas = go.AddComponent<Canvas>();
             canvas.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord2;
 
             binder.BindContainer.QueueForInject(go.AddComponent<VRGraphicRaycaster>());
-            var componentBinding = binder.FromNewComponentOn(go);
+            ScopeConcreteIdArgConditionCopyNonLazyBinder componentBinding = binder.FromNewComponentOn(go);
 
             componentBinding.OnInstantiated(onInstantiated);
             return componentBinding;
@@ -56,7 +57,7 @@ namespace Zenject
         // From Extenject https://github.com/Mathijs-Bakker/Extenject/blob/1e2b6fc88fed215ade79aa914887fef115d3328e/UnityProject/Assets/Plugins/Zenject/Source/Binding/Binders/FromBinders/FromBinder.cs#L300
         private static NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(FromBinder fromBinder, GameObjectCreationParameters gameObjectInfo)
         {
-            var concreteTypes = fromBinder.ConcreteTypes;
+            IEnumerable<Type> concreteTypes = fromBinder.ConcreteTypes;
             BindingUtil.AssertIsComponent(concreteTypes);
             BindingUtil.AssertIsNotAbstract(concreteTypes);
 

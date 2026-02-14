@@ -15,7 +15,7 @@ namespace SiraUtil.Affinity
         {
             _affinityManager = affinityManager;
 
-            foreach (var affinity in _affinityManager.Affinities)
+            foreach (IAffinity affinity in _affinityManager.Affinities)
             {
                 try
                 {

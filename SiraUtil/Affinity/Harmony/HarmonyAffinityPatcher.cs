@@ -34,18 +34,18 @@ namespace SiraUtil.Affinity.Harmony
                 _patchCache.Add(affinity, methods);
             }
 
-            var affinityType = affinity.GetType();
+            Type affinityType = affinity.GetType();
             MethodInfo[] affinityMethods = [.. affinityType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute)))];
             if (affinityMethods.Length == 0)
             {
                 Plugin.Log.Warn($"'{affinity.GetType().FullDescription()}' doesn't have any affinity patches! The IAffinity interface is unecessary.");
             }
 
-            var classAffinityPatch = affinityType.GetCustomAttribute<AffinityPatchAttribute>();
+            AffinityPatchAttribute? classAffinityPatch = affinityType.GetCustomAttribute<AffinityPatchAttribute>();
 
-            foreach (var affinityMethod in affinityMethods)
+            foreach (MethodInfo affinityMethod in affinityMethods)
             {
-                foreach (var attribute in affinityMethod.GetCustomAttributes<AffinityPatchAttribute>())
+                foreach (AffinityPatchAttribute attribute in affinityMethod.GetCustomAttributes<AffinityPatchAttribute>())
                 {
                     AffinityPatchType patchType = AffinityPatchType.Postfix;
 
@@ -100,7 +100,7 @@ namespace SiraUtil.Affinity.Harmony
                 Plugin.Log.Error($"The {nameof(DynamicHarmonyPatchGenerator)} could not be found for an assembly! This should NEVER happen and should be reported!");
                 return;
             }
-            foreach (var affinityContract in methods)
+            foreach (MethodInfo affinityContract in methods)
             {
                 dynamicHarmonyPatchGenerator.Unpatch(affinityContract);
             }
@@ -108,7 +108,7 @@ namespace SiraUtil.Affinity.Harmony
 
         public void Dispose()
         {
-            foreach (var patcher in _patchGenerators)
+            foreach (KeyValuePair<Assembly, DynamicHarmonyPatchGenerator> patcher in _patchGenerators)
                 patcher.Value.Dispose();
         }
     }

@@ -14,10 +14,10 @@ namespace SiraUtil.Submissions
         {
             _data = "";
             Disabled = disabled;
-            foreach (var ticket in tickets)
+            foreach (Ticket ticket in tickets)
             {
                 _data += $"{ticket.Source}\n";
-                foreach (var reason in ticket.Reasons())
+                foreach (string reason in ticket.Reasons())
                     _data += $"<size=80%><color=#999999>{reason}</color></size>\n";
             }
         }

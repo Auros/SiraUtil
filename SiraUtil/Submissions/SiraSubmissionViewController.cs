@@ -13,7 +13,7 @@ namespace SiraUtil.Submissions
             base.DidActivate(firstActivation, addedToHierarchy, screenSystemEnabling);
             if (firstActivation)
             {
-                var textGameObject = gameObject;
+                GameObject textGameObject = gameObject;
                 _curvedText = textGameObject.AddComponent<CurvedTextMeshPro>();
                 textGameObject.transform.SetParent(transform);
                 (textGameObject.transform as RectTransform)!.sizeDelta = new Vector2(40f, 100f);

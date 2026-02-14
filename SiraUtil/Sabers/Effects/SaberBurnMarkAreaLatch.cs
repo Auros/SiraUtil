@@ -91,7 +91,7 @@ namespace SiraUtil.Sabers.Effects
         {
             _saberBurnMarkArea = __instance;
             // TODO: This allocates a new array on every iteration. This could be more efficient.
-            foreach (var siraSaber in _earlySabers)
+            foreach (SiraSaber siraSaber in _earlySabers)
                 AddSaber(siraSaber.Saber);
             _earlySabers.Clear();
         }

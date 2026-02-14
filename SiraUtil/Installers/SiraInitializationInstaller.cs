@@ -35,13 +35,13 @@ namespace SiraUtil.Installers
             Container.BindInterfacesTo<InputSpoofFPFCListener>().AsSingle();
 
             // Install all UBinders
-            foreach (var zenjector in _zenjectManager.ActiveZenjectors)
+            foreach (Zenjector zenjector in _zenjectManager.ActiveZenjectors)
                 if (zenjector.UBinderType is not null && zenjector.UBinderValue is not null)
                     Container.Bind(zenjector.UBinderType).FromInstance(zenjector.UBinderValue).AsSingle();
 
             // Takes every active zenjector and adds them to the SiraLogger
             _siraLogManager.Clear();
-            foreach (var zenjector in _zenjectManager.ActiveZenjectors)
+            foreach (Zenjector zenjector in _zenjectManager.ActiveZenjectors)
                 if (zenjector.Logger is not null)
                     _siraLogManager.AddLogger(zenjector.Metadata.Assembly, zenjector.Logger);
             Container.Bind<SiraLog>().AsTransient().OnInstantiated<SiraLog>(SiraLogCreated);
@@ -49,14 +49,14 @@ namespace SiraUtil.Installers
 
             // Takes every active zenjector and adds them to the http service.
             _httpServiceManager.Clear();
-            foreach (var zenjector in _zenjectManager.ActiveZenjectors)
+            foreach (Zenjector zenjector in _zenjectManager.ActiveZenjectors)
                 if (zenjector.HttpServiceType is not null)
                     _httpServiceManager.AddService(zenjector.Metadata.Assembly);
             Container.Bind<IHttpService>().To<ContainerizedHttpService>().AsTransient().OnInstantiated<IHttpService>(HttpServiceCreated);
 
             // Takes every active zenjector and adds them to the SiraSync service.
             _siraSyncManager.Clear();
-            foreach (var zenjector in _zenjectManager.ActiveZenjectors)
+            foreach (Zenjector zenjector in _zenjectManager.ActiveZenjectors)
                 if (zenjector.SiraSyncServiceType is not null)
                     _siraSyncManager.AddService(zenjector.Metadata.Assembly);
             Container.Bind<ISiraSyncService>().To<ContainerizedSiraSyncService>().AsTransient().OnInstantiated<ISiraSyncService>(SiraSyncServiceCreated);

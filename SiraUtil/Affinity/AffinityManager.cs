@@ -11,7 +11,7 @@ namespace SiraUtil.Affinity
 
         public AffinityManager([Inject(Optional = true, Source = InjectSources.Local)] List<IAffinity> affinities)
         {
-            foreach (var affinity in affinities)
+            foreach (IAffinity affinity in affinities)
             {
                 _affinities.Add(affinity);
             }

@@ -34,15 +34,15 @@ namespace SiraUtil.Tweaks
 
         private static void NewErrorBehavior(Exception exception, string message, params object[] parameters)
         {
-            var failedType = (Type)parameters[0];
+            Type failedType = (Type)parameters[0];
             string failText = string.Format(message, failedType.FullName);
             if (failedType.Name != failedType.FullName)
             {
                 Plugin.Log.Critical(failText);
                 Plugin.Log.Critical(exception);
 
-                var asm = failedType.Assembly;
-                var plugin = PluginManager.EnabledPlugins.FirstOrDefault(pl => pl.Assembly == asm);
+                Assembly asm = failedType.Assembly;
+                PluginMetadata plugin = PluginManager.EnabledPlugins.FirstOrDefault(pl => pl.Assembly == asm);
 
                 if (plugin != null)
                 {

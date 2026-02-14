@@ -23,7 +23,7 @@ namespace SiraUtil.Sabers
         private SaberTypeObject _saberTypeObject = null!;
         private SaberModelProvider _saberModelProvider = null!;
         private SaberModelController _saberModelController = null!;
-        private SaberModelContainer.InitData _saberModelContainerInitData = new SaberModelContainer.InitData();
+        private SaberModelContainer.InitData _saberModelContainerInitData = new();
         private TimeHelper _timeHelper = null!;
         private readonly Queue<Action> _colorProcessNextFrame = new();
         private bool _constructedThisFrame = false;

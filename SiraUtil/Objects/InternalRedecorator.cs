@@ -102,7 +102,7 @@ namespace SiraUtil.Objects
             UnityEngine.Object.Instantiate(originalPrefab, irgo.transform);
             UnityEngine.Object clone = irgo.GetComponentInChildren(registrations.First().PrefabType);
 
-            foreach (var registration in registrations)
+            foreach (RedecoratorRegistration registration in registrations)
             {
                 registration.Redecorate(clone);
                 if (!registration.Chain)

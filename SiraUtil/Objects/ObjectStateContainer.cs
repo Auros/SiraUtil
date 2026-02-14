@@ -33,7 +33,7 @@ namespace SiraUtil.Objects
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                var child = transform.GetChild(i);
+                Transform child = transform.GetChild(i);
                 populator.Add(new ObjectState(child));
                 Snapshot(child, ref populator);
             }
@@ -44,7 +44,7 @@ namespace SiraUtil.Objects
         /// </summary>
         public void Revert()
         {
-            foreach (var obj in objects)
+            foreach (ObjectState obj in objects)
             {
                 obj.Revert();
             }

@@ -65,7 +65,7 @@ namespace SiraUtil.Sabers.Effects
         internal void SparklesStarting(ObstacleSaberSparkleEffectManager __instance)
         {
             _obstacleSaberSparkleEffectManager = __instance;
-            foreach (var siraSaber in _earlySabers)
+            foreach (SiraSaber siraSaber in _earlySabers)
                 AddSaber(siraSaber.Saber);
             _earlySabers.Clear();
         }

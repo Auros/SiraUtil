@@ -36,7 +36,7 @@ namespace SiraUtil.Zenject.Internal
             if (_bindAttribute.Contracts is null)
             {
                 List<Type> contracts = [];
-                foreach (var type in _autoTypes)
+                foreach (Type type in _autoTypes)
                     if (majorContract.DerivesFrom(type))
                         contracts.Add(type);
                 if (contracts.Count > 0)
@@ -55,7 +55,7 @@ namespace SiraUtil.Zenject.Internal
 
         public readonly void Bind(DiContainer Container)
         {
-            var contractBind = Container.Bind(_contracts ?? _majorContract).To(_majorContract);
+            FromBinderNonGeneric contractBind = Container.Bind(_contracts ?? _majorContract).To(_majorContract);
             if (_majorContract[0].DerivesFrom<ViewController>())
             {
                 _ = contractBind.FromNewComponentAsViewController();

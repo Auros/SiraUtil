@@ -33,8 +33,8 @@ namespace SiraUtil.Sabers.Effects
             Color colorB = _saberModelManager.GetPhysicalSaberColor(saberB);
 
             Color combinedColor = Color.Lerp(colorA, colorB, 0.5f).ColorWithAlpha(1f);
-            var glowMainModule = _glowParticleSystem.main;
-            var sparkleMainModule = _sparkleParticleSystem.main;
+            ParticleSystem.MainModule glowMainModule = _glowParticleSystem.main;
+            ParticleSystem.MainModule sparkleMainModule = _sparkleParticleSystem.main;
 
             glowMainModule.startColor = combinedColor;
             sparkleMainModule.startColor = combinedColor;

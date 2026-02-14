@@ -32,7 +32,7 @@ namespace SiraUtil.Web.Implementations
 
         public string? UserAgent
         {
-            get => Headers.TryGetValue("User-Agent", out var value) ? value : null;
+            get => Headers.TryGetValue("User-Agent", out string? value) ? value : null;
             set
             {
                 if (value is null)
@@ -121,30 +121,30 @@ namespace SiraUtil.Web.Implementations
             // UnityWebRequest must be created & executed on the main thread
             await UnityGame.SwitchToMainThreadAsync();
 
-            var newURL = url;
+            string newURL = url;
             if (BaseURL != null)
                 newURL = Path.Combine(BaseURL, url);
             DownloadHandler? dHandler = new DownloadHandlerBuffer();
 
-            var originalMethod = method;
+            HTTPMethod originalMethod = method;
             if (method == HTTPMethod.POST && body != null)
                 method = HTTPMethod.PUT;
 
             using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(body));
             request.timeout = timeout ?? Timeout;
 
-            foreach (var header in Headers)
+            foreach (KeyValuePair<string, string> header in Headers)
                 request.SetRequestHeader(header.Key, header.Value);
 
             if (withHeaders != null)
-                foreach (var header in withHeaders)
+                foreach (KeyValuePair<string, string> header in withHeaders)
                     request.SetRequestHeader(header.Key, header.Value);
 
             // some unity bull
             if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
                 request.method = originalMethod.ToString();
 
-            var lastProgress = -1f;
+            float lastProgress = -1f;
             AsyncOperation asyncOp = request.SendWebRequest();
             while (!asyncOp.isDone)
             {
@@ -155,7 +155,7 @@ namespace SiraUtil.Web.Implementations
                 }
                 if (downloadProgress is not null && dHandler is not null)
                 {
-                    var currentProgress = asyncOp.progress;
+                    float currentProgress = asyncOp.progress;
                     if (Math.Abs(lastProgress - currentProgress) > 0.001f)
                     {
                         downloadProgress.Report(currentProgress);
@@ -165,7 +165,7 @@ namespace SiraUtil.Web.Implementations
                 await Task.Delay(10);
             }
             downloadProgress?.Report(1f);
-            var successful = request is { isDone: true, result: UnityWebRequest.Result.Success };
+            bool successful = request is { isDone: true, result: UnityWebRequest.Result.Success };
             return new UnityWebRequestHttpResponse(request, successful);
         }
     }

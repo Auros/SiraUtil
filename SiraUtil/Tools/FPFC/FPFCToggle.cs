@@ -151,7 +151,7 @@ namespace SiraUtil.Tools.FPFC
             Application.targetFrameRate = _fpfcSettings.LimitFrameRate ? (int)Math.Round(Screen.currentResolution.refreshRateRatio.value) : -1;
             QualitySettings.vSyncCount = _fpfcSettings.VSyncCount;
 
-            foreach (var listener in _fpfcListeners)
+            foreach (IFPFCListener listener in _fpfcListeners)
             {
                 listener.Enabled();
             }
@@ -195,7 +195,7 @@ namespace SiraUtil.Tools.FPFC
             Application.targetFrameRate = -1;
             QualitySettings.vSyncCount = 0;
 
-            foreach (var listener in _fpfcListeners)
+            foreach (IFPFCListener listener in _fpfcListeners)
             {
                 listener.Disabled();
             }

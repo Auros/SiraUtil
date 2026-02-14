@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using IPA.Loader;
+using SiraUtil.Zenject.Internal;
 using SiraUtil.Zenject.Internal.Instructors;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace SiraUtil.Zenject
             Harmony.ContextDecorator.InstalledSceneBindings += ContextDecorator_InstalledSceneBindings;
 
             // This will set the default state for every Zenjector when SiraUtil enables.
-            foreach (var zenDatum in _zenjectors)
+            foreach (ZenjectorDatum zenDatum in _zenjectors)
                 zenDatum.Enabled = PluginManager.GetPluginFromId(zenDatum.Zenjector.Metadata.Id) != null;
         }
 
@@ -58,7 +59,7 @@ namespace SiraUtil.Zenject
             if (!InitialSceneConstructionRegistered)
                 return;
 
-            foreach (var zenDatum in _zenjectors)
+            foreach (ZenjectorDatum zenDatum in _zenjectors)
             {
                 if (!zenDatum.Enabled)
                     continue;
@@ -66,7 +67,7 @@ namespace SiraUtil.Zenject
                 Zenjector zenjector = zenDatum.Zenjector;
 
                 // Install every normal install set.
-                foreach (var set in zenjector.InstallSets)
+                foreach (InstallSet set in zenjector.InstallSets)
                 {
                     if (set.installFilter.ShouldInstall(context, installerBindings))
                     {
@@ -82,7 +83,7 @@ namespace SiraUtil.Zenject
                 }
 
                 // Install every installerless binding set.
-                foreach (var instruction in zenjector.InstallInstructions)
+                foreach (InstallInstruction instruction in zenjector.InstallInstructions)
                 {
                     if (instruction.installFilter.ShouldInstall(context, installerBindings))
                     {
@@ -94,13 +95,13 @@ namespace SiraUtil.Zenject
 
         private void ContextDecorator_InstalledSceneBindings(Context context, List<MonoBehaviour> injectableMonoBehaviours)
         {
-            foreach (var zenDatum in _zenjectors)
+            foreach (ZenjectorDatum zenDatum in _zenjectors)
             {
                 Zenjector zenjector = zenDatum.Zenjector;
 
-                foreach (var monoBehaviour in injectableMonoBehaviours)
+                foreach (MonoBehaviour monoBehaviour in injectableMonoBehaviours)
                 {
-                    foreach (var instruction in zenjector.InjectableMonoBehaviourInstructions)
+                    foreach (IInjectableMonoBehaviourInstruction instruction in zenjector.InjectableMonoBehaviourInstructions)
                     {
                         instruction.Apply(context, monoBehaviour);
                     }

@@ -25,7 +25,7 @@ namespace SiraUtil.Web.SiraSync.Zenject
         {
             if (!_services.ContainsKey(assembly))
             {
-                var zenjector = _zenjectManager.ZenjectorFromAssembly(assembly);
+                Zenjector? zenjector = _zenjectManager.ZenjectorFromAssembly(assembly);
                 if (zenjector is not null)
                 {
                     if (zenjector.HttpServiceType is not null)

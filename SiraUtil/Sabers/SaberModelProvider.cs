@@ -50,13 +50,13 @@ namespace SiraUtil.Sabers
         public SaberModelController NewModel(SaberType? saberType)
         {
             SaberModelController newModel = CreateNew(saberType ?? SaberType.SaberA);
-            foreach (var glow in newModel.SaberGlowColors())
+            foreach (SetSaberGlowColor glow in newModel.SaberGlowColors())
             {
                 if (!saberType.HasValue)
                     _earlyInittingGlowColors.Add(glow);
                 glow.saberType = saberType.GetValueOrDefault();
             }
-            foreach (var fakeGlow in newModel.SaberFakeGlowColors())
+            foreach (SetSaberFakeGlowColor fakeGlow in newModel.SaberFakeGlowColors())
             {
                 if (!saberType.HasValue)
                     _earlyInittingFakeGlowColors.Add(fakeGlow);

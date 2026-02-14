@@ -42,7 +42,7 @@ namespace SiraUtil.Submissions
         /// <returns></returns>
         public Ticket Copy()
         {
-            var ticket = new Ticket(Source, Assembly);
+            Ticket ticket = new(Source, Assembly);
             for (int i = 0; i < _reasons.Count(); i++)
                 ticket.AddReason(_reasons.ElementAt(i));
             return ticket;

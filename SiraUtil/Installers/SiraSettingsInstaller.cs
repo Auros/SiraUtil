@@ -19,7 +19,7 @@ namespace SiraUtil.Installers
             Container.BindInstance(_config.FPFCToggle).AsSingle();
             Container.BindInstance(_config.SongControl).AsSingle();
 
-            var args = Environment.GetCommandLineArgs();
+            string[] args = Environment.GetCommandLineArgs();
             if (args.Any(a => a.Equals(FPFCToggle.EnableArgument, StringComparison.OrdinalIgnoreCase)) && !args.Any(a => a.Equals(FPFCToggle.DisableArgument, StringComparison.OrdinalIgnoreCase)))
             {
                 Container.BindInterfacesTo<FPFCSettingsController>().AsSingle();
