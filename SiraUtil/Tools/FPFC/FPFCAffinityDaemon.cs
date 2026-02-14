@@ -27,9 +27,7 @@ namespace SiraUtil.Tools.FPFC
         [AffinityPatch(typeof(SmoothCameraController), nameof(SmoothCameraController.ActivateSmoothCameraIfNeeded))]
         protected bool OnlyEnableSmoothCameraIfNeeded()
         {
-            if (_fpfcSettings.Enabled)
-                return false;
-            return true;
+            return !_fpfcSettings.Enabled;
         }
 
     }
