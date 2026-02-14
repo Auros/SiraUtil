@@ -73,7 +73,7 @@ namespace SiraUtil.Extras
             {
                 case 1:
                     path = parameters[0];
-                    assembly = Assembly.Load(path.Substring(0, path.IndexOf('.')));
+                    assembly = Assembly.Load(path[..path.IndexOf('.')]);
                     break;
                 case 2:
                     path = parameters[1];
