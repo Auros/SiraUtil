@@ -70,7 +70,8 @@ namespace SiraUtil.Sabers
             _constructedThisFrame = true;
         }
 
-        internal void Update()
+        /// <inheritdoc/>
+        protected void Update()
         {
             if (Saber != null && Saber.gameObject.activeInHierarchy && Saber.enabled)
             {
@@ -87,7 +88,8 @@ namespace SiraUtil.Sabers
                 _colorProcessNextFrame.Dequeue().Invoke();
         }
 
-        internal void LateUpdate()
+        /// <inheritdoc/>
+        protected void LateUpdate()
         {
             _constructedThisFrame = false;
         }

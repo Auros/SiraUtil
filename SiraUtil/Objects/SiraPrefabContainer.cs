@@ -28,6 +28,7 @@ namespace SiraUtil.Objects
         /// <summary>
         /// The start method.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Correctness", "UNT0021:Prefer protected Unity Message.", Justification = "Already part of the public API")]
         public void Start()
         {
             if (transform.childCount > 0)

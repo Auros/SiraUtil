@@ -15,22 +15,34 @@ namespace SiraUtil.Tools.SongControl
 
         public void Continue()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController?.ResumeButtonPressed();
+            if (_multiplayerLocalActivePlayerInGameMenuViewController != null)
+            {
+                _multiplayerLocalActivePlayerInGameMenuViewController.ResumeButtonPressed();
+            }
         }
 
         public void Pause()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController?.ShowMenu();
+            if (_multiplayerLocalActivePlayerInGameMenuViewController != null)
+            {
+                _multiplayerLocalActivePlayerInGameMenuViewController.ShowMenu();
+            }
         }
 
         public void Quit()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController?.GiveUpButtonPressed();
+            if (_multiplayerLocalActivePlayerInGameMenuViewController != null)
+            {
+                _multiplayerLocalActivePlayerInGameMenuViewController.GiveUpButtonPressed();
+            }
         }
 
         public void Restart()
         {
-            _multiplayerLocalActivePlayerInGameMenuViewController?.GiveUpButtonPressed();
+            if (_multiplayerLocalActivePlayerInGameMenuViewController != null)
+            {
+                _multiplayerLocalActivePlayerInGameMenuViewController.GiveUpButtonPressed();
+            }
         }
     }
 }

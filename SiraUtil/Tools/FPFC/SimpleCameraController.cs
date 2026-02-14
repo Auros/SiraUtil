@@ -36,7 +36,7 @@ namespace SiraUtil.Tools.FPFC
                 return;
             }
 
-            Vector2 mouseMovement = GetInputLookRotation() * 0.05f * MouseSensitivity;
+            Vector2 mouseMovement = 0.05f * MouseSensitivity * GetInputLookRotation();
 
             if (invertY)
             {
@@ -47,7 +47,7 @@ namespace SiraUtil.Tools.FPFC
             targetCameraState.Yaw += mouseMovement.x * mouseSensitivityFactor;
             targetCameraState.Pitch += mouseMovement.y * mouseSensitivityFactor;
 
-            Vector3 translation = GetInputTranslationDirection(targetCameraState.Rotation) * Time.deltaTime * MoveSensitivity;
+            Vector3 translation = Time.deltaTime * MoveSensitivity * GetInputTranslationDirection(targetCameraState.Rotation);
             targetCameraState.Position += translation;
 
             targetCameraState.UpdateTransform(transform);

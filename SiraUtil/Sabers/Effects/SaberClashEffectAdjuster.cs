@@ -26,7 +26,7 @@ namespace SiraUtil.Sabers.Effects
 
         private void SaberClashChecker_NewSabersClashed(Saber saberA, Saber saberB)
         {
-            if (!(_glowParticleSystem is not null && _sparkleParticleSystem is not null && _saberClashEffect is not null))
+            if (_glowParticleSystem == null || _sparkleParticleSystem == null || _saberClashEffect == null)
                 return;
 
             Color colorA = _saberModelManager.GetPhysicalSaberColor(saberA);

@@ -31,7 +31,7 @@ namespace SiraUtil.Sabers.Effects
 
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
-            if (_saberBurnMarkArea is null)
+            if (_saberBurnMarkArea == null)
                 _earlySabers.Enqueue(siraSaber);
             else
                 AddSaber(siraSaber.Saber);
@@ -39,7 +39,7 @@ namespace SiraUtil.Sabers.Effects
 
         private void ColorUpdated(Saber saber, Color color)
         {
-            if (_saberBurnMarkArea is null)
+            if (_saberBurnMarkArea == null)
                 return;
 
             int index = _saberBurnMarkArea._sabers.IndexOf(saber);
@@ -64,7 +64,7 @@ namespace SiraUtil.Sabers.Effects
 
         private void AddSaber(Saber saber)
         {
-            if (_saberBurnMarkArea is null)
+            if (_saberBurnMarkArea == null)
                 return;
 
             Sabers(ref _saberBurnMarkArea) = _saberBurnMarkArea._sabers.AddToArray(saber);

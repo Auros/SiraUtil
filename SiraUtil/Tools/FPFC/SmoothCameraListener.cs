@@ -25,7 +25,10 @@ namespace SiraUtil.Tools.FPFC
 
         public void Disabled()
         {
-            _smoothCameraController?.ActivateSmoothCameraIfNeeded();
+            if (_smoothCameraController != null)
+            {
+                _smoothCameraController.ActivateSmoothCameraIfNeeded();
+            }
         }
     }
 }

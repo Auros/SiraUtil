@@ -171,11 +171,7 @@ namespace SiraUtil.Sabers
         [AffinityPatch(typeof(SaberModelController), nameof(SaberModelController.Init))]
         private bool PreInit(ref SaberModelController __instance, Transform parent, Saber saber)
         {
-            var runner = __instance.GetComponent<IPreSaberModelInit>();
-            if (runner == null)
-                return true;
-
-            return runner.PreInit(parent, saber);
+            return !__instance.TryGetComponent(out IPreSaberModelInit runner) || runner.PreInit(parent, saber);
         }
 
 
@@ -183,9 +179,10 @@ namespace SiraUtil.Sabers
         [AffinityPatch(typeof(SaberModelController), nameof(SaberModelController.Init))]
         private void PostInit(ref SaberModelController __instance, Transform parent, Saber saber)
         {
-            var runner = __instance.GetComponent<IPostSaberModelInit>();
-            if (runner == null)
+            if (!__instance.TryGetComponent(out IPostSaberModelInit runner))
+            {
                 return;
+            }
 
             runner.PostInit(parent, saber);
         }

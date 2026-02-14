@@ -41,7 +41,7 @@ namespace SiraUtil.Sabers.Effects
 
         private void AddSaber(Saber saber)
         {
-            if (_saberBurnMarkSparkles is null)
+            if (_saberBurnMarkSparkles == null)
                 return;
 
             _saberBurnMarkSparkles._sabers = _saberBurnMarkSparkles._sabers.AddToArray(saber);
@@ -93,7 +93,7 @@ namespace SiraUtil.Sabers.Effects
         [AffinityPatch(typeof(ColorManager), nameof(ColorManager.ColorForSaberType))]
         internal bool SisterLoopColorOverrideLock(ref Color __result)
         {
-            if (!_sisterLoopActive || _saberBurnMarkSparkles is null)
+            if (!_sisterLoopActive || _saberBurnMarkSparkles == null)
                 return true;
 
             Saber[] sabers = _saberBurnMarkSparkles._sabers;

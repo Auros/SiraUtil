@@ -56,8 +56,7 @@ namespace SiraUtil.Sabers
             {
                 foreach (Transform child in saber.gameObject.transform)
                 {
-                    SaberModelController saberModelController = child.gameObject.GetComponent<SaberModelController>();
-                    if (saberModelController != null)
+                    if (child.gameObject.TryGetComponent(out SaberModelController saberModelController))
                     {
                         _siraLog.Debug("Found a new saber model controller.");
                         smc = saberModelController;
@@ -104,7 +103,7 @@ namespace SiraUtil.Sabers
             else
             {
                 SaberModelController? saberModelController = GetSaberModelController(saber);
-                if (saberModelController is not null)
+                if (saberModelController != null)
                 {
                     _siraLog.Debug("Enqueing color update.");
                     _colorUpdateQueue.Enqueue(() =>

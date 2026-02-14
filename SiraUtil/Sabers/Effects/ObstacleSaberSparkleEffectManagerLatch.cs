@@ -42,7 +42,7 @@ namespace SiraUtil.Sabers.Effects
 
         private void AddSaber(Saber saber)
         {
-            if (_obstacleSaberSparkleEffectManager is null)
+            if (_obstacleSaberSparkleEffectManager == null)
                 return;
 
             Sabers(ref _obstacleSaberSparkleEffectManager) = Sabers(ref _obstacleSaberSparkleEffectManager).AddToArray(saber);

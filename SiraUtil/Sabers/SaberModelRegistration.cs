@@ -75,7 +75,7 @@ namespace SiraUtil.Sabers
         /// <param name="priority">The priority at which this model is preferred. The highest priority will be used as the active saber model.</param>
         public SaberModelRegistration(SaberModelController prefab, int priority = 0)
         {
-            if (prefab is null)
+            if (prefab == null)
                 throw new ArgumentNullException(nameof(prefab));
 
             Priority = priority;
@@ -91,10 +91,10 @@ namespace SiraUtil.Sabers
         /// <param name="priority">The priority at which this model is preferred. The highest priority will be used as the active saber model.</param>
         public SaberModelRegistration(SaberModelController leftModelPrefab, SaberModelController rightModelPrefab, int priority = 0)
         {
-            if (leftModelPrefab is null)
+            if (leftModelPrefab == null)
                 throw new ArgumentNullException(nameof(leftModelPrefab));
 
-            if (rightModelPrefab is null)
+            if (rightModelPrefab == null)
                 throw new ArgumentNullException(nameof(rightModelPrefab));
 
             Priority = priority;

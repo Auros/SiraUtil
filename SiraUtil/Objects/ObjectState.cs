@@ -56,8 +56,7 @@ namespace SiraUtil.Objects
                 transform.SetParent(parent);
                 transform.localScale = scale;
                 transform.gameObject.SetActive(Active);
-                transform.localPosition = pose.position;
-                transform.localRotation = pose.rotation;
+                transform.SetLocalPositionAndRotation(pose.position, pose.rotation);
             }
         }
     }
