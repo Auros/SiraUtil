@@ -8,7 +8,7 @@ namespace SiraUtil.Attributes
 {
     /// <summary>
     /// Allows the ability to install Zenject bindings through an attribute. This can help with rapid development and make Zenject setup easier. The default settings
-    /// for this attribute are <see cref="SiraUtil.Zenject.Location.App"/>, no special contracts, and binds as as Single (Lazy).
+    /// for this attribute are <see cref="Location.App"/>, no special contracts, and binds as as Single (Lazy).
     /// Make sure to call zenjector.UseAutoBinder() to set it up. If the class this is placed on inherits <see cref="IInitializable"/>, <see cref="ITickable"/>,
     /// <see cref="IFixedTickable"/>, <see cref="ILateTickable"/>, <see cref="IDisposable"/>, <see cref="ILateDisposable"/>, <see cref="IAsyncInitializable"/>, 
     /// <see cref="ViewController"/>, <see cref="FlowCoordinator"/>, or <see cref="IAffinity"/> it will bind those appropriately unless you provide a custom type contract array.

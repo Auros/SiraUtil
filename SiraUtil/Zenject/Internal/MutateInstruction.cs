@@ -62,7 +62,7 @@ namespace SiraUtil.Zenject.Internal
 
                 if (gameObject == null)
                 {
-                    throw new ArgumentException($"The provided GameObject getter for {nameof(MutateInstruction<TMonoBehaviour, TNewComponent>)} returned null.");
+                    throw new ArgumentException($"The provided GameObject getter for {nameof(MutateInstruction<,>)} returned null.");
                 }
             }
             else

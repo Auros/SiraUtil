@@ -14,7 +14,7 @@ namespace SiraUtil.Objects
         private const string NewContextPrefabMethodName = "ByNewContextPrefab";
         private const string GetContainerMethodName = "get_Container";
         private const string ContainerFieldName = "_container";
-        private static readonly MethodInfo _getType = typeof(object).GetMethod(nameof(object.GetType));
+        private static readonly MethodInfo _getType = typeof(object).GetMethod(nameof(GetType));
         private static readonly MethodInfo _prefabInitializingField = SymbolExtensions.GetMethodInfo(() => PrefabInitializing(null!, null!, null!, null!));
         private static readonly MethodInfo _newPrefabMethod = typeof(FactoryFromBinderBase).GetMethod(nameof(FactoryFromBinderBase.FromComponentInNewPrefab));
 
