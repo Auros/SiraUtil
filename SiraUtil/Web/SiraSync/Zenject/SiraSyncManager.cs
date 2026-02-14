@@ -12,7 +12,7 @@ namespace SiraUtil.Web.SiraSync.Zenject
         private readonly Zenjector _managerZenjector;
         private readonly ZenjectManager _zenjectManager;
         private readonly HttpServiceManager _httpServiceManager;
-        private readonly Dictionary<Assembly, ISiraSyncService> _services = new();
+        private readonly Dictionary<Assembly, ISiraSyncService> _services = [];
 
         public SiraSyncManager(Zenjector managerZenjector, ZenjectManager zenjectManager, HttpServiceManager httpServiceManager)
         {

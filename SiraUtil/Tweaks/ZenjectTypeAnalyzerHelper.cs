@@ -7,7 +7,7 @@ namespace SiraUtil.Tweaks
     [HarmonyPatch]
     internal class ZenjectTypeAnalyzerHelper
     {
-        [HarmonyPatch(typeof(TypeAnalyzer), nameof(TypeAnalyzer.TryGetInfo), new[] { typeof(Type) })]
+        [HarmonyPatch(typeof(TypeAnalyzer), nameof(TypeAnalyzer.TryGetInfo), [typeof(Type)])]
         [HarmonyFinalizer]
         private static Exception? TypeAnalyzer_TryGetInfo(Type type, Exception __exception)
         {

@@ -13,7 +13,7 @@ namespace SiraUtil.Tweaks
     class ZenjectLifecycleUnasserter
     {
         private static readonly MethodInfo _newFail = SymbolExtensions.GetMethodInfo(() => NewErrorBehavior(null!, null!, null!));
-        private static readonly MethodInfo _rootMethod = typeof(ModestTree.Assert).GetMethod(nameof(ModestTree.Assert.CreateException), new Type[] { typeof(Exception), typeof(string), typeof(object[]) });
+        private static readonly MethodInfo _rootMethod = typeof(ModestTree.Assert).GetMethod(nameof(ModestTree.Assert.CreateException), [typeof(Exception), typeof(string), typeof(object[])]);
 
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {

@@ -115,7 +115,7 @@ namespace SiraUtil.Extras
         internal static string GetTransformPath(this Transform transform)
         {
             string sceneName = transform.gameObject.scene.name;
-            List<string> parts = new();
+            List<string> parts = [];
 
             while (transform != null)
             {

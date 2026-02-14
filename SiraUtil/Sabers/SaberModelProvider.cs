@@ -22,8 +22,8 @@ namespace SiraUtil.Sabers
         private readonly SaberModelContainer _localRightContainer;
         private readonly SaberModelRegistration _activeSaberModelRegistration;
         private readonly SaberModelRegistration _defaultSaberModelRegistration;
-        private readonly HashSet<SetSaberGlowColor> _earlyInittingGlowColors = new();
-        private readonly HashSet<SetSaberFakeGlowColor> _earlyInittingFakeGlowColors = new();
+        private readonly HashSet<SetSaberGlowColor> _earlyInittingGlowColors = [];
+        private readonly HashSet<SetSaberFakeGlowColor> _earlyInittingFakeGlowColors = [];
 
         internal SaberModelProvider(SiraLog siraLog, DiContainer container, SaberManager saberManager, List<SaberModelRegistration> saberModelRegistrations)
         {
@@ -35,7 +35,7 @@ namespace SiraUtil.Sabers
             _localRightContainer = _saberManager.rightSaber.GetComponent<SaberModelContainer>();
             _defaultSaberModelRegistration = new(_localLeftContainer._saberModelControllerPrefab, _localRightContainer._saberModelControllerPrefab);
 
-            List<SaberModelRegistration> registrations = new();
+            List<SaberModelRegistration> registrations = [];
             registrations.Add(_defaultSaberModelRegistration);
             registrations.AddRange(saberModelRegistrations);
 
@@ -92,8 +92,8 @@ namespace SiraUtil.Sabers
 
                     newModel = (_container.InstantiateComponent(type, gameObject) as SaberModelController)!;
                     newModel._saberTrail = pseudoTrail;
-                    newModel._setSaberGlowColors = Array.Empty<SetSaberGlowColor>();
-                    newModel._setSaberFakeGlowColors = Array.Empty<SetSaberFakeGlowColor>();
+                    newModel._setSaberGlowColors = [];
+                    newModel._setSaberFakeGlowColors = [];
                     gameObject.SetActive(true);
                 }
                 else if (_activeSaberModelRegistration.LeftTemplate != null && _activeSaberModelRegistration.RightTemplate != null)

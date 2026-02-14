@@ -10,8 +10,8 @@ namespace SiraUtil.Affinity.Harmony
 {
     internal class HarmonyAffinityPatcher : IAffinityPatcher
     {
-        private readonly Dictionary<IAffinity, List<MethodInfo>> _patchCache = new();
-        private readonly Dictionary<Assembly, DynamicHarmonyPatchGenerator> _patchGenerators = new();
+        private readonly Dictionary<IAffinity, List<MethodInfo>> _patchCache = [];
+        private readonly Dictionary<Assembly, DynamicHarmonyPatchGenerator> _patchGenerators = [];
 
         public void Patch(IAffinity affinity)
         {
@@ -30,12 +30,12 @@ namespace SiraUtil.Affinity.Harmony
             }
             if (!_patchCache.TryGetValue(affinity, out List<MethodInfo> methods))
             {
-                methods = new List<MethodInfo>();
+                methods = [];
                 _patchCache.Add(affinity, methods);
             }
 
             var affinityType = affinity.GetType();
-            MethodInfo[] affinityMethods = affinityType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute))).ToArray();
+            MethodInfo[] affinityMethods = [.. affinityType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Where(m => m.CustomAttributes.Any(ca => ca.AttributeType == typeof(AffinityPatchAttribute)))];
             if (affinityMethods.Length == 0)
             {
                 Plugin.Log.Warn($"'{affinity.GetType().FullDescription()}' doesn't have any affinity patches! The IAffinity interface is unecessary.");

@@ -24,9 +24,9 @@ namespace SiraUtil.Objects
             {
                 throw new ArgumentNullException();
             }
-            var populator = new List<ObjectState>();
+            List<ObjectState> populator = [];
             Snapshot(mainParent.transform, ref populator);
-            objects = populator.ToArray();
+            objects = [.. populator];
         }
 
         private static void Snapshot(Transform transform, ref List<ObjectState> populator)

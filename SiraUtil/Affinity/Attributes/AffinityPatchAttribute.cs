@@ -40,7 +40,7 @@ namespace SiraUtil.Affinity
 
             if (argumentVariations is not null)
             {
-                ArgumentVariations = argumentVariations.Select(aat => (ArgumentType)aat).ToArray();
+                ArgumentVariations = [.. argumentVariations.Select(aat => (ArgumentType)aat)];
             }
 
             if (argumentTypes is not null)

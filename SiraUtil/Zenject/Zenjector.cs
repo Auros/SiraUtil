@@ -35,9 +35,9 @@ namespace SiraUtil.Zenject
         internal IEnumerable<IInjectableMonoBehaviourInstruction> InjectableMonoBehaviourInstructions => _injectableMonoBehaviourInstructions;
 
         private bool _autoBinded;
-        private readonly HashSet<InstallSet> _installSets = new();
-        private readonly HashSet<InstallInstruction> _installInstructions = new();
-        private readonly HashSet<IInjectableMonoBehaviourInstruction> _injectableMonoBehaviourInstructions = new();
+        private readonly HashSet<InstallSet> _installSets = [];
+        private readonly HashSet<InstallInstruction> _installInstructions = [];
+        private readonly HashSet<IInjectableMonoBehaviourInstruction> _injectableMonoBehaviourInstructions = [];
 
         internal Zenjector(PluginMetadata metadata)
         {
@@ -192,7 +192,7 @@ namespace SiraUtil.Zenject
         public void Expose<TMonoBehaviour>(object? identifier = null, bool useSceneContext = false, bool ifNotBound = false, Func<Context, TMonoBehaviour, bool>? condition = null, IEnumerable<Type>? bindTypes = null)
             where TMonoBehaviour : MonoBehaviour
         {
-            bindTypes ??= new[] { typeof(TMonoBehaviour) };
+            bindTypes ??= [typeof(TMonoBehaviour)];
 
             if (!bindTypes.Any())
             {
@@ -275,7 +275,7 @@ namespace SiraUtil.Zenject
 
             // Creates a new logger if no logger is specified.
             // TODO: Get rid of the StandardLogger instantiation in v4
-            Logger = logger ?? AccessTools.Constructor(typeof(StandardLogger), new Type[] { typeof(string) }).Invoke(new object[] { Metadata.Name }) as StandardLogger;
+            Logger = logger ?? AccessTools.Constructor(typeof(StandardLogger), [typeof(string)]).Invoke([Metadata.Name]) as StandardLogger;
         }
 
         /// <summary>

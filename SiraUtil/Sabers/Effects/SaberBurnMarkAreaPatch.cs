@@ -80,7 +80,7 @@ namespace SiraUtil.Sabers.Effects
         [HarmonyPatch(nameof(SaberBurnMarkArea.OnDestroy))]
         internal static IEnumerable<CodeInstruction> DynamicDestroy(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> codes = [.. instructions];
             for (int i = 0; i < codes.Count; i++)
             {
                 if (codes[i].Calls(_safeDestroyMethodInfo))
@@ -95,12 +95,12 @@ namespace SiraUtil.Sabers.Effects
                         i--; // Move backwards until we get the operand of the line renderers.
                     }
                     object lineRendererOperand = codes[i].operand;
-                    codes.InsertRange(insertIndex, new CodeInstruction[]
-                    {
+                    codes.InsertRange(insertIndex,
+                    [
                         new(OpCodes.Ldarg_0),
                         new(OpCodes.Ldfld, lineRendererOperand),
                         new(OpCodes.Callvirt, _destroyExtraLines)
-                    });
+                    ]);
                     break;
                 }
             }

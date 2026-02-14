@@ -11,7 +11,7 @@ namespace SiraUtil.Submissions
     {
         internal string Source { get; }
         internal Assembly Assembly { get; }
-        private readonly HashSet<string> _reasons = new();
+        private readonly HashSet<string> _reasons = [];
     
         internal Ticket(string source, Assembly assembly)
         {
@@ -34,7 +34,7 @@ namespace SiraUtil.Submissions
         /// </summary>
         /// <returns></returns>
         public string[] Reasons()
-            => _reasons.ToArray();
+            => [.. _reasons];
 
         /// <summary>
         /// Copies a ticket.

@@ -11,7 +11,7 @@ namespace SiraUtil.Web.Zenject
     {
         private readonly ZenjectManager _zenjectManager;
         private readonly PluginMetadata _managerMetadata;
-        private readonly Dictionary<Assembly, IHttpService> _services = new();
+        private readonly Dictionary<Assembly, IHttpService> _services = [];
 
         public HttpServiceManager(ZenjectManager zenjectManager, PluginMetadata managerMetadata)
         {

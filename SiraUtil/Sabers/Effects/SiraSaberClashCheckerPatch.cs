@@ -11,9 +11,9 @@ namespace SiraUtil.Sabers.Effects
 {
     internal class SiraSaberClashCheckerPatch
     {
-        internal static readonly MethodInfo _rootMethod = typeof(DiContainer).GetMethod(nameof(DiContainer.Bind), Array.Empty<Type>());
+        internal static readonly MethodInfo _rootMethod = typeof(DiContainer).GetMethod(nameof(DiContainer.Bind), []);
         internal static readonly MethodInfo _clashAttacher = SymbolExtensions.GetMethodInfo(() => ClashAttacher(null!));
-        internal static readonly MethodInfo _originalMethod = _rootMethod.MakeGenericMethod(new Type[] { typeof(SaberClashChecker) });
+        internal static readonly MethodInfo _originalMethod = _rootMethod.MakeGenericMethod([typeof(SaberClashChecker)]);
 
         [HarmonyPatch(typeof(GameplayCoreInstaller), nameof(GameplayCoreInstaller.InstallBindings))]
         private class GameplayCore
@@ -21,7 +21,7 @@ namespace SiraUtil.Sabers.Effects
             [HarmonyTranspiler]
             public static IEnumerable<CodeInstruction> Upgrade(IEnumerable<CodeInstruction> instructions)
             {
-                var codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 SiraSaberClashCheckerPatch.Upgrade(ref codes);
                 return codes.AsEnumerable();
             }
@@ -33,7 +33,7 @@ namespace SiraUtil.Sabers.Effects
             [HarmonyTranspiler]
             public static IEnumerable<CodeInstruction> Upgrade(IEnumerable<CodeInstruction> instructions)
             {
-                var codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 SiraSaberClashCheckerPatch.Upgrade(ref codes);
                 return codes.AsEnumerable();
             }

@@ -24,7 +24,7 @@ namespace SiraUtil.Objects
             [HarmonyTranspiler]
             protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
             {
-                List<CodeInstruction> codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 InternalRedecorator.Redecorate(ref codes);
                 return codes;
             }
@@ -36,7 +36,7 @@ namespace SiraUtil.Objects
             [HarmonyTranspiler]
             protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
             {
-                List<CodeInstruction> codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 InternalRedecorator.Redecorate(ref codes);
                 return codes;
             }
@@ -48,7 +48,7 @@ namespace SiraUtil.Objects
             [HarmonyTranspiler]
             protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
             {
-                List<CodeInstruction> codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 InternalRedecorator.Redecorate(ref codes);
                 return codes;
             }
@@ -60,7 +60,7 @@ namespace SiraUtil.Objects
             [HarmonyTranspiler]
             protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
             {
-                List<CodeInstruction> codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 InternalRedecorator.Redecorate(ref codes);
                 return codes;
             }
@@ -72,7 +72,7 @@ namespace SiraUtil.Objects
             [HarmonyTranspiler]
             protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
             {
-                List<CodeInstruction> codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 InternalRedecorator.Redecorate(ref codes);
                 return codes;
             }
@@ -84,7 +84,7 @@ namespace SiraUtil.Objects
             [HarmonyTranspiler]
             protected static IEnumerable<CodeInstruction> Redecorate(IEnumerable<CodeInstruction> instructions)
             {
-                List<CodeInstruction> codes = instructions.ToList();
+                List<CodeInstruction> codes = [.. instructions];
                 InternalRedecorator.Redecorate(ref codes);
                 return codes;
             }
@@ -150,7 +150,7 @@ namespace SiraUtil.Objects
                     MemberInfo activeField = (codes[i].operand as MemberInfo)!;
                     string fieldName = activeField.Name;
 
-                    List<CodeInstruction> toInsert = new();
+                    List<CodeInstruction> toInsert = [];
                     if (containerOperand is not null)
                         toInsert.Add(new(OpCodes.Ldarg_0));
                     toInsert.Add(new(containerOpcode ?? OpCodes.Ldarg_1, containerOperand));

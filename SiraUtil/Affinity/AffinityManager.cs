@@ -5,7 +5,7 @@ namespace SiraUtil.Affinity
 {
     internal class AffinityManager
     {
-        private readonly HashSet<IAffinity> _affinities = new();
+        private readonly HashSet<IAffinity> _affinities = [];
 
         public IEnumerable<IAffinity> Affinities => _affinities;
 

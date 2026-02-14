@@ -9,7 +9,7 @@ namespace SiraUtil.Tweaks
     [HarmonyPatch(typeof(ObstacleMaterialSetter), nameof(ObstacleMaterialSetter.SetCoreMaterial))]
     internal class SilenceObstacleMaterialSetter
     {
-        private static readonly MethodInfo DebugLogWarningMethod = AccessTools.DeclaredMethod(typeof(Debug), nameof(Debug.LogWarning), new System.Type[] { typeof(object) });
+        private static readonly MethodInfo DebugLogWarningMethod = AccessTools.DeclaredMethod(typeof(Debug), nameof(Debug.LogWarning), [typeof(object)]);
 
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
         {

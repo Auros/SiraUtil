@@ -18,7 +18,7 @@ namespace SiraUtil.Tweaks
         private static readonly MethodInfo XRInputSubsystemListIndexer = AccessTools.DeclaredMethod(typeof(List<XRInputSubsystem>), "get_Item");
         private static readonly MethodInfo XRInputSubsystemListCountGetter = AccessTools.DeclaredPropertyGetter(typeof(List<XRInputSubsystem>), nameof(List<XRInputSubsystem>.Count));
         private static readonly MethodInfo AddTrackingOriginUpdatedMethod = typeof(XRInputSubsystem).GetEvent(nameof(XRInputSubsystem.trackingOriginUpdated)).GetAddMethod();
-        private static readonly MethodInfo SubsystemManagerGetSubsystemsMethod = AccessTools.DeclaredMethod(typeof(SubsystemManager), nameof(SubsystemManager.GetSubsystems), generics: new Type[] { typeof(XRInputSubsystem) });
+        private static readonly MethodInfo SubsystemManagerGetSubsystemsMethod = AccessTools.DeclaredMethod(typeof(SubsystemManager), nameof(SubsystemManager.GetSubsystems), generics: [typeof(XRInputSubsystem)]);
 
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilGenerator)
         {

@@ -10,7 +10,7 @@ namespace SiraUtil.Submissions
     /// </summary>
     public sealed class Submission : IDisposable
     {
-        private readonly List<Ticket> _tickets = new();
+        private readonly List<Ticket> _tickets = [];
         private readonly SubmissionDataContainer _submissionDataContainer;
         internal bool Activated => _tickets.Count != 0;
 
@@ -25,7 +25,7 @@ namespace SiraUtil.Submissions
         public void Dispose()
         {
             var disabled = _tickets.Count > 0;
-            _submissionDataContainer.Set(disabled, _tickets.ToArray());
+            _submissionDataContainer.Set(disabled, [.. _tickets]);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace SiraUtil.Submissions
         /// <returns>All the currently active tickets.</returns>
         public Ticket[] Tickets()
         {
-            return _tickets.Select(x => x.Copy()).ToArray();
+            return [.. _tickets.Select(x => x.Copy())];
         }
 
         /// <summary>

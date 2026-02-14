@@ -14,8 +14,8 @@ namespace SiraUtil.Zenject.Internal
         private readonly Type[]? _contracts;
         private readonly Type[] _majorContract;
         private readonly BindAttribute _bindAttribute;
-        private static readonly Type[] _autoTypes = new Type[]
-        {
+        private static readonly Type[] _autoTypes =
+        [
             typeof(IInitializable),
             typeof(ITickable),
             typeof(IFixedTickable),
@@ -24,25 +24,25 @@ namespace SiraUtil.Zenject.Internal
             typeof(ILateDisposable),
             typeof(IAsyncInitializable),
             typeof(IAffinity)
-        };
+        ];
 
         public Location Location => _bindAttribute.Location;
 
         public AutobindInstruction(Type majorContract, BindAttribute bindAttribute)
         {
             _bindAttribute = bindAttribute;
-            _majorContract = new Type[] { majorContract };
+            _majorContract = [majorContract];
 
             if (_bindAttribute.Contracts is null)
             {
-                List<Type> contracts = new();
+                List<Type> contracts = [];
                 foreach (var type in _autoTypes)
                     if (majorContract.DerivesFrom(type))
                         contracts.Add(type);
                 if (contracts.Count > 0)
                 {
                     contracts.Add(majorContract);
-                    _contracts = contracts.ToArray();
+                    _contracts = [.. contracts];
                 }
                 else
                     _contracts = null;

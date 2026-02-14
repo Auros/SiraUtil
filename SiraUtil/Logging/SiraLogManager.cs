@@ -11,7 +11,7 @@ namespace SiraUtil.Logging
     {
         private static Logger? _defaultLogger;
         private readonly ZenjectManager _zenjectManager;
-        private readonly Dictionary<Assembly, LoggerContext> _loggerAssemblies = new();
+        private readonly Dictionary<Assembly, LoggerContext> _loggerAssemblies = [];
 
         internal SiraLogManager(ZenjectManager zenjectManager)
         {
@@ -46,7 +46,7 @@ namespace SiraUtil.Logging
 
             // TODO: Get rid of the StandardLogger instantiation in v4
             if (_defaultLogger is null)
-                _defaultLogger = (AccessTools.Constructor(typeof(StandardLogger), new Type[] { typeof(string) }).Invoke(new object[] { "???" }) as StandardLogger)!;
+                _defaultLogger = (AccessTools.Constructor(typeof(StandardLogger), [typeof(string)]).Invoke(["???"]) as StandardLogger)!;
             Plugin.Log.Warn($"{assembly.GetName().Name}, you are depending on a SiraLog, but you haven't setup your own! You can setup your own by calling .UseLogger() on your zenjector.");
             Plugin.Log.Warn("Using the default SiraLog. This is deprecated behaviour and will raise an exception in future releases.");
             return new LoggerContext(_defaultLogger, false);

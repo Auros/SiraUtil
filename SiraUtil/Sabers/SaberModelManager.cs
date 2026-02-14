@@ -16,11 +16,11 @@ namespace SiraUtil.Sabers
         private readonly SiraLog _siraLog;
         private readonly ColorManager _colorManager;
         private readonly SiraSaberFactory _siraSaberFactory;
-        private readonly Dictionary<Saber, SiraSaber> _siraSaberLink = new();
-        private readonly Dictionary<Saber, SaberModelController> _saberModelLink = new();
-        private readonly List<DesperationContract> _desperationList = new();
-        private readonly List<DesperationContract> _salvationList = new();
-        private readonly Queue<Action> _colorUpdateQueue = new();
+        private readonly Dictionary<Saber, SiraSaber> _siraSaberLink = [];
+        private readonly Dictionary<Saber, SaberModelController> _saberModelLink = [];
+        private readonly List<DesperationContract> _desperationList = [];
+        private readonly List<DesperationContract> _salvationList = [];
+        private readonly Queue<Action> _colorUpdateQueue = [];
 
         /// <summary>
         /// Called when a saber's color has been changed.

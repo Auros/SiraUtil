@@ -15,7 +15,7 @@ namespace SiraUtil.Sabers.Effects
         [HarmonyPatch(nameof(SaberBurnMarkSparkles.OnEnable))]
         internal static IEnumerable<CodeInstruction> DynamicEnable(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> codes = [.. instructions];
             ProcessEnableDisable(ref codes);
             return codes;
         }
@@ -24,7 +24,7 @@ namespace SiraUtil.Sabers.Effects
         [HarmonyPatch(nameof(SaberBurnMarkSparkles.OnDisable))]
         internal static IEnumerable<CodeInstruction> DynamicDisable(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> codes = [.. instructions];
             ProcessEnableDisable(ref codes);
             return codes;
         }
@@ -33,7 +33,7 @@ namespace SiraUtil.Sabers.Effects
         [HarmonyPatch(nameof(SaberBurnMarkSparkles.LateUpdate))]
         internal static IEnumerable<CodeInstruction> DynamicLateUpdate(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> codes = [.. instructions];
             ProcessEnableDisable(ref codes);
             return codes;
         }
@@ -49,12 +49,12 @@ namespace SiraUtil.Sabers.Effects
                 if (codes[i].opcode == OpCodes.Ldc_I4_2)
                 {
                     codes.RemoveAt(i); // Remove the '2' being pushed onto the stack
-                    codes.InsertRange(i, new CodeInstruction[] // And use the Length property of the array
-                    {
+                    codes.InsertRange(i,
+                    [
                         new CodeInstruction(OpCodes.Ldarg_0),
                         new CodeInstruction(OpCodes.Ldfld, burnMarks), // this needs operand of _burnMarksPs or _sabers
                         new CodeInstruction(OpCodes.Call, _evaluateState)
-                    });
+                    ]);
                     break;
                 }
             }

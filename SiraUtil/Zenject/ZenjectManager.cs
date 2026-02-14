@@ -15,7 +15,7 @@ namespace SiraUtil.Zenject
         public static bool InitialSceneConstructionRegistered { get; private set; }
         private const string _initialContextName = "AppCoreSceneContext";
 
-        private readonly HashSet<ZenjectorDatum> _zenjectors = new();
+        private readonly HashSet<ZenjectorDatum> _zenjectors = [];
         private readonly InstructorManager _instructorManager = new();
 
         internal void Add(Zenjector zenjector) => _zenjectors.Add(new ZenjectorDatum(zenjector));

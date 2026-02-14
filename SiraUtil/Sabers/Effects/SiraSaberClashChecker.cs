@@ -19,7 +19,7 @@ namespace SiraUtil.Sabers.Effects
     {
         private Saber? _lastSaberA;
         private Saber? _lastSaberB;
-        private readonly HashSet<Saber> _sabers = new();
+        private readonly HashSet<Saber> _sabers = [];
         public event Action<Saber, Saber>? NewSabersClashed;
 
         protected readonly DiContainer _container;

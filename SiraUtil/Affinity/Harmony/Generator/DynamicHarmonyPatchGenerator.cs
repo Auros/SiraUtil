@@ -23,7 +23,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
         private readonly ModuleBuilder _moduleBuilder;
         private static AssemblyBuilder _assemblyBuilder = null!;
         private static readonly AssemblyName _assemblyName = new($"SiraUtil.Affinity");
-        private readonly Dictionary<MethodInfo, (MethodBase, FieldInfo)> _patchCache = new();
+        private readonly Dictionary<MethodInfo, (MethodBase, FieldInfo)> _patchCache = [];
 
         public DynamicHarmonyPatchGenerator(PluginMetadata pluginMetadata)
         {
@@ -105,7 +105,7 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
             // Create the method and its parameters.
             ParameterInfo[] parameters = affinityMethod.GetParameters();
-            MethodBuilder methodBuilder = typeBuilder.DefineMethod(patchName, MethodAttributes.Public | MethodAttributes.Static, affinityMethod.ReturnType, parameters.Select(f => f.ParameterType).ToArray());
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod(patchName, MethodAttributes.Public | MethodAttributes.Static, affinityMethod.ReturnType, [.. parameters.Select(f => f.ParameterType)]);
             for (int i = 0; i < parameters.Length; i++)
             {
                 ParameterInfo parameter = parameters[i];
@@ -211,14 +211,14 @@ namespace SiraUtil.Affinity.Harmony.Generator
 
             var constructor = typeBuilder.DefineConstructor(
                 MethodAttributes.RTSpecialName | MethodAttributes.HideBySig | MethodAttributes.Public,
-                CallingConventions.Standard, new[] { typeof(object), typeof(IntPtr) });
+                CallingConventions.Standard, [typeof(object), typeof(IntPtr)]);
             constructor.SetImplementationFlags(MethodImplAttributes.CodeTypeMask);
 
             var parameters = method.GetParameters();
 
             var invokeMethod = typeBuilder.DefineMethod(
                 "Invoke", MethodAttributes.HideBySig | MethodAttributes.Virtual | MethodAttributes.Public,
-                method.ReturnType, parameters.Select(p => p.ParameterType).ToArray());
+                method.ReturnType, [.. parameters.Select(p => p.ParameterType)]);
             invokeMethod.SetImplementationFlags(MethodImplAttributes.CodeTypeMask);
 
             for (int i = 0; i < parameters.Length; i++)

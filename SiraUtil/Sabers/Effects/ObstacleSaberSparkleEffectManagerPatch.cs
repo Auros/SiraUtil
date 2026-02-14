@@ -15,7 +15,7 @@ namespace SiraUtil.Sabers.Effects
         [HarmonyPatch(nameof(ObstacleSaberSparkleEffectManager.Update))]
         internal static IEnumerable<CodeInstruction> DynamicUpdate(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> codes = [.. instructions];
             TwoToLength(ref codes);
             return codes;
         }
@@ -27,13 +27,13 @@ namespace SiraUtil.Sabers.Effects
                 if (codes[i].opcode == OpCodes.Ldc_I4_2)
                 {
                     codes.RemoveAt(i); // Remove the '2' being pushed onto the stack
-                    codes.InsertRange(i, new CodeInstruction[] // And use the Length property of the array
-                    {
+                    codes.InsertRange(i,
+                    [
                         new CodeInstruction(OpCodes.Ldarg_0),
                         new CodeInstruction(OpCodes.Ldfld, _sabersField),
                         new CodeInstruction(OpCodes.Ldlen),
                         new CodeInstruction(OpCodes.Conv_I4)
-                    });
+                    ]);
                 }
             }
         }

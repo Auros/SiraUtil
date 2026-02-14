@@ -18,7 +18,7 @@ namespace SiraUtil.Affinity.Harmony.Patches
         [HarmonyTranspiler]
         internal static IEnumerable<CodeInstruction> Inject(IEnumerable<CodeInstruction> instructions)
         {
-            List<CodeInstruction> codes = instructions.ToList();
+            List<CodeInstruction> codes = [.. instructions];
 
             for (int i = 0; i < codes.Count; i++)
             {
@@ -31,13 +31,13 @@ namespace SiraUtil.Affinity.Harmony.Patches
                     // Now we want to jump to the next instruction (ldarg.0)
                     index++;
                     // Because we want to insert new instructions between that.
-                    codes.InsertRange(index, new CodeInstruction[]
-                    {
+                    codes.InsertRange(index,
+                    [
                         new CodeInstruction(OpCodes.Ldarg_0), // Load the instance of the SceneContext onto the stack
                         new CodeInstruction(OpCodes.Ldfld, _containerField), // Push the container from the SceneContext onto the stack
                         new CodeInstruction(OpCodes.Callvirt, _kernelInjectorMethod), // Insert our new instructions
                         new CodeInstruction(OpCodes.Pop) // Clears the stack
-                    });
+                    ]);
                     break;
                 }
             }

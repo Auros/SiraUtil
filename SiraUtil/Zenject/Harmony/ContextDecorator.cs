@@ -11,12 +11,12 @@ namespace SiraUtil.Zenject.Harmony
     internal class ContextDecorator
     {
         // This set is used to catch any late installing decorators.
-        private static readonly HashSet<Context> _recentlyInstalledDecorators = new();
+        private static readonly HashSet<Context> _recentlyInstalledDecorators = [];
         internal static Action<Context, IEnumerable<Type>>? ContextInstalling;
         internal static Action<Context, List<MonoBehaviour>>? InstalledSceneBindings;
 
         [HarmonyPatch(nameof(Context.InstallInstallers))]
-        [HarmonyPatch(new Type[] { typeof(List<InstallerBase>), typeof(List<Type>), typeof(List<ScriptableObjectInstaller>), typeof(List<MonoInstaller>), typeof(List<MonoInstaller>) })]
+        [HarmonyPatch([typeof(List<InstallerBase>), typeof(List<Type>), typeof(List<ScriptableObjectInstaller>), typeof(List<MonoInstaller>), typeof(List<MonoInstaller>)])]
         [HarmonyPrefix]
         internal static void InstallInstallers(Context __instance, List<InstallerBase> normalInstallers, List<Type> normalInstallerTypes, List<ScriptableObjectInstaller> scriptableObjectInstallers, List<MonoInstaller> installers, List<MonoInstaller> installerPrefabs)
         {
@@ -28,7 +28,7 @@ namespace SiraUtil.Zenject.Harmony
             }
 
             // Adds every installer that's being installed to the type registrator.
-            HashSet<Type> installerBindings = new();
+            HashSet<Type> installerBindings = [];
             foreach (var normalInstaller in normalInstallers)
                 installerBindings.Add(normalInstaller.GetType());
             foreach (var normalInstallerType in normalInstallerTypes)
