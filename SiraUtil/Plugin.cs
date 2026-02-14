@@ -9,11 +9,9 @@ using SiraUtil.Affinity.Harmony.Generator;
 using SiraUtil.Attributes;
 using SiraUtil.Installers;
 using SiraUtil.Tools.FPFC;
-using SiraUtil.Tweaks;
 using SiraUtil.Zenject;
 using System.Reflection;
 using System.Threading.Tasks;
-using Zenject;
 using Conf = IPA.Config.Config;
 using IPALogger = IPA.Logging.Logger;
 

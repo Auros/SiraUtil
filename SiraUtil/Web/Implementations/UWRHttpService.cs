@@ -1,5 +1,4 @@
 ﻿using IPA.Utilities;
-using IPA.Utilities.Async;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
