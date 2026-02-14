@@ -93,8 +93,6 @@ namespace SiraUtil.Tools.FPFC
 
         private class CameraState
         {
-            private float pitch;
-
             public CameraState(Vector3 position, Quaternion rotation)
             {
                 Position = position;
@@ -107,8 +105,8 @@ namespace SiraUtil.Tools.FPFC
 
             public float Pitch
             {
-                get => pitch;
-                set => pitch = Mathf.Clamp(value, -90f, 90f);
+                get;
+                set => field = Mathf.Clamp(value, -90f, 90f);
             }
 
             public float Roll { get; set; }

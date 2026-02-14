@@ -167,7 +167,6 @@ namespace SiraUtil.Sabers
             private const int _maxAccessTimes = 10;
             public readonly Color color;
             private int _accessed = 0;
-            private Saber? _saber;
 
             public Saber? Saber
             {
@@ -176,17 +175,17 @@ namespace SiraUtil.Sabers
                     _accessed++;
                     if (_accessed == _maxAccessTimes)
                     {
-                        Saber? saber = _saber;
-                        _saber = null;
+                        Saber? saber = field;
+                        field = null;
                         return saber;
                     }
-                    return _saber;
+                    return field;
                 }
             }
 
             public DesperationContract(Saber saber, Color color)
             {
-                _saber = saber;
+                Saber = saber;
                 this.color = color;
             }
         }
