@@ -15,6 +15,6 @@ namespace SiraUtil.Objects.Beatmap
         /// <param name="chain">Whether to chain this redecoration with others. Every redecoration is now aggregated.
         /// The chain will start if the highest priority object has chaining enabled and will stop once a registration
         /// in the aggregate has chaining disabled.</param>
-        public ObstacleRegistration(Func<ObstacleController, ObstacleController> redecorateCall, int priority = 0, bool chain = true) : base("_obstaclePrefab", redecorateCall, priority, chain) {}
+        public ObstacleRegistration(Func<ObstacleController, ObstacleController> redecorateCall, int priority = 0, bool chain = true) : base("_obstaclePrefab", redecorateCall, priority, chain) { }
     }
 }

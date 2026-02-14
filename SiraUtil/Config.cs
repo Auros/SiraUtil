@@ -22,7 +22,7 @@ namespace SiraUtil
 
         [NonNullable]
         public virtual SongControlOptions SongControl { get; set; } = new SongControlOptions();
-        
+
         public virtual void Changed()
         {
             Updated?.Invoke(this);

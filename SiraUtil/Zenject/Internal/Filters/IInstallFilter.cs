@@ -8,4 +8,4 @@ namespace SiraUtil.Zenject.Internal.Filters
     {
         bool ShouldInstall(Context context, IEnumerable<Type> bindings);
     }
-}   
+}

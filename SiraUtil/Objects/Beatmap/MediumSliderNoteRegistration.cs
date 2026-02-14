@@ -15,6 +15,6 @@ namespace SiraUtil.Objects.Beatmap
         /// <param name="chain">Whether to chain this redecoration with others. Every redecoration is now aggregated.
         /// The chain will start if the highest priority object has chaining enabled and will stop once a registration
         /// in the aggregate has chaining disabled.</param>
-        public MediumSliderNoteRegistration(Func<SliderController, SliderController> redecorateCall, int priority = 0, bool chain = true) : base("_sliderMediumPrefab", redecorateCall, priority, chain) {}
+        public MediumSliderNoteRegistration(Func<SliderController, SliderController> redecorateCall, int priority = 0, bool chain = true) : base("_sliderMediumPrefab", redecorateCall, priority, chain) { }
     }
 }

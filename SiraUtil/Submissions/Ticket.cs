@@ -12,7 +12,7 @@ namespace SiraUtil.Submissions
         internal string Source { get; }
         internal Assembly Assembly { get; }
         private readonly HashSet<string> _reasons = [];
-    
+
         internal Ticket(string source, Assembly assembly)
         {
             Source = source;

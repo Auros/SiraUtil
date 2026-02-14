@@ -98,9 +98,9 @@ namespace SiraUtil.Extras
             return data;
         }
 
-        internal static string FullDescription(this Context context) => $"{context.GetType().Name} '{GetTransformPath(context)}'";
+        internal static string FullDescription(this Context context) => $"{context.GetType().Name} '{GetTransformPath(context)}'";
 
-        internal static string GetTransformPath(this GameObject gameObject) => GetTransformPath(gameObject.transform);
+        internal static string GetTransformPath(this GameObject gameObject) => GetTransformPath(gameObject.transform);
 
         internal static string GetTransformPath(this Component component)
         {

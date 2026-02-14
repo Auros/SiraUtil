@@ -160,7 +160,7 @@ namespace SiraUtil.Tools.FPFC
         private void DisableFPFC()
         {
             _simpleCameraController.enabled = false;
-            
+
             SetControllerEnabled(_menuControllerAccessor.LeftController, true);
             SetControllerEnabled(_menuControllerAccessor.RightController, true);
 

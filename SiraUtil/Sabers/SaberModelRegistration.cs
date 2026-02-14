@@ -39,7 +39,7 @@ namespace SiraUtil.Sabers
         /// </summary>
         /// <param name="modelControllerType">The type of the model to use. This must inherit from <see cref="SaberModelController"/></param>
         /// <param name="priority">The priority at which this model is preferred. The highest priority will be used as the active saber model.</param>
-        public SaberModelRegistration(Type modelControllerType, int priority = 0) 
+        public SaberModelRegistration(Type modelControllerType, int priority = 0)
         {
             if (!modelControllerType.IsSubclassOf(typeof(SaberModelController)))
                 throw new ArgumentException($"{modelControllerType.Name} does not inherit from {nameof(SaberModelController)}", nameof(modelControllerType));

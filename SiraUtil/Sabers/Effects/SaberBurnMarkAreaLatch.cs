@@ -43,7 +43,7 @@ namespace SiraUtil.Sabers.Effects
                 return;
 
             int index = _saberBurnMarkArea._sabers.IndexOf(saber);
-            
+
             if (index == -1)
                 return;
 

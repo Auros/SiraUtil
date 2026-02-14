@@ -45,7 +45,7 @@ namespace SiraUtil.Suite
             {
                 Container.BindInterfacesTo<SpawnFullSaberTest>().AsSingle();
                 Container.BindInstance(SaberModelRegistration.Create<TestSaberModelController>(100));
-                
+
                 Container.RegisterRedecorator(new BasicNoteRegistration(Create2, 20));
                 Container.RegisterRedecorator(new NormalNoteDebrisHDRegistration(Create3, 20));
                 Container.RegisterRedecorator(new NormalNoteDebrisLWRegistration(Create3, 20));
@@ -88,7 +88,7 @@ namespace SiraUtil.Suite
             g.transform.SetParent(before.transform.GetChild(0));
             g.transform.localPosition = new Vector3(0f, 0f, 0);
             g.transform.localScale *= 3f;
-            
+
             return before;
         }
     }

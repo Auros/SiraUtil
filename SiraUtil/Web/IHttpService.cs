@@ -22,13 +22,13 @@ namespace SiraUtil.Web
         /// <summary>
         /// The base URL to prefix all requests with. Defaults to null.
         /// </summary>
-        string? BaseURL { get;  set; }
+        string? BaseURL { get; set; }
 
         /// <summary>
         /// The user agent for your requests. By default, it will be set to: '[Mod Name]/[Mod Version] ([IHttpService Provider Name]; [SiraUtil Version]; Beat Saber; [Beat Saber Version])  
         /// </summary>
         string? UserAgent { get; set; }
-        
+
         /// <summary>
         /// The default delay (in seconds) until a timeout is reached. Defaults to 60.
         /// </summary>
@@ -47,7 +47,7 @@ namespace SiraUtil.Web
         /// <param name="cancellationToken"></param>
         /// <returns>The response.</returns>
         Task<IHttpResponse> GetAsync(string url, IProgress<float>? progress = null, CancellationToken? cancellationToken = null);
-        
+
         /// <summary>
         /// Creates a HTTP GET request.
         /// </summary>
@@ -66,7 +66,7 @@ namespace SiraUtil.Web
         /// <param name="cancellationToken"></param>
         /// <returns>The response.</returns>
         Task<IHttpResponse> PostAsync(string url, object? body = null, CancellationToken? cancellationToken = null);
-        
+
         /// <summary>
         /// Creates a HTTP POST request.
         /// </summary>
@@ -85,7 +85,7 @@ namespace SiraUtil.Web
         /// <param name="cancellationToken"></param>
         /// <returns>The response.</returns>
         Task<IHttpResponse> PutAsync(string url, object? body = null, CancellationToken? cancellationToken = null);
-        
+
         /// <summary>
         /// Creates a HTTP PUT request.
         /// </summary>
@@ -104,7 +104,7 @@ namespace SiraUtil.Web
         /// <param name="cancellationToken"></param>
         /// <returns>The response.</returns>
         Task<IHttpResponse> PatchAsync(string url, object? body = null, CancellationToken? cancellationToken = null);
-        
+
         /// <summary>
         /// Creates a HTTP PATCH request.
         /// </summary>
@@ -122,7 +122,7 @@ namespace SiraUtil.Web
         /// <param name="cancellationToken"></param>
         /// <returns>The response.</returns>
         Task<IHttpResponse> DeleteAsync(string url, CancellationToken? cancellationToken = null);
-        
+
         /// <summary>
         /// Creates a HTTP DELETE request.
         /// </summary>
@@ -143,7 +143,7 @@ namespace SiraUtil.Web
         /// <param name="cancellationToken">The cancellation token to cancel the token with.</param>
         /// <returns></returns>
         Task<IHttpResponse> SendAsync(HTTPMethod method, string url, string? body = null, IDictionary<string, string>? withHeaders = null, IProgress<float>? downloadProgress = null, CancellationToken? cancellationToken = null);
-        
+
         /// <summary>
         /// Sends a message asynchronously.
         /// </summary>

@@ -21,7 +21,7 @@ namespace SiraUtil.Web.SiraSync.Implementations
 
         internal void Set(string repoOwner, string repoName)
             => _githubURL = $"https://api.github.com/repos/{repoOwner}/{repoName}/releases";
-        
+
         public async Task<string?> LatestChangelog()
         {
             Release? release = await GetRelease();

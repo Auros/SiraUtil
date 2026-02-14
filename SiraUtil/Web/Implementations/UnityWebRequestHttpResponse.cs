@@ -55,7 +55,7 @@ namespace SiraUtil.Web.Implementations
         {
             return Task.FromResult(Encoding.UTF8.GetString(Bytes));
         }
-        
+
         private class ErrorBody
         {
             public string Error { get; set; } = null!;

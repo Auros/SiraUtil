@@ -5,7 +5,7 @@ namespace SiraUtil.Tools.SongControl
     internal class MultiplayerSongControl : ISongControl
     {
         private readonly MultiplayerLocalActivePlayerInGameMenuViewController? _multiplayerLocalActivePlayerInGameMenuViewController;
-        
+
         internal MultiplayerSongControl([InjectOptional] MultiplayerLocalActivePlayerInGameMenuViewController multiplayerLocalActivePlayerInGameMenuViewController)
         {
             _multiplayerLocalActivePlayerInGameMenuViewController = multiplayerLocalActivePlayerInGameMenuViewController;

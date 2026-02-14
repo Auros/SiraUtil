@@ -14,7 +14,7 @@ namespace SiraUtil.Services.Controllers
             MultiplayerLocalInactivePlayerInGameMenuViewController? inactive = null;
             if (pauseMenuManager == null && activeViewController == null && (inactive = context.GetComponentInChildren<MultiplayerLocalInactivePlayerInGameMenuViewController>()) == null)
                 throw new System.Exception("Cannot find menu controllers!");
-            
+
             Transform controllerWrapper = pauseMenuManager != null ? pauseMenuManager!.transform.Find("MenuControllers") : activeViewController != null ? activeViewController.transform.Find("MenuControllers") : inactive!.transform.Find("MenuControllers");
             LeftController = controllerWrapper.Find("ControllerLeft").GetComponent<VRController>();
             RightController = controllerWrapper.Find("ControllerRight").GetComponent<VRController>();

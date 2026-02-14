@@ -9,7 +9,7 @@ namespace SiraUtil.Sabers.Effects
     internal interface ISiraClashChecker
     {
         event Action<Saber, Saber>? NewSabersClashed;
-        
+
         bool ExtraSabersDetected { get; }
 
         bool AreSabersClashing(ref bool sabersAreClashing, ref Vector3 localClashingPoint, ref int prevGetFrameNum, out Vector3 clashingPoint);

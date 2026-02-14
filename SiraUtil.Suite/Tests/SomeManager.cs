@@ -18,7 +18,7 @@ namespace SiraUtil.Suite.Tests
             _siraLog.Debug("SomeManager inject method");
             ipaLogger.Debug("SomeManager inject method but logged with IPA logger");
         }
-        
+
         public void Initialize()
         {
             _siraLog.Info($"Created {nameof(SomeManager)}");
