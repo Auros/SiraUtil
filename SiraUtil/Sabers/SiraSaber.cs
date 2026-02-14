@@ -15,14 +15,13 @@ namespace SiraUtil.Sabers
         /// The saber this <see cref="SiraSaber"/> is referencing.
         /// </summary>
         public Saber Saber { get; private set; } = null!;
-        internal SaberModelController Model => _saberModelController;
+        internal SaberModelController Model { get; private set; } = null!;
         internal Action<Saber, Color> ColorUpdated { get; set; } = null!;
 
         private NoteCutter _noteCutter = null!;
         private ColorManager _colorManager = null!;
         private SaberTypeObject _saberTypeObject = null!;
         private SaberModelProvider _saberModelProvider = null!;
-        private SaberModelController _saberModelController = null!;
         private SaberModelContainer.InitData _saberModelContainerInitData = new();
         private TimeHelper _timeHelper = null!;
         private readonly Queue<Action> _colorProcessNextFrame = new();
@@ -65,8 +64,8 @@ namespace SiraUtil.Sabers
             saber._saberBladeBottomPos = bottom.transform.position;
 
             _saberTypeObject._saberType = saberType;
-            _saberModelController = _saberModelProvider.NewModel(saberType);
-            _saberModelController.Init(transform, Saber, _saberModelContainerInitData.trailTintColor);
+            Model = _saberModelProvider.NewModel(saberType);
+            Model.Init(transform, Saber, _saberModelContainerInitData.trailTintColor);
             _constructedThisFrame = true;
         }
 
@@ -100,7 +99,7 @@ namespace SiraUtil.Sabers
         public void SetType(SaberType newSaberType)
         {
             _saberTypeObject._saberType = newSaberType;
-            _saberModelController.SetColor(_colorManager.ColorForSaberType(newSaberType));
+            Model.SetColor(_colorManager.ColorForSaberType(newSaberType));
         }
 
         /// <summary>
@@ -111,7 +110,7 @@ namespace SiraUtil.Sabers
         {
             if (!_constructedThisFrame)
             {
-                _saberModelController.SetColor(newColor);
+                Model.SetColor(newColor);
                 ColorUpdated?.Invoke(Saber, newColor);
                 return;
             }
@@ -120,7 +119,7 @@ namespace SiraUtil.Sabers
                 // Sabers created on the same frame that the model was constructed wont have their colors be updated, so we have it so the color is only set once per frame.
                 _colorProcessNextFrame.Enqueue(() =>
                 {
-                    _saberModelController.SetColor(newColor);
+                    Model.SetColor(newColor);
                     ColorUpdated?.Invoke(Saber, newColor);
                 });
             }
