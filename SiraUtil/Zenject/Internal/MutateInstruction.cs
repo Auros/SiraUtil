@@ -49,7 +49,7 @@ namespace SiraUtil.Zenject.Internal
                 return;
             }
 
-            if (_condition?.Invoke(context, tMonoBehaviour) != true)
+            if (_condition?.Invoke(context, tMonoBehaviour) == false)
             {
                 return;
             }
