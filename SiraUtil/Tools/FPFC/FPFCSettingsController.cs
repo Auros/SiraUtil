@@ -1,6 +1,8 @@
 ﻿using SiraUtil.Logging;
 using System;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.XR.Management;
 using Zenject;
@@ -28,6 +30,7 @@ namespace SiraUtil.Tools.FPFC
                     InitializeXRLoader();
 
                 Changed?.Invoke(this);
+                NotifyPropertyChanged();
             }
         }
 
@@ -38,6 +41,9 @@ namespace SiraUtil.Tools.FPFC
         public int VSyncCount => _fpfcOptions.VSyncCount;
 
         public event Action<IFPFCSettings>? Changed;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         private readonly FPFCOptions _fpfcOptions;
         private readonly SiraLog _siraLog;
 
@@ -64,6 +70,7 @@ namespace SiraUtil.Tools.FPFC
         private void ConfigUpdated(FPFCOptions _)
         {
             Changed?.Invoke(this);
+            NotifyPropertyChanged(null);
         }
 
         public void Dispose()
@@ -100,6 +107,11 @@ namespace SiraUtil.Tools.FPFC
 
             _siraLog.Notice("Disabling XR Loader");
             manager.DeinitializeLoader();
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

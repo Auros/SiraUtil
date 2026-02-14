@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace SiraUtil.Tools.FPFC
 {
     /// <summary>
     /// Represents settings for FPFC. This is subject to changes in the future, so don't be surprised if I update it and you inherit this object.
     /// </summary>
-    public interface IFPFCSettings
+    public interface IFPFCSettings : INotifyPropertyChanged
     {
         /// <summary>
         /// The FOV for the camera. This doesn't work when a VR headset is active.
@@ -50,6 +51,7 @@ namespace SiraUtil.Tools.FPFC
         /// <summary>
         /// Called when the object is changed.
         /// </summary>
+        [Obsolete("Use the PropertyChanged event instead.")]
         event Action<IFPFCSettings> Changed;
     }
 }

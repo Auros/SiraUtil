@@ -3,6 +3,7 @@ using SiraUtil.Services;
 using SiraUtil.Zenject;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace SiraUtil.Tools.FPFC
 
         public async Task InitializeAsync(CancellationToken token)
         {
-            _fpfcSettings.Changed += FPFCSettings_Changed;
+            _fpfcSettings.PropertyChanged += FPFCSettings_PropertyChanged;
 
             if (_mainCamera.camera == null)
             {
@@ -68,12 +69,12 @@ namespace SiraUtil.Tools.FPFC
             _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
             _simpleCameraController.StateChanged += OnCameraControllerStateChanged;
 
-            FPFCSettings_Changed(_fpfcSettings);
+            UpdateState();
         }
 
         public void Dispose()
         {
-            _fpfcSettings.Changed -= FPFCSettings_Changed;
+            _fpfcSettings.PropertyChanged -= FPFCSettings_PropertyChanged;
 
             if (_simpleCameraController != null)
             {
@@ -82,14 +83,22 @@ namespace SiraUtil.Tools.FPFC
             }
         }
 
-        private void FPFCSettings_Changed(IFPFCSettings fpfcSettings)
+        private void FPFCSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(IFPFCSettings.Enabled))
+            {
+                UpdateState();
+            }
+        }
+
+        private void UpdateState()
         {
             if (_simpleCameraController == null)
             {
                 return;
             }
 
-            if (fpfcSettings.Enabled)
+            if (_fpfcSettings.Enabled)
             {
                 EnableFPFC();
             }

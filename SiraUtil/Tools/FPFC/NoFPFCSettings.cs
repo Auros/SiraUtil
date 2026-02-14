@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace SiraUtil.Tools.FPFC
 {
@@ -24,11 +25,8 @@ namespace SiraUtil.Tools.FPFC
 
         public int VSyncCount => 0;
 
-        public event Action<IFPFCSettings>? Changed;
+        public event Action<IFPFCSettings>? Changed { add { } remove { } }
 
-        public void CallEvent()
-        {
-            Changed?.Invoke(this);
-        }
+        public event PropertyChangedEventHandler? PropertyChanged { add { } remove { } }
     }
 }
