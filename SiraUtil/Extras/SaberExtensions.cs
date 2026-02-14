@@ -41,8 +41,7 @@ namespace SiraUtil.Extras
             MaterialPropertyBlock? materialPropertyBlock = setSaberGlowColor._materialPropertyBlock;
             SetSaberGlowColor.PropertyTintColorPair[] propertyTintPairs = setSaberGlowColor._propertyTintColorPairs;
 
-            if (materialPropertyBlock is null)
-                materialPropertyBlock = setSaberGlowColor._materialPropertyBlock = new MaterialPropertyBlock();
+            materialPropertyBlock ??= setSaberGlowColor._materialPropertyBlock = new MaterialPropertyBlock();
 
             foreach (SetSaberGlowColor.PropertyTintColorPair tintPair in propertyTintPairs)
                 materialPropertyBlock.SetColor(tintPair.property, color * tintPair.tintColor);

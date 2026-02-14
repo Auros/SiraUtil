@@ -27,16 +27,14 @@ namespace SiraUtil.Zenject
         {
             // Enables the zenjector of a plugin being enabled.
             ZenjectorDatum? datum = _zenjectors.FirstOrDefault(zen => zen.Zenjector.Metadata == plugin);
-            if (datum is not null)
-                datum.Enabled = true;
+            datum?.Enabled = true;
         }
 
         private void PluginManager_PluginDisabled(PluginMetadata plugin, bool _)
         {
             // Disables the zenjector of a plugin being disabled.
             ZenjectorDatum? datum = _zenjectors.FirstOrDefault(zen => zen.Zenjector.Metadata == plugin);
-            if (datum is not null)
-                datum.Enabled = false;
+            datum?.Enabled = false;
         }
 
         public void Enable()

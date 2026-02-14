@@ -40,8 +40,7 @@ namespace SiraUtil.Submissions
                 }
             }
 
-            if (_ssssdi != null)
-                _ssssdi.SetValue(null, value);
+            _ssssdi?.SetValue(null, value);
         }
     }
 }

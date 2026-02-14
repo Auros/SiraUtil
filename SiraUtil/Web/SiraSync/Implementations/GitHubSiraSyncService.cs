@@ -25,9 +25,7 @@ namespace SiraUtil.Web.SiraSync.Implementations
         public async Task<string?> LatestChangelog()
         {
             Release? release = await GetRelease();
-            if (release is null)
-                return null;
-            return release.Body;
+            return release?.Body;
         }
 
         public async Task<Version?> LatestVersion()
