@@ -5,7 +5,7 @@ namespace SiraUtil.Objects
 {
     internal class ContractRecycler : IDisposable
     {
-        private DiContainer _container;
+        private readonly DiContainer _container;
 
         public ContractRecycler(DiContainer container)
         {

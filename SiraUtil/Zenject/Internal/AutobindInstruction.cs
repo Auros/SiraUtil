@@ -9,7 +9,7 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal struct AutobindInstruction
+    internal readonly struct AutobindInstruction
     {
         private readonly Type[]? _contracts;
         private readonly Type[] _majorContract;
@@ -26,7 +26,7 @@ namespace SiraUtil.Zenject.Internal
             typeof(IAffinity)
         ];
 
-        public Location Location => _bindAttribute.Location;
+        public readonly Location Location => _bindAttribute.Location;
 
         public AutobindInstruction(Type majorContract, BindAttribute bindAttribute)
         {
@@ -53,7 +53,7 @@ namespace SiraUtil.Zenject.Internal
             }
         }
 
-        public void Bind(DiContainer Container)
+        public readonly void Bind(DiContainer Container)
         {
             var contractBind = Container.Bind(_contracts ?? _majorContract).To(_majorContract);
             if (_majorContract[0].DerivesFrom<ViewController>())

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal struct InstallInstruction
+    internal readonly struct InstallInstruction
     {
         public readonly IInstallFilter installFilter;
         public readonly Action<DiContainer> onInstall;

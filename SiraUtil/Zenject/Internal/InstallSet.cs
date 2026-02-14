@@ -3,7 +3,7 @@ using System;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal struct InstallSet
+    internal readonly struct InstallSet
     {
         public readonly Type installerType;
         public readonly IInstallFilter installFilter;
