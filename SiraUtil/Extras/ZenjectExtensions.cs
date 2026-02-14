@@ -47,6 +47,7 @@ namespace Zenject
         /// </summary>
         /// <param name="fromBinder"></param>
         /// <returns></returns>
+        [Obsolete("This is now provided directly by Zenject.")]
         public static NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder FromNewComponentOnNewGameObject(this FromBinder fromBinder)
         {
             return FromNewComponentOnNewGameObject(fromBinder, new GameObjectCreationParameters());
