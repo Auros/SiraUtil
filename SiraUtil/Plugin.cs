@@ -71,7 +71,7 @@ namespace SiraUtil
             _zenjectManager.Disable();
 
             // delay so DisposableManager is able to run before we unpatch on shutdown
-            UnityMainThreadTaskScheduler.Factory.StartNew(() => _harmony.UnpatchSelf()).ContinueWith((task) => Log.Error($"Failed to unpatch\n{task.Exception}"), TaskContinuationOptions.OnlyOnFaulted);
+            UnityMainThreadTaskScheduler.Factory.StartNew(_harmony.UnpatchSelf).ContinueWith((task) => Log.Error($"Failed to unpatch\n{task.Exception}"), TaskContinuationOptions.OnlyOnFaulted);
 
 #if DEBUG
             DynamicHarmonyPatchGenerator.Save();

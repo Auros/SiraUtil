@@ -341,7 +341,7 @@ namespace SiraUtil.Zenject
                 {
                     Plugin.Log.Debug($"Found bind attribute in type '{type.FullName}'");
                     AutobindInstruction instruction = new(type, bind);
-                    Install(instruction.Location, Container => instruction.Bind(Container));
+                    Install(instruction.Location, instruction.Bind);
                 }
             }
         }
