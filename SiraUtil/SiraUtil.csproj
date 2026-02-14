@@ -5,12 +5,12 @@
         <OutputType>Library</OutputType>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
         <Copyright>Copyright © Auros 2021-2025</Copyright>
         <AssemblyName>SiraUtil</AssemblyName>
         <RootNamespace>SiraUtil</RootNamespace>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <PackageId>SiraUtil</PackageId>
         <Title>SiraUtil</Title>

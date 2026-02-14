@@ -44,6 +44,29 @@ dotnet_diagnostic.UNT0040.severity = warning
 dotnet_diagnostic.UNT0041.severity = warning
 dotnet_diagnostic.UNT0042.severity = warning
 
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+
+dotnet_analyzer_diagnostic.category-Style.severity = warning
+
+# Add missing cases to switch statement
+dotnet_diagnostic.IDE0010.severity = suggestion
+
+# Use expression body for methods
+dotnet_diagnostic.IDE0022.severity = suggestion
+
+# Remove unnecessary expression value
+dotnet_diagnostic.IDE0058.severity = silent
+
+# Add missing cases to switch expression
+dotnet_diagnostic.IDE0072.severity = suggestion
+
+# Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = suggestion
+
+# Use primary constructor
+dotnet_diagnostic.IDE0290.severity = suggestion
+
+
 [*.{csproj,csproj.user,props,targets}]
 indent_size = 4
 indent_style = space
