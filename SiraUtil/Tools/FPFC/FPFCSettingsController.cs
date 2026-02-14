@@ -24,9 +24,13 @@ namespace SiraUtil.Tools.FPFC
                 field = value;
 
                 if (value)
+                {
                     DeinitializeXRLoader();
+                }
                 else
+                {
                     InitializeXRLoader();
+                }
 
                 Changed?.Invoke(this);
                 NotifyPropertyChanged();
@@ -83,7 +87,9 @@ namespace SiraUtil.Tools.FPFC
             XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
 
             if (manager.activeLoader != null || !manager.activeLoaders.Any(l => l != null))
+            {
                 return;
+            }
 
             _siraLog.Notice("Enabling XR Loader");
             manager.InitializeLoaderSync();
@@ -102,7 +108,9 @@ namespace SiraUtil.Tools.FPFC
             XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
 
             if (manager.activeLoader == null)
+            {
                 return;
+            }
 
             _siraLog.Notice("Disabling XR Loader");
             manager.DeinitializeLoader();

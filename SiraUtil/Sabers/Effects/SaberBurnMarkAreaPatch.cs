@@ -21,8 +21,12 @@ namespace SiraUtil.Sabers.Effects
         internal static void DynamicEnable(ref LineRenderer[] ____lineRenderers)
         {
             if (____lineRenderers is not null && ____lineRenderers.Length > 2)
+            {
                 for (int i = 2; i < ____lineRenderers.Length; i++)
+                {
                     ____lineRenderers[i].gameObject.SetActive(true);
+                }
+            }
         }
 
         [HarmonyPostfix]
@@ -30,8 +34,12 @@ namespace SiraUtil.Sabers.Effects
         internal static void DynamicDisable(ref LineRenderer[] ____lineRenderers)
         {
             if (____lineRenderers is not null && ____lineRenderers.Length > 2)
+            {
                 for (int i = 2; i < ____lineRenderers.Length; i++)
+                {
                     ____lineRenderers[i].gameObject.SetActive(false);
+                }
+            }
         }
 
         [HarmonyTranspiler]
@@ -111,7 +119,9 @@ namespace SiraUtil.Sabers.Effects
             for (int i = 0; i < lineRenderers.Length; i++)
             {
                 if (lineRenderers[i].enabled)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -119,9 +129,15 @@ namespace SiraUtil.Sabers.Effects
         private static void DestroyExtraLines(LineRenderer[] lineRenderers)
         {
             if (lineRenderers is not null && lineRenderers.Length > 2)
+            {
                 for (int i = 2; i < lineRenderers.Length; i++)
+                {
                     if (lineRenderers[i] != null)
+                    {
                         Object.Destroy(lineRenderers[i]);
+                    }
+                }
+            }
         }
     }
 }

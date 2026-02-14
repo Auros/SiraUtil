@@ -46,21 +46,29 @@ namespace SiraUtil.Zenject
 
             // This will set the default state for every Zenjector when SiraUtil enables.
             foreach (ZenjectorDatum zenDatum in _zenjectors)
+            {
                 zenDatum.Enabled = PluginManager.GetPluginFromId(zenDatum.Zenjector.Metadata.Id) != null;
+            }
         }
 
         private void ContextDecorator_ContextInstalling(Context context, IEnumerable<Type> installerBindings)
         {
             if (context.name == _initialContextName)
+            {
                 InitialSceneConstructionRegistered = true;
+            }
 
             if (!InitialSceneConstructionRegistered)
+            {
                 return;
+            }
 
             foreach (ZenjectorDatum zenDatum in _zenjectors)
             {
                 if (!zenDatum.Enabled)
+                {
                     continue;
+                }
 
                 Zenjector zenjector = zenDatum.Zenjector;
 

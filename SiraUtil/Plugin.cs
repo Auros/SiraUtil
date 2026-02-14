@@ -81,7 +81,9 @@ namespace SiraUtil
         private object? ConstructZenjector(object? previous, ParameterInfo _, PluginMetadata meta)
         {
             if (previous is not null)
+            {
                 return previous;
+            }
 
             Zenjector zenjector = new(meta);
             _zenjectManager.Add(zenjector);

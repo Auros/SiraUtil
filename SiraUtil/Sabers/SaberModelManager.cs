@@ -115,7 +115,9 @@ namespace SiraUtil.Sabers
 
                     DesperationContract contract = _desperationList.FirstOrDefault(d => d.Saber == saber && d.color == color);
                     if (contract is not null)
+                    {
                         _salvationList.Add(contract);
+                    }
                 }
                 else
                 {
@@ -139,15 +141,22 @@ namespace SiraUtil.Sabers
         public void LateTick()
         {
             while (_colorUpdateQueue.Count > 0)
+            {
                 _colorUpdateQueue.Dequeue().Invoke();
+            }
 
             foreach (DesperationContract desperator in _desperationList)
             {
                 if (desperator.Saber != null)
+                {
                     SetColor(desperator.Saber, desperator.color);
+                }
             }
             foreach (DesperationContract salvation in _salvationList)
+            {
                 _desperationList.Remove(salvation);
+            }
+
             _salvationList.Clear();
         }
 

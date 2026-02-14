@@ -17,14 +17,18 @@ namespace SiraUtil.Tools.FPFC
         protected void ForceInputFocus(ref bool __result)
         {
             if (_fpfcSettings.Enabled)
+            {
                 __result = true;
+            }
         }
 
         [AffinityPatch(typeof(UnityXRHelper), nameof(UnityXRHelper.GetThumbstickValue))]
         protected void GetThumbstickValue(ref Vector2 __result)
         {
             if (_fpfcSettings.Enabled)
+            {
                 __result = new Vector2(Input.GetAxis("Mouse ScrollWheel"), Input.GetAxis("Mouse ScrollWheel"));
+            }
         }
     }
 }

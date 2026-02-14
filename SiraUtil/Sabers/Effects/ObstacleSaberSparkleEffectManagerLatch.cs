@@ -30,9 +30,13 @@ namespace SiraUtil.Sabers.Effects
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
             if (_obstacleSaberSparkleEffectManager == null)
+            {
                 _earlySabers.Enqueue(siraSaber);
+            }
             else
+            {
                 AddSaber(siraSaber.Saber);
+            }
         }
 
         public void Dispose()
@@ -43,7 +47,9 @@ namespace SiraUtil.Sabers.Effects
         private void AddSaber(Saber saber)
         {
             if (_obstacleSaberSparkleEffectManager == null)
+            {
                 return;
+            }
 
             Sabers(ref _obstacleSaberSparkleEffectManager) = Sabers(ref _obstacleSaberSparkleEffectManager).AddToArray(saber);
 
@@ -66,7 +72,10 @@ namespace SiraUtil.Sabers.Effects
         {
             _obstacleSaberSparkleEffectManager = __instance;
             foreach (SiraSaber siraSaber in _earlySabers)
+            {
                 AddSaber(siraSaber.Saber);
+            }
+
             _earlySabers.Clear();
         }
     }

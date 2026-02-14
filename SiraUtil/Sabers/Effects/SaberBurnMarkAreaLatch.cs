@@ -32,20 +32,28 @@ namespace SiraUtil.Sabers.Effects
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
             if (_saberBurnMarkArea == null)
+            {
                 _earlySabers.Enqueue(siraSaber);
+            }
             else
+            {
                 AddSaber(siraSaber.Saber);
+            }
         }
 
         private void ColorUpdated(Saber saber, Color color)
         {
             if (_saberBurnMarkArea == null)
+            {
                 return;
+            }
 
             int index = _saberBurnMarkArea._sabers.IndexOf(saber);
 
             if (index == -1)
+            {
                 return;
+            }
 
             Color.RGBToHSV(color.ColorWithAlpha(1f), out float h, out float s, out float _);
             color = Color.HSVToRGB(h, s, 1f);
@@ -65,7 +73,9 @@ namespace SiraUtil.Sabers.Effects
         private void AddSaber(Saber saber)
         {
             if (_saberBurnMarkArea == null)
+            {
                 return;
+            }
 
             Sabers(ref _saberBurnMarkArea) = _saberBurnMarkArea._sabers.AddToArray(saber);
             PrevBurnMarkPos(ref _saberBurnMarkArea) = _saberBurnMarkArea._prevBurnMarkPos.AddToArray(default);
@@ -92,7 +102,10 @@ namespace SiraUtil.Sabers.Effects
             _saberBurnMarkArea = __instance;
             // TODO: This allocates a new array on every iteration. This could be more efficient.
             foreach (SiraSaber siraSaber in _earlySabers)
+            {
                 AddSaber(siraSaber.Saber);
+            }
+
             _earlySabers.Clear();
         }
     }

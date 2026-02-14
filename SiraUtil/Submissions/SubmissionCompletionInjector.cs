@@ -26,7 +26,9 @@ namespace SiraUtil.Submissions
         private void StandardResultsPrepared(ref LevelCompletionResults __result)
         {
             if (!(_inStandard || _inMission || _inMultiplayer))
+            {
                 return;
+            }
 
             if (_submission.Activated)
             {

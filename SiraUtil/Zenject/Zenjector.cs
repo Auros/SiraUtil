@@ -211,7 +211,9 @@ namespace SiraUtil.Zenject
         public void Expose<TExposeType>(string contractName)
         {
             if (contractName is null)
+            {
                 throw new ArgumentNullException(nameof(contractName));
+            }
 
             _injectableMonoBehaviourInstructions.Add(new SceneDecoratorExposeInstruction<TExposeType>(contractName));
         }
@@ -314,12 +316,19 @@ namespace SiraUtil.Zenject
         {
             SiraSyncServiceType = type;
             if (!string.IsNullOrWhiteSpace(modID))
+            {
                 SiraSyncID = modID!;
+            }
+
             if (!string.IsNullOrWhiteSpace(userID))
+            {
                 SiraSyncOwner = userID!;
+            }
 
             if (HttpServiceType is null)
+            {
                 UseHttpService();
+            }
         }
 
         /// <summary>
@@ -331,7 +340,9 @@ namespace SiraUtil.Zenject
         public void UseAutoBinder()
         {
             if (_autoBinded)
+            {
                 return;
+            }
 
             _autoBinded = true;
             foreach (Type? type in Metadata.Assembly.GetTypes())

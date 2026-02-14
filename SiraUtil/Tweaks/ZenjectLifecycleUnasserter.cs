@@ -48,7 +48,9 @@ namespace SiraUtil.Tweaks
                 {
                     string addressTo = string.IsNullOrEmpty(plugin.Author) ? $"The author of {plugin.Name}" : plugin.Author;
                     for (int i = 0; i < 10; i++)
+                    {
                         Plugin.Log.Warn($"Please tell {addressTo} to fix this!");
+                    }
                 }
             }
             else

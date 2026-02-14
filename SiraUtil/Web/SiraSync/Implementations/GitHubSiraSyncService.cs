@@ -32,7 +32,9 @@ namespace SiraUtil.Web.SiraSync.Implementations
         {
             Release? release = await GetRelease();
             if (release is null)
+            {
                 return null;
+            }
 
             try
             {
@@ -49,7 +51,9 @@ namespace SiraUtil.Web.SiraSync.Implementations
         private async Task<Release?> GetRelease()
         {
             if (_cachedRelease is not null)
+            {
                 return _cachedRelease;
+            }
 
             _siraLog.Debug($"Starting changelog request at {_githubURL}");
             IHttpResponse response = await _httpService.GetAsync(_githubURL);

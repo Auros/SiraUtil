@@ -13,7 +13,9 @@ namespace SiraUtil.Extras
         internal static void SetColor(this SaberModelController saberModelController, Color color)
         {
             if (saberModelController is IColorable colorable)
+            {
                 colorable.Color = color;
+            }
 
             SaberTrail trail = saberModelController._saberTrail;
             TubeBloomPrePassLight? light = saberModelController._saberLight;
@@ -23,11 +25,19 @@ namespace SiraUtil.Extras
             float beforeAlpha = trail._color.a;
             trail._color = trail._colorOverwrite ? trail._forcedColor : color.ColorWithAlpha(beforeAlpha);
             foreach (SetSaberGlowColor glow in glowColors)
+            {
                 glow.SetColors(color);
+            }
+
             foreach (SetSaberFakeGlowColor fakeGlow in fakeGlowColors)
+            {
                 fakeGlow.SetColors(color);
+            }
+
             if (light != null)
+            {
                 light.color = color;
+            }
         }
 
         internal static SetSaberGlowColor[] SaberGlowColors(this SaberModelController saberModelController)
@@ -44,7 +54,9 @@ namespace SiraUtil.Extras
             materialPropertyBlock ??= setSaberGlowColor._materialPropertyBlock = new MaterialPropertyBlock();
 
             foreach (SetSaberGlowColor.PropertyTintColorPair tintPair in propertyTintPairs)
+            {
                 materialPropertyBlock.SetColor(tintPair.property, color * tintPair.tintColor);
+            }
 
             meshRenderer.SetPropertyBlock(materialPropertyBlock);
         }

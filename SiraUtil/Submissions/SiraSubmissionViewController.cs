@@ -31,13 +31,17 @@ namespace SiraUtil.Submissions
         public void Enabled(bool value)
         {
             if (_curvedText != null)
+            {
                 _curvedText.gameObject.SetActive(value);
+            }
         }
 
         public void SetText(string text)
         {
             if (_curvedText != null)
+            {
                 _curvedText.text = text;
+            }
         }
     }
 }

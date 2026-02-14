@@ -56,7 +56,9 @@ namespace SiraUtil.Web.SiraSync.Zenject
         internal ISiraSyncService ServiceFromAssembly(Assembly assembly)
         {
             if (_services.TryGetValue(assembly, out ISiraSyncService service))
+            {
                 return service;
+            }
 
             Plugin.Log.Warn($"{assembly.GetName().Name}, you are depending on an {nameof(ISiraSyncService)}, but you haven't setup your own! You can setup your own by calling .UseSiraSync() on your zenjector.");
             return null!;

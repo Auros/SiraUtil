@@ -41,7 +41,9 @@ namespace SiraUtil.Sabers
             _timeHelper = timeHelper;
 
             if (saberModelContainerInitData != null)
+            {
                 _saberModelContainerInitData = saberModelContainerInitData;
+            }
         }
 
         internal void Setup<T>(SaberType saberType) where T : Saber
@@ -84,7 +86,9 @@ namespace SiraUtil.Sabers
             }
 
             if (_colorProcessNextFrame.Count > 0)
+            {
                 _colorProcessNextFrame.Dequeue().Invoke();
+            }
         }
 
         /// <inheritdoc/>

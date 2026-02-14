@@ -95,7 +95,9 @@ namespace SiraUtil.Objects
             IEnumerable<RedecoratorRegistration> registrations = container.AncestorContainers[0].Resolve<List<RedecoratorRegistration>>().Where(rr => rr.ContainerType == mainType && rr.Contract == fieldName).OrderByDescending(rr => rr.Priority);
 
             if (!registrations.Any())
+            {
                 return originalPrefab;
+            }
 
             GameObject irgo = new(nameof(InternalRedecorator));
             irgo.SetActive(false);
@@ -106,7 +108,9 @@ namespace SiraUtil.Objects
             {
                 registration.Redecorate(clone);
                 if (!registration.Chain)
+                {
                     break;
+                }
             }
 
             container.LazyInject(new ObjectDiffuser(irgo));
@@ -145,14 +149,19 @@ namespace SiraUtil.Objects
 
                         // We are doing a manual install.
                         if (containerOperand is null)
+                        {
                             containerOpcode = OpCodes.Ldarg_1;
+                        }
                     }
                     MemberInfo activeField = (codes[i].operand as MemberInfo)!;
                     string fieldName = activeField.Name;
 
                     List<CodeInstruction> toInsert = [];
                     if (containerOperand is not null)
+                    {
                         toInsert.Add(new(OpCodes.Ldarg_0));
+                    }
+
                     toInsert.Add(new(containerOpcode ?? OpCodes.Ldarg_1, containerOperand));
                     toInsert.Add(new(OpCodes.Ldstr, fieldName));
                     toInsert.Add(new(OpCodes.Ldarg_0));

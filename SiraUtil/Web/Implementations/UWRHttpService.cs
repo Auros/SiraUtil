@@ -20,11 +20,17 @@ namespace SiraUtil.Web.Implementations
             set
             {
                 if (value is null)
+                {
                     if (Headers.ContainsKey("Authorization"))
+                    {
                         Headers.Remove("Authorization");
+                    }
+                }
 
                 if (value is not null)
+                {
                     Headers["Authorization"] = $"Bearer {value}";
+                }
             }
         }
 
@@ -36,11 +42,17 @@ namespace SiraUtil.Web.Implementations
             set
             {
                 if (value is null)
+                {
                     if (Headers.ContainsKey("User-Agent"))
+                    {
                         Headers.Remove("User-Agent");
+                    }
+                }
 
                 if (value is not null)
+                {
                     Headers["User-Agent"] = value;
+                }
             }
         }
 
@@ -123,26 +135,39 @@ namespace SiraUtil.Web.Implementations
 
             string newURL = url;
             if (BaseURL != null)
+            {
                 newURL = Path.Combine(BaseURL, url);
+            }
+
             DownloadHandler? dHandler = new DownloadHandlerBuffer();
 
             HTTPMethod originalMethod = method;
             if (method == HTTPMethod.POST && body != null)
+            {
                 method = HTTPMethod.PUT;
+            }
 
             using UnityWebRequest request = new(newURL, method.ToString(), dHandler, body == null ? null : new UploadHandlerRaw(body));
             request.timeout = timeout ?? Timeout;
 
             foreach (KeyValuePair<string, string> header in Headers)
+            {
                 request.SetRequestHeader(header.Key, header.Value);
+            }
 
             if (withHeaders != null)
+            {
                 foreach (KeyValuePair<string, string> header in withHeaders)
+                {
                     request.SetRequestHeader(header.Key, header.Value);
+                }
+            }
 
             // some unity bull
             if (body != null && originalMethod == HTTPMethod.POST && method == HTTPMethod.PUT)
+            {
                 request.method = originalMethod.ToString();
+            }
 
             float lastProgress = -1f;
             AsyncOperation asyncOp = request.SendWebRequest();

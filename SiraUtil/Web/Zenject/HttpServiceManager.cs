@@ -30,7 +30,10 @@ namespace SiraUtil.Web.Zenject
                     if (zenjector.HttpServiceType is not null)
                     {
                         if (zenjector.HttpServiceType is HttpServiceType.UnityWebRequests)
+                        {
                             service = new UWRHttpService();
+                        }
+
                         _services.Add(assembly, service);
 
                         service.UserAgent = $"{zenjector.Metadata.Name}/{zenjector.Metadata.HVersion} ({service.GetType().Name}; {_managerMetadata.HVersion}; Beat Saber; {UnityGame.GameVersion})";
@@ -50,7 +53,9 @@ namespace SiraUtil.Web.Zenject
         internal IHttpService ServiceFromAssembly(Assembly assembly)
         {
             if (_services.TryGetValue(assembly, out IHttpService service))
+            {
                 return service;
+            }
 
             Plugin.Log.Warn($"{assembly.GetName().Name}, you are depending on an IHttpService, but you haven't setup your own! You can setup your own by calling .UseHttpService() on your zenjector.");
             return null!;

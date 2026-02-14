@@ -11,7 +11,9 @@ namespace SiraUtil.Zenject.Internal.Instructors
             Assert.That(!installSet.installerType.IsSubclassOf(typeof(Component)));
             InstallerBase? installerBase = context.Container.Instantiate(installSet.installerType, installSet.initialParameters) as InstallerBase;
             if (installerBase is not null)
+            {
                 context._normalInstallers.Add(installerBase);
+            }
         }
     }
 }

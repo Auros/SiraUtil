@@ -43,7 +43,9 @@ namespace SiraUtil.Sabers.Effects
             for (int i = 0; i < codes.Count; i++)
             {
                 if (codes[i].opcode == OpCodes.Ldfld && burnMarks is null) // We collect the operand that we are going to be using (_burnMarksPS or _sabers)
+                {
                     burnMarks = codes[i].operand;
+                }
 
                 if (codes[i].opcode == OpCodes.Ldc_I4_2)
                 {

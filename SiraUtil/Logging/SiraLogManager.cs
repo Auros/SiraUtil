@@ -41,7 +41,9 @@ namespace SiraUtil.Logging
         internal LoggerContext LoggerFromAssembly(Assembly assembly)
         {
             if (_loggerAssemblies.TryGetValue(assembly, out LoggerContext context))
+            {
                 return context;
+            }
 
             // TODO: Get rid of the StandardLogger instantiation in v4
             _defaultLogger ??= (AccessTools.Constructor(typeof(StandardLogger), [typeof(string)]).Invoke(["???"]) as StandardLogger)!;

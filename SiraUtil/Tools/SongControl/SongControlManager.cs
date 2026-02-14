@@ -17,15 +17,23 @@ namespace SiraUtil.Tools.SongControl
         public void Tick()
         {
             if (Input.GetKeyDown(_songControlOptions.ExitKeyCode))
+            {
                 _songControl.Quit();
+            }
             else if (Input.GetKeyDown(_songControlOptions.RestartKeyCode))
+            {
                 _songControl.Restart();
+            }
             else if (Input.GetKeyDown(_songControlOptions.PauseToggleKeyCode))
             {
                 if (_songControl.IsPaused)
+                {
                     _songControl.Continue();
+                }
                 else
+                {
                     _songControl.Pause();
+                }
             }
         }
     }

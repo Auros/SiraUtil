@@ -34,15 +34,21 @@ namespace SiraUtil.Sabers.Effects
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
             if (_saberBurnMarkSparkles == null)
+            {
                 _earlySabers.Enqueue(siraSaber);
+            }
             else
+            {
                 AddSaber(siraSaber.Saber);
+            }
         }
 
         private void AddSaber(Saber saber)
         {
             if (_saberBurnMarkSparkles == null)
+            {
                 return;
+            }
 
             _saberBurnMarkSparkles._sabers = _saberBurnMarkSparkles._sabers.AddToArray(saber);
             _saberBurnMarkSparkles._prevBurnMarkPos = _saberBurnMarkSparkles._prevBurnMarkPos.AddToArray(default);
@@ -68,7 +74,10 @@ namespace SiraUtil.Sabers.Effects
         {
             _saberBurnMarkSparkles = __instance;
             foreach (SiraSaber siraSaber in _earlySabers)
+            {
                 AddSaber(siraSaber.Saber);
+            }
+
             _earlySabers.Clear();
         }
 
@@ -94,11 +103,15 @@ namespace SiraUtil.Sabers.Effects
         internal bool SisterLoopColorOverrideLock(ref Color __result)
         {
             if (!_sisterLoopActive || _saberBurnMarkSparkles == null)
+            {
                 return true;
+            }
 
             Saber[] sabers = _saberBurnMarkSparkles._sabers;
             if (_activeSaberIndex >= sabers.Length)
+            {
                 return true;
+            }
 
             __result = _saberModelManager.GetPhysicalSaberColor(sabers[_activeSaberIndex++]).ColorWithAlpha(1f);
             return false;

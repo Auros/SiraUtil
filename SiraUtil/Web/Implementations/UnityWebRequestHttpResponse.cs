@@ -25,11 +25,15 @@ namespace SiraUtil.Web.Implementations
         public async Task<string?> Error()
         {
             if (Successful)
+            {
                 return null;
+            }
 
             string body = await ReadAsStringAsync();
             if (body is null)
+            {
                 return Code.ToString();
+            }
 
             try
             {

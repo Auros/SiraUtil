@@ -10,7 +10,9 @@ namespace SiraUtil.Zenject.Internal.Instructors
             Assert.DerivesFrom<MonoInstallerBase>(installSet.installerType);
             MonoInstaller monoInstaller = (context.gameObject.AddComponent(installSet.installerType) as MonoInstaller)!;
             if (monoInstaller != null)
+            {
                 context._monoInstallers.Add(monoInstaller);
+            }
         }
     }
 }

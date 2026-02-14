@@ -44,7 +44,9 @@ namespace SiraUtil.Submissions
         internal static void ForcePracticeIfScoresDisabled(LevelCompletionResults levelCompletionResults, ref bool practice)
         {
             if (levelCompletionResults is SiraLevelCompletionResults siraLevelCompletionResults && !siraLevelCompletionResults.ShouldSubmitScores)
+            {
                 practice = true;
+            }
         }
     }
 }

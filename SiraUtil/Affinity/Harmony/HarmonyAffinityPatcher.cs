@@ -50,11 +50,17 @@ namespace SiraUtil.Affinity.Harmony
                     AffinityPatchType patchType = AffinityPatchType.Postfix;
 
                     if (affinityMethod.GetCustomAttribute<AffinityPrefixAttribute>() is not null)
+                    {
                         patchType = AffinityPatchType.Prefix;
+                    }
                     else if (affinityMethod.GetCustomAttribute<AffinityTranspilerAttribute>() is not null)
+                    {
                         patchType = AffinityPatchType.Transpiler;
+                    }
                     else if (affinityMethod.GetCustomAttribute<AffinityFinalizerAttribute>() is not null)
+                    {
                         patchType = AffinityPatchType.Finalizer;
+                    }
 
                     string[]? after = null;
                     string[]? before = null;
@@ -109,7 +115,9 @@ namespace SiraUtil.Affinity.Harmony
         public void Dispose()
         {
             foreach (KeyValuePair<Assembly, DynamicHarmonyPatchGenerator> patcher in _patchGenerators)
+            {
                 patcher.Value.Dispose();
+            }
         }
     }
 }

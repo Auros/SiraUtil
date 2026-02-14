@@ -53,17 +53,26 @@ namespace SiraUtil.Sabers
             foreach (SetSaberGlowColor glow in newModel.SaberGlowColors())
             {
                 if (!saberType.HasValue)
+                {
                     _earlyInittingGlowColors.Add(glow);
+                }
+
                 glow.saberType = saberType.GetValueOrDefault();
             }
             foreach (SetSaberFakeGlowColor fakeGlow in newModel.SaberFakeGlowColors())
             {
                 if (!saberType.HasValue)
+                {
                     _earlyInittingFakeGlowColors.Add(fakeGlow);
+                }
+
                 fakeGlow.saberType = saberType.GetValueOrDefault();
             }
             if (!saberType.HasValue)
+            {
                 newModel.SetColor(Color.white);
+            }
+
             return newModel;
         }
 
@@ -141,7 +150,10 @@ namespace SiraUtil.Sabers
             if (_earlyInittingFakeGlowColors.Contains(__instance))
             {
                 if (____saberTypeObject != null)
+                {
                     ____saberType = ____saberTypeObject.saberType;
+                }
+
                 _earlyInittingFakeGlowColors.Remove(__instance);
                 return false;
             }
@@ -154,10 +166,14 @@ namespace SiraUtil.Sabers
         {
             // If the SaberModelContainer doesn't belong to us, don't do anything.
             if (__instance != _localLeftContainer && __instance != _localRightContainer)
+            {
                 return;
+            }
 
             if (_activeSaberModelRegistration == _defaultSaberModelRegistration)
+            {
                 return;
+            }
 
             ____saberModelControllerPrefab = NewModel(____saber.saberType);
         }

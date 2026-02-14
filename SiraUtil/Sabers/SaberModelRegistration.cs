@@ -42,7 +42,9 @@ namespace SiraUtil.Sabers
         public SaberModelRegistration(Type modelControllerType, int priority = 0)
         {
             if (!modelControllerType.IsSubclassOf(typeof(SaberModelController)))
+            {
                 throw new ArgumentException($"{modelControllerType.Name} does not inherit from {nameof(SaberModelController)}", nameof(modelControllerType));
+            }
 
             Priority = priority;
             LeftType = modelControllerType;
@@ -58,10 +60,14 @@ namespace SiraUtil.Sabers
         public SaberModelRegistration(Type leftModelControllerType, Type rightModelControllerType, int priority = 0)
         {
             if (leftModelControllerType is null)
+            {
                 throw new ArgumentNullException(nameof(leftModelControllerType));
+            }
 
             if (rightModelControllerType is null)
+            {
                 throw new ArgumentNullException(nameof(rightModelControllerType));
+            }
 
             Priority = priority;
             LeftType = leftModelControllerType;
@@ -76,7 +82,9 @@ namespace SiraUtil.Sabers
         public SaberModelRegistration(SaberModelController prefab, int priority = 0)
         {
             if (prefab == null)
+            {
                 throw new ArgumentNullException(nameof(prefab));
+            }
 
             Priority = priority;
             LeftTemplate = prefab;
@@ -92,10 +100,14 @@ namespace SiraUtil.Sabers
         public SaberModelRegistration(SaberModelController leftModelPrefab, SaberModelController rightModelPrefab, int priority = 0)
         {
             if (leftModelPrefab == null)
+            {
                 throw new ArgumentNullException(nameof(leftModelPrefab));
+            }
 
             if (rightModelPrefab == null)
+            {
                 throw new ArgumentNullException(nameof(rightModelPrefab));
+            }
 
             Priority = priority;
             LeftTemplate = leftModelPrefab;
@@ -110,7 +122,9 @@ namespace SiraUtil.Sabers
         public SaberModelRegistration(Func<SaberModelController> instruction, int priority = 0)
         {
             if (instruction is null)
+            {
                 throw new ArgumentNullException(nameof(instruction));
+            }
 
             Priority = priority;
             LeftInstruction = instruction;
@@ -126,10 +140,14 @@ namespace SiraUtil.Sabers
         public SaberModelRegistration(Func<SaberModelController> leftModelInstruction, Func<SaberModelController> rightModelInstruction, int priority = 0)
         {
             if (leftModelInstruction is null)
+            {
                 throw new ArgumentNullException(nameof(leftModelInstruction));
+            }
 
             if (rightModelInstruction is null)
+            {
                 throw new ArgumentNullException(nameof(rightModelInstruction));
+            }
 
             Priority = priority;
             LeftInstruction = leftModelInstruction;

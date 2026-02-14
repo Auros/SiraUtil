@@ -30,22 +30,42 @@ namespace SiraUtil.Zenject.Harmony
             // Adds every installer that's being installed to the type registrator.
             HashSet<Type> installerBindings = [];
             foreach (InstallerBase normalInstaller in normalInstallers)
+            {
                 installerBindings.Add(normalInstaller.GetType());
+            }
+
             foreach (Type normalInstallerType in normalInstallerTypes)
+            {
                 installerBindings.Add(normalInstallerType);
+            }
+
             foreach (ScriptableObjectInstaller scriptableObjectInstaller in scriptableObjectInstallers)
+            {
                 installerBindings.Add(scriptableObjectInstaller.GetType());
+            }
+
             foreach (MonoInstaller installer in installers)
+            {
                 installerBindings.Add(installer.GetType());
+            }
+
             foreach (MonoInstaller installerPrefab in installerPrefabs)
+            {
                 installerBindings.Add(installerPrefab.GetType());
+            }
 
             if (__instance is AsyncSceneContext asyncSceneContext)
+            {
                 foreach (AsyncInstaller? asyncInstaller in asyncSceneContext._asyncInstallers)
+                {
                     installerBindings.Add(asyncInstaller.GetType());
+                }
+            }
 
             if (__instance is SceneDecoratorContext decorator)
+            {
                 _recentlyInstalledDecorators.Add(decorator);
+            }
 
             ContextInstalling?.Invoke(__instance, installerBindings);
         }

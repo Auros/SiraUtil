@@ -42,7 +42,9 @@ namespace SiraUtil.Submissions
             _submissionDataContainer.Disabled = false;
             _siraSubmissionViewController.Enabled(false);
             if (_siraSubmissionViewController.isInViewControllerHierarchy)
+            {
                 _targetFlowCoordinator.SetBottomScreenViewController(null, ViewController.AnimationType.Out);
+            }
         }
 
         public void Dispose()

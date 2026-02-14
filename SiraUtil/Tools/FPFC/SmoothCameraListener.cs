@@ -11,7 +11,9 @@ namespace SiraUtil.Tools.FPFC
         protected void AcquireSmoothCamera(SmoothCameraController __instance, SmoothCamera ____smoothCamera)
         {
             if (_smoothCamera != null)
+            {
                 return;
+            }
 
             _smoothCamera = ____smoothCamera;
             _smoothCameraController = __instance;
@@ -20,7 +22,9 @@ namespace SiraUtil.Tools.FPFC
         public void Enabled()
         {
             if (_smoothCamera != null && _smoothCamera.enabled)
+            {
                 _smoothCamera.enabled = false;
+            }
         }
 
         public void Disabled()

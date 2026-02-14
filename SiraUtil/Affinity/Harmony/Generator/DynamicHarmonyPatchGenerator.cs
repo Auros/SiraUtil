@@ -117,11 +117,17 @@ namespace SiraUtil.Affinity.Harmony.Generator
             ilg.Emit(OpCodes.Nop);
             ilg.Emit(OpCodes.Ldsfld, affinityDelegate);
             for (int i = 0; i < affinityMethod.GetParameters().Length; i++)
+            {
                 ilg.Emit(OpCodes.Ldarg_S, i);
+            }
+
             ilg.Emit(OpCodes.Callvirt, delegateType.GetMethod(invokeName));
 
             if (affinityMethod.ReturnType == typeof(void))
+            {
                 ilg.Emit(OpCodes.Nop);
+            }
+
             ilg.Emit(OpCodes.Ret);
 
 
@@ -234,7 +240,10 @@ namespace SiraUtil.Affinity.Harmony.Generator
             int number = 2;
             string name = nameBase;
             while (_moduleBuilder.GetType(name) != null)
+            {
                 name = nameBase + number++;
+            }
+
             return name;
         }
 

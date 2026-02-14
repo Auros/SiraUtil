@@ -18,7 +18,9 @@ namespace SiraUtil.Submissions
             {
                 _data += $"{ticket.Source}\n";
                 foreach (string reason in ticket.Reasons())
+                {
                     _data += $"<size=80%><color=#999999>{reason}</color></size>\n";
+                }
             }
         }
 
@@ -36,7 +38,9 @@ namespace SiraUtil.Submissions
                 {
                     Type? type = scoreSaber.Assembly.GetType(scoreSaber.PluginType.FullName);
                     if (type != null)
+                    {
                         _ssssdi = type.GetProperty("ScoreSubmission");
+                    }
                 }
             }
 
