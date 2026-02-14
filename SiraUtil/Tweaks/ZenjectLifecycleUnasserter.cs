@@ -10,7 +10,7 @@ using Zenject;
 namespace SiraUtil.Tweaks
 {
     [HarmonyPatch]
-    class ZenjectLifecycleUnasserter
+    internal class ZenjectLifecycleUnasserter
     {
         private static readonly MethodInfo _newFail = SymbolExtensions.GetMethodInfo(() => NewErrorBehavior(null!, null!, null!));
         private static readonly MethodInfo _rootMethod = typeof(ModestTree.Assert).GetMethod(nameof(ModestTree.Assert.CreateException), [typeof(Exception), typeof(string), typeof(object[])]);

@@ -2,7 +2,7 @@
 {
     internal interface IFPFCListener
     {
-        public void Enabled();
-        public void Disabled();
+        void Enabled();
+        void Disabled();
     }
 }
