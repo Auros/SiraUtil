@@ -148,6 +148,13 @@ namespace SiraUtil.Affinity.Harmony.Generator
             HarmonyMethod? finalizer = null;
             HarmonyMethod @base = new(constructedPatchMethod, priority, before, after);
 
+            AffinityEmitILAttribute emitILAttribute = affinityMethod.GetCustomAttribute<AffinityEmitILAttribute>();
+
+            if (emitILAttribute != null)
+            {
+                @base.debugEmitPath = emitILAttribute.Path;
+            }
+
             // Patch!
             switch (patchType)
             {
