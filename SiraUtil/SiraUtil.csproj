@@ -11,6 +11,10 @@
         <RootNamespace>SiraUtil</RootNamespace>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(CI)' != ''">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+
     <PropertyGroup>
         <PackageId>SiraUtil</PackageId>
         <Title>SiraUtil</Title>

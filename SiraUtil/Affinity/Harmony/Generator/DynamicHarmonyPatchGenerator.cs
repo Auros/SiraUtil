@@ -1,17 +1,20 @@
 ﻿using HarmonyLib;
 using IPA.Loader;
-using IPA.Utilities;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using TypeAttributes = System.Reflection.TypeAttributes;
 using FieldAttributes = System.Reflection.FieldAttributes;
 using MethodAttributes = System.Reflection.MethodAttributes;
-using ParameterAttributes = System.Reflection.ParameterAttributes;
 using MethodImplAttributes = System.Reflection.MethodImplAttributes;
+using ParameterAttributes = System.Reflection.ParameterAttributes;
+using TypeAttributes = System.Reflection.TypeAttributes;
+
+#if DEBUG
+using IPA.Utilities;
+using System.IO;
+#endif
 
 namespace SiraUtil.Affinity.Harmony.Generator
 {
