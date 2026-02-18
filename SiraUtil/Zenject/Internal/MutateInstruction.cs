@@ -11,10 +11,14 @@ namespace SiraUtil.Zenject.Internal
     {
         private readonly Action<Context, TMonoBehaviour>? _action;
 
-        internal MutateInstruction(Action<Context, TMonoBehaviour> action)
+        internal MutateInstruction(Action<Context, TMonoBehaviour> action, int order)
         {
             _action = action;
+
+            Order = order;
         }
+
+        public int Order { get; }
 
         public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
@@ -41,6 +45,8 @@ namespace SiraUtil.Zenject.Internal
             _condition = condition;
             _bindTypes = bindTypes;
         }
+
+        public int Order => 0;
 
         public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
@@ -95,6 +101,8 @@ namespace SiraUtil.Zenject.Internal
             _contractName = contractName;
             _action = action;
         }
+
+        public int Order => 0;
 
         public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {

@@ -101,16 +101,11 @@ namespace SiraUtil.Zenject
 
         private void ContextDecorator_InstalledSceneBindings(Context context, List<MonoBehaviour> injectableMonoBehaviours)
         {
-            foreach (ZenjectorDatum zenDatum in _zenjectors)
+            foreach (IInjectableMonoBehaviourInstruction instruction in _zenjectors.SelectMany(zd => zd.Zenjector.InjectableMonoBehaviourInstructions).OrderBy(i => i.Order))
             {
-                Zenjector zenjector = zenDatum.Zenjector;
-
                 foreach (MonoBehaviour monoBehaviour in injectableMonoBehaviours)
                 {
-                    foreach (IInjectableMonoBehaviourInstruction instruction in zenjector.InjectableMonoBehaviourInstructions)
-                    {
-                        instruction.Apply(context, monoBehaviour);
-                    }
+                    instruction.Apply(context, monoBehaviour);
                 }
             }
         }

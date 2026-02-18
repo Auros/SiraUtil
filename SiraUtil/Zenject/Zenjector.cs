@@ -223,9 +223,10 @@ namespace SiraUtil.Zenject
         /// </summary>
         /// <typeparam name="TMonoBehaviour">The <see cref="MonoBehaviour"/> to match.</typeparam>
         /// <param name="action">The callback to invoke when <typeparamref name="TMonoBehaviour"/> is encountered.</param>
-        public void Mutate<TMonoBehaviour>(Action<Context, TMonoBehaviour> action) where TMonoBehaviour : MonoBehaviour
+        /// <param name="order">The order of this mutation. Mutations are applied in ascending order.</param>
+        public void Mutate<TMonoBehaviour>(Action<Context, TMonoBehaviour> action, int order = 0) where TMonoBehaviour : MonoBehaviour
         {
-            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour>(action));
+            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour>(action, order));
         }
 
         /// <summary>

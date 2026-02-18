@@ -25,6 +25,8 @@ namespace SiraUtil.Zenject.Internal
             _bindTypes = bindTypes;
         }
 
+        public int Order => 0;
+
         public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (monoBehaviour is not TMonoBehaviour tMonoBehaviour)
@@ -65,6 +67,8 @@ namespace SiraUtil.Zenject.Internal
         {
             _contractName = contractName;
         }
+
+        public int Order => 0;
 
         public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
