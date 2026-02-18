@@ -189,7 +189,7 @@ namespace SiraUtil.Zenject
         /// <param name="ifNotBound">Only bind this type if it is not already bound. Zenject will throw an error when trying to resolve a single instance if more than one instance is bound.</param>
         /// <param name="condition">An optional callback that returns a value indicating whether or not the type should be exposed given the <typeparamref name="TMonoBehaviour"/> and its associated <see cref="Context"/>.</param>
         /// <param name="bindTypes">An optional enumerable of types against which <typeparamref name="TMonoBehaviour"/> should be bound. If <see langword="null"/>, defaults to just <typeparamref name="TMonoBehaviour"/>.</param>
-        public void Expose<TMonoBehaviour>(object? identifier = null, bool useSceneContext = false, bool ifNotBound = false, Func<Context, TMonoBehaviour, bool>? condition = null, IEnumerable<Type>? bindTypes = null)
+        public void Expose<TMonoBehaviour>(object? identifier = null, bool useSceneContext = false, bool ifNotBound = true, Func<Context, TMonoBehaviour, bool>? condition = null, IEnumerable<Type>? bindTypes = null)
             where TMonoBehaviour : MonoBehaviour
         {
             bindTypes ??= [typeof(TMonoBehaviour)];
