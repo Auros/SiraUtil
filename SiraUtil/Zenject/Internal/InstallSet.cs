@@ -3,18 +3,19 @@ using System;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal readonly struct InstallSet
+    internal record InstallSet
     {
-        public readonly Type installerType;
-        public readonly IInstallFilter installFilter;
-
-        public readonly object[]? initialParameters;
-
         public InstallSet(Type installerType, IInstallFilter installFilter, object[]? initialParameters = null)
         {
-            this.installerType = installerType;
-            this.installFilter = installFilter;
-            this.initialParameters = initialParameters;
+            InstallerType = installerType;
+            InstallFilter = installFilter;
+            InitialParameters = initialParameters;
         }
+
+        public Type InstallerType { get; }
+
+        public IInstallFilter InstallFilter { get; }
+
+        public object[]? InitialParameters { get; }
     }
 }

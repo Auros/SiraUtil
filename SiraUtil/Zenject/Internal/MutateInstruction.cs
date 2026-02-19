@@ -7,7 +7,7 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal readonly struct MutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour
+    internal record MutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour
     {
         private readonly Action<Context, TMonoBehaviour>? _action;
 
@@ -20,7 +20,7 @@ namespace SiraUtil.Zenject.Internal
 
         public int Order { get; }
 
-        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
+        public void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (monoBehaviour is not TMonoBehaviour tMonoBehaviour)
             {
@@ -31,7 +31,7 @@ namespace SiraUtil.Zenject.Internal
         }
     }
 
-    internal readonly struct MutateInstruction<TMonoBehaviour, TNewComponent> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
+    internal record MutateInstruction<TMonoBehaviour, TNewComponent> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
     {
         private readonly Action<Context, TMonoBehaviour, TNewComponent>? _action;
         private readonly Func<Context, TMonoBehaviour, GameObject>? _gameObjectGetter;
@@ -50,7 +50,7 @@ namespace SiraUtil.Zenject.Internal
 
         public int Order { get; }
 
-        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
+        public void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (monoBehaviour is not TMonoBehaviour tMonoBehaviour)
             {
@@ -93,7 +93,7 @@ namespace SiraUtil.Zenject.Internal
     }
 
     [Obsolete]
-    internal readonly struct SceneDecoratorMutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction
+    internal record SceneDecoratorMutateInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction
     {
         private readonly string _contractName;
         private readonly Action<SceneDecoratorContext, TMonoBehaviour>? _action;
@@ -106,7 +106,7 @@ namespace SiraUtil.Zenject.Internal
 
         public int Order => 0;
 
-        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
+        public void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (context is not SceneDecoratorContext sceneDecoratorContext || sceneDecoratorContext.DecoratedContractName != _contractName || monoBehaviour is not TMonoBehaviour tMonoBehaviour)
             {

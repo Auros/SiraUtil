@@ -12,19 +12,19 @@ namespace SiraUtil.Zenject.Internal.Instructors
         public IInstructor? InstructorForSet(InstallSet installSet)
         {
             // If it's not a component AND it has parameters, its a paramertized instructor.
-            if (!installSet.installerType.IsSubclassOf(typeof(Component)) && installSet.initialParameters is not null)
+            if (!installSet.InstallerType.IsSubclassOf(typeof(Component)) && installSet.InitialParameters is not null)
             {
                 return _parameterizedInstructor;
             }
 
             // If it inherits MonoInstallerBase, it's a mono instructor.
-            if (installSet.installerType.IsSubclassOf(typeof(MonoInstallerBase)))
+            if (installSet.InstallerType.IsSubclassOf(typeof(MonoInstallerBase)))
             {
                 return _monoInstructor;
             }
 
             // If it's not a component, its a typed instructor.
-            if (!installSet.installerType.IsSubclassOf(typeof(Component)))
+            if (!installSet.InstallerType.IsSubclassOf(typeof(Component)))
             {
                 return _typedInstructor;
             }

@@ -4,15 +4,16 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal readonly struct InstallInstruction
+    internal record InstallInstruction
     {
-        public readonly IInstallFilter installFilter;
-        public readonly Action<DiContainer> onInstall;
-
         public InstallInstruction(IInstallFilter installFilter, Action<DiContainer> onInstall)
         {
-            this.onInstall = onInstall;
-            this.installFilter = installFilter;
+            OnInstall = onInstall;
+            InstallFilter = installFilter;
         }
+
+        public IInstallFilter InstallFilter { get; }
+
+        public Action<DiContainer> OnInstall { get; }
     }
 }

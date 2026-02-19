@@ -75,13 +75,13 @@ namespace SiraUtil.Zenject
                 // Install every normal install set.
                 foreach (InstallSet set in zenjector.InstallSets)
                 {
-                    if (set.installFilter.ShouldInstall(context, installerBindings))
+                    if (set.InstallFilter.ShouldInstall(context, installerBindings))
                     {
-                        Plugin.Log.Debug($"Installing: {set.installerType.FullName} onto '{context.name}' ({context.GetType().FullDescription()})");
+                        Plugin.Log.Debug($"Installing: {set.InstallerType.FullName} onto '{context.name}' ({context.GetType().FullDescription()})");
                         IInstructor? instructor = _instructorManager.InstructorForSet(set);
                         if (instructor is null)
                         {
-                            Plugin.Log.Warn($"Could not find instatiation instructor for the type {set.installerType}");
+                            Plugin.Log.Warn($"Could not find instatiation instructor for the type {set.InstallerType}");
                             continue;
                         }
                         instructor.Install(set, context);
@@ -91,9 +91,9 @@ namespace SiraUtil.Zenject
                 // Install every installerless binding set.
                 foreach (InstallInstruction instruction in zenjector.InstallInstructions)
                 {
-                    if (instruction.installFilter.ShouldInstall(context, installerBindings))
+                    if (instruction.InstallFilter.ShouldInstall(context, installerBindings))
                     {
-                        instruction.onInstall(context.Container);
+                        instruction.OnInstall(context.Container);
                     }
                 }
             }

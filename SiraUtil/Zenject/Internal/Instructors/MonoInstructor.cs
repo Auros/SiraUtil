@@ -7,8 +7,8 @@ namespace SiraUtil.Zenject.Internal.Instructors
     {
         public void Install(InstallSet installSet, Context context)
         {
-            Assert.DerivesFrom<MonoInstallerBase>(installSet.installerType);
-            MonoInstaller monoInstaller = (context.gameObject.AddComponent(installSet.installerType) as MonoInstaller)!;
+            Assert.DerivesFrom<MonoInstallerBase>(installSet.InstallerType);
+            MonoInstaller monoInstaller = (context.gameObject.AddComponent(installSet.InstallerType) as MonoInstaller)!;
             if (monoInstaller != null)
             {
                 context._monoInstallers.Add(monoInstaller);

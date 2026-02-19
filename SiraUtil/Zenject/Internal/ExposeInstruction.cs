@@ -8,7 +8,7 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal
 {
-    internal readonly struct ExposeInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour
+    internal record ExposeInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction where TMonoBehaviour : MonoBehaviour
     {
         private readonly object? _identifier;
         private readonly bool _useSceneContext;
@@ -27,7 +27,7 @@ namespace SiraUtil.Zenject.Internal
 
         public int Order => 0;
 
-        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
+        public void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (monoBehaviour is not TMonoBehaviour tMonoBehaviour)
             {
@@ -59,7 +59,7 @@ namespace SiraUtil.Zenject.Internal
     }
 
     [Obsolete]
-    internal readonly struct SceneDecoratorExposeInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction
+    internal record SceneDecoratorExposeInstruction<TMonoBehaviour> : IInjectableMonoBehaviourInstruction
     {
         private readonly string? _contractName;
 
@@ -70,7 +70,7 @@ namespace SiraUtil.Zenject.Internal
 
         public int Order => 0;
 
-        public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
+        public void Apply(Context context, MonoBehaviour monoBehaviour)
         {
             if (monoBehaviour is not TMonoBehaviour tMonoBehaviour || context is not SceneDecoratorContext sceneDecoratorContext || sceneDecoratorContext.DecoratedContractName != _contractName)
             {

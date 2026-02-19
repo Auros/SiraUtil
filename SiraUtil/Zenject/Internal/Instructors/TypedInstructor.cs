@@ -8,8 +8,8 @@ namespace SiraUtil.Zenject.Internal.Instructors
     {
         public void Install(InstallSet installSet, Context context)
         {
-            Assert.That(!installSet.installerType.IsSubclassOf(typeof(Component)));
-            context._normalInstallerTypes.Add(installSet.installerType);
+            Assert.That(!installSet.InstallerType.IsSubclassOf(typeof(Component)));
+            context._normalInstallerTypes.Add(installSet.InstallerType);
         }
     }
 }
