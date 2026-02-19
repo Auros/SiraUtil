@@ -35,9 +35,9 @@ namespace SiraUtil.Zenject
         internal IEnumerable<IInjectableMonoBehaviourInstruction> InjectableMonoBehaviourInstructions => _injectableMonoBehaviourInstructions;
 
         private bool _autoBinded;
-        private readonly HashSet<InstallSet> _installSets = [];
-        private readonly HashSet<InstallInstruction> _installInstructions = [];
-        private readonly HashSet<IInjectableMonoBehaviourInstruction> _injectableMonoBehaviourInstructions = [];
+        private readonly List<InstallSet> _installSets = [];
+        private readonly List<InstallInstruction> _installInstructions = [];
+        private readonly List<IInjectableMonoBehaviourInstruction> _injectableMonoBehaviourInstructions = [];
 
         internal Zenjector(PluginMetadata metadata)
         {
