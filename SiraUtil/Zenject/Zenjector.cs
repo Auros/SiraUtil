@@ -238,11 +238,13 @@ namespace SiraUtil.Zenject
         /// <param name="gameObjectGetter">An optional function to specify on which <see cref="GameObject"/> the <typeparamref name="TNewComponent"/> should be added. If <see langword="null"/>, the new component is added to the same <see cref="GameObject"/> as the <typeparamref name="TMonoBehaviour"/>.</param>
         /// <param name="condition">An optional callback that returns a value indicating whether or not <typeparamref name="TNewComponent"/> should be added given the <typeparamref name="TMonoBehaviour"/> and its associated <see cref="Context"/>.</param>
         /// <param name="bindTypes">An optional enumerable of types against which <typeparamref name="TMonoBehaviour"/> should be bound. If <see langword="null"/>, nothing is bound.</param>
+        /// <param name="order">The order of this mutation. Mutations are applied in ascending order.</param>
         public void Mutate<TMonoBehaviour, TNewComponent>(
             Action<Context, TMonoBehaviour, TNewComponent>? action = null,
             Func<Context, TMonoBehaviour, GameObject>? gameObjectGetter = null,
             Func<Context, TMonoBehaviour, bool>? condition = null,
-            IEnumerable<Type>? bindTypes = null)
+            IEnumerable<Type>? bindTypes = null,
+            int order = 0)
             where TMonoBehaviour : MonoBehaviour where TNewComponent : Component
         {
             if (bindTypes != null && !bindTypes.Any())
@@ -250,7 +252,7 @@ namespace SiraUtil.Zenject
                 throw new ArgumentException("Must bind to at least one type if not null", nameof(bindTypes));
             }
 
-            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action, gameObjectGetter, condition, bindTypes));
+            _injectableMonoBehaviourInstructions.Add(new MutateInstruction<TMonoBehaviour, TNewComponent>(action, gameObjectGetter, condition, bindTypes, order));
         }
 
         /// <summary>

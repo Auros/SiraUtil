@@ -38,15 +38,17 @@ namespace SiraUtil.Zenject.Internal
         private readonly Func<Context, TMonoBehaviour, bool>? _condition;
         private readonly IEnumerable<Type>? _bindTypes;
 
-        internal MutateInstruction(Action<Context, TMonoBehaviour, TNewComponent>? action, Func<Context, TMonoBehaviour, GameObject>? gameObjectGetter, Func<Context, TMonoBehaviour, bool>? condition, IEnumerable<Type>? bindTypes)
+        internal MutateInstruction(Action<Context, TMonoBehaviour, TNewComponent>? action, Func<Context, TMonoBehaviour, GameObject>? gameObjectGetter, Func<Context, TMonoBehaviour, bool>? condition, IEnumerable<Type>? bindTypes, int order)
         {
             _action = action;
             _gameObjectGetter = gameObjectGetter;
             _condition = condition;
             _bindTypes = bindTypes;
+
+            Order = order;
         }
 
-        public int Order => 0;
+        public int Order { get; }
 
         public readonly void Apply(Context context, MonoBehaviour monoBehaviour)
         {
