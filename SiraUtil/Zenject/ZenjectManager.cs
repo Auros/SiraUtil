@@ -42,7 +42,7 @@ namespace SiraUtil.Zenject
             PluginManager.PluginEnabled += PluginManager_PluginEnabled;
             PluginManager.PluginDisabled += PluginManager_PluginDisabled;
             Harmony.ContextDecorator.ContextInstalling += ContextDecorator_ContextInstalling;
-            Harmony.ContextDecorator.InstalledSceneBindings += ContextDecorator_InstalledSceneBindings;
+            Harmony.ContextDecorator.SceneBindingsInstalled += ContextDecorator_SceneBindingsInstalled;
 
             // This will set the default state for every Zenjector when SiraUtil enables.
             foreach (ZenjectorDatum zenDatum in _zenjectors)
@@ -99,7 +99,7 @@ namespace SiraUtil.Zenject
             }
         }
 
-        private void ContextDecorator_InstalledSceneBindings(Context context, List<MonoBehaviour> injectableMonoBehaviours)
+        private void ContextDecorator_SceneBindingsInstalled(Context context, List<MonoBehaviour> injectableMonoBehaviours)
         {
             foreach (IInjectableMonoBehaviourInstruction instruction in _zenjectors.SelectMany(zd => zd.Zenjector.InjectableMonoBehaviourInstructions).OrderBy(i => i.Order))
             {
@@ -112,7 +112,7 @@ namespace SiraUtil.Zenject
 
         public void Disable()
         {
-            Harmony.ContextDecorator.InstalledSceneBindings -= ContextDecorator_InstalledSceneBindings;
+            Harmony.ContextDecorator.SceneBindingsInstalled -= ContextDecorator_SceneBindingsInstalled;
             Harmony.ContextDecorator.ContextInstalling -= ContextDecorator_ContextInstalling;
             PluginManager.PluginDisabled -= PluginManager_PluginDisabled;
             PluginManager.PluginEnabled -= PluginManager_PluginEnabled;

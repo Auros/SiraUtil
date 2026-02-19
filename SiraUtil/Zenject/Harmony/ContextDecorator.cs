@@ -13,7 +13,7 @@ namespace SiraUtil.Zenject.Harmony
         // This set is used to catch any late installing decorators.
         private static readonly HashSet<Context> _recentlyInstalledDecorators = [];
         internal static Action<Context, IEnumerable<Type>>? ContextInstalling;
-        internal static Action<Context, List<MonoBehaviour>>? InstalledSceneBindings;
+        internal static Action<Context, List<MonoBehaviour>>? SceneBindingsInstalled;
 
         [HarmonyPatch(nameof(Context.InstallInstallers))]
         [HarmonyPatch([typeof(List<InstallerBase>), typeof(List<Type>), typeof(List<ScriptableObjectInstaller>), typeof(List<MonoInstaller>), typeof(List<MonoInstaller>)])]
@@ -74,7 +74,7 @@ namespace SiraUtil.Zenject.Harmony
         [HarmonyPostfix]
         internal static void InstallSceneBindings(Context __instance, List<MonoBehaviour> injectableMonoBehaviours)
         {
-            InstalledSceneBindings?.Invoke(__instance, injectableMonoBehaviours);
+            SceneBindingsInstalled?.Invoke(__instance, injectableMonoBehaviours);
         }
     }
 }
