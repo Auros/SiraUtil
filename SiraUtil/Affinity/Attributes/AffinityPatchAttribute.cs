@@ -27,6 +27,7 @@ namespace SiraUtil.Affinity
         /// <param name="methodType">The type of the method.</param>
         /// <param name="argumentVariations">The argument variations of the method.</param>
         /// <param name="argumentTypes">The argument types of the method (for overloads).</param>
+        [Obsolete("Use the overload that has an explicit array for argumentTypes")]
         public AffinityPatchAttribute(Type declaringType, string? methodName = null, AffinityMethodType methodType = AffinityMethodType.Normal, AffinityArgumentType[]? argumentVariations = null, params Type[]? argumentTypes)
         {
             if (methodType is not AffinityMethodType.Constructor and not AffinityMethodType.StaticConstructor && string.IsNullOrEmpty(methodName))
@@ -43,9 +44,35 @@ namespace SiraUtil.Affinity
                 ArgumentVariations = [.. argumentVariations.Select(aat => (ArgumentType)aat)];
             }
 
-            if (argumentTypes is not null)
+            if (argumentTypes is not null && argumentTypes.Length != 0)
             {
                 ArgumentTypes = argumentTypes;
+            }
+        }
+
+        /// <summary>
+        /// The constructor for an Affinity patch.
+        /// </summary>
+        /// <param name="declaringType">The type that the method is on.</param>
+        /// <param name="methodName">The name of the method.</param>
+        /// <param name="methodType">The type of the method.</param>
+        /// <param name="argumentTypes">The argument types of the method (for overloads).</param>
+        /// <param name="argumentVariations">The argument variations of the method.</param>
+        public AffinityPatchAttribute(Type declaringType, string? methodName = null, AffinityMethodType methodType = AffinityMethodType.Normal, Type[]? argumentTypes = null, AffinityArgumentType[]? argumentVariations = null)
+        {
+            if (methodType is not AffinityMethodType.Constructor and not AffinityMethodType.StaticConstructor && string.IsNullOrEmpty(methodName))
+            {
+                throw new ArgumentException($"Method name cannot be null or empty if the method type is not a constructor.", nameof(methodName));
+            }
+
+            MethodName = methodName;
+            DeclaringType = declaringType;
+            MethodType = (MethodType)methodType;
+            ArgumentTypes = argumentTypes;
+
+            if (argumentVariations is not null)
+            {
+                ArgumentVariations = [.. argumentVariations.Select(aat => (ArgumentType)aat)];
             }
         }
 
@@ -54,7 +81,6 @@ namespace SiraUtil.Affinity
         /// </summary>
         public AffinityPatchAttribute()
         {
-
         }
     }
 }

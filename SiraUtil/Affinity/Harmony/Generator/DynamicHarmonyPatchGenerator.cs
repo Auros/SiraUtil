@@ -69,12 +69,8 @@ namespace SiraUtil.Affinity.Harmony.Generator
             string typeName = $"_{patch.MethodName}_{affinityMethod.Name}_{Guid.NewGuid().ToString().Replace("-", "_")}";
             TypeBuilder typeBuilder = _moduleBuilder.DefineType(typeName, TypeAttributes.Public);
 
-            Type[]? types = null;
-            if (patch.ArgumentTypes is not null && patch.ArgumentTypes.Length != 0)
-            {
-                types = patch.ArgumentTypes;
-                ParseSpecialArguments(types, patch.ArgumentVariations);
-            }
+            Type[]? types = patch.ArgumentTypes;
+            ParseSpecialArguments(types, patch.ArgumentVariations);
 
             MethodBase? originalMethod = patch.MethodType switch
             {
@@ -188,9 +184,9 @@ namespace SiraUtil.Affinity.Harmony.Generator
         }
 
         // adapted from https://github.com/pardeike/Harmony/blob/77d37bee5bffd053681b34ba70a650d6d2d45486/Harmony/Public/Attributes.cs#L335-L366
-        private void ParseSpecialArguments(Type[] argumentTypes, ArgumentType[]? argumentVariations)
+        private void ParseSpecialArguments(Type[]? argumentTypes, ArgumentType[]? argumentVariations)
         {
-            if (argumentVariations is null || argumentVariations.Length == 0)
+            if (argumentTypes is null || argumentVariations is null || argumentVariations.Length == 0)
             {
                 return;
             }
