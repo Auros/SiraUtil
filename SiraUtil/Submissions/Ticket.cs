@@ -45,9 +45,10 @@ namespace SiraUtil.Submissions
         public Ticket Copy()
         {
             Ticket ticket = new(Source, Assembly);
-            for (int i = 0; i < _reasons.Count(); i++)
+
+            foreach (string reason in _reasons)
             {
-                ticket.AddReason(_reasons.ElementAt(i));
+                ticket.AddReason(reason);
             }
 
             return ticket;

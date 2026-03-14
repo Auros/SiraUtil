@@ -19,7 +19,7 @@ namespace SiraUtil.Sabers.Effects
     {
         private Saber? _lastSaberA;
         private Saber? _lastSaberB;
-        private readonly HashSet<Saber> _sabers = [];
+        private readonly List<Saber> _sabers = [];
         public event Action<Saber, Saber>? NewSabersClashed;
 
         protected readonly DiContainer _container;
@@ -40,8 +40,16 @@ namespace SiraUtil.Sabers.Effects
 
         private void SiraSaberFactory_SaberCreated(SiraSaber siraSaber)
         {
+            Saber saber = siraSaber.Saber;
+
+            if (_sabers.Contains(saber))
+            {
+                return;
+            }
+
             ExtraSabersDetected = true;
-            _sabers.Add(siraSaber.Saber);
+
+            _sabers.Add(saber);
         }
 
         ~SiraSaberClashChecker()
@@ -68,8 +76,8 @@ namespace SiraUtil.Sabers.Effects
                 {
                     if (i > h)
                     {
-                        Saber saberA = _sabers.ElementAt(i);
-                        Saber saberB = _sabers.ElementAt(h);
+                        Saber saberA = _sabers[i];
+                        Saber saberB = _sabers[h];
                         if (saberA == saberB || saberA == null || saberB == null)
                         {
                             break;
