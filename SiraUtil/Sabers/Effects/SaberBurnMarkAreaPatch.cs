@@ -11,7 +11,7 @@ namespace SiraUtil.Sabers.Effects
     {
         private static readonly MethodInfo _destroyExtraLines = SymbolExtensions.GetMethodInfo(() => DestroyExtraLines(null!));
         private static readonly MethodInfo _evaluateAllRenderers = SymbolExtensions.GetMethodInfo(() => CompareAllRenderers(null!));
-        private static readonly MethodInfo _safeDestroyMethodInfo = SymbolExtensions.GetMethodInfo(() => EssentialHelpers.SafeDestroy(null!));
+        private static readonly MethodInfo _safeDestroyMethodInfo = SymbolExtensions.GetMethodInfo(() => EssentialHelpers.SafeDestroy(null));
         private static readonly FieldInfo _lineRendererInfo = typeof(SaberBurnMarkArea).GetField(nameof(SaberBurnMarkArea._lineRenderers), BindingFlags.NonPublic | BindingFlags.Instance);
         private static readonly FieldInfo _sabersInfo = typeof(SaberBurnMarkArea).GetField(nameof(SaberBurnMarkArea._sabers), BindingFlags.NonPublic | BindingFlags.Instance);
         private static readonly MethodInfo _rendererGetEnabled = typeof(Renderer).GetProperty(nameof(Renderer.enabled), BindingFlags.Public | BindingFlags.Instance).GetMethod;

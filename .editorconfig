@@ -66,6 +66,9 @@ dotnet_diagnostic.IDE0130.severity = suggestion
 # Use primary constructor
 dotnet_diagnostic.IDE0290.severity = suggestion
 
+# Remove unnecessary suppression — seemingly broken on newer versions of .NET when TargetFramework is .NET 4.7.2. Possibly related: https://github.com/dotnet/roslyn/issues/81632, https://github.com/dotnet/roslyn/issues/81843
+dotnet_diagnostic.IDE0370.severity = suggestion
+
 
 [*.{csproj,csproj.user,props,targets}]
 indent_size = 4
