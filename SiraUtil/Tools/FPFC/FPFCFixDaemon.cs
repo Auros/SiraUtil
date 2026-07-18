@@ -12,8 +12,7 @@ namespace SiraUtil.Tools.FPFC
             _fpfcSettings = fpfcSettings;
         }
 
-        [AffinityPatch(typeof(OculusVRHelper), nameof(OculusVRHelper.hasInputFocus), AffinityMethodType.Getter)]
-        [AffinityPatch(typeof(UnityXRHelper), nameof(UnityXRHelper.hasInputFocus), AffinityMethodType.Getter)]
+        [AffinityPatch(typeof(UnityXRSystemState), nameof(UnityXRSystemState.hasInputFocus), AffinityMethodType.Getter)]
         protected void ForceInputFocus(ref bool __result)
         {
             if (_fpfcSettings.Enabled)
@@ -29,6 +28,14 @@ namespace SiraUtil.Tools.FPFC
             {
                 __result = new Vector2(Input.GetAxis("Mouse ScrollWheel"), Input.GetAxis("Mouse ScrollWheel"));
             }
+        }
+
+        [AffinityPatch(typeof(PauseController), nameof(PauseController.HadFpfcEnabledAtInit))]
+        [AffinityPrefix]
+        protected bool HadFpfcEnabledAtInit(ref bool __result)
+        {
+            __result = _fpfcSettings.Enabled;
+            return false;
         }
     }
 }

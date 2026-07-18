@@ -19,9 +19,9 @@
         <PackageId>SiraUtil</PackageId>
         <Title>SiraUtil</Title>
         <Authors>Auros</Authors>
-        <Version>3.4.0</Version>
+        <Version>3.4.1</Version>
         <Description>A powerful utility mod which provides more tools to Beat Saber modders.</Description>
-        <GameVersion>1.42.0</GameVersion>
+        <GameVersion>1.44.2</GameVersion>
         <Icon>SiraUtil.Resources.logo.png</Icon>
     </PropertyGroup>
 
@@ -51,6 +51,7 @@
         <Reference Include="Rendering" />
         <Reference Include="SaberTrail" Publicize="True" />
         <Reference Include="Unity.InputSystem" />
+        <Reference Include="Unity.RenderPipelines.Universal.Runtime" />
         <Reference Include="Unity.TextMeshPro" />
         <Reference Include="Unity.XR.Management" />
         <Reference Include="Unity.XR.OpenXR" />

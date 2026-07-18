@@ -56,7 +56,7 @@ namespace SiraUtil.Zenject.Harmony
 
             if (__instance is AsyncSceneContext asyncSceneContext)
             {
-                foreach (AsyncInstaller? asyncInstaller in asyncSceneContext._asyncInstallers)
+                foreach (IInstaller? asyncInstaller in asyncSceneContext._registry.installers)
                 {
                     installerBindings.Add(asyncInstaller.GetType());
                 }
