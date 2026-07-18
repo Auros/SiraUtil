@@ -10,22 +10,22 @@ namespace SiraUtil.Services
         /// <summary>
         /// 
         /// </summary>
-        event Action<StandardLevelScenesTransitionSetupDataSO, LevelCompletionResults> StandardLevelDidFinish;
+        event Action<StandardLevelScenesTransitionSetupData, LevelCompletionResults> StandardLevelDidFinish;
 
         /// <summary>
         /// 
         /// </summary>
-        event Action<MissionLevelScenesTransitionSetupDataSO, MissionCompletionResults> MissionLevelDidFinish;
+        event Action<MissionLevelScenesTransitionSetupData, MissionCompletionResults> MissionLevelDidFinish;
 
         /// <summary>
         /// 
         /// </summary>
-        event Action<MultiplayerLevelScenesTransitionSetupDataSO, MultiplayerResultsData> MultiplayerLevelDidFinish;
+        event Action<MultiplayerLevelScenesTransitionSetupData, MultiplayerResultsData> MultiplayerLevelDidFinish;
 
         /// <summary>
         /// 
         /// </summary>
-        event Action<MultiplayerLevelScenesTransitionSetupDataSO, DisconnectedReason> LocalPlayerDidDisconnectFromMultiplayer;
+        event Action<MultiplayerLevelScenesTransitionSetupData, DisconnectedReason> LocalPlayerDidDisconnectFromMultiplayer;
 
         /// <summary>
         /// 
