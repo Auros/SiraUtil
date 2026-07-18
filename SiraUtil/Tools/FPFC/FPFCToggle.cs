@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SpatialTracking;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -20,7 +21,6 @@ namespace SiraUtil.Tools.FPFC
         public const string DisableArgument = "--no-sirautil-fpfc";
 
         private Pose? _lastPose = new();
-        private StereoTargetEyeMask _initialStereoTargetEyeMask;
         private SimpleCameraController _simpleCameraController = null!;
 
         private readonly MainCamera _mainCamera;
@@ -63,8 +63,6 @@ namespace SiraUtil.Tools.FPFC
                     await Task.Yield();
                 }
             }
-
-            _initialStereoTargetEyeMask = _mainCamera.camera.stereoTargetEye;
 
             _simpleCameraController = _mainCamera.camera.gameObject.AddComponent<SimpleCameraController>();
             _simpleCameraController.StateChanged += OnCameraControllerStateChanged;
@@ -126,9 +124,11 @@ namespace SiraUtil.Tools.FPFC
 
                 if (camera != null)
                 {
-                    camera.stereoTargetEye = StereoTargetEyeMask.None;
                     camera.fieldOfView = _fpfcSettings.FOV;
                     camera.ResetAspect();
+
+                    UniversalAdditionalCameraData cameraData = camera.GetUniversalAdditionalCameraData();
+                    cameraData.allowXRRendering = false;
                 }
 
                 if (_mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
@@ -139,11 +139,6 @@ namespace SiraUtil.Tools.FPFC
 
             SetControllerEnabled(_menuControllerAccessor.LeftController, false);
             SetControllerEnabled(_menuControllerAccessor.RightController, false);
-
-            if (_pauseController != null)
-            {
-                _pauseController.ignoreHMDUUnmountEvets = true;
-            }
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -164,11 +159,6 @@ namespace SiraUtil.Tools.FPFC
             SetControllerEnabled(_menuControllerAccessor.LeftController, true);
             SetControllerEnabled(_menuControllerAccessor.RightController, true);
 
-            if (_pauseController != null)
-            {
-                _pauseController.ignoreHMDUUnmountEvets = false;
-            }
-
             if (!_fpfcSettings.LockViewOnDisable)
             {
                 _lastPose = new Pose(_simpleCameraController.transform.position, _simpleCameraController.transform.rotation);
@@ -179,7 +169,8 @@ namespace SiraUtil.Tools.FPFC
 
                     if (camera != null)
                     {
-                        camera.stereoTargetEye = _initialStereoTargetEyeMask;
+                        UniversalAdditionalCameraData cameraData = camera.GetUniversalAdditionalCameraData();
+                        cameraData.allowXRRendering = true;
                     }
 
                     if (_mainCamera.TryGetComponent(out TrackedPoseDriver trackedPoseDriver))
