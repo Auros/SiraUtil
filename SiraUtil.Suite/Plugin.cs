@@ -31,8 +31,8 @@ namespace SiraUtil.Suite
             zenjector.Install(Location.Menu, Container => { });
             zenjector.Install<MainSettingsMenuViewControllersInstaller>(Container => { });
 
-            zenjector.Expose<FlickeringNeonSign>("MenuEnvironment");
-            zenjector.Mutate<PlatformLeaderboardViewController>("MenuViewControllers", (_, __) => { });
+            zenjector.Expose<FlickeringNeonSign>();
+            zenjector.Mutate<PlatformLeaderboardViewController>((ctx, plvc) => { });
 
             zenjector.Install<AffinityTestInstaller>(Location.App);
             zenjector.UseLogger(logger);

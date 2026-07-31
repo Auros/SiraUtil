@@ -40,11 +40,6 @@ namespace SiraUtil.Extras
             }
         }
 
-        internal static SetSaberGlowColor[] SaberGlowColors(this SaberModelController saberModelController)
-            => saberModelController._setSaberGlowColors;
-        internal static SetSaberFakeGlowColor[] SaberFakeGlowColors(this SaberModelController saberModelController)
-            => saberModelController._setSaberFakeGlowColors;
-
         internal static void SetColors(this SetSaberGlowColor setSaberGlowColor, Color color)
         {
             MeshRenderer meshRenderer = setSaberGlowColor._meshRenderer;
