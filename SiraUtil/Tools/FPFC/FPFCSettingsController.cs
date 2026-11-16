@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,9 +20,13 @@ namespace SiraUtil.Tools.FPFC
     {
         private readonly FPFCOptions _fpfcOptions;
         private readonly SiraLog _siraLog;
+        private readonly IVRPlatformHelper _vrPlatformHelper;
 
         private readonly InputAction _toggleAction;
         private readonly List<CameraController> _cameraControllers = [];
+
+        private readonly Action<IVRPlatformHelper> invokeInputFocusWasCapturedEvent;
+        private readonly Action<IVRPlatformHelper> invokeInputFocusWasReleasedEvent;
 
         public bool Ignore { [Obsolete] get; private set; }
         public float FOV => _fpfcOptions.CameraFOV;
@@ -55,12 +61,22 @@ namespace SiraUtil.Tools.FPFC
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog, CommandLineParserResult commandLineParserResult)
+        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog, IVRPlatformHelper vrPlatformHelper, CommandLineParserResult commandLineParserResult)
         {
             _fpfcOptions = fpfcOptions;
             _siraLog = siraLog;
+            _vrPlatformHelper = vrPlatformHelper;
             _toggleAction = new InputAction("FPFC Toggle", binding: $"<Keyboard>/{fpfcOptions.ToggleKeyCode}");
             Ignore = !(Enabled = commandLineParserResult.Contains(InitArguments.kFPFCOption));
+
+            Type actualType = _vrPlatformHelper.GetType();
+            MethodInfo invokeAction = typeof(Action).GetMethod("Invoke");
+            ParameterExpression vrPlatformHelperParam = Expression.Parameter(typeof(IVRPlatformHelper), "vrPlatformHelper");
+            MemberExpression eventField = Expression.Field(Expression.Convert(vrPlatformHelperParam, actualType), nameof(IVRPlatformHelper.inputFocusWasCapturedEvent));
+            invokeInputFocusWasCapturedEvent = Expression.Lambda<Action<IVRPlatformHelper>>(Expression.IfThen(Expression.Not(Expression.Equal(eventField, Expression.Constant(null))), Expression.Call(eventField, invokeAction)), vrPlatformHelperParam).Compile();
+
+            eventField = Expression.Field(Expression.Convert(vrPlatformHelperParam, actualType), nameof(IVRPlatformHelper.inputFocusWasReleasedEvent));
+            invokeInputFocusWasReleasedEvent = Expression.Lambda<Action<IVRPlatformHelper>>(Expression.IfThen(Expression.Not(Expression.Equal(eventField, Expression.Constant(null))), Expression.Call(eventField, invokeAction)), vrPlatformHelperParam).Compile();
         }
 
         public void Initialize()
@@ -188,7 +204,23 @@ namespace SiraUtil.Tools.FPFC
 
         private void Toggle()
         {
+            bool hadInputFocus = _vrPlatformHelper.hasInputFocus;
+
             Enabled = !Enabled;
+
+            bool hasInputFocus = _vrPlatformHelper.hasInputFocus;
+
+            if (hadInputFocus != hasInputFocus)
+            {
+                if (hasInputFocus)
+                {
+                    invokeInputFocusWasReleasedEvent(_vrPlatformHelper);
+                }
+                else
+                {
+                    invokeInputFocusWasCapturedEvent(_vrPlatformHelper);
+                }
+            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)
