@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BeatmapEditor3D;
+using HarmonyLib;
 using IPA;
 using IPA.Config.Stores;
 using IPA.Loader;
@@ -55,6 +56,7 @@ namespace SiraUtil
 
             zenjector.Mutate<MainCamera, CameraController>();
             zenjector.Mutate<SmoothCameraController, SmoothCameraListener>();
+            zenjector.Mutate<EditBeatmapNavigationViewController, EditBeatmapNavigationFpfcToggleController>();
 
             zenjector.UseMetadataBinder<Plugin>();
             zenjector.UseLogger(logger);

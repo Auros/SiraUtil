@@ -31,6 +31,7 @@
 
     <ItemGroup>
         <Reference Include="0Harmony" />
+        <Reference Include="BeatSaber.BeatmapEditor" Publicize="True" />
         <Reference Include="BeatSaber.Init" />
         <Reference Include="BeatSaber.Multiplayer.Core" />
         <Reference Include="BeatSaber.ViewSystem" Publicize="True" />
