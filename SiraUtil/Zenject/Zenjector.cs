@@ -175,6 +175,11 @@ namespace SiraUtil.Zenject
             {
                 yield return new ContextedNamedSceneInstallFilter<SceneContext>("StartupError");
             }
+
+            if (location.HasFlag(Location.Project))
+            {
+                yield return new ContextInstallFilter<ProjectContext>();
+            }
         }
 
         /// <summary>

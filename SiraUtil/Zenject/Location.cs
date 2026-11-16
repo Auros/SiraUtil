@@ -1,4 +1,5 @@
 ﻿using System;
+using Zenject;
 
 namespace SiraUtil.Zenject
 {
@@ -96,5 +97,10 @@ namespace SiraUtil.Zenject
         /// Installs your bindings onto the startup error scene.
         /// </summary>
         StartupError = 0x2000,
+
+        /// <summary>
+        /// Installs your bindings onto the <see cref="ProjectContext"/>.
+        /// </summary>
+        Project = 0x4000,
     }
 }

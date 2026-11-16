@@ -13,9 +13,6 @@ namespace SiraUtil.Zenject
 {
     internal class ZenjectManager
     {
-        public static bool InitialSceneConstructionRegistered { get; private set; }
-        private const string _initialContextName = "AppCoreSceneContext";
-
         private readonly HashSet<ZenjectorDatum> _zenjectors = [];
         private readonly InstructorManager _instructorManager = new();
 
@@ -53,16 +50,6 @@ namespace SiraUtil.Zenject
 
         private void ContextDecorator_ContextInstalling(Context context, IEnumerable<Type> installerBindings)
         {
-            if (context.name == _initialContextName)
-            {
-                InitialSceneConstructionRegistered = true;
-            }
-
-            if (!InitialSceneConstructionRegistered)
-            {
-                return;
-            }
-
             foreach (ZenjectorDatum zenDatum in _zenjectors)
             {
                 if (!zenDatum.Enabled)

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace SiraUtil.Zenject.Internal.Filters
 {
-    internal class ContextedNamedSceneInstallFilter<T> : IInstallFilter where T : Context
+    internal class ContextedNamedSceneInstallFilter<T> : ContextInstallFilter<T> where T : Context
     {
         private readonly string _sceneName;
 
@@ -13,9 +13,9 @@ namespace SiraUtil.Zenject.Internal.Filters
             _sceneName = sceneName;
         }
 
-        public bool ShouldInstall(Context context, IEnumerable<Type> installerBindings)
+        public override bool ShouldInstall(Context context, IEnumerable<Type> installerBindings)
         {
-            return context.GetType() == typeof(T) && context.gameObject.scene.name == _sceneName;
+            return base.ShouldInstall(context, installerBindings) && context.gameObject.scene.name == _sceneName;
         }
     }
 }
