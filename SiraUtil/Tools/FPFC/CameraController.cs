@@ -5,6 +5,7 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SpatialTracking;
 using Zenject;
 
@@ -20,6 +21,7 @@ namespace SiraUtil.Tools.FPFC
         private IMenuControllerAccessor? _menuControllerAccessor;
 
         private Camera _camera = null!;
+        private UniversalAdditionalCameraData _cameraData = null!;
         private TrackedPoseDriver _trackedPoseDriver = null!;
 
         private float mouseSensitivity = 5f;
@@ -38,6 +40,7 @@ namespace SiraUtil.Tools.FPFC
         protected void Awake()
         {
             _camera = GetComponent<Camera>();
+            _cameraData = _camera.GetUniversalAdditionalCameraData();
             _trackedPoseDriver = GetComponent<TrackedPoseDriver>();
         }
 
@@ -184,9 +187,13 @@ namespace SiraUtil.Tools.FPFC
 
             if (_camera != null)
             {
-                _camera.stereoTargetEye = StereoTargetEyeMask.None;
                 _camera.fieldOfView = _fpfcManager!.FOV;
                 _camera.ResetAspect();
+            }
+
+            if (_cameraData != null)
+            {
+                _cameraData.allowXRRendering = false;
             }
 
             if (_trackedPoseDriver)
@@ -210,11 +217,6 @@ namespace SiraUtil.Tools.FPFC
         {
             InputSystem.onBeforeUpdate -= OnBeforeUpdate;
 
-            if (_camera != null)
-            {
-                _camera.stereoTargetEye = StereoTargetEyeMask.Both;
-            }
-
             if (_menuControllerAccessor != null)
             {
                 SetControllerEnabled(_menuControllerAccessor.LeftController, true);
@@ -223,6 +225,11 @@ namespace SiraUtil.Tools.FPFC
 
             if (!_fpfcManager!.LockViewOnDisable)
             {
+                if (_cameraData != null)
+                {
+                    _cameraData.allowXRRendering = true;
+                }
+
                 if (_trackedPoseDriver)
                 {
                     _trackedPoseDriver.enabled = true;

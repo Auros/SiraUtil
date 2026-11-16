@@ -1,5 +1,6 @@
 ﻿using IPA.Logging;
 using SiraUtil.Logging;
+using SiraUtil.Tools.FPFC;
 using SiraUtil.Web;
 using SiraUtil.Web.SiraSync;
 using SiraUtil.Web.SiraSync.Zenject;
@@ -30,6 +31,8 @@ namespace SiraUtil.Installers
         {
             Container.Bind<SiraLog>().AsTransient().OnInstantiated<SiraLog>(SiraLogCreated);
             Container.Bind<Logger>().FromMethod(CreateIPAChildLogger).AsTransient();
+
+            Container.Bind<XRHelper>().AsSingle();
 
             _siraLogManager.Clear();
             _httpServiceManager.Clear();

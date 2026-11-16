@@ -101,7 +101,7 @@ namespace SiraUtil.Zenject
             }
         }
 
-        private void ContextDecorator_AsyncSceneContextInstallersLoading(AsyncSceneContext asyncSceneContext, IEnumerable<Type> installerBindings)
+        private void ContextDecorator_AsyncSceneContextInstallersLoading(AsyncSceneContext asyncSceneContext, AsyncSceneContextLoadersQueue queue, IEnumerable<Type> installerBindings)
         {
             foreach (ZenjectorDatum zenDatum in _zenjectors.Where(z => z.Enabled))
             {
@@ -114,7 +114,7 @@ namespace SiraUtil.Zenject
 
                         // AsyncSceneContext.InstallInstallers takes care of injecting the behaviour
                         AsyncInstaller asyncInstaller = (AsyncInstaller)asyncSceneContext.gameObject.AddComponent(set.InstallerType);
-                        asyncSceneContext._asyncInstallers.Add(asyncInstaller);
+                        queue._loadersQueue[(int)AsyncLoader.SynchronizationStep.AfterAsyncInstallers]._asyncLoaders.Add(asyncInstaller);
                     }
                 }
             }

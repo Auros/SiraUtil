@@ -2,6 +2,7 @@
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +14,7 @@ namespace SiraUtil.Zenject.Harmony
         // This set is used to catch any late installing decorators.
         private static readonly HashSet<Context> _recentlyInstalledDecorators = [];
         internal static Action<Context, IEnumerable<Type>>? ContextInstalling;
-        internal static Action<AsyncSceneContext, IEnumerable<Type>>? AsyncSceneContextInstallersLoading;
+        internal static Action<AsyncSceneContext, AsyncSceneContextLoadersQueue, IEnumerable<Type>>? AsyncSceneContextInstallersLoading;
         internal static Action<Context, List<MonoBehaviour>>? SceneBindingsInstalled;
 
         [HarmonyPatch(nameof(Context.InstallInstallers))]
@@ -57,7 +58,7 @@ namespace SiraUtil.Zenject.Harmony
 
             if (__instance is AsyncSceneContext asyncSceneContext)
             {
-                foreach (AsyncInstaller? asyncInstaller in asyncSceneContext._asyncInstallers)
+                foreach (IInstaller? asyncInstaller in asyncSceneContext._registry.installers)
                 {
                     installerBindings.Add(asyncInstaller.GetType());
                 }
@@ -109,12 +110,14 @@ namespace SiraUtil.Zenject.Harmony
                 installerBindings.Add(installerPrefab.GetType());
             }
 
-            foreach (AsyncInstaller asyncInstaller in __instance._asyncInstallers)
+            AsyncSceneContextLoadersQueue queue = __instance.GetComponent<AsyncSceneContextLoadersQueue>();
+
+            foreach (IInstaller asyncInstaller in queue.loadersQueue.SelectMany(lq => lq.asyncLoaders).OfType<IInstaller>())
             {
                 installerBindings.Add(asyncInstaller.GetType());
             }
 
-            AsyncSceneContextInstallersLoading?.Invoke(__instance, installerBindings);
+            AsyncSceneContextInstallersLoading?.Invoke(__instance, queue, installerBindings);
         }
     }
 }

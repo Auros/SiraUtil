@@ -1,17 +1,14 @@
 using BeatSaber.Init;
 using BGLib.DotnetExtension.CommandLine;
 using IPA.Utilities.Async;
-using SiraUtil.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Management;
 using Zenject;
 
 namespace SiraUtil.Tools.FPFC
@@ -19,14 +16,13 @@ namespace SiraUtil.Tools.FPFC
     internal class FPFCSettingsController : IFPFCManager, IFPFCSettings, IInitializable, IDisposable
     {
         private readonly FPFCOptions _fpfcOptions;
-        private readonly SiraLog _siraLog;
-        private readonly IVRPlatformHelper _vrPlatformHelper;
+        private readonly IXRSystemState _xrSystemState;
+        private readonly XRHelper _xrHelper;
 
         private readonly InputAction _toggleAction;
         private readonly List<CameraController> _cameraControllers = [];
 
-        private readonly Action<IVRPlatformHelper> invokeInputFocusWasCapturedEvent;
-        private readonly Action<IVRPlatformHelper> invokeInputFocusWasReleasedEvent;
+        private readonly Action<UnityXRSystemState, XRSystemEventType> invokeOnChangeStateEvent;
 
         public bool Ignore { [Obsolete] get; private set; }
         public float FOV => _fpfcOptions.CameraFOV;
@@ -61,22 +57,19 @@ namespace SiraUtil.Tools.FPFC
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog, IVRPlatformHelper vrPlatformHelper, CommandLineParserResult commandLineParserResult)
+        public FPFCSettingsController(FPFCOptions fpfcOptions, IXRSystemState xrSystemState, XRHelper xrHelper, CommandLineParserResult commandLineParserResult)
         {
             _fpfcOptions = fpfcOptions;
-            _siraLog = siraLog;
-            _vrPlatformHelper = vrPlatformHelper;
+            _xrSystemState = xrSystemState;
+            _xrHelper = xrHelper;
             _toggleAction = new InputAction("FPFC Toggle", binding: $"<Keyboard>/{fpfcOptions.ToggleKeyCode}");
             Ignore = !(Enabled = commandLineParserResult.Contains(InitArguments.kFPFCOption));
 
-            Type actualType = _vrPlatformHelper.GetType();
-            MethodInfo invokeAction = typeof(Action).GetMethod("Invoke");
-            ParameterExpression vrPlatformHelperParam = Expression.Parameter(typeof(IVRPlatformHelper), "vrPlatformHelper");
-            MemberExpression eventField = Expression.Field(Expression.Convert(vrPlatformHelperParam, actualType), nameof(IVRPlatformHelper.inputFocusWasCapturedEvent));
-            invokeInputFocusWasCapturedEvent = Expression.Lambda<Action<IVRPlatformHelper>>(Expression.IfThen(Expression.Not(Expression.Equal(eventField, Expression.Constant(null))), Expression.Call(eventField, invokeAction)), vrPlatformHelperParam).Compile();
-
-            eventField = Expression.Field(Expression.Convert(vrPlatformHelperParam, actualType), nameof(IVRPlatformHelper.inputFocusWasReleasedEvent));
-            invokeInputFocusWasReleasedEvent = Expression.Lambda<Action<IVRPlatformHelper>>(Expression.IfThen(Expression.Not(Expression.Equal(eventField, Expression.Constant(null))), Expression.Call(eventField, invokeAction)), vrPlatformHelperParam).Compile();
+            MethodInfo invokeAction = typeof(Action<XRSystemEventType>).GetMethod("Invoke");
+            ParameterExpression systemStateParam = Expression.Parameter(typeof(UnityXRSystemState), "xrSystemState");
+            ParameterExpression eventTypeParam = Expression.Parameter(typeof(XRSystemEventType), "xrSystemEventType");
+            MemberExpression eventField = Expression.Field(systemStateParam, "_onChangeStateEvent");
+            invokeOnChangeStateEvent = Expression.Lambda<Action<UnityXRSystemState, XRSystemEventType>>(Expression.IfThen(Expression.Not(Expression.Equal(eventField, Expression.Constant(null))), Expression.Call(eventField, invokeAction, eventTypeParam)), systemStateParam, eventTypeParam).Compile();
         }
 
         public void Initialize()
@@ -91,12 +84,6 @@ namespace SiraUtil.Tools.FPFC
 
             _toggleAction.performed -= OnToggleActionPerformed;
             _toggleAction.Dispose();
-
-            // re-enable the XR loader when disposed so an internal restart doesn't fail due to OpenXR not running
-            if (Enabled)
-            {
-                Enabled = false;
-            }
         }
 
         public void Add(CameraController cameraController)
@@ -144,11 +131,11 @@ namespace SiraUtil.Tools.FPFC
 
             if (Enabled)
             {
-                DeinitializeXRLoader();
+                _xrHelper.DeinitializeXRLoader();
             }
             else
             {
-                InitializeXRLoader();
+                _xrHelper.InitializeXRLoader();
             }
         }
 
@@ -160,41 +147,6 @@ namespace SiraUtil.Tools.FPFC
             NotifyPropertyChanged(null);
         }
 
-        // we unfortunately need to fully deinitialize/initialize the XR loader since OpenXR doesn't simply stop/start properly
-        private void InitializeXRLoader()
-        {
-            XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
-
-            if (manager.activeLoader != null || !manager.activeLoaders.Any(l => l != null))
-            {
-                return;
-            }
-
-            _siraLog.Notice("Enabling XR Loader");
-            manager.InitializeLoaderSync();
-
-            if (!manager.isInitializationComplete)
-            {
-                _siraLog.Error("Failed to initialize XR loader");
-                return;
-            }
-
-            manager.StartSubsystems();
-        }
-
-        private void DeinitializeXRLoader()
-        {
-            XRManagerSettings manager = XRGeneralSettings.Instance.Manager;
-
-            if (manager.activeLoader == null)
-            {
-                return;
-            }
-
-            _siraLog.Notice("Disabling XR Loader");
-            manager.DeinitializeLoader();
-        }
-
         private void OnToggleActionPerformed(InputAction.CallbackContext ctx)
         {
             // enabling/disabling the XR loader causes input devices to change; doing that inside an input update
@@ -204,22 +156,15 @@ namespace SiraUtil.Tools.FPFC
 
         private void Toggle()
         {
-            bool hadInputFocus = _vrPlatformHelper.hasInputFocus;
+            bool hadInputFocus = _xrSystemState.hasInputFocus;
 
             Enabled = !Enabled;
 
-            bool hasInputFocus = _vrPlatformHelper.hasInputFocus;
+            bool hasInputFocus = _xrSystemState.hasInputFocus;
 
-            if (hadInputFocus != hasInputFocus)
+            if (hadInputFocus != hasInputFocus && _xrSystemState is UnityXRSystemState unityXRSystemState)
             {
-                if (hasInputFocus)
-                {
-                    invokeInputFocusWasReleasedEvent(_vrPlatformHelper);
-                }
-                else
-                {
-                    invokeInputFocusWasCapturedEvent(_vrPlatformHelper);
-                }
+                invokeOnChangeStateEvent(unityXRSystemState, hasInputFocus ? XRSystemEventType.InputFocusAcquired : XRSystemEventType.InputFocusLost);
             }
         }
 

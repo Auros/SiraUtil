@@ -12,14 +12,14 @@ namespace SiraUtil.Services.Events
         public event Action<MissionCompletionResults>? MissionLevelFinished;
         public event Action<DisconnectedReason>? MultiplayerLevelDisconnected;
         public event Action<MultiplayerResultsData>? MultiplayerLevelFinished;
-        public event Action<StandardLevelScenesTransitionSetupDataSO, LevelCompletionResults>? StandardLevelDidFinish;
-        public event Action<MissionLevelScenesTransitionSetupDataSO, MissionCompletionResults>? MissionLevelDidFinish;
-        public event Action<MultiplayerLevelScenesTransitionSetupDataSO, DisconnectedReason>? LocalPlayerDidDisconnectFromMultiplayer;
-        public event Action<MultiplayerLevelScenesTransitionSetupDataSO, MultiplayerResultsData>? MultiplayerLevelDidFinish;
+        public event Action<StandardLevelScenesTransitionSetupData, LevelCompletionResults>? StandardLevelDidFinish;
+        public event Action<MissionLevelScenesTransitionSetupData, MissionCompletionResults>? MissionLevelDidFinish;
+        public event Action<MultiplayerLevelScenesTransitionSetupData, DisconnectedReason>? LocalPlayerDidDisconnectFromMultiplayer;
+        public event Action<MultiplayerLevelScenesTransitionSetupData, MultiplayerResultsData>? MultiplayerLevelDidFinish;
 
         [AffinityPrefix]
         [AffinityPatch(typeof(MenuTransitionsHelper), nameof(MenuTransitionsHelper.HandleMultiplayerLevelDidDisconnect))]
-        private void SiraEvents_MultiplayerDisconnected(MultiplayerLevelScenesTransitionSetupDataSO multiplayerLevelScenesTransitionSetupData, DisconnectedReason disconnectedReason)
+        private void SiraEvents_MultiplayerDisconnected(MultiplayerLevelScenesTransitionSetupData multiplayerLevelScenesTransitionSetupData, DisconnectedReason disconnectedReason)
         {
             LocalPlayerDidDisconnectFromMultiplayer?.Invoke(multiplayerLevelScenesTransitionSetupData, disconnectedReason);
             MultiplayerLevelDisconnected?.Invoke(disconnectedReason);
@@ -27,7 +27,7 @@ namespace SiraUtil.Services.Events
 
         [AffinityPrefix]
         [AffinityPatch(typeof(MenuTransitionsHelper), nameof(MenuTransitionsHelper.HandleMissionLevelSceneDidFinish))]
-        private void SiraEvents_MissionFinish(MissionLevelScenesTransitionSetupDataSO missionLevelScenesTransitionSetupData, MissionCompletionResults missionCompletionResults)
+        private void SiraEvents_MissionFinish(MissionLevelScenesTransitionSetupData missionLevelScenesTransitionSetupData, MissionCompletionResults missionCompletionResults)
         {
             MissionLevelDidFinish?.Invoke(missionLevelScenesTransitionSetupData, missionCompletionResults);
             MissionLevelFinished?.Invoke(missionCompletionResults);
@@ -35,7 +35,7 @@ namespace SiraUtil.Services.Events
 
         [AffinityPrefix]
         [AffinityPatch(typeof(MenuTransitionsHelper), nameof(MenuTransitionsHelper.HandleMainGameSceneDidFinish))]
-        private void SiraEvents_StandardFinished(StandardLevelScenesTransitionSetupDataSO standardLevelScenesTransitionSetupData, LevelCompletionResults levelCompletionResults)
+        private void SiraEvents_StandardFinished(StandardLevelScenesTransitionSetupData standardLevelScenesTransitionSetupData, LevelCompletionResults levelCompletionResults)
         {
             StandardLevelDidFinish?.Invoke(standardLevelScenesTransitionSetupData, levelCompletionResults);
             StandardLevelFinished?.Invoke(levelCompletionResults);
@@ -43,7 +43,7 @@ namespace SiraUtil.Services.Events
 
         [AffinityPrefix]
         [AffinityPatch(typeof(MenuTransitionsHelper), nameof(MenuTransitionsHelper.HandleMultiplayerLevelDidFinish))]
-        private void SiraEvents_MultiplayerFinished(MultiplayerLevelScenesTransitionSetupDataSO multiplayerLevelScenesTransitionSetupData, MultiplayerResultsData multiplayerResultsData)
+        private void SiraEvents_MultiplayerFinished(MultiplayerLevelScenesTransitionSetupData multiplayerLevelScenesTransitionSetupData, MultiplayerResultsData multiplayerResultsData)
         {
             MultiplayerLevelDidFinish?.Invoke(multiplayerLevelScenesTransitionSetupData, multiplayerResultsData);
             MultiplayerLevelFinished?.Invoke(multiplayerResultsData);

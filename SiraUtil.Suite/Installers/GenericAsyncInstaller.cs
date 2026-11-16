@@ -11,11 +11,6 @@ namespace SiraUtil.Suite.Installers
             Plugin.Log.Info("GenericAsyncInstaller.InstallBindings");
         }
 
-        protected override void LoadResourcesBeforeInstall(IInstallerRegistry registry, DiContainer container)
-        {
-            Plugin.Log.Info("GenericAsyncInstaller.LoadResourcesBeforeInstall");
-        }
-
         protected override Task LoadResourcesBeforeInstallAsync(IInstallerRegistry registry, DiContainer container)
         {
             Plugin.Log.Info("GenericAsyncInstaller.LoadResourcesBeforeInstallAsync");
