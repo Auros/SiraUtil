@@ -13,6 +13,7 @@ namespace SiraUtil.Zenject.Harmony
         // This set is used to catch any late installing decorators.
         private static readonly HashSet<Context> _recentlyInstalledDecorators = [];
         internal static Action<Context, IEnumerable<Type>>? ContextInstalling;
+        internal static Action<AsyncSceneContext, IEnumerable<Type>>? AsyncSceneContextInstallersLoading;
         internal static Action<Context, List<MonoBehaviour>>? SceneBindingsInstalled;
 
         [HarmonyPatch(nameof(Context.InstallInstallers))]
@@ -75,6 +76,45 @@ namespace SiraUtil.Zenject.Harmony
         internal static void InstallSceneBindings(Context __instance, List<MonoBehaviour> injectableMonoBehaviours)
         {
             SceneBindingsInstalled?.Invoke(__instance, injectableMonoBehaviours);
+        }
+
+        [HarmonyPatch(typeof(AsyncSceneContext), nameof(AsyncSceneContext.LoadInstallersAsync))]
+        [HarmonyPrefix]
+        internal static void AsyncSceneContext_LoadInstallersAsync(AsyncSceneContext __instance)
+        {
+            HashSet<Type> installerBindings = [];
+
+            foreach (InstallerBase normalInstaller in __instance.NormalInstallers)
+            {
+                installerBindings.Add(normalInstaller.GetType());
+            }
+
+            foreach (Type normalInstallerType in __instance.NormalInstallerTypes)
+            {
+                installerBindings.Add(normalInstallerType);
+            }
+
+            foreach (ScriptableObjectInstaller scriptableObjectInstaller in __instance.ScriptableObjectInstallers)
+            {
+                installerBindings.Add(scriptableObjectInstaller.GetType());
+            }
+
+            foreach (MonoInstaller installer in __instance.Installers)
+            {
+                installerBindings.Add(installer.GetType());
+            }
+
+            foreach (MonoInstaller installerPrefab in __instance.InstallerPrefabs)
+            {
+                installerBindings.Add(installerPrefab.GetType());
+            }
+
+            foreach (AsyncInstaller asyncInstaller in __instance._asyncInstallers)
+            {
+                installerBindings.Add(asyncInstaller.GetType());
+            }
+
+            AsyncSceneContextInstallersLoading?.Invoke(__instance, installerBindings);
         }
     }
 }
