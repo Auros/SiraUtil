@@ -78,7 +78,7 @@ namespace SiraUtil.Sabers.Effects
         private static void Blit(SaberBurnMarkArea __instance, bool first)
         {
             // only fade the first blit, just write the marks for any subsequent ones
-            float value = first ? Mathf.Max(0f, 1f - (Time.deltaTime * __instance._burnMarksFadeOutStrength)) : 0;
+            float value = first ? Time.deltaTime / Mathf.Max(Time.deltaTime, __instance._burnMarksFadeOutDurationSeconds) : 0;
             __instance._fadeOutMaterial.SetFloat(SaberBurnMarkArea._fadeOutStrengthShaderPropertyID, value);
 
             RenderTexture[] renderTextures = __instance._renderTextures;
