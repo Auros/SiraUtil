@@ -20,6 +20,11 @@ namespace SiraUtil.Tools.FPFC
         bool Enabled { get; set; }
 
         /// <summary>
+        /// Whether or not the camera is currently being controlled by FPFC.
+        /// </summary>
+        bool Active { get; }
+
+        /// <summary>
         /// The arbituary move sensitivity.
         /// </summary>
         [Obsolete("To be removed with no alternative.")]

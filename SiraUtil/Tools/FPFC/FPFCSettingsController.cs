@@ -38,8 +38,11 @@ namespace SiraUtil.Tools.FPFC
 
                 Changed?.Invoke(this);
                 NotifyPropertyChanged();
+                NotifyPropertyChanged(nameof(Active));
             }
         }
+
+        public bool Active => Enabled && _cameraControllers.Count > 0;
 
         public bool LockViewOnDisable => _fpfcOptions.LockViewOnDisable;
 
@@ -93,6 +96,7 @@ namespace SiraUtil.Tools.FPFC
             ApplyState();
 
             Changed?.Invoke(this);
+            NotifyPropertyChanged(nameof(Active));
         }
 
         public void Remove(CameraController cameraController)
@@ -110,14 +114,13 @@ namespace SiraUtil.Tools.FPFC
             ApplyState();
 
             Changed?.Invoke(this);
+            NotifyPropertyChanged(nameof(Active));
         }
 
         private void ApplyState()
         {
-            bool active = Enabled && _cameraControllers.Count > 0;
-
-            Cursor.lockState = active ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !active;
+            Cursor.lockState = Active ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !Active;
 
             Application.targetFrameRate = Enabled && LimitFrameRate ? (int)Math.Round(Screen.currentResolution.refreshRateRatio.value) : -1;
             QualitySettings.vSyncCount = Enabled ? VSyncCount : 0;
