@@ -9,6 +9,7 @@ namespace SiraUtil.Tweaks
     [HarmonyPatch(typeof(SettingsApplicatorSO), nameof(SettingsApplicatorSO.ApplyGraphicSettings))]
     internal class DontCallSetTrackingSpaceType
     {
+#pragma warning disable CS0618
         private static readonly MethodInfo XRDeviceSetTrackingSpaceTypeMethod = AccessTools.DeclaredMethod(typeof(XRDevice), nameof(XRDevice.SetTrackingSpaceType));
 
         private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -19,5 +20,6 @@ namespace SiraUtil.Tweaks
                 .RemoveInstructions(3)
                 .InstructionEnumeration();
         }
+#pragma warning restore CS0618
     }
 }
