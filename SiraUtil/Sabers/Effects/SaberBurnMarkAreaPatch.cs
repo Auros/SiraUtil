@@ -1,7 +1,4 @@
 ﻿using HarmonyLib;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Emit;
 using UnityEngine;
 
 namespace SiraUtil.Sabers.Effects
@@ -9,135 +6,86 @@ namespace SiraUtil.Sabers.Effects
     [HarmonyPatch(typeof(SaberBurnMarkArea))]
     internal class SaberBurnMarkAreaPatch
     {
-        private static readonly MethodInfo _destroyExtraLines = SymbolExtensions.GetMethodInfo(() => DestroyExtraLines(null!));
-        private static readonly MethodInfo _evaluateAllRenderers = SymbolExtensions.GetMethodInfo(() => CompareAllRenderers(null!));
-        private static readonly MethodInfo _safeDestroyMethodInfo = SymbolExtensions.GetMethodInfo(() => EssentialHelpers.SafeDestroy(null));
-        private static readonly FieldInfo _lineRendererInfo = typeof(SaberBurnMarkArea).GetField(nameof(SaberBurnMarkArea._lineRenderers), BindingFlags.NonPublic | BindingFlags.Instance);
-        private static readonly FieldInfo _sabersInfo = typeof(SaberBurnMarkArea).GetField(nameof(SaberBurnMarkArea._sabers), BindingFlags.NonPublic | BindingFlags.Instance);
-        private static readonly MethodInfo _rendererGetEnabled = typeof(Renderer).GetProperty(nameof(Renderer.enabled), BindingFlags.Public | BindingFlags.Instance).GetMethod;
-
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(SaberBurnMarkArea.OnEnable))]
-        internal static void DynamicEnable(ref LineRenderer[] ____lineRenderers)
-        {
-            if (____lineRenderers is not null && ____lineRenderers.Length > 2)
-            {
-                for (int i = 2; i < ____lineRenderers.Length; i++)
-                {
-                    ____lineRenderers[i].gameObject.SetActive(true);
-                }
-            }
-        }
-
-        [HarmonyPostfix]
-        [HarmonyPatch(nameof(SaberBurnMarkArea.OnDisable))]
-        internal static void DynamicDisable(ref LineRenderer[] ____lineRenderers)
-        {
-            if (____lineRenderers is not null && ____lineRenderers.Length > 2)
-            {
-                for (int i = 2; i < ____lineRenderers.Length; i++)
-                {
-                    ____lineRenderers[i].gameObject.SetActive(false);
-                }
-            }
-        }
-
-        [HarmonyTranspiler]
+        [HarmonyPrefix]
+        [HarmonyPriority(Priority.Last)]
         [HarmonyPatch(nameof(SaberBurnMarkArea.LateUpdate))]
-        internal static IEnumerable<CodeInstruction> DynamicUpdate(IEnumerable<CodeInstruction> instructions)
+        internal static bool SaberBurnMarkArea_LateUpdate(SaberBurnMarkArea __instance)
         {
-            return new CodeMatcher(instructions)
-                // replace hardcoded 2 in `for (int i = 0; i < 2; i++)` with length of _sabers array
-                .MatchForward(
-                    false,
-                    new CodeMatch(OpCodes.Ldc_I4_2),
-                    new CodeMatch(OpCodes.Blt))
-                .ThrowIfInvalid("Ldc_I4_2 not found")
-                .RemoveInstruction()
-                .InsertAndAdvance(
-                    new CodeInstruction(OpCodes.Ldarg_0),
-                    new CodeInstruction(OpCodes.Ldfld, _sabersInfo),
-                    new CodeInstruction(OpCodes.Ldlen),
-                    new CodeInstruction(OpCodes.Conv_I4))
-                // remove hardcoded check of _lineRenderers at index 0 and 1 with check on everything in the array
-                // `if (_lineRenderers[0].enabled || _lineRenderers[1].enabled)`
-                .MatchForward(
-                    false,
-                    new CodeMatch(OpCodes.Ldarg_0),
-                    new CodeMatch(i => i.LoadsField(_lineRendererInfo)),
-                    new CodeMatch(OpCodes.Ldc_I4_0),
-                    new CodeMatch(OpCodes.Ldelem_Ref),
-                    new CodeMatch(i => i.Calls(_rendererGetEnabled)),
-                    new CodeMatch(OpCodes.Brtrue),
-                    new CodeMatch(OpCodes.Ldarg_0),
-                    new CodeMatch(i => i.LoadsField(_lineRendererInfo)),
-                    new CodeMatch(OpCodes.Ldc_I4_1),
-                    new CodeMatch(OpCodes.Ldelem_Ref),
-                    new CodeMatch(i => i.Calls(_rendererGetEnabled)),
-                    new CodeMatch(OpCodes.Brfalse))
-                .ThrowIfInvalid("_lineRenderers comparison not found")
-                .Advance(2) // keep _lineRenderers field load
-                .RemoveInstructions(9) // remove everything until the final brfalse
-                .InsertAndAdvance(new CodeInstruction(OpCodes.Call, _evaluateAllRenderers))
-                .InstructionEnumeration();
-        }
-
-        // This destroys the other line renderers in between where the first ones were destroyed and when the fade out material is destroyed.
-        [HarmonyTranspiler]
-        [HarmonyPatch(nameof(SaberBurnMarkArea.OnDestroy))]
-        internal static IEnumerable<CodeInstruction> DynamicDestroy(IEnumerable<CodeInstruction> instructions)
-        {
-            List<CodeInstruction> codes = [.. instructions];
-            for (int i = 0; i < codes.Count; i++)
+            if (!__instance._sabers[0])
             {
-                if (codes[i].Calls(_safeDestroyMethodInfo))
+                return false;
+            }
+
+            Transform transform = __instance.transform;
+            Plane plane = new(transform.up, transform.position);
+
+            int idx = 0;
+            bool first = true;
+            bool any = false;
+
+            for (int i = 0; i < __instance._sabers.Length; i++)
+            {
+                Saber saber = __instance._sabers[i];
+                Vector3 burnMarkPos = Vector3.zero;
+                bool valid = saber.isActiveAndEnabled && SaberBurnMarkArea.GetBurnMarkPos(transform, in __instance._bounds, in plane, saber.saberBladeBottomPosForVisualEffects, saber.saberBladeTopPosForVisualEffects, out burnMarkPos);
+                Vector2 pos = valid ? __instance.WorldToNormalized(burnMarkPos) : Vector3.zero;
+                if (valid && __instance._prevBurnMarkPosValid[i])
                 {
-                    while (i > 0 && codes[i].opcode != OpCodes.Ldarg_0)
-                    {
-                        i--; // Move backwards until we get to the start of the SafeDestroy sequence.
-                    }
-                    int insertIndex = i;
-                    while (i > 0 && codes[i].opcode != OpCodes.Ldfld)
-                    {
-                        i--; // Move backwards until we get the operand of the line renderers.
-                    }
-                    object lineRendererOperand = codes[i].operand;
-                    codes.InsertRange(insertIndex,
-                    [
-                        new(OpCodes.Ldarg_0),
-                        new(OpCodes.Ldfld, lineRendererOperand),
-                        new(OpCodes.Callvirt, _destroyExtraLines)
-                    ]);
-                    break;
+                    Vector2 prevPos = __instance._prevBurnMarkPos[i];
+                    __instance._fadeOutMaterial.SetVector(SaberBurnMarkArea._segShaderPropertyIDs[idx], new Vector4(prevPos.x, prevPos.y, pos.x, pos.y));
+                    __instance._fadeOutMaterial.SetColor(SaberBurnMarkArea._segColorShaderPropertyIDs[idx], __instance._saberColors[i]);
+                    any = true;
+                    ++idx;
+                }
+
+                __instance._prevBurnMarkPos[i] = pos;
+                __instance._prevBurnMarkPosValid[i] = valid;
+
+                if (idx == 2)
+                {
+                    idx = 0;
+                    Blit(__instance, first);
+                    first = false;
                 }
             }
-            return codes;
-        }
 
-        private static bool CompareAllRenderers(LineRenderer[] lineRenderers)
-        {
-            for (int i = 0; i < lineRenderers.Length; i++)
+            if (any)
             {
-                if (lineRenderers[i].enabled)
-                {
-                    return true;
-                }
+                __instance._disableBlitTimer = 0;
             }
+            else
+            {
+                __instance._disableBlitTimer += Time.deltaTime;
+            }
+
+            if (__instance._disableBlitTimer < 5f)
+            {
+                if (idx == 0)
+                {
+                    __instance._fadeOutMaterial.SetColor(SaberBurnMarkArea._segColorShaderPropertyIDs[0], Color.clear);
+                }
+
+                __instance._fadeOutMaterial.SetColor(SaberBurnMarkArea._segColorShaderPropertyIDs[1], Color.clear);
+
+                Blit(__instance, first);
+            }
+
+            __instance._renderMaterial.mainTexture = __instance._renderTextures[0];
+
             return false;
         }
 
-        private static void DestroyExtraLines(LineRenderer[] lineRenderers)
+        private static void Blit(SaberBurnMarkArea __instance, bool first)
         {
-            if (lineRenderers is not null && lineRenderers.Length > 2)
-            {
-                for (int i = 2; i < lineRenderers.Length; i++)
-                {
-                    if (lineRenderers[i] != null)
-                    {
-                        Object.Destroy(lineRenderers[i]);
-                    }
-                }
-            }
+            // only fade the first blit, just write the marks for any subsequent ones
+            float value = first ? Mathf.Max(0f, 1f - (Time.deltaTime * __instance._burnMarksFadeOutStrength)) : 0;
+            __instance._fadeOutMaterial.SetFloat(SaberBurnMarkArea._fadeOutStrengthShaderPropertyID, value);
+
+            RenderTexture[] renderTextures = __instance._renderTextures;
+
+            Graphics.Blit(renderTextures[0], renderTextures[1], __instance._fadeOutMaterial);
+
+            (renderTextures[0], renderTextures[1]) = (renderTextures[1], renderTextures[0]);
         }
     }
 }

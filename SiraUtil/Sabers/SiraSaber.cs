@@ -67,7 +67,7 @@ namespace SiraUtil.Sabers
 
             _saberTypeObject._saberType = saberType;
             Model = _saberModelProvider.NewModel(saberType);
-            Model.Init(transform, Saber, _saberModelContainerInitData.trailTintColor);
+            Model.Init(transform, Saber, _saberModelContainerInitData.trailTintColor, typeof(T).Name);
             _constructedThisFrame = true;
         }
 
