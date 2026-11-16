@@ -1,3 +1,5 @@
+using BeatSaber.Init;
+using BGLib.DotnetExtension.CommandLine;
 using IPA.Utilities.Async;
 using SiraUtil.Logging;
 using System;
@@ -20,7 +22,7 @@ namespace SiraUtil.Tools.FPFC
         private readonly InputAction _toggleAction;
         private readonly List<CameraController> _cameraControllers = [];
 
-        public bool Ignore => _fpfcOptions.Ignore;
+        public bool Ignore { [Obsolete] get; private set; }
         public float FOV => _fpfcOptions.CameraFOV;
         public float MoveSensitivity => _fpfcOptions.MoveSensitivity;
         public float MouseSensitivity => _fpfcOptions.MouseSensitivity;
@@ -49,12 +51,12 @@ namespace SiraUtil.Tools.FPFC
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog)
+        public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog, CommandLineParserResult commandLineParserResult)
         {
             _fpfcOptions = fpfcOptions;
             _siraLog = siraLog;
             _toggleAction = new InputAction("FPFC Toggle", binding: $"<Keyboard>/{fpfcOptions.ToggleKeyCode}");
-            Enabled = !_fpfcOptions.Ignore;
+            Ignore = !(Enabled = commandLineParserResult.Contains(InitArguments.kFPFCOption));
         }
 
         public void Initialize()
@@ -69,6 +71,12 @@ namespace SiraUtil.Tools.FPFC
 
             _toggleAction.performed -= OnToggleActionPerformed;
             _toggleAction.Dispose();
+
+            // re-enable the XR loader when disposed so an internal restart doesn't fail due to OpenXR not running
+            if (Enabled)
+            {
+                Enabled = false;
+            }
         }
 
         public void Add(CameraController cameraController)
