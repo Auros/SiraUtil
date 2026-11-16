@@ -1,16 +1,25 @@
-﻿using SiraUtil.Logging;
+using IPA.Utilities.Async;
+using SiraUtil.Logging;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Management;
 using Zenject;
 
 namespace SiraUtil.Tools.FPFC
 {
-    internal class FPFCSettingsController : IFPFCSettings, IInitializable, ITickable, IDisposable
+    internal class FPFCSettingsController : IFPFCManager, IFPFCSettings, IInitializable, IDisposable
     {
+        private readonly FPFCOptions _fpfcOptions;
+        private readonly SiraLog _siraLog;
+
+        private readonly InputAction _toggleAction;
+        private readonly List<CameraController> _cameraControllers = [];
+
         public bool Ignore => _fpfcOptions.Ignore;
         public float FOV => _fpfcOptions.CameraFOV;
         public float MoveSensitivity => _fpfcOptions.MoveSensitivity;
@@ -23,19 +32,12 @@ namespace SiraUtil.Tools.FPFC
             {
                 field = value;
 
-                if (value)
-                {
-                    DeinitializeXRLoader();
-                }
-                else
-                {
-                    InitializeXRLoader();
-                }
+                ApplyState();
 
                 Changed?.Invoke(this);
                 NotifyPropertyChanged();
             }
-        } = true;
+        }
 
         public bool LockViewOnDisable => _fpfcOptions.LockViewOnDisable;
 
@@ -47,38 +49,87 @@ namespace SiraUtil.Tools.FPFC
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private readonly FPFCOptions _fpfcOptions;
-        private readonly SiraLog _siraLog;
-
         public FPFCSettingsController(FPFCOptions fpfcOptions, SiraLog siraLog)
         {
             _fpfcOptions = fpfcOptions;
             _siraLog = siraLog;
-        }
-
-        public void Tick()
-        {
-            if (Input.GetKeyDown(_fpfcOptions.ToggleKeyCode))
-            {
-                Enabled = !Enabled;
-            }
+            _toggleAction = new InputAction("FPFC Toggle", binding: $"<Keyboard>/{fpfcOptions.ToggleKeyCode}");
+            Enabled = !_fpfcOptions.Ignore;
         }
 
         public void Initialize()
         {
             _fpfcOptions.Updated += ConfigUpdated;
-            Enabled = !_fpfcOptions.Ignore;
-        }
-
-        private void ConfigUpdated(FPFCOptions _)
-        {
-            Changed?.Invoke(this);
-            NotifyPropertyChanged(null);
+            _toggleAction.performed += OnToggleActionPerformed;
         }
 
         public void Dispose()
         {
             _fpfcOptions.Updated -= ConfigUpdated;
+
+            _toggleAction.performed -= OnToggleActionPerformed;
+            _toggleAction.Dispose();
+        }
+
+        public void Add(CameraController cameraController)
+        {
+            if (_cameraControllers.Contains(cameraController))
+            {
+                return;
+            }
+
+            _cameraControllers.Add(cameraController);
+
+            _toggleAction.Enable();
+
+            ApplyState();
+
+            Changed?.Invoke(this);
+        }
+
+        public void Remove(CameraController cameraController)
+        {
+            if (!_cameraControllers.Remove(cameraController))
+            {
+                return;
+            }
+
+            if (_cameraControllers.Count == 0)
+            {
+                _toggleAction.Disable();
+            }
+
+            ApplyState();
+
+            Changed?.Invoke(this);
+        }
+
+        private void ApplyState()
+        {
+            bool active = Enabled && _cameraControllers.Count > 0;
+
+            Cursor.lockState = active ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !active;
+
+            Application.targetFrameRate = Enabled && LimitFrameRate ? (int)Math.Round(Screen.currentResolution.refreshRateRatio.value) : -1;
+            QualitySettings.vSyncCount = Enabled ? VSyncCount : 0;
+
+            if (Enabled)
+            {
+                DeinitializeXRLoader();
+            }
+            else
+            {
+                InitializeXRLoader();
+            }
+        }
+
+        private void ConfigUpdated(FPFCOptions options)
+        {
+            UnityMainThreadTaskScheduler.Factory.StartNew(() => _toggleAction.ApplyBindingOverride($"<Keyboard>/{options.ToggleKeyCode}"));
+
+            Changed?.Invoke(this);
+            NotifyPropertyChanged(null);
         }
 
         // we unfortunately need to fully deinitialize/initialize the XR loader since OpenXR doesn't simply stop/start properly
@@ -114,6 +165,18 @@ namespace SiraUtil.Tools.FPFC
 
             _siraLog.Notice("Disabling XR Loader");
             manager.DeinitializeLoader();
+        }
+
+        private void OnToggleActionPerformed(InputAction.CallbackContext ctx)
+        {
+            // enabling/disabling the XR loader causes input devices to change; doing that inside an input update
+            // leaves actions bound to stale devices, so defer until the current input update has finished
+            UnityMainThreadTaskScheduler.Factory.StartNew(Toggle);
+        }
+
+        private void Toggle()
+        {
+            Enabled = !Enabled;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] string? propertyName = null)

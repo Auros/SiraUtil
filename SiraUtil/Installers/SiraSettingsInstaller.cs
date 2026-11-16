@@ -7,6 +7,9 @@ namespace SiraUtil.Installers
 {
     internal class SiraSettingsInstaller : Installer
     {
+        public const string EnableArgument = "fpfc";
+        public const string DisableArgument = "--no-sirautil-fpfc";
+
         private readonly Config _config;
 
         public SiraSettingsInstaller(Config config)
@@ -20,7 +23,7 @@ namespace SiraUtil.Installers
             Container.BindInstance(_config.SongControl).AsSingle();
 
             string[] args = Environment.GetCommandLineArgs();
-            if (args.Any(a => a.Equals(FPFCToggle.EnableArgument, StringComparison.OrdinalIgnoreCase)) && !args.Any(a => a.Equals(FPFCToggle.DisableArgument, StringComparison.OrdinalIgnoreCase)))
+            if (args.Any(a => a.Equals(EnableArgument, StringComparison.OrdinalIgnoreCase)) && !args.Any(a => a.Equals(DisableArgument, StringComparison.OrdinalIgnoreCase)))
             {
                 Container.BindInterfacesTo<FPFCSettingsController>().AsSingle();
                 Container.BindInterfacesTo<FPFCAffinityDaemon>().AsSingle().NonLazy();
