@@ -27,7 +27,7 @@ namespace SiraUtil.Suite
             zenjector.Install<MonoCustomInstaller>(Location.Tutorial);
             zenjector.Install<OtherCustomInstaller, GameplayCoreInstaller>();
             zenjector.Install<ParameterCustomInstaller>(Location.App, logger);
-            zenjector.Install<GenericAsyncInstaller>(Location.App);
+            zenjector.InstallAsyncInstaller<GenericAsyncInstaller>(Location.App);
 
             zenjector.Install(Location.Menu, Container => { });
             zenjector.Install<MainSettingsMenuViewControllersInstaller>(Container => { });

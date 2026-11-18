@@ -60,28 +60,14 @@ namespace SiraUtil.Zenject
                 }
 
                 Zenjector zenjector = zenDatum.Zenjector;
-                IEnumerable<InstallSet> installSets = zenjector.InstallSets;
-
-                // On AsyncSceneContexts, async installers were already added in LoadInstallersAsync, so skip them here.
-                if (context is AsyncSceneContext)
-                {
-                    installSets = installSets.Where(i => !i.IsAsyncInstaller);
-                }
 
                 // Install every normal install set.
-                foreach (InstallSet set in installSets)
+                // AsyncInstallers were already added in LoadInstallersAsync, so skip them here.
+                foreach (InstallSet set in zenjector.InstallSets.Where(i => !i.IsAsyncInstaller))
                 {
                     if (set.InstallFilter.ShouldInstall(context, installerBindings))
                     {
                         Plugin.Log.Debug($"Installing: {set.InstallerType.FullName} onto '{context.name}' ({context.GetType().FullDescription()})");
-
-                        // An AsyncInstaller reaching this point is installed as a plain MonoInstaller for backwards compatibility.
-                        // Either this isn't an AsyncSceneContext or it was given parameters (see InstallSet.IsAsyncInstaller).
-                        // TODO: get rid of this (will likely require breaking changes)
-                        if (set.InstallerType.IsSubclassOf(typeof(AsyncInstaller)))
-                        {
-                            Plugin.Log.Warn($"Installing {set.InstallerType.FullName} as a regular {nameof(MonoInstaller)}. Async load methods will not be called. This is deprecated behaviour and will throw in a future release.");
-                        }
 
                         IInstructor? instructor = _instructorManager.InstructorForSet(set);
                         if (instructor is null)

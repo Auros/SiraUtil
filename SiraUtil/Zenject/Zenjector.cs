@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using BGLib.AppFlow.Initialization;
+using HarmonyLib;
 using IPA.Loader;
 using IPA.Logging;
 using SiraUtil.Attributes;
@@ -79,6 +80,32 @@ namespace SiraUtil.Zenject
         {
             IInstallFilter filter = new TypedInstallFilter(typeof(TBaseInstaller));
             _installSets.Add(new InstallSet(typeof(TCustomInstaller), filter, parameters.Length != 0 ? parameters : null));
+        }
+
+        /// <summary>
+        /// Installs a custom <see cref="AsyncInstaller"/> to a location.
+        /// </summary>
+        /// <typeparam name="T">The type of your custom installer.</typeparam>
+        /// <param name="location">The location to install it to.</param>
+        public void InstallAsyncInstaller<T>(Location location) where T : AsyncInstaller
+        {
+            IEnumerable<IInstallFilter> filters = FiltersForLocation(location);
+
+            foreach (IInstallFilter filter in filters)
+            {
+                _installSets.Add(new InstallSet(typeof(T), filter, isAsyncInstaller: true));
+            }
+        }
+
+        /// <summary>
+        /// Installs a custom <see cref="AsyncInstaller"/> alongside another installer.
+        /// </summary>
+        /// <typeparam name="TCustomInstaller">The new installer being installed.</typeparam>
+        /// <typeparam name="TBaseInstaller">The installer to install <typeparamref name="TCustomInstaller"/> with.</typeparam>
+        public void InstallAsyncInstaller<TCustomInstaller, TBaseInstaller>() where TCustomInstaller : AsyncInstaller where TBaseInstaller : IInstaller
+        {
+            IInstallFilter filter = new TypedInstallFilter(typeof(TBaseInstaller));
+            _installSets.Add(new InstallSet(typeof(TCustomInstaller), filter, isAsyncInstaller: true));
         }
 
         /// <summary>
