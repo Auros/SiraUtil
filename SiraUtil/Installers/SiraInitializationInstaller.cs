@@ -1,8 +1,5 @@
 ﻿using IPA.Logging;
 using SiraUtil.Logging;
-using SiraUtil.Services.Events;
-using SiraUtil.Submissions;
-using SiraUtil.Tools.FPFC;
 using SiraUtil.Web;
 using SiraUtil.Web.SiraSync;
 using SiraUtil.Web.SiraSync.Zenject;
@@ -31,9 +28,6 @@ namespace SiraUtil.Installers
 
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<FPFCFixDaemon>().AsSingle();
-            Container.BindInterfacesTo<InputSpoofFPFCListener>().AsSingle();
-
             Container.Bind<SiraLog>().AsTransient().OnInstantiated<SiraLog>(SiraLogCreated);
             Container.Bind<Logger>().FromMethod(CreateIPAChildLogger).AsTransient();
 
@@ -66,10 +60,6 @@ namespace SiraUtil.Installers
 
             Container.Bind<IHttpService>().To<ContainerizedHttpService>().AsTransient().OnInstantiated<IHttpService>(HttpServiceCreated);
             Container.Bind<ISiraSyncService>().To<ContainerizedSiraSyncService>().AsTransient().OnInstantiated<ISiraSyncService>(SiraSyncServiceCreated);
-
-            // Bind any global services
-            Container.BindInterfacesTo<FinishEventDispatcher>().AsSingle();
-            Container.Bind<SubmissionDataContainer>().AsSingle();
         }
 
         private void SiraLogCreated(InjectContext ctx, SiraLog siraLog)
